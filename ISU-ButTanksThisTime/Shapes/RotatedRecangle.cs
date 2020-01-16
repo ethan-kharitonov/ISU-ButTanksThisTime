@@ -1,9 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ISU_ButTanksThisTime
 {
@@ -29,7 +25,6 @@ namespace ISU_ButTanksThisTime
             box.Y -= (int)origin.Y;
             Centre = box.Center.ToVector2();
 
-
             double originalAngle = Math.Atan2(-box.Height / 2.0, box.Width / 2.0);
             double distance = new Vector2(box.Height / 2f, box.Width / 2f).Length();
 
@@ -47,6 +42,5 @@ namespace ISU_ButTanksThisTime
 
             return vertex;
         }
-
     }
 }

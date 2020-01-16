@@ -189,7 +189,7 @@ namespace ISU_ButTanksThisTime
                 Tank enemie1 = enemies[i];
                 foreach (LandMine mine in landmines)
                 {
-                    if (Tools.BoxBoxCollision(enemie1.GetRotatedRectangle(), mine.Box))
+                    if (Tools.BoxBoxCollision(enemie1.GetRotatedRectangle(), mine.Box) != null)
                     {
                         mine.Collide();
                     }
@@ -231,7 +231,7 @@ namespace ISU_ButTanksThisTime
             for (int i = 0; i < enemies.Count; i++)
             {
                 Tank enemie1 = enemies[i];
-                if (Tools.BoxBoxCollision(enemie1.GetRotatedRectangle(), player.GetRotatedRectangle()))
+                if (Tools.BoxBoxCollision(enemie1.GetRotatedRectangle(), player.GetRotatedRectangle()) != null)
                 {
                     enemie1.Collide(player);
                     player.Collide(enemie1);
@@ -245,7 +245,7 @@ namespace ISU_ButTanksThisTime
                 for (int k = 0; k < enemies.Count; k++)
                 {
                     Tank enemie2 = enemies[k];
-                    if (Tools.BoxBoxCollision(enemie1.GetRotatedRectangle(), enemie2.GetRotatedRectangle()) && !enemie1.Equals(enemie2))
+                    if (Tools.BoxBoxCollision(enemie1.GetRotatedRectangle(), enemie2.GetRotatedRectangle()) != null && !enemie1.Equals(enemie2))
                     {
                         enemies.RemoveAt(i);
                         enemies.RemoveAt(k - 1);
@@ -276,7 +276,7 @@ namespace ISU_ButTanksThisTime
             //Bullet to player collision
             foreach (Bullet bullet in bullets)
             {
-                if (bullet.bulletOwner == Owner.Enemie && Tools.BoxBoxCollision(player.GetRotatedRectangle(), bullet.GetRotatedRectangle()))
+                if (bullet.bulletOwner == Owner.Enemie && Tools.BoxBoxCollision(player.GetRotatedRectangle(), bullet.GetRotatedRectangle()) != null)
                 {
                     //player.Collide(bullet);
                     bullet.Collide();
@@ -288,7 +288,7 @@ namespace ISU_ButTanksThisTime
             {
                 foreach (Bullet bullet in bullets)
                 {
-                    if (bullet.bulletOwner == Owner.Player && Tools.BoxBoxCollision(enemies[i].GetRotatedRectangle(), bullet.GetRotatedRectangle()))
+                    if (bullet.bulletOwner == Owner.Player && Tools.BoxBoxCollision(enemies[i].GetRotatedRectangle(), bullet.GetRotatedRectangle()) != null)
                     {
                         enemies[i].Collide(bullet);
                         bullet.Collide();

@@ -130,7 +130,7 @@ namespace ISU_ButTanksThisTime
             RotatedRectangle obsticalBox = new RotatedRectangle(obstical, 0, Vector2.Zero);
             Console.WriteLine(obstical.Location);
             RotatedRectangle rotBox = GetRotatedRectangle();
-            if (!Tools.BoxBoxCollision(obsticalBox, rotBox))
+            if (Tools.BoxBoxCollision(obsticalBox, rotBox) == null)
             {
                 return;
             }
