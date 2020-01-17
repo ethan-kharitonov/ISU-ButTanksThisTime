@@ -88,8 +88,15 @@ namespace MapEditor
             filePath = System.Reflection.Assembly.GetExecutingAssembly().CodeBase;
             filePath = Path.GetDirectoryName(filePath);
             filePath = filePath.Substring(6);
-            filePath = filePath + "../../../../ISU-ButTanksThisTime/bin/Debug/saves/MyFile.txt";
-            LoadPath();
+            filePath = filePath + "../../../../ISU-ButTanksThisTime/saves/MyFile.txt";
+            if (!File.Exists(filePath))
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+            }
+            else
+            {
+                LoadPath();
+            }
         }
 
         protected override void UnloadContent()

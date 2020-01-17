@@ -139,7 +139,18 @@ namespace ISU_ButTanksThisTime
             string filePath = System.Reflection.Assembly.GetExecutingAssembly().CodeBase;
             filePath = Path.GetDirectoryName(filePath);
             filePath = filePath.Substring(6);
-            filePath = filePath + "/saves/MyFile.txt";
+            string foundPath = null;
+            var found = false;
+            while (filePath.Length > 3 && !(found = File.Exists(foundPath = filePath + "/saves/MyFile.txt")))
+            {
+                filePath = Path.GetDirectoryName(filePath);
+            }
+            if (!found)
+            {
+                return;
+            }
+
+            filePath = foundPath;
 
             inFile = File.OpenText(filePath);
             string[] data;
