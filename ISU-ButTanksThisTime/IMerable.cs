@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ISU_ButTanksThisTime
 {
-    interface ICollidable
+    interface IMerable
     {
         void Collide(object collided);
     }

@@ -74,7 +74,9 @@
   <ItemGroup>
     <Compile Include="Bullets\Laser.cs" />
     <Compile Include="Bullets\Plasma.cs" />
+    <Compile Include="Cannons\HealerCannon.cs" />
     <Compile Include="Cannons\TierFourCannon.cs" />
+    <Compile Include="HealthBar.cs" />
     <Compile Include="LandMines\BlueMine.cs" />
     <Compile Include="Shapes\Circle.cs" />
     <Compile Include="Tanks\BomberEnemie.cs" />
@@ -85,11 +87,12 @@
     <Compile Include="Cannons\TierOneCannon.cs" />
     <Compile Include="LandMines\LandMine.cs" />
     <Compile Include="LandMines\RedMine.cs" />
+    <Compile Include="Tanks\HealerEnemy.cs" />
     <Compile Include="Tanks\TierFourEnemie.cs" />
     <Compile Include="Tanks\TierOneEnemie.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameScene.cs" />
-    <Compile Include="ICollidable.cs" />
+    <Compile Include="IMerable.cs" />
     <Compile Include="Shapes\Line.cs" />
     <Compile Include="Bullets\MeduimBullet.cs" />
     <Compile Include="Tanks\Player.cs" />

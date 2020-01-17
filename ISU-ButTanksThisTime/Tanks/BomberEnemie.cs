@@ -12,15 +12,30 @@ namespace ISU_ButTanksThisTime
     class BomberEnemie :Tank
     {
         private const float CANNON_DIS_FROM_CENTRE = 35 * IMG_SCALE_FACTOR;
+
+        private readonly Texture2D[] stages = new Texture2D[3];
         public BomberEnemie(Vector2 position, float rotation, Stage stage) : base(position, stage, 0, rotation)
         {
-            baseImg = Tools.Content.Load<Texture2D>("Images/Sprites/Tanks/Hull_04");
-            cannon = new BomberEnemieCannon(CANNON_DIS_FROM_CENTRE);
+
+            for (int i = 0; i < stages.Length; ++i)
+            {
+                stages[i] = Tools.Content.Load<Texture2D>("Images/Sprites/Tanks/BomberEnemie/BP" + (i + 1));
+            }
+
+            baseImg = stages[(int)stage];
+
+            cannon = new BomberEnemieCannon(CANNON_DIS_FROM_CENTRE, stage);
             cannon.active = false;
 
             Texture2D explosionSpritesheet = Tools.Content.Load<Texture2D>("Images/Sprites/Effects/spritesheet");
             explosionAnimation = new Animation(explosionSpritesheet, 3, 3, 9, 1, 1, 1, 2, basePosition, 0.3f, true);
         }
+
+        public override Tank Clone(Vector2 position, float rotation, Stage stage)
+        {
+            return new BomberEnemie(position, rotation, stage);
+        }
+
         public override void Collide(object collided)
         {
             switch (collided)
@@ -40,6 +55,8 @@ namespace ISU_ButTanksThisTime
                     break;
             }
         }
+
+        public override TankType GetTankType() => TankType.Bomber;
     }
 }
 

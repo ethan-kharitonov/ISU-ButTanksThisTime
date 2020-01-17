@@ -20,6 +20,7 @@ namespace ISU_ButTanksThisTime
         private readonly Timer shootTimer;
         public bool active;
         protected Bullet bullet;
+        private const int ROTATE_SPEED = 3;
 
         public Cannon(int fireRate, int damage, bool active, float disFromCentreBase)
         {
@@ -29,14 +30,16 @@ namespace ISU_ButTanksThisTime
         }
 
 
-        public virtual void Update(Vector2 basePos, float baseRotation, float rotation)
+        public virtual void Update(Vector2 basePos, float baseRotation, Vector2 target)
         {
 
             pos = new Vector2((float)Math.Cos(MathHelper.ToRadians(baseRotation)), (float)-Math.Sin(MathHelper.ToRadians(baseRotation))) * -disFromCentreBase;
             pos += basePos;
 
-            this.rotation = baseRotation + rotation;
-
+            target -= pos;
+            target *= new Vector2(1, -1);
+            rotation = Tools.RotateTowardsVector(rotation, target, 3);
+            
             if (shootTimer.IsTimeUp(Tools.gameTime) && active)
             {
                 shootTimer.Reset();

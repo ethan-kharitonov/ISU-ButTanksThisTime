@@ -65,6 +65,7 @@ namespace ISU_ButTanksThisTime
         public static GameTime gameTime;
         public static Texture2D RedSquare;
         public static ContentManager Content;
+        public static GraphicsDevice graphics;
         public static float ApproachValue(float current, float target, float speed)
         {
             if (current < target)
@@ -92,7 +93,7 @@ namespace ISU_ButTanksThisTime
             return angle;
         }
 
-        public static float RotateTowardsVectorTest(float current, Vector2 target, float rotationSpeed)
+        public static float RotateTowardsVector(float current, Vector2 target, float rotationSpeed)
         {
             float targetAngel = MathHelper.ToDegrees(Tools.Atan(target.Y, target.X));
             float delta = targetAngel - current;

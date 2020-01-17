@@ -9,6 +9,17 @@ using System.Threading.Tasks;
 
 namespace ISU_ButTanksThisTime
 {
+    public enum TankType
+    {
+        BasicPath = 0,
+        Bomber = 1,
+        RotateShooter = 2,
+        Burst = 3,
+        MineDroper = 4,
+        Healer = 5,
+        Player = 6
+    }
+
     abstract class Tank
     {
         //Base Variables
@@ -31,6 +42,7 @@ namespace ISU_ButTanksThisTime
 
         //Health Variables
         protected int health = 100;
+        protected HealthBar bar;
 
         private Stage stage;
         public Tank(Vector2 position, Stage stage, float attackRange = 0,float rotation = 0)
@@ -40,6 +52,7 @@ namespace ISU_ButTanksThisTime
             this.stage = stage;
             this.attackRange = attackRange;
 
+            bar = new HealthBar(health);
         }
 
         public virtual bool Update(Vector2 target)
@@ -57,9 +70,9 @@ namespace ISU_ButTanksThisTime
                 }
             }
 
-            baseRotation = Tools.RotateTowardsVectorTest(baseRotation, (target - basePosition) * new Vector2(1, -1), ROTATION_SPEED);
+            baseRotation = Tools.RotateTowardsVector(baseRotation, (target - basePosition) * new Vector2(1, -1), ROTATION_SPEED);
 
-            cannon.Update(basePosition, baseRotation, cannonRotation);
+            cannon.Update(basePosition, baseRotation, target);
 
             if (health <= 0)
             {
@@ -70,6 +83,8 @@ namespace ISU_ButTanksThisTime
                 Vector2 explosionPos = new Vector2(basePosition.X - explosionAnimation.destRec.Width / 2, basePosition.Y - explosionAnimation.destRec.Height / 2);
                 explosionAnimation.destRec = new Rectangle((int)explosionPos.X, (int)explosionPos.Y, explosionAnimation.destRec.Width, explosionAnimation.destRec.Height);
             }
+
+            bar.Update(basePosition, health);
 
             return !explosionAnimation.isAnimating && health <= 0;
         }
@@ -84,7 +99,9 @@ namespace ISU_ButTanksThisTime
             {
                 spriteBatch.Draw(baseImg, basePosition, null, Color.White, -MathHelper.ToRadians(baseRotation) + MathHelper.PiOver2, new Vector2(baseImg.Width / 2, baseImg.Height / 2), IMG_SCALE_FACTOR, SpriteEffects.None, 1f);
                 cannon.Draw(spriteBatch);
+                bar.Draw(spriteBatch);
             }
+
 
             spriteBatch.Draw(Tools.RedSquare, GetRotatedRectangle().TopLeft, Color.White);
             spriteBatch.Draw(Tools.RedSquare, GetRotatedRectangle().TopRight, Color.White);
@@ -131,6 +148,10 @@ namespace ISU_ButTanksThisTime
         public Vector2 Dimensions => new Vector2(baseImg.Width * IMG_SCALE_FACTOR, baseImg.Height * IMG_SCALE_FACTOR);
 
         public Vector2 GetOrigin() => new Vector2(baseImg.Width * 0.5f * IMG_SCALE_FACTOR, baseImg.Height * 0.5f * IMG_SCALE_FACTOR);
-    
+
+
+        public abstract TankType GetTankType();
+
+        public abstract Tank Clone(Vector2 position, float rotation, Stage stage);
     }
 }

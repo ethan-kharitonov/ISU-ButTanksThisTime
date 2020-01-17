@@ -14,7 +14,6 @@ namespace ISU_ButTanksThisTime
         private Vector2 position;
         private float rotation;
         private const float DEF_VELOCITY = 10f;
-        private readonly Vector2 velocity;
         private readonly float SCALE_FACTOR;
         private Rectangle box;
         private bool isDead = false;
@@ -38,9 +37,15 @@ namespace ISU_ButTanksThisTime
         {
             box = new Rectangle((int)position.X, (int)position.Y, (int)(img.Width * SCALE_FACTOR), (int)(img.Height * SCALE_FACTOR));
             spriteBatch.Draw(img, box, null, Color.White, -MathHelper.ToRadians(rotation) + MathHelper.PiOver2, new Vector2((float)(img.Width / 2.0), (float)(img.Width / 2.0)), SpriteEffects.None, 1f);
+
+            spriteBatch.Draw(Tools.RedSquare, GetRotatedRectangle().TopLeft, Color.White);
+            spriteBatch.Draw(Tools.RedSquare, GetRotatedRectangle().TopRight, Color.White);
+            spriteBatch.Draw(Tools.RedSquare, GetRotatedRectangle().BotomLeft, Color.White);
+            spriteBatch.Draw(Tools.RedSquare, GetRotatedRectangle().BotomRight, Color.White);
+
         }
 
-        public RotatedRectangle GetRotatedRectangle() => new RotatedRectangle(box, -MathHelper.ToRadians(rotation) + MathHelper.PiOver2, new Vector2((float)(img.Width / 2.0), (float)(img.Width / 2.0)));
+        public RotatedRectangle GetRotatedRectangle() => new RotatedRectangle(box, -MathHelper.ToRadians(rotation) + MathHelper.PiOver2, new Vector2((img.Width * 0.5f * SCALE_FACTOR), (img.Height * 0.5f * SCALE_FACTOR)));
    
         public void Collide()
         {

@@ -24,9 +24,5 @@ namespace ISU_ButTanksThisTime
             img = stages[(int)stage];
         }
 
-        public override void Update(Vector2 basePos, float baseRotation, float rotation)
-        {
-            base.Update(basePos, baseRotation, rotation);
-        }
     }
 }

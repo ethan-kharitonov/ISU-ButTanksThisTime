@@ -17,10 +17,12 @@ namespace ISU_ButTanksThisTime
 
         private const int ATTACK_RANGE = 400;
 
+        private Timer burstTimer = new Timer(1000);
+
 
         public TierThreeEnemie(Vector2 position, float rotation, Stage stage) : base(position, stage, ATTACK_RANGE, rotation)
         {
-            for (int i = 0; i < stages.Length - 1; ++i)
+            for (int i = 0; i < stages.Length; ++i)
             {
                 stages[i] = Tools.Content.Load<Texture2D>("Images/Sprites/Tanks/TierThree/T3P" + (i + 1));
             }
@@ -35,15 +37,25 @@ namespace ISU_ButTanksThisTime
 
         public override bool Update(Vector2 target)
         {
-            if((basePosition - target).Length() <= ATTACK_RANGE)
+            if (burstTimer.IsTimeUp(Tools.gameTime))
             {
-                cannon.active = true;
+                burstTimer.Reset();
+                cannon.active = !cannon.active;
             }
-            else
+
+            if ((basePosition - target).Length() > ATTACK_RANGE)
             {
                 cannon.active = false;
             }
+            
             return base.Update(target);
+        }
+
+        public override TankType GetTankType() => TankType.Burst;
+
+        public override Tank Clone(Vector2 position, float rotation, Stage stage)
+        {
+            return new TierThreeEnemie(position, rotation, stage);
         }
     }
 }

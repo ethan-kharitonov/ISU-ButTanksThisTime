@@ -17,7 +17,6 @@ namespace ISU_ButTanksThisTime
         private bool isKeyPressed = false;
 
         //Cannon Variables
-        private float cannonRotation = 0;
         private const int CANNON_ROTATION_SPEED = 2;
         private const float CANNON_DIS_FROM_CENTRE = 35 * IMG_SCALE_FACTOR;
 
@@ -36,7 +35,7 @@ namespace ISU_ButTanksThisTime
             kb = Keyboard.GetState();
             MoveTank();
 
-            //Cannon Update
+            /*//Cannon Update
             if (kb.IsKeyDown(Keys.Right))
             {
                 cannonRotation -= CANNON_ROTATION_SPEED;
@@ -48,10 +47,12 @@ namespace ISU_ButTanksThisTime
             }
 
             cannonRotation %= 360;
-            cannonRotation %= -360;
+            cannonRotation %= -360;*/
 
             cannon.active = kb.IsKeyDown(Keys.Up);
-            cannon.Update(basePosition, baseRotation, cannonRotation);
+            cannon.Update(basePosition, baseRotation, Mouse.GetState().Position.ToVector2());
+
+            bar.Update(basePosition, health);
 
             return false;
         }
@@ -96,7 +97,7 @@ namespace ISU_ButTanksThisTime
 
             if (isKeyPressed)
             {
-                baseRotation = Tools.RotateTowardsVectorTest(baseRotation, velocity * new Vector2(1, -1), ROTATION_SPEED) + 180;
+                baseRotation = Tools.RotateTowardsVector(baseRotation, velocity * new Vector2(1, -1), ROTATION_SPEED) + 180;
                 baseRotation += 180;
                 baseRotation %= 360;
             }
@@ -157,6 +158,13 @@ namespace ISU_ButTanksThisTime
                 basePosition.Y = obstical.Bottom + trueRectangle.Height * 0.5f;
                 velocity.Y = 0;
             }
+        }
+
+        public override TankType GetTankType() => TankType.Player;
+
+        public override Tank Clone(Vector2 position, float rotation, Stage stage)
+        {
+            throw new NotImplementedException();
         }
     }
 }

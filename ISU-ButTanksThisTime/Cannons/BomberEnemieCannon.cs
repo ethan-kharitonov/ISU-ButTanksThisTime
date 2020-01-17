@@ -13,9 +13,17 @@ namespace ISU_ButTanksThisTime
         private const int DAMEGE = 25;
         private const bool ACTIVE = false;
 
-        public BomberEnemieCannon(float disFromCentreBase) : base(FIRE_RATE, DAMEGE, ACTIVE, disFromCentreBase)
+        private readonly Texture2D[] stages = new Texture2D[3];
+
+
+        public BomberEnemieCannon(float disFromCentreBase, Stage stage) : base(FIRE_RATE, DAMEGE, ACTIVE, disFromCentreBase)
         {
-            img = Tools.Content.Load<Texture2D>("Images/Sprites/Cannons/Inactive/I1");
+            for (int i = 0; i < stages.Length; ++i)
+            {
+                stages[i] = Tools.Content.Load<Texture2D>("Images/Sprites/Cannons/Inactive/I" + (i + 1));
+            }
+
+            img = stages[(int)stage];
         }
 
     }

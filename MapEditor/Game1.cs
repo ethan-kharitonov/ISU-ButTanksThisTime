@@ -32,7 +32,7 @@ namespace MapEditor
         //Saving Variables
         private string filePath;
 
-        private readonly IList<Trail> paths = new Trail[2];
+        private readonly IList<Trail> paths = new Trail[3];
         int curPath = 1;
 
         public Game1()
@@ -64,6 +64,8 @@ namespace MapEditor
 
             paths[0] = new Trail(Color.Red, Color.LightBlue, GraphicsDevice);
             paths[1] = new Trail(Color.Green, Color.Aqua, GraphicsDevice);
+            paths[2] = new Trail(Color.Black, Color.Purple, GraphicsDevice);
+
 
 
             filePath = System.Reflection.Assembly.GetExecutingAssembly().CodeBase;
@@ -103,6 +105,10 @@ namespace MapEditor
             if (Keyboard.GetState().IsKeyDown(Keys.D2))
             {
                 curPath = 1;
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.D3))
+            {
+                curPath = 2;
             }
 
 

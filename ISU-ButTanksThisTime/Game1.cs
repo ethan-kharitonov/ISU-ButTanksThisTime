@@ -38,7 +38,9 @@ namespace ISU_ButTanksThisTime
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Tools.screen = GraphicsDevice.Viewport.Bounds;
-            GameScene.LoadContent(GraphicsDevice, Content);
+            Tools.graphics = GraphicsDevice;
+            Tools.Content = Content;
+            GameScene.LoadContent();
 
             Tools.RedSquare = new Texture2D(graphics.GraphicsDevice, 2, 2);
 

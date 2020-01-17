@@ -11,7 +11,7 @@ namespace ISU_ButTanksThisTime
     class TierThreeCannon : Cannon
     {
         private Texture2D[] stages = new Texture2D[3];
-        public TierThreeCannon(float disFromCentreBase, Owner owner, Stage stage) : base(300, 100, true, disFromCentreBase)
+        public TierThreeCannon(float disFromCentreBase, Owner owner, Stage stage) : base(60, 100, true, disFromCentreBase)
         {
             for (int i = 0; i < stages.Length - 1; ++i)
             {

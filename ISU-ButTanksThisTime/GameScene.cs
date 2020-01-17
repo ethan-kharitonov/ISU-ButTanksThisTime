@@ -40,8 +40,7 @@ namespace ISU_ButTanksThisTime
 
 
         //Load Path Variables
-        private static StreamReader inFile;
-        private static List<Vector2>[] pathPoints = new List<Vector2>[2];
+        private static List<Vector2>[] pathPoints = new List<Vector2>[3];
 
 
         //Enemie Variables
@@ -50,20 +49,16 @@ namespace ISU_ButTanksThisTime
         //Camera Variables
         private static Camera camera;
 
-        /*static Tank TierTEnemy;
-        static Tank TierREnemy;
-        static Tank TierFEnemy;*/
-
-
-        public static void LoadContent(GraphicsDevice GraphicsDevice, ContentManager Content)
+        private static Tank[,] combos = new Tank[6, 6];
+        
+        public static void LoadContent()
         {
-            camera = new Camera(GraphicsDevice.Viewport);
-            Tools.Content = Content;
+            camera = new Camera(Tools.graphics.Viewport);
 
             //Load All Images//
-            backgroundImg = Content.Load<Texture2D>("Images/Backgrounds/bg");
-            bulletImg = Content.Load<Texture2D>("Images/Sprites/Bullets/Medium_Shell");
-            barrelImg = Content.Load<Texture2D>("Images/Sprites/Terrain/Container_B");
+            backgroundImg = Tools.Content.Load<Texture2D>("Images/Backgrounds/bg");
+            bulletImg = Tools.Content.Load<Texture2D>("Images/Sprites/Bullets/Medium_Shell");
+            barrelImg = Tools.Content.Load<Texture2D>("Images/Sprites/Terrain/Container_B");
             ///////////////////
 
             int arenaXPos = -(ARENA_WIDTH / 2) * backgroundImg.Width + Tools.screen.Center.X - backgroundImg.Width / 2;
@@ -79,7 +74,25 @@ namespace ISU_ButTanksThisTime
 
             enemies.Add(new TierTwoEnemie(new Vector2(0, 0), 0, Stage.Low));
             enemies.Add(new TierThreeEnemie(new Vector2(100, 300), 0, Stage.Low));
-            enemies.Add(new TierFourEnemie(new Vector2(100, 500), 0, Stage.Low));
+            enemies.Add(new TierFourEnemie(new Vector2(100, 500), 0, Stage.Low, pathPoints[1]));
+
+            for(int i = 0; i < 5; ++i)
+            {
+                for(int k = 0; k < 5; ++k)
+                {
+                    combos[i, k] = null;
+                }
+            }
+
+            combos[(int)TankType.BasicPath, (int)TankType.Bomber] = new HealerEnemy(Vector2.Zero, 0, Stage.Low, pathPoints[2]);
+            combos[(int)TankType.BasicPath, (int)TankType.RotateShooter] = new TierThreeEnemie(Vector2.Zero, 0, Stage.Low);
+
+            combos[(int)TankType.Bomber, (int)TankType.BasicPath] = new HealerEnemy(Vector2.Zero, 0, Stage.Low, pathPoints[2]);
+            combos[(int)TankType.Bomber, (int)TankType.RotateShooter] = new TierTwoEnemie(Vector2.Zero, 0, Stage.Low);
+
+            combos[(int)TankType.RotateShooter, (int)TankType.BasicPath] = new TierThreeEnemie(Vector2.Zero, 0, Stage.Low);
+            combos[(int)TankType.RotateShooter, (int)TankType.Bomber] = new TierTwoEnemie(Vector2.Zero, 0, Stage.Low);
+
         }
 
         public static void Update()
@@ -91,7 +104,6 @@ namespace ISU_ButTanksThisTime
             UpdateEnemies();
             UpdateBullets();
             player.CollideWithObject(barrelBox);
-
         }
 
         public static void Draw(SpriteBatch spriteBatch)
@@ -132,7 +144,6 @@ namespace ISU_ButTanksThisTime
 
 
             player.Draw(spriteBatch);
-
             spriteBatch.End();
         }
 
@@ -290,10 +301,24 @@ namespace ISU_ButTanksThisTime
                         enemies.RemoveAt(i);
                         enemies.RemoveAt(k - 1);
                         --i;
-                        Vector2 newPos = (enemie1.GetPos() + enemie2.GetPos()) / 2;
-                        Stage stage = (Stage)(Math.Max((int)enemie1.GetStage(), (int)enemie2.GetStage()) + 1);
-                        stage = (Stage)Math.Min((int)stage, (int)(Stage.Player - 1));
-                        enemies.Add(new TierOneEnemie(newPos, pathPoints[0], stage, enemie2.GetRotation()));
+
+                        if (enemie1.GetTankType() == enemie2.GetTankType())
+                        {
+                            enemies.Add(MergeTanks(enemie1, enemie2));
+                        }
+                        else
+                        {
+                            Vector2 newPos = (enemie1.GetPos() + enemie2.GetPos()) / 2;
+                            Tank newEnemie = combos[(int)enemie1.GetTankType(), (int)enemie2.GetTankType()];
+                            if (newEnemie == null)
+                            {
+                                enemies.Add(MergeTanks(enemie1, enemie2));
+                            }
+                            else
+                            {
+                                enemies.Add(newEnemie.Clone(newPos, enemie2.GetRotation(), Stage.Low));
+                            }
+                        }
                         break;
                     }
                 }
@@ -341,6 +366,15 @@ namespace ISU_ButTanksThisTime
         public static void AddLandMine(LandMine mine)
         {
             landmines.Add(mine);
+        }
+
+        private static Tank MergeTanks(Tank tank1, Tank tank2)
+        {
+            Vector2 newPos = (tank1.GetPos() + tank2.GetPos()) / 2;
+            Stage stage = (Stage)(Math.Max((int)tank1.GetStage(), (int)tank2.GetStage()) + 1);
+            stage = (Stage)Math.Min((int)stage, (int)(Stage.Player - 1));
+
+            return tank1.Clone(newPos, tank2.GetRotation(), stage);
         }
     }
 }
