@@ -60,5 +60,6 @@ namespace ISU_ButTanksThisTime
             return new Circle(centre, explosionRaduis);
         }
         public bool IsActive() => active;
+
     }
 }

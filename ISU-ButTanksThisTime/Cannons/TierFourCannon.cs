@@ -13,7 +13,7 @@ namespace ISU_ButTanksThisTime
     {
         private readonly Texture2D[] stages = new Texture2D[3];
 
-        public TierFourCannon(float disFromCentreBase, Owner owner, Stage stage) : base(100, 100, true, disFromCentreBase)
+        public TierFourCannon(float disFromCentreBase, Owner owner, Stage stage) : base(0, 100, true, disFromCentreBase)
         {
             for (int i = 0; i < stages.Length - 1; ++i)
             {

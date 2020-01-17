@@ -38,6 +38,7 @@ namespace ISU_ButTanksThisTime
         {
             if(basePosition == target)
             {
+                GameScene.AddLandMine(new BlueMine(basePosition - Dimensions/2f));
                 target = SetTarget();
             }
             return base.Update(target);

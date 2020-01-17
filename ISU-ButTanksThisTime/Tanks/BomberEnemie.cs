@@ -35,6 +35,9 @@ namespace ISU_ButTanksThisTime
                 case Player _:
                     health = 0;
                     break;
+                case LandMine _:
+                    health = 0;
+                    break;
             }
         }
     }

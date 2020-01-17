@@ -19,6 +19,7 @@ namespace ISU_ButTanksThisTime
 
         //Cannon Variables
         protected Cannon cannon;
+        protected float cannonRotation = 0;
 
         //Movment Variables
         protected float speed = 3;
@@ -35,10 +36,10 @@ namespace ISU_ButTanksThisTime
         public Tank(Vector2 position, Stage stage, float attackRange = 0,float rotation = 0)
         {
             baseRotation = rotation;
-            //this.imgScaleFactor = imgScaleFactor;
             basePosition = position;
             this.stage = stage;
             this.attackRange = attackRange;
+
         }
 
         public virtual bool Update(Vector2 target)
@@ -58,7 +59,7 @@ namespace ISU_ButTanksThisTime
 
             baseRotation = Tools.RotateTowardsVectorTest(baseRotation, (target - basePosition) * new Vector2(1, -1), ROTATION_SPEED);
 
-            cannon.Update(basePosition, baseRotation, 0);
+            cannon.Update(basePosition, baseRotation, cannonRotation);
 
             if (health <= 0)
             {
@@ -126,6 +127,8 @@ namespace ISU_ButTanksThisTime
         public Stage GetStage() => stage;
 
         public float GetRotation() => baseRotation;
+
+        public Vector2 Dimensions => new Vector2(baseImg.Width * IMG_SCALE_FACTOR, baseImg.Height * IMG_SCALE_FACTOR);
 
         public Vector2 GetOrigin() => new Vector2(baseImg.Width * 0.5f * IMG_SCALE_FACTOR, baseImg.Height * 0.5f * IMG_SCALE_FACTOR);
     

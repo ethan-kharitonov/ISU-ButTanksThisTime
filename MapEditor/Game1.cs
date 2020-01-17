@@ -19,12 +19,8 @@ namespace MapEditor
         private SpriteBatch spriteBatch;
 
         //Path Maker Variables
-        private List<Vector2> enemyCheckPoints = new List<Vector2>();
-        private Texture2D redSquare;
-        private Texture2D line;
         private Texture2D mouseImg;
         private Vector2 mousePos = Vector2.Zero;
-        private int moveSpeed = 1;
 
         private Texture2D backgroundImg;
 
@@ -34,9 +30,10 @@ namespace MapEditor
         private Rectangle screen;
 
         //Saving Variables
-        private StreamReader inFile;
-        private StreamWriter outFile;
         private string filePath;
+
+        private readonly IList<Trail> paths = new Trail[2];
+        int curPath = 1;
 
         public Game1()
         {
@@ -65,25 +62,9 @@ namespace MapEditor
             backgroundImg = Content.Load<Texture2D>("Backgrounds/bg");
             mouseImg = Content.Load<Texture2D>("Crosshairs/crosshair001");
 
-            redSquare = new Texture2D(graphics.GraphicsDevice, 2, 2);
+            paths[0] = new Trail(Color.Red, Color.LightBlue, GraphicsDevice);
+            paths[1] = new Trail(Color.Green, Color.Aqua, GraphicsDevice);
 
-            Color[] data = new Color[2 * 2];
-            for (int i = 0; i < data.Length; ++i)
-            {
-                data[i] = Color.Red;
-            }
-
-            redSquare.SetData(data);
-
-
-            line = new Texture2D(graphics.GraphicsDevice, 2, 2);
-            Color[] data1 = new Color[2 * 2];
-            for (int i = 0; i < data.Length; ++i)
-            {
-                data1[i] = Color.LightBlue;
-            }
-
-            line.SetData(data1);
 
             filePath = System.Reflection.Assembly.GetExecutingAssembly().CodeBase;
             filePath = Path.GetDirectoryName(filePath);
@@ -115,40 +96,17 @@ namespace MapEditor
             
             Camera.Update();
 
-            /*if (Keyboard.GetState().IsKeyDown(Keys.OemMinus))
+            if (Keyboard.GetState().IsKeyDown(Keys.D1))
             {
-                --mouse
-            }*/
-
-            if (Keyboard.GetState().IsKeyDown(Keys.Left))
-            {
-                mousePos.X -= moveSpeed / Camera.GetZoom();
+                curPath = 0;
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.Right))
+            if (Keyboard.GetState().IsKeyDown(Keys.D2))
             {
-                mousePos.X += moveSpeed / Camera.GetZoom();
-            }
-            if (Keyboard.GetState().IsKeyDown(Keys.Up))
-            {
-                mousePos.Y -= moveSpeed / Camera.GetZoom();
-            }
-            if (Keyboard.GetState().IsKeyDown(Keys.Down))
-            {
-                mousePos.Y += moveSpeed / Camera.GetZoom();
+                curPath = 1;
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Enter))
-            {
-                if(!(enemyCheckPoints.Count > 0 && mousePos == enemyCheckPoints[enemyCheckPoints.Count - 1]))
-                {
-                    enemyCheckPoints.Add(mousePos);
-                }
-            }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Delete) && enemyCheckPoints.Count > 0)
-            {
-                enemyCheckPoints.RemoveAt(enemyCheckPoints.Count - 1);
-            }
+            mousePos = paths[curPath].Update();
 
             base.Update(gameTime);
         }
@@ -168,61 +126,55 @@ namespace MapEditor
                 }
             }
 
-            for (int i = 0; i < enemyCheckPoints.Count; ++i)
+            foreach(Trail path in paths)
             {
-                Vector2 distance;
-                if(i + 1 == enemyCheckPoints.Count)
-                {
-                    distance = mousePos - enemyCheckPoints[i];
-                }
-                else
-                {
-                    distance = enemyCheckPoints[i + 1] - enemyCheckPoints[i];
-                }
-                var length = Math.Pow(distance.X, 2) + Math.Pow(distance.Y, 2);
-                length = Math.Sqrt(length);
-                float angle = (float)Math.Atan2(distance.Y, distance.X);
-                Rectangle box = new Rectangle((int)enemyCheckPoints[i].X, (int)enemyCheckPoints[i].Y, (int)length, 3);
-                spriteBatch.Draw(line, box, null, Color.White, angle, new Vector2(0, line.Height/2), SpriteEffects.None, 1f);
+                path.Draw(spriteBatch);
             }
-
-            foreach (Vector2 point in enemyCheckPoints)
-            {
-                spriteBatch.Draw(redSquare, point, null, Color.White, 0, new Vector2(redSquare.Width / 2, redSquare.Height / 2), 1 / Camera.GetZoom(), SpriteEffects.None, 1f);
-            }
-
             spriteBatch.Draw(mouseImg, mousePos, null, Color.White, 0, new Vector2(mouseImg.Width / 2, mouseImg.Height / 2), 1, SpriteEffects.None, 1f);
+
             spriteBatch.End();
 
             base.Draw(gameTime);
         }
         private void SavePath()
         {
-            outFile = File.CreateText(filePath);
-
-            foreach(Vector2 point in enemyCheckPoints)
+            var outFile = File.CreateText(filePath);
+            foreach (Trail path in paths)
             {
-                outFile.WriteLine(point.X + "," + point.Y);
+                foreach(Vector2 point in path.GetPoints)
+                {
+                    outFile.WriteLine(point.X + "," + point.Y);
+                }
+                outFile.WriteLine("#");
             }
-
             outFile.Close();
         }
 
         private void LoadPath()
         {
-            inFile = File.OpenText(filePath);
-            string[] data;
-
-            enemyCheckPoints.Clear();
-            while (!inFile.EndOfStream)
+            var curPath = 0;
+            List<Vector2> points = new List<Vector2>();
+            using (var inFile = File.OpenText(filePath))
             {
-                data = inFile.ReadLine().Split(',');
-                enemyCheckPoints.Add(new Vector2((float)Convert.ToDouble(data[0]), (float)Convert.ToDouble(data[1])));
+                string[] data;
+                while (!inFile.EndOfStream)
+                {
+                    string line;
+                    while (!inFile.EndOfStream && (line = inFile.ReadLine()) != "#")
+                    {
+                        if (string.IsNullOrWhiteSpace(line))
+                        {
+                            continue;
+                        }
+
+                        data = line.Split(',');
+                        points.Add(new Vector2((float)Convert.ToDouble(data[0]), (float)Convert.ToDouble(data[1])));
+                    }
+                    paths[curPath].SetPoints(points);
+                    points = new List<Vector2>();
+                    ++curPath;
+                }
             }
-            string[] points = inFile.ToString().Split(',', '\n');
-
-
-            inFile.Close();
         }
     }
 

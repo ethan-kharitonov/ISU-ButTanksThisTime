@@ -15,6 +15,8 @@ namespace ISU_ButTanksThisTime
 
         private readonly Texture2D[] stages = new Texture2D[3];
 
+        private Timer rotateCannonTimer = new Timer(500);
+
         public TierFourEnemie(Vector2 position, float rotation, Stage stage) : base(position, stage, rotation)
         {
             for (int i = 0; i < stages.Length - 1; ++i)
@@ -27,6 +29,18 @@ namespace ISU_ButTanksThisTime
 
             Texture2D explosionSpritesheet = Tools.Content.Load<Texture2D>("Images/Sprites/Effects/spritesheet");
             explosionAnimation = new Animation(explosionSpritesheet, 3, 3, 9, 1, 1, 1, 2, basePosition, 0.3f, true);
+        }
+
+        public override bool Update(Vector2 target)
+        {
+            cannon.active = false;
+            if (rotateCannonTimer.IsTimeUp(Tools.gameTime))
+            {
+                cannonRotation += 45;
+                cannon.active = true;
+                rotateCannonTimer.Reset();
+            }
+            return base.Update(target);
         }
 
     }

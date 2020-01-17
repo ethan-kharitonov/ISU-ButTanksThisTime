@@ -3,10 +3,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ISU_ButTanksThisTime
 {
@@ -19,7 +15,6 @@ namespace ISU_ButTanksThisTime
         private const int MAX_SPEED = 10;
         private KeyboardState kb;
         private bool isKeyPressed = false;
-        private Random random = new Random();
 
         //Cannon Variables
         private float cannonRotation = 0;
@@ -135,7 +130,7 @@ namespace ISU_ButTanksThisTime
             if ((basePosition.X < obstical.Left || basePosition.X > obstical.Right) &&
                 (basePosition.Y < obstical.Top || basePosition.Y > obstical.Bottom))
             {
-                processX = random.Next(0, 10000) < 5000;
+                processX = Tools.rnd.Next(0, 10000) < 5000;
                 processY = !processX;
             }
 

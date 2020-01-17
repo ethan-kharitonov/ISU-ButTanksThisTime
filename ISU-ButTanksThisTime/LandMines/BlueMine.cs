@@ -13,8 +13,9 @@ namespace ISU_ButTanksThisTime
     {
         private const float IMG_SCALE_FACTOR = 0.4f;
         public static readonly int Raduis = 38;
+        public static readonly int EXRaduis = 250;
 
-        public BlueMine(Vector2 position) : base(Raduis, 100, 0)
+        public BlueMine(Vector2 position) : base(Raduis, EXRaduis, 0)
         {
             Texture2D idleSprite = Tools.Content.Load<Texture2D>("Images/Sprites/LandMines/bomb2Idle");
             Texture2D triggeredSprite = Tools.Content.Load<Texture2D>("Images/Sprites/LandMines/bomb2Triggered");

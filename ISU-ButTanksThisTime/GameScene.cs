@@ -41,7 +41,8 @@ namespace ISU_ButTanksThisTime
 
         //Load Path Variables
         private static StreamReader inFile;
-        private static List<Vector2> pathPoints = new List<Vector2>();
+        private static List<Vector2>[] pathPoints = new List<Vector2>[2];
+
 
         //Enemie Variables
         private static List<Tank> enemies = new List<Tank>();
@@ -49,9 +50,9 @@ namespace ISU_ButTanksThisTime
         //Camera Variables
         private static Camera camera;
 
-        static Tank TierTEnemy;
+        /*static Tank TierTEnemy;
         static Tank TierREnemy;
-        static Tank TierFEnemy;
+        static Tank TierFEnemy;*/
 
 
         public static void LoadContent(GraphicsDevice GraphicsDevice, ContentManager Content)
@@ -76,9 +77,9 @@ namespace ISU_ButTanksThisTime
             barrelBox = new Rectangle(100, 100, barrelImg.Width, barrelImg.Height);
             LoadPath();
 
-            TierTEnemy = new TierTwoEnemie(new Vector2(0, 0), 0, Stage.Low);
-            TierREnemy = new TierThreeEnemie(new Vector2(100, 300), 0, Stage.Low);
-            TierFEnemy = new TierFourEnemie(new Vector2(100, 500), 0, Stage.Low);
+            enemies.Add(new TierTwoEnemie(new Vector2(0, 0), 0, Stage.Low));
+            enemies.Add(new TierThreeEnemie(new Vector2(100, 300), 0, Stage.Low));
+            enemies.Add(new TierFourEnemie(new Vector2(100, 500), 0, Stage.Low));
         }
 
         public static void Update()
@@ -130,9 +131,6 @@ namespace ISU_ButTanksThisTime
             spriteBatch.Draw(Tools.RedSquare, obsticalBox.BotomRight, Color.White);
 
 
-            TierTEnemy.Draw(spriteBatch);
-            TierREnemy.Draw(spriteBatch);
-            TierFEnemy.Draw(spriteBatch);
             player.Draw(spriteBatch);
 
             spriteBatch.End();
@@ -156,17 +154,30 @@ namespace ISU_ButTanksThisTime
 
             filePath = foundPath;
 
-            inFile = File.OpenText(filePath);
-            string[] data;
-
-            while (!inFile.EndOfStream)
+            var curPath = 0;
+            List<Vector2> points = new List<Vector2>();
+            using (var inFile = File.OpenText(filePath))
             {
-                data = inFile.ReadLine().Split(',');
-                pathPoints.Add(new Vector2((float)Convert.ToDouble(data[0]), (float)Convert.ToDouble(data[1])));
-            }
-            inFile.Close();
-        }
+                string[] data;
+                while (!inFile.EndOfStream)
+                {
+                    string line;
+                    while (!inFile.EndOfStream && (line = inFile.ReadLine()) != "#")
+                    {
+                        if (string.IsNullOrWhiteSpace(line))
+                        {
+                            continue;
+                        }
 
+                        data = line.Split(',');
+                        points.Add(new Vector2((float)Convert.ToDouble(data[0]), (float)Convert.ToDouble(data[1])));
+                    }
+                    pathPoints[curPath] = points;
+                    points = new List<Vector2>();
+                    ++curPath;
+                }
+            }
+        }
         public static void AddBullet(Bullet bullet)
         {
             bullets.Add(bullet);
@@ -178,13 +189,13 @@ namespace ISU_ButTanksThisTime
             if (landMineTimer.IsTimeUp(Tools.gameTime) && Keyboard.GetState().IsKeyDown(Keys.Q))
             {
                 landMineTimer.Reset();
-                landmines.Add(new RedMine(player.GetPos() - new Vector2(RedMine.Width/2.0f, RedMine.Height/2.0f)));
+                landmines.Add(new RedMine(player.GetPos()));
             }
 
             if (landMineTimer.IsTimeUp(Tools.gameTime) && Keyboard.GetState().IsKeyDown(Keys.E))
             {
                 landMineTimer.Reset();
-                landmines.Add(new BlueMine(player.GetPos() - new Vector2(RedMine.Width / 2.0f, RedMine.Height / 2.0f)));
+                landmines.Add(new BlueMine(player.GetPos()));
             }
 
 
@@ -199,13 +210,29 @@ namespace ISU_ButTanksThisTime
             }
 
             //Check collision
-            for(int i = 0; i < enemies.Count; ++i)
+            for (int k = 0; k < landmines.Count; k++)
             {
-                for (int k = 0; k < landmines.Count; k++)
+                //check on player
+                if(landmines[k] is RedMine)
+                {
+                    if (Tools.BoxBoxCollision(player.GetRotatedRectangle(), landmines[k].GetBox()) != null)
+                    {
+                        landmines[k].Collide();
+                    }
+                    continue;
+                }
+
+                //check on enemy;
+                for (int i = 0; i < enemies.Count; ++i)
                 {
                     if (Tools.BoxBoxCollision(enemies[i].GetRotatedRectangle(), landmines[k].GetBox()) != null)
                     {
                         landmines[k].Collide();
+                    }
+
+                    if (landmines[k].IsActive() && Tools.CirclePointCollision(landmines[k].GetExplosionArea(), enemies[i].GetPos()))
+                    {
+                        enemies[i].Collide(landmines[k]);
                     }
                 }
             }
@@ -213,15 +240,11 @@ namespace ISU_ButTanksThisTime
 
         private static void UpdateEnemies()
         {
-            TierREnemy.Update(player.GetBasePosition());
-            TierTEnemy.Update(Vector2.Zero);
-            TierFEnemy.Update(player.GetBasePosition());
-
             //Spawn Enemies
             if (enemieTimer.IsTimeUp(Tools.gameTime) && enemies.Count < 20)
             {
                 enemieTimer.Reset();
-                enemies.Add(new TierOneEnemie(pathPoints[0], pathPoints, Stage.Low, 0));
+                enemies.Add(new TierOneEnemie(pathPoints[0][0], pathPoints[0], Stage.Low, 0));
             }
 
             if (bomberEnemieTimer.IsTimeUp(Tools.gameTime))
@@ -270,7 +293,7 @@ namespace ISU_ButTanksThisTime
                         Vector2 newPos = (enemie1.GetPos() + enemie2.GetPos()) / 2;
                         Stage stage = (Stage)(Math.Max((int)enemie1.GetStage(), (int)enemie2.GetStage()) + 1);
                         stage = (Stage)Math.Min((int)stage, (int)(Stage.Player - 1));
-                        enemies.Add(new TierOneEnemie(newPos, pathPoints, stage, enemie2.GetRotation()));
+                        enemies.Add(new TierOneEnemie(newPos, pathPoints[0], stage, enemie2.GetRotation()));
                         break;
                     }
                 }
@@ -313,6 +336,11 @@ namespace ISU_ButTanksThisTime
                 }
             }
 
+        }
+
+        public static void AddLandMine(LandMine mine)
+        {
+            landmines.Add(mine);
         }
     }
 }
