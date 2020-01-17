@@ -43,7 +43,6 @@ namespace ISU_ButTanksThisTime
 
             int healthPercent = (MAX_HEALTH / 100) * health;
             healthBox = new Rectangle((int)(position.X - barImg.Width * 0.5f * IMG_SCALE_FACTOR + 3), (int)(position.Y - barImg.Height * 0.5 * IMG_SCALE_FACTOR + 3), (int)(BAR_LENGTH/100.0 * healthPercent), (int)(barImg.Height * IMG_SCALE_FACTOR) - 4);
-            Console.WriteLine((BAR_LENGTH / 100.0) * healthPercent);
         }
 
         public void Draw(SpriteBatch spriteBatch)

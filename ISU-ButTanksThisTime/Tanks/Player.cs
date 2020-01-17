@@ -13,7 +13,6 @@ namespace ISU_ButTanksThisTime
         private const float ACC_RATE = 1f;
         private const float FRICTION = 0.4f;
         private const int MAX_SPEED = 10;
-        private KeyboardState kb;
         private bool isKeyPressed = false;
 
         //Cannon Variables
@@ -32,31 +31,23 @@ namespace ISU_ButTanksThisTime
 
         public override bool Update(Vector2 NA)
         {
-            kb = Keyboard.GetState();
-            MoveTank();
+            var kb = Keyboard.GetState();
+            
+            MoveTank(kb);
 
-            /*//Cannon Update
-            if (kb.IsKeyDown(Keys.Right))
-            {
-                cannonRotation -= CANNON_ROTATION_SPEED;
-            }
+            cannon.active = Mouse.GetState().LeftButton == ButtonState.Pressed;
+            Vector2 ScreenTL = basePosition - Tools.screen.Size.ToVector2() / 2;
+            ScreenTL.X = MathHelper.Clamp(ScreenTL.X, Tools.ArenaBounds.Left, Tools.ArenaBounds.Right);
+            ScreenTL.Y = MathHelper.Clamp(ScreenTL.Y, Tools.ArenaBounds.Top, Tools.ArenaBounds.Bottom);
+            Vector2 trueMousePos = Mouse.GetState().Position.ToVector2() + ScreenTL;
 
-            if (kb.IsKeyDown(Keys.Left))
-            {
-                cannonRotation += CANNON_ROTATION_SPEED;
-            }
 
-            cannonRotation %= 360;
-            cannonRotation %= -360;*/
-
-            cannon.active = kb.IsKeyDown(Keys.Up);
-            cannon.Update(basePosition, baseRotation, Mouse.GetState().Position.ToVector2());
-
+            cannon.Update(basePosition, baseRotation, trueMousePos);
             bar.Update(basePosition, health);
 
             return false;
         }
-        private void MoveTank()
+        private void MoveTank(KeyboardState kb)
         {
             isKeyPressed = false;
 
