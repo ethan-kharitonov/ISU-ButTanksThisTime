@@ -19,6 +19,7 @@ namespace ISU_ButTanksThisTime
         private const int MAX_SPEED = 10;
         private KeyboardState kb;
         private bool isKeyPressed = false;
+        private Random random = new Random();
 
         //Cannon Variables
         private float cannonRotation = 0;
@@ -116,7 +117,6 @@ namespace ISU_ButTanksThisTime
         public void CollideWithObject(Rectangle obstical)
         {
             RotatedRectangle obsticalBox = new RotatedRectangle(obstical, 0, Vector2.Zero);
-            Console.WriteLine(obstical.Location);
             RotatedRectangle rotBox = GetRotatedRectangle();
             if (Tools.BoxBoxCollision(obsticalBox, rotBox) == null)
             {
@@ -130,25 +130,34 @@ namespace ISU_ButTanksThisTime
             int left = (int)Math.Min(Math.Min(rotBox.TopLeft.X, rotBox.TopRight.X), Math.Min(rotBox.BotomLeft.X, rotBox.BotomRight.X));
             int right = (int)Math.Max(Math.Max(rotBox.TopLeft.X, rotBox.TopRight.X), Math.Max(rotBox.BotomLeft.X, rotBox.BotomRight.X));
 
+            bool processX = true;
+            bool processY = true;
+            if ((basePosition.X < obstical.Left || basePosition.X > obstical.Right) &&
+                (basePosition.Y < obstical.Top || basePosition.Y > obstical.Bottom))
+            {
+                processX = random.Next(0, 10000) < 5000;
+                processY = !processX;
+            }
+
             Rectangle trueRectangle = new Rectangle(left, top, right - left, bottom - top);
 
-            if (basePosition.X < obstical.Left)
+            if (basePosition.X < obstical.Left && processX)
             {
                 basePosition.X = obstical.Left - trueRectangle.Width * 0.5f;
                 velocity.X = 0;
             }
-            else if (basePosition.X > obstical.Right)
+            else if (basePosition.X > obstical.Right && processX)
             {
                 basePosition.X = obstical.Right + trueRectangle.Width * 0.5f;
                 velocity.X = 0;
             }
 
-            if (basePosition.Y < obstical.Top)
+            if (basePosition.Y < obstical.Top && processY)
             {
                 basePosition.Y = obstical.Top - trueRectangle.Height * 0.5f;
                 velocity.Y = 0;
             }
-            else if (basePosition.Y > obstical.Bottom)
+            else if (basePosition.Y > obstical.Bottom && processY)
             {
                 basePosition.Y = obstical.Bottom + trueRectangle.Height * 0.5f;
                 velocity.Y = 0;
