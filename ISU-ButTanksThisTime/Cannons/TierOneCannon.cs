@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace ISU_ButTanksThisTime
         private const bool ACTIVE = false;
         private Texture2D[] stages = new Texture2D[4];
 
-        public TierOneCannon(float disFromCentreBase, float scaleFactor, Owner owner, Stage stage) : base(FIRE_RATE, DAMEGE, ACTIVE, disFromCentreBase, scaleFactor, owner)
+        public TierOneCannon(float disFromCentreBase, Owner owner, Stage stage) : base(FIRE_RATE, DAMEGE, ACTIVE, disFromCentreBase)
         {
             for(int i = 0; i < stages.Length - 1; ++i)
             {
@@ -23,6 +24,8 @@ namespace ISU_ButTanksThisTime
             stages[stages.Length - 1] = Tools.Content.Load<Texture2D>("Images/Sprites/Cannons/TierOne/T1PP");
 
             img = stages[(int)stage];
+
+            bullet = new MeduimBullet(Vector2.Zero, 0, Tank.IMG_SCALE_FACTOR, owner);
         }
     }
 }

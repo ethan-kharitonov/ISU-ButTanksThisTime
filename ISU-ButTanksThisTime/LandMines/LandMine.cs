@@ -12,12 +12,11 @@ namespace ISU_ButTanksThisTime
     abstract class LandMine
     {
         protected Animation[] animations = new Animation[3];
-        protected Texture2D explosionEffect;
         private int currentAnim = 0;
         private bool active = false;
-        private float raduis;
+        private int raduis;
         private float explosionRaduis;
-        public LandMine(int raduis, int damage, float explosionRaduis)
+        public LandMine(int raduis, float explosionRaduis, int damage)
         {
             this.raduis = raduis;
             this.explosionRaduis = explosionRaduis;
@@ -30,21 +29,17 @@ namespace ISU_ButTanksThisTime
                 currentAnim = 2;
                 active = true;
             }
-
             return currentAnim == 2 && !animations[currentAnim].isAnimating;
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             animations[currentAnim].Draw(spriteBatch, Color.White, SpriteEffects.None);
-            /*Rectangle box2 = new Rectangle(animations[currentAnim].destRec.Center, new Vector2(raduis, raduis).ToPoint());
-            spriteBatch.Draw(explosionEffect, box2, null, Color.Red, 0, new Vector2(explosionEffect.Width * 0.5f, explosionEffect.Height * 0.5f), SpriteEffects.None, 1);
-*/
-            if (currentAnim == 2)
-            {
-                Rectangle box = new Rectangle(animations[currentAnim].destRec.Center, new Vector2(explosionRaduis, explosionRaduis).ToPoint());
-                spriteBatch.Draw(explosionEffect, box, null, Color.White, 0, new Vector2(explosionEffect.Width * 0.5f, explosionEffect.Height * 0.5f), SpriteEffects.None, 1);
-            }
+
+            spriteBatch.Draw(Tools.RedSquare, GetBox().TopLeft, Color.White);
+            spriteBatch.Draw(Tools.RedSquare, GetBox().TopRight, Color.White);
+            spriteBatch.Draw(Tools.RedSquare, GetBox().BotomLeft, Color.White);
+            spriteBatch.Draw(Tools.RedSquare, GetBox().BotomRight, Color.White);
         }
 
         public void Collide()
@@ -52,7 +47,12 @@ namespace ISU_ButTanksThisTime
             currentAnim = currentAnim == 0 ? 1 : currentAnim;
         }
 
-        public RotatedRectangle Box => new RotatedRectangle(animations[currentAnim].destRec, 0, Vector2.Zero);
+        public RotatedRectangle GetBox()
+        {
+            Rectangle fullBox = animations[currentAnim].destRec;
+            Rectangle box = new Rectangle(fullBox.Center.X - raduis/2, fullBox.Center.Y - raduis/2, raduis, raduis);
+            return new RotatedRectangle(box, 0, Vector2.Zero);
+        }
 
         public Circle GetExplosionArea()
         {

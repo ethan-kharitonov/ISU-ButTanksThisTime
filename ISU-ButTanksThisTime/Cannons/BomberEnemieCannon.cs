@@ -13,7 +13,7 @@ namespace ISU_ButTanksThisTime
         private const int DAMEGE = 25;
         private const bool ACTIVE = false;
 
-        public BomberEnemieCannon(float disFromCentreBase, float scaleFactor, Owner owner) : base(FIRE_RATE, DAMEGE, ACTIVE, disFromCentreBase, scaleFactor, owner)
+        public BomberEnemieCannon(float disFromCentreBase) : base(FIRE_RATE, DAMEGE, ACTIVE, disFromCentreBase)
         {
             img = Tools.Content.Load<Texture2D>("Images/Sprites/Cannons/Inactive/I1");
         }

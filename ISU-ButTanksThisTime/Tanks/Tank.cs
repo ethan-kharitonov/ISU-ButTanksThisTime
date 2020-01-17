@@ -15,7 +15,7 @@ namespace ISU_ButTanksThisTime
         protected Texture2D baseImg;
         protected Vector2 basePosition;
         protected float baseRotation = 0;
-        private readonly float imgScaleFactor;
+        public const float IMG_SCALE_FACTOR = 0.25f;
 
         //Cannon Variables
         protected Cannon cannon;
@@ -23,25 +23,28 @@ namespace ISU_ButTanksThisTime
         //Movment Variables
         protected float speed = 3;
         public static readonly float ROTATION_SPEED = 5;
+        protected float attackRange;
 
         //Dying Variable
         protected Animation explosionAnimation;
 
         //Health Variables
         protected int health = 100;
-        public Tank(Vector2 position, float imgScaleFactor, float rotation = 0)
+
+        private Stage stage;
+        public Tank(Vector2 position, Stage stage, float attackRange = 0,float rotation = 0)
         {
             baseRotation = rotation;
-            this.imgScaleFactor = imgScaleFactor;
+            //this.imgScaleFactor = imgScaleFactor;
             basePosition = position;
-            
-
+            this.stage = stage;
+            this.attackRange = attackRange;
         }
 
-        public virtual bool Update(Vector2 target, float targetDistance = 0)
+        public virtual bool Update(Vector2 target)
         {
             Vector2 distance = target - basePosition;
-            if((int)distance.Length() >= targetDistance)
+            if((int)distance.Length() >= attackRange)
             {
                 if(distance.Length() < speed)
                 {
@@ -78,16 +81,20 @@ namespace ISU_ButTanksThisTime
             }
             else
             {
-                spriteBatch.Draw(baseImg, basePosition, null, Color.White, -MathHelper.ToRadians(baseRotation) + MathHelper.PiOver2, new Vector2(baseImg.Width / 2, baseImg.Height / 2), imgScaleFactor, SpriteEffects.None, 1f);
-                //cannon.Draw(spriteBatch);
+                spriteBatch.Draw(baseImg, basePosition, null, Color.White, -MathHelper.ToRadians(baseRotation) + MathHelper.PiOver2, new Vector2(baseImg.Width / 2, baseImg.Height / 2), IMG_SCALE_FACTOR, SpriteEffects.None, 1f);
+                cannon.Draw(spriteBatch);
             }
 
+            spriteBatch.Draw(Tools.RedSquare, GetRotatedRectangle().TopLeft, Color.White);
+            spriteBatch.Draw(Tools.RedSquare, GetRotatedRectangle().TopRight, Color.White);
+            spriteBatch.Draw(Tools.RedSquare, GetRotatedRectangle().BotomLeft, Color.White);
+            spriteBatch.Draw(Tools.RedSquare, GetRotatedRectangle().BotomRight, Color.White);
 
         }
 
         public RotatedRectangle GetRotatedRectangle()
         {
-            Rectangle box = new Rectangle((int)basePosition.X, (int)basePosition.Y, (int)(baseImg.Width * imgScaleFactor), (int)(baseImg.Height * imgScaleFactor));
+            Rectangle box = new Rectangle((int)basePosition.X, (int)basePosition.Y, (int)(baseImg.Width * IMG_SCALE_FACTOR), (int)(baseImg.Height * IMG_SCALE_FACTOR));
             return new RotatedRectangle(box, MathHelper.ToRadians(baseRotation) + MathHelper.PiOver2, new Vector2(box.Width * 0.5f, box.Height * 0.5f));
         }
 
@@ -116,11 +123,11 @@ namespace ISU_ButTanksThisTime
             }
         }
 
-        public abstract Stage GetStage();
+        public Stage GetStage() => stage;
 
         public float GetRotation() => baseRotation;
 
-        public Vector2 GetOrigin() => new Vector2(baseImg.Width * 0.5f * imgScaleFactor, baseImg.Height * 0.5f * imgScaleFactor);
+        public Vector2 GetOrigin() => new Vector2(baseImg.Width * 0.5f * IMG_SCALE_FACTOR, baseImg.Height * 0.5f * IMG_SCALE_FACTOR);
     
     }
 }

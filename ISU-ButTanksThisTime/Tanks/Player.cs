@@ -12,14 +12,11 @@ namespace ISU_ButTanksThisTime
 {
     class Player : Tank
     {
-        //Image Variables
-        private const float IMG_SCALE_FACTOR = 0.25f;
-
         //Movment Variables
         private Vector2 velocity = new Vector2(0, 0);
-        private const float ACC_RATE = 0.5f;
-        private const float FRICTION = 0.2f;
-        private const int MAX_SPEED = 5;
+        private const float ACC_RATE = 1f;
+        private const float FRICTION = 0.4f;
+        private const int MAX_SPEED = 10;
         private KeyboardState kb;
         private bool isKeyPressed = false;
 
@@ -28,26 +25,17 @@ namespace ISU_ButTanksThisTime
         private const int CANNON_ROTATION_SPEED = 2;
         private const float CANNON_DIS_FROM_CENTRE = 35 * IMG_SCALE_FACTOR;
 
-        public Player(Vector2 position) : base(position, IMG_SCALE_FACTOR)
+        public Player(Vector2 position) : base(position, Stage.Player)
         {
             baseImg = Tools.Content.Load<Texture2D>("Images/Sprites/Tanks/TierOne/T1PP");
-            cannon = new TierOneCannon(CANNON_DIS_FROM_CENTRE, IMG_SCALE_FACTOR, Owner.Player, Stage.Player);
+            cannon = new TierOneCannon(CANNON_DIS_FROM_CENTRE, Owner.Player, Stage.Player);
             basePosition = position;
 
             Texture2D explosionSpritesheet = Tools.Content.Load<Texture2D>("Images/Sprites/Effects/spritesheet");
             explosionAnimation = new Animation(explosionSpritesheet, 3, 3, 9, 1, 1, 1, 2, basePosition, 0.3f, true);
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            base.Draw(spriteBatch);
-            spriteBatch.Draw(Tools.RedSquare, GetRotatedRectangle().TopLeft, Color.White);
-            spriteBatch.Draw(Tools.RedSquare, GetRotatedRectangle().TopRight, Color.White);
-            spriteBatch.Draw(Tools.RedSquare, GetRotatedRectangle().BotomLeft, Color.White);
-            spriteBatch.Draw(Tools.RedSquare, GetRotatedRectangle().BotomRight, Color.White);
-        }
-
-        public override bool Update(Vector2 target, float targetDistance = 0)
+        public override bool Update(Vector2 NA)
         {
             kb = Keyboard.GetState();
             MoveTank();
@@ -55,16 +43,16 @@ namespace ISU_ButTanksThisTime
             //Cannon Update
             if (kb.IsKeyDown(Keys.Right))
             {
-                cannonRotation -= MathHelper.ToRadians(CANNON_ROTATION_SPEED);
+                cannonRotation -= CANNON_ROTATION_SPEED;
             }
 
             if (kb.IsKeyDown(Keys.Left))
             {
-                cannonRotation += MathHelper.ToRadians(CANNON_ROTATION_SPEED);
+                cannonRotation += CANNON_ROTATION_SPEED;
             }
 
-            cannonRotation %= MathHelper.TwoPi;
-            cannonRotation %= -MathHelper.TwoPi;
+            cannonRotation %= 360;
+            cannonRotation %= -360;
 
             cannon.active = kb.IsKeyDown(Keys.Up);
             cannon.Update(basePosition, baseRotation, cannonRotation);
@@ -165,10 +153,6 @@ namespace ISU_ButTanksThisTime
                 basePosition.Y = obstical.Bottom + trueRectangle.Height * 0.5f;
                 velocity.Y = 0;
             }
-        }
-        public override Stage GetStage()
-        {
-            return Stage.Player;
         }
     }
 }

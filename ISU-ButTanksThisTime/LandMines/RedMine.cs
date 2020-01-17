@@ -22,8 +22,6 @@ namespace ISU_ButTanksThisTime
             Texture2D triggeredSprite = Tools.Content.Load<Texture2D>("Images/Sprites/LandMines/bomb1Triggerd");
             Texture2D explodeSprite = Tools.Content.Load<Texture2D>("Images/Sprites/LandMines/bomb1Explode");
 
-            explosionEffect = Tools.Content.Load<Texture2D>("Images/Sprites/Effects/Light_01");
-
             animations[0] = new Animation(idleSprite, 10, 1, 10, 1, 1, Animation.ANIMATE_FOREVER, 3, position, IMG_SCALE_FACTOR, true);
             animations[1] = new Animation(triggeredSprite, 2, 2, 4, 1, 1, Animation.ANIMATE_ONCE, 3, position, IMG_SCALE_FACTOR, true);
             animations[2] = new Animation(explodeSprite, 3, 3, 9, 1, 1, Animation.ANIMATE_ONCE, 3, position, IMG_SCALE_FACTOR, true);

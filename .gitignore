@@ -7,3 +7,4 @@
 [Oo]bj
 packages
 *.csproj.user
+*.binlog

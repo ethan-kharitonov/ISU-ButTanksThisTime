@@ -11,15 +11,13 @@ namespace ISU_ButTanksThisTime
 {
     class TierTwoEnemie : Tank
     {
-        private const float IMG_SCALE_FACTOR = 0.25f;
         private const float CANNON_DIS_FROM_CENTRE = 35 * IMG_SCALE_FACTOR;
 
-        private readonly Stage stage;
         private readonly Texture2D[] stages = new Texture2D[4];
 
         private Vector2 target;
 
-        public TierTwoEnemie(Vector2 position) : base(position, IMG_SCALE_FACTOR)
+        public TierTwoEnemie(Vector2 position, float rotation, Stage stage) : base(position, stage, 0, rotation)
         {
             for (int i = 0; i < stages.Length - 1; ++i)
             {
@@ -28,7 +26,7 @@ namespace ISU_ButTanksThisTime
             stages[stages.Length - 1] = Tools.Content.Load<Texture2D>("Images/Sprites/Tanks/TierOne/T1PP");
 
             baseImg = stages[(int)stage];
-            cannon = new TierOneCannon(CANNON_DIS_FROM_CENTRE, IMG_SCALE_FACTOR, Owner.Enemie, stage);
+            cannon = new TierOneCannon(CANNON_DIS_FROM_CENTRE, Owner.Enemie, stage);
 
             Texture2D explosionSpritesheet = Tools.Content.Load<Texture2D>("Images/Sprites/Effects/spritesheet");
             explosionAnimation = new Animation(explosionSpritesheet, 3, 3, 9, 1, 1, 1, 2, basePosition, 0.3f, true);
@@ -36,12 +34,7 @@ namespace ISU_ButTanksThisTime
             target = SetTarget();
         }
 
-        public override Stage GetStage()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override bool Update(Vector2 NA, float dis = 0)
+        public override bool Update(Vector2 NA)
         {
             if(basePosition == target)
             {

@@ -13,9 +13,6 @@ namespace ISU_ButTanksThisTime
 {
     static class GameScene
     {
-        //All Images//
-        /////////////
-
         //Background Variables
         private static Texture2D backgroundImg;
         private const int ARENA_WIDTH = 10;
@@ -53,6 +50,9 @@ namespace ISU_ButTanksThisTime
         private static Camera camera;
 
         static Tank TierTEnemy;
+        static Tank TierREnemy;
+        static Tank TierFEnemy;
+
 
         public static void LoadContent(GraphicsDevice GraphicsDevice, ContentManager Content)
         {
@@ -76,7 +76,9 @@ namespace ISU_ButTanksThisTime
             barrelBox = new Rectangle(100, 100, barrelImg.Width, barrelImg.Height);
             LoadPath();
 
-            TierTEnemy = new TierTwoEnemie(new Vector2(0, 0));
+            TierTEnemy = new TierTwoEnemie(new Vector2(0, 0), 0, Stage.Low);
+            TierREnemy = new TierThreeEnemie(new Vector2(100, 300), 0, Stage.Low);
+            TierFEnemy = new TierFourEnemie(new Vector2(100, 500), 0, Stage.Low);
         }
 
         public static void Update()
@@ -129,6 +131,8 @@ namespace ISU_ButTanksThisTime
 
 
             TierTEnemy.Draw(spriteBatch);
+            TierREnemy.Draw(spriteBatch);
+            TierFEnemy.Draw(spriteBatch);
             player.Draw(spriteBatch);
 
             spriteBatch.End();
@@ -197,12 +201,11 @@ namespace ISU_ButTanksThisTime
             //Check collision
             for(int i = 0; i < enemies.Count; ++i)
             {
-                Tank enemie1 = enemies[i];
-                foreach (LandMine mine in landmines)
+                for (int k = 0; k < landmines.Count; k++)
                 {
-                    if (Tools.BoxBoxCollision(enemie1.GetRotatedRectangle(), mine.Box) != null)
+                    if (Tools.BoxBoxCollision(enemies[i].GetRotatedRectangle(), landmines[k].GetBox()) != null)
                     {
-                        mine.Collide();
+                        landmines[k].Collide();
                     }
                 }
             }
@@ -210,7 +213,10 @@ namespace ISU_ButTanksThisTime
 
         private static void UpdateEnemies()
         {
+            TierREnemy.Update(player.GetBasePosition());
             TierTEnemy.Update(Vector2.Zero);
+            TierFEnemy.Update(player.GetBasePosition());
+
             //Spawn Enemies
             if (enemieTimer.IsTimeUp(Tools.gameTime) && enemies.Count < 20)
             {
@@ -225,7 +231,7 @@ namespace ISU_ButTanksThisTime
                 Vector2 pos = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * ENEMIE_SPAWN_DIS;
                 pos = player.GetPos() + pos;
 
-                enemies.Add(new BomberEnemie(pos));
+                enemies.Add(new BomberEnemie(pos, 0, Stage.Low));
             }
 
             //Update Enemies

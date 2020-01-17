@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ISU_ButTanksThisTime
 {
-    class Bullet
+    abstract class Bullet
     {
         protected Texture2D img;
         private Vector2 position;
@@ -30,21 +30,23 @@ namespace ISU_ButTanksThisTime
 
         public bool Update()
         {
-            position += new Vector2((float)Math.Cos(rotation), (float)-Math.Sin(rotation)) * DEF_VELOCITY;
+            position += new Vector2((float)Math.Cos(MathHelper.ToRadians(rotation)), (float)-Math.Sin(MathHelper.ToRadians(rotation))) * DEF_VELOCITY;
             return isDead || !Tools.IsBetween(Tools.ArenaBounds.Left, position.X, Tools.ArenaBounds.Right + img.Width) || !Tools.IsBetween(Tools.ArenaBounds.Bottom - img.Height, position.Y, Tools.ArenaBounds.Top);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             box = new Rectangle((int)position.X, (int)position.Y, (int)(img.Width * SCALE_FACTOR), (int)(img.Height * SCALE_FACTOR));
-            spriteBatch.Draw(img, box, null, Color.White, -rotation + MathHelper.PiOver2, new Vector2((float)(img.Width / 2.0), (float)(img.Width / 2.0)), SpriteEffects.None, 1f);
+            spriteBatch.Draw(img, box, null, Color.White, -MathHelper.ToRadians(rotation) + MathHelper.PiOver2, new Vector2((float)(img.Width / 2.0), (float)(img.Width / 2.0)), SpriteEffects.None, 1f);
         }
 
-        public RotatedRectangle GetRotatedRectangle() => new RotatedRectangle(box, rotation + MathHelper.PiOver2, new Vector2((float)(img.Width / 2.0), (float)(img.Width / 2.0)));
+        public RotatedRectangle GetRotatedRectangle() => new RotatedRectangle(box, -MathHelper.ToRadians(rotation) + MathHelper.PiOver2, new Vector2((float)(img.Width / 2.0), (float)(img.Width / 2.0)));
    
         public void Collide()
         {
             isDead = true;
         }
+
+        public abstract Bullet Clone(Vector2 pos, float rotation);
     }
 }

@@ -13,7 +13,7 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin ../../../../../Users/ethan/Pictures/Container_B.png
+#begin Images/Sprites/Cannons/TierThree/Gun_03.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -23,9 +23,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../../../../../Users/ethan/Pictures/Container_B.png;Images/Sprites/Terrain/Container_B.png
+/build:Images/Sprites/Cannons/TierThree/Gun_03.png
 
-#begin ../../../../../Users/ethan/Pictures/T1P1.png
+#begin Images/Sprites/Terrain/Container_B.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -35,9 +35,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../../../../../Users/ethan/Pictures/T1P1.png;Images/Sprites/Tanks/TierOne/T1P1.png
+/build:Images/Sprites/Terrain/Container_B.png
 
-#begin ../../../../../Users/ethan/Pictures/T1P2.png
+#begin Images/Sprites/Tanks/TierOne/T1P1.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -47,9 +47,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../../../../../Users/ethan/Pictures/T1P2.png;Images/Sprites/Tanks/TierOne/T1P2.png
+/build:Images/Sprites/Tanks/TierOne/T1P1.png
 
-#begin ../../../../../Users/ethan/Pictures/T1PP.png
+#begin Images/Sprites/Tanks/TierOne/T1P2.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -59,7 +59,19 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../../../../../Users/ethan/Pictures/T1PP.png;Images/Sprites/Tanks/TierOne/T1PP.png
+/build:Images/Sprites/Tanks/TierOne/T1P2.png
+
+#begin Images/Sprites/Tanks/TierOne/T1PP.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/Sprites/Tanks/TierOne/T1PP.png
 
 #begin Images/Backgrounds/bg.png
 /importer:TextureImporter
@@ -73,6 +85,18 @@
 /processorParam:TextureFormat=Color
 /build:Images/Backgrounds/bg.png
 
+#begin Images/Sprites/Bullets/Laser.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/Sprites/Bullets/Laser.png
+
 #begin Images/Sprites/Bullets/Medium_Shell.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -85,6 +109,18 @@
 /processorParam:TextureFormat=Color
 /build:Images/Sprites/Bullets/Medium_Shell.png
 
+#begin Images/Sprites/Bullets/Plasma.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/Sprites/Bullets/Plasma.png
+
 #begin Images/Sprites/Cannons/Inactive/I1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -96,6 +132,42 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/Sprites/Cannons/Inactive/I1.png
+
+#begin Images/Sprites/Cannons/TierFour/T4P1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/Sprites/Cannons/TierFour/T4P1.png
+
+#begin Images/Sprites/Cannons/TierFour/T4P2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/Sprites/Cannons/TierFour/T4P2.png
+
+#begin Images/Sprites/Cannons/TierFour/T4P3.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/Sprites/Cannons/TierFour/T4P3.png
 
 #begin Images/Sprites/Cannons/TierOne/T1P1.png
 /importer:TextureImporter
@@ -145,6 +217,42 @@
 /processorParam:TextureFormat=Color
 /build:Images/Sprites/Cannons/TierOne/T1PP.png
 
+#begin Images/Sprites/Cannons/TierThree/T3P1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/Sprites/Cannons/TierThree/T3P1.png
+
+#begin Images/Sprites/Cannons/TierThree/T3P2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/Sprites/Cannons/TierThree/T3P2.png
+
+#begin Images/Sprites/Cannons/TierThree/T3P3.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/Sprites/Cannons/TierThree/T3P3.png
+
 #begin Images/Sprites/Crosshairs/crosshair001.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -192,6 +300,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/Sprites/Effects/Light_03.png
+
+#begin Images/Sprites/Effects/spritesheet (22).png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/Sprites/Effects/spritesheet (22).png
 
 #begin Images/Sprites/Effects/spritesheet.png
 /importer:TextureImporter
@@ -324,6 +444,42 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/Sprites/Tanks/Hull_04.png
+
+#begin Images/Sprites/Tanks/TierFour/T4P1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/Sprites/Tanks/TierFour/T4P1.png
+
+#begin Images/Sprites/Tanks/TierFour/T4P2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/Sprites/Tanks/TierFour/T4P2.png
+
+#begin Images/Sprites/Tanks/TierFour/T4P3.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/Sprites/Tanks/TierFour/T4P3.png
 
 #begin Images/Sprites/Tanks/TierOne/T1P3.png
 /importer:TextureImporter
