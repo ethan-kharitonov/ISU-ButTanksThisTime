@@ -6,9 +6,10 @@ namespace ISU_ButTanksThisTime
 {
     abstract class Cannon
     {
-        private Vector2 pos;
+        protected Vector2 pos;
         private static readonly float disFromCentreBase = 35 * Tank.IMG_SCALE_FACTOR;
-        private float rotation;
+        protected float rotation;
+
 
         //Shooting Variables
         private readonly Timer shootTimer;
@@ -32,11 +33,10 @@ namespace ISU_ButTanksThisTime
             target -= pos;
             target *= new Vector2(1, -1);
             rotation = Tools.RotateTowardsVector(rotation, target, ROTATE_SPEED);
-            
-            if (shootTimer.IsTimeUp(Tools.gameTime) && active)
+            if (shootTimer.IsTimeUp(Tools.GameTime) && active)
             {
                 shootTimer.Reset();
-                Bullet newBullet = Bullet.Clone(pos, this.rotation);
+                Bullet newBullet = Bullet.Clone(pos, rotation);
                 GameScene.AddBullet(newBullet);
             }
         }
@@ -52,7 +52,7 @@ namespace ISU_ButTanksThisTime
         public Vector2 GetPosition() => pos;
         public float GetRotation() => rotation;
 
-        private Vector2 CalcPos(Vector2 basePosition, float baseRotation)
+        protected Vector2 CalcPos(Vector2 basePosition, float baseRotation)
         {
             Vector2 position = new Vector2((float)Math.Cos(MathHelper.ToRadians(baseRotation)), (float)-Math.Sin(MathHelper.ToRadians(baseRotation))) * -disFromCentreBase;
             position += basePosition;

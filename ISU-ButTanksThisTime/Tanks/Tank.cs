@@ -33,23 +33,27 @@ namespace ISU_ButTanksThisTime
 
         //Movment Variables
         protected float speed = 3;
-        public static readonly int ROTATION_SPEED = 5;
+        private readonly int ROTATION_SPEED = 5;
         protected float attackRange;
 
         //Dying Variable
         protected Animation explosionAnimation;
 
         //Health Variables
-        protected int health = 100;
+        protected int health;
         protected HealthBar bar;
+        protected bool killed = true;
 
         private Stage stage;
-        public Tank(Vector2 position, Stage stage, float attackRange = 0,float rotation = 0)
+        public Tank(Vector2 position, Stage stage, float attackRange, float speed, int rotationSpeed, int health, float rotation = 0)
         {
             baseRotation = rotation;
             basePosition = position;
             this.stage = stage;
             this.attackRange = attackRange;
+            ROTATION_SPEED = rotationSpeed;
+            this.health = health;
+            this.speed = speed;
 
             bar = new HealthBar(health);
         }
@@ -75,7 +79,50 @@ namespace ISU_ButTanksThisTime
 
             if (health <= 0)
             {
-                explosionAnimation.Update(Tools.gameTime);
+                explosionAnimation.Update(Tools.GameTime);
+            }
+            else
+            {
+                Vector2 explosionPos = new Vector2(basePosition.X - explosionAnimation.destRec.Width / 2, basePosition.Y - explosionAnimation.destRec.Height / 2);
+                explosionAnimation.destRec = new Rectangle((int)explosionPos.X, (int)explosionPos.Y, explosionAnimation.destRec.Width, explosionAnimation.destRec.Height);
+            }
+
+            bar.Update(basePosition, health);
+
+            if(!explosionAnimation.isAnimating && health <= 0)
+            {
+                if (killed)
+                {
+                    DropItem();
+                }
+                return true;
+            }
+
+            return false;
+        }
+
+        protected virtual bool Update(Vector2 target, Vector2 cannonTarget)
+        {
+            Vector2 distance = target - basePosition;
+            if ((int)distance.Length() >= attackRange)
+            {
+                if (distance.Length() < speed)
+                {
+                    basePosition = target;
+                }
+                else
+                {
+                    basePosition += distance / distance.Length() * speed;
+                }
+            }
+
+            baseRotation = Tools.RotateTowardsVector(baseRotation, (target - basePosition) * new Vector2(1, -1), ROTATION_SPEED);
+
+            cannon.Update(basePosition, baseRotation, cannonTarget);
+
+            if (health <= 0)
+            {
+                explosionAnimation.Update(Tools.GameTime);
             }
             else
             {
@@ -152,5 +199,25 @@ namespace ISU_ButTanksThisTime
         public abstract TankType GetTankType();
 
         public abstract Tank Clone(Vector2 position, float rotation, Stage stage);
+
+        protected void DropItem()
+        {
+            int chance = Tools.Rnd.Next(76, 100);
+            switch (chance)
+            {
+                case int n when n < 25:
+                    GameScene.AddItem(new RelocateItem(basePosition));
+                    break;
+                case int n when n < 50:
+                    GameScene.AddItem(new SpeedBoostItem(basePosition));
+                    break;
+                case int n when n < 75:
+                    GameScene.AddItem(new CoinItem(basePosition));
+                    break;
+                case int n when n < 100:
+                    GameScene.AddItem(new CoinPileItem(basePosition));
+                    break;
+            }
+        }
     }
 }

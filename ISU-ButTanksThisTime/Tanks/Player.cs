@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Collections.Generic;
 
 namespace ISU_ButTanksThisTime
 {
@@ -14,8 +15,14 @@ namespace ISU_ButTanksThisTime
         private const float FRICTION = 0.4f;
         private const int MAX_SPEED = 10;
         private bool isKeyPressed = false;
+        private const int ROTATION_SPEED = 5;
 
-        public Player(Vector2 position) : base(position, Stage.Player)
+        //Cannon Variables
+        private bool canControleShooting = true;
+
+        
+
+        public Player(Vector2 position) : base(position, Stage.Player, 0, 0, 0, 100, 0)
         {
             baseImg = Tools.Content.Load<Texture2D>("Images/Sprites/Tanks/TierOne/T1PP");
             cannon = new TierOneCannon(Owner.Player, Stage.Player, basePosition, baseRotation);
@@ -38,20 +45,31 @@ namespace ISU_ButTanksThisTime
 
         private void CannonUpdate(KeyboardState kb)
         {
-            cannon.active = Mouse.GetState().LeftButton == ButtonState.Pressed;
-            Vector2 ScreenTL = basePosition - Tools.screen.Size.ToVector2() / 2;
-            ScreenTL.X = MathHelper.Clamp(ScreenTL.X, Tools.ArenaBounds.Left, Tools.ArenaBounds.Right - Tools.screen.Width / 2f);
-            ScreenTL.Y = MathHelper.Clamp(ScreenTL.Y, Tools.ArenaBounds.Top, Tools.ArenaBounds.Bottom - Tools.screen.Height / 2);
-            Vector2 trueMousePos = Mouse.GetState().Position.ToVector2() + ScreenTL;
+            cannon.active = Mouse.GetState().LeftButton == ButtonState.Pressed && canControleShooting;
 
+            cannon.Update(basePosition, baseRotation, Tools.TrueMousePos);
 
-            cannon.Update(basePosition, baseRotation, trueMousePos);
-
-            if (kb.IsKeyDown(Keys.D8))
+            if (kb.IsKeyDown(Keys.D1))
+            {
+                cannon = new TierOneCannon(Owner.Player, Stage.Player, basePosition, baseRotation);
+                canControleShooting = true;
+            }
+            if (kb.IsKeyDown(Keys.D2))
+            {
+                cannon = new MineDroperCannon(Owner.Player, Stage.Player, basePosition, baseRotation);
+                canControleShooting = true;
+            }
+            if (kb.IsKeyDown(Keys.D3))
+            {
+                cannon = new TierFourCannon(Owner.Player, Stage.Player, basePosition, baseRotation);
+                canControleShooting = false;
+            }
+            if (kb.IsKeyDown(Keys.D4))
             {
                 cannon = new BurstCannon(Owner.Player, Stage.Player, basePosition, baseRotation);
-                //cannon = new TierOneCannon(Owner.Player, Stage.Player, basePosition, baseRotation);
+                canControleShooting = true;
             }
+            
         }
 
         private void MoveTank(KeyboardState kb)
@@ -102,7 +120,23 @@ namespace ISU_ButTanksThisTime
         }
         public override void Collide(object collided)
         {
-            
+            switch (collided)
+            {
+                case Bullet _:
+                    Bullet bullet = collided as Bullet;
+                    if (bullet.bulletOwner == Owner.Enemie)
+                    {
+                        health -= 25;
+                    }
+                    break;
+                case BomberEnemie _:
+                    //Tank tank = collided as BomberEnemie;
+                    health = 25;
+                    break;
+                case LandMine _:
+                    health = 0;
+                    break;
+            }
         }
         public Vector2 GetBasePosition() => basePosition;
         public Vector2 GetCannonPosition() => cannon.GetPosition();
@@ -129,7 +163,7 @@ namespace ISU_ButTanksThisTime
             if ((basePosition.X < obstical.Left || basePosition.X > obstical.Right) &&
                 (basePosition.Y < obstical.Top || basePosition.Y > obstical.Bottom))
             {
-                processX = Tools.rnd.Next(0, 10000) < 5000;
+                processX = Tools.Rnd.Next(0, 10000) < 5000;
                 processY = !processX;
             }
 

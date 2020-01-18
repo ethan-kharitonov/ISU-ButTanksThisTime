@@ -28,7 +28,7 @@ namespace ISU_ButTanksThisTime
         {
             graphics.PreferredBackBufferWidth = 1050;
             graphics.PreferredBackBufferHeight = 576;
-            IsMouseVisible = true; ;
+            IsMouseVisible = false;
             graphics.ApplyChanges();
 
             base.Initialize();
@@ -37,8 +37,8 @@ namespace ISU_ButTanksThisTime
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            Tools.screen = GraphicsDevice.Viewport.Bounds;
-            Tools.graphics = GraphicsDevice;
+            Tools.Screen = GraphicsDevice.Viewport.Bounds;
+            Tools.Graphics = GraphicsDevice;
             Tools.Content = Content;
             GameScene.LoadContent();
 
@@ -63,7 +63,7 @@ namespace ISU_ButTanksThisTime
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            Tools.gameTime = gameTime;
+            Tools.GameTime = gameTime;
             GameScene.Update();
 
             base.Update(gameTime);

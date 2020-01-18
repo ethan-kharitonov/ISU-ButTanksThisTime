@@ -58,14 +58,15 @@ namespace ISU_ButTanksThisTime
 
     public static class Tools
     {
-        public static Rectangle screen;
-        public static Random rnd = new Random();
+        public static Rectangle Screen;
+        public static Random Rnd = new Random();
         public const int ROUND_PRECISION = 3;
         public static Rectangle ArenaBounds;
-        public static GameTime gameTime;
+        public static GameTime GameTime;
         public static Texture2D RedSquare;
         public static ContentManager Content;
-        public static GraphicsDevice graphics;
+        public static GraphicsDevice Graphics;
+        public static Vector2 TrueMousePos;
         public static float ApproachValue(float current, float target, float speed)
         {
             if (current < target)

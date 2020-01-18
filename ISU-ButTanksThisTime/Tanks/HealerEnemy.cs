@@ -13,11 +13,16 @@ namespace ISU_ButTanksThisTime
     {
         private readonly Texture2D healArea;
 
-        private const int HEAL_RADUIS = 200;
+        private static readonly int[] HEAL_RADUIS_OPTIONS = { 250, 350, 500 };
+        private static readonly int[] SPEED = { 3, 4, 6 };
+        private static readonly int[] ROTATION_SPEED = { 5, 6, 7 };
+        private static readonly int[] HEALTH = { 100, 150, 200 };
+
+        private readonly int healRaduis;
 
         private List<Vector2> path = new List<Vector2>();
         private int targetPoint = 0;
-        public HealerEnemy(Vector2 position, float rotation, Stage stage, List<Vector2> path) : base(position, stage, 0, rotation)
+        public HealerEnemy(Vector2 position, float rotation, Stage stage, List<Vector2> path) : base(position, stage, 0, SPEED[(int)stage], ROTATION_SPEED[(int)stage], HEALTH[(int)stage], rotation)
         {
             baseImg = Tools.Content.Load<Texture2D>("Images/Sprites/Tanks/Healer/HP" + ((int)stage + 1));
 
@@ -29,6 +34,8 @@ namespace ISU_ButTanksThisTime
             healArea = Tools.Content.Load<Texture2D>("Images/Sprites/Effects/Light_02");
 
             this.path = path;
+
+            healRaduis = HEAL_RADUIS_OPTIONS[(int)stage];
         }
 
         public override bool Update(Vector2 NA)
@@ -44,9 +51,9 @@ namespace ISU_ButTanksThisTime
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            if(health > 0)
+            if (health > 0)
             {
-                Rectangle healBox = new Rectangle((int)basePosition.X, (int)basePosition.Y, 2 * HEAL_RADUIS, 2 * HEAL_RADUIS);
+                Rectangle healBox = new Rectangle((int)basePosition.X, (int)basePosition.Y, 2 * healRaduis, 2 * healRaduis);
                 spriteBatch.Draw(healArea, healBox, null, Color.White, 0, new Vector2(healArea.Width / 2f, healArea.Height / 2f), SpriteEffects.None, 0);
             }
             base.Draw(spriteBatch);

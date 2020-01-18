@@ -11,7 +11,7 @@ namespace ISU_ButTanksThisTime
     class BurstCannon : Cannon
     {
         private static readonly int[] fireRate = { 200, 150, 100, 60 };
-        private static readonly int[] rotationSpeed = { Tank.ROTATION_SPEED, 1000};
+        private static readonly int[] rotationSpeed = { 4, 1000};
         private static readonly int[] burstRate = { 3500, 3000, 2000, 1000, 1000};
         private static readonly int[] burstLength = { 300, 500, 700, 800, 1000 };
 
@@ -38,27 +38,28 @@ namespace ISU_ButTanksThisTime
 
         public override void Update(Vector2 basePos, float baseRotation, Vector2 target)
         {
+            //start timer for shooting period
             if (active && !inBurst)
             {
                 burstDuration.Reset();
                 inBurst = true;
             }
 
-            if (!burstDuration.IsTimeUp(Tools.gameTime))
+            if (!burstDuration.IsTimeUp(Tools.GameTime))
             {
                 active = true;
             }
 
-            if (inBurst && burstDuration.IsTimeUp(Tools.gameTime))
+            //if shooting is done but still inBurst start timer for reloading
+            if (inBurst && burstDuration.IsTimeUp(Tools.GameTime))
             {
                 active = false;
-                if (timeBtwnBursts.IsTimeUp(Tools.gameTime))
+                if (timeBtwnBursts.IsTimeUp(Tools.GameTime))
                 {
                     inBurst = false;
                     timeBtwnBursts.Reset();
                 }
             }
-
 
             base.Update(basePos, baseRotation, target);
         }

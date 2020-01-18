@@ -31,8 +31,8 @@ namespace ISU_ButTanksThisTime
                 zoom -= 0.01f;
             }
 
-            target.X = MathHelper.Clamp(target.X, Tools.ArenaBounds.Left + Tools.screen.Width / 2, Tools.ArenaBounds.Right - Tools.screen.Width / 2);
-            target.Y = MathHelper.Clamp(target.Y, Tools.ArenaBounds.Top + Tools.screen.Height / 2, Tools.ArenaBounds.Bottom - Tools.screen.Height / 2);
+            target.X = MathHelper.Clamp(target.X, Tools.ArenaBounds.Left + Tools.Screen.Width / 2, Tools.ArenaBounds.Right - Tools.Screen.Width / 2);
+            target.Y = MathHelper.Clamp(target.Y, Tools.ArenaBounds.Top + Tools.Screen.Height / 2, Tools.ArenaBounds.Bottom - Tools.Screen.Height / 2);
 
             transforme = Matrix.CreateTranslation(new Vector3(-target.X, -target.Y, 0)) * Matrix.CreateScale(new Vector3(zoom, zoom, 0)) * Matrix.CreateTranslation(new Vector3(viewport.Width / 2, viewport.Height / 2, 0));
 

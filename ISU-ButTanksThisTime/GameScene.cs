@@ -50,25 +50,38 @@ namespace ISU_ButTanksThisTime
         private static Camera camera;
 
         private static Tank[,] combos = new Tank[6, 6];
-        
+
+        private static Texture2D crossHairs;
+
+        private static Timer freezeTimer = new Timer(4000);
+        private static bool freeze = false;
+        private static Texture2D frozenScreen;
+
+
+        //Inventory variables
+        private static List<Item> itemsOnMap = new List<Item>();
+        private static List<Item> items = new List<Item>();
+        private static Inventory inventory = new Inventory();
+
         public static void LoadContent()
         {
-            camera = new Camera(Tools.graphics.Viewport);
+            camera = new Camera(Tools.Graphics.Viewport);
 
             //Load All Images//
             backgroundImg = Tools.Content.Load<Texture2D>("Images/Backgrounds/bg");
             bulletImg = Tools.Content.Load<Texture2D>("Images/Sprites/Bullets/Medium_Shell");
             barrelImg = Tools.Content.Load<Texture2D>("Images/Sprites/Terrain/Container_B");
+            crossHairs = Tools.Content.Load<Texture2D>("Images/Sprites/Crosshairs/crosshair068");
             ///////////////////
 
-            int arenaXPos = -(ARENA_WIDTH / 2) * backgroundImg.Width + Tools.screen.Center.X - backgroundImg.Width / 2;
-            int arenaYPos = -ARENA_HEIGHT / 2 * backgroundImg.Height + Tools.screen.Center.Y - backgroundImg.Height / 2;
+            int arenaXPos = -(ARENA_WIDTH / 2) * backgroundImg.Width + Tools.Screen.Center.X - backgroundImg.Width / 2;
+            int arenaYPos = -ARENA_HEIGHT / 2 * backgroundImg.Height + Tools.Screen.Center.Y - backgroundImg.Height / 2;
             int arenaWidth = ARENA_WIDTH * backgroundImg.Width;
             int arenaHeight = ARENA_HEIGHT * backgroundImg.Height;
 
             Tools.ArenaBounds = new Rectangle(arenaXPos, arenaYPos, arenaWidth, arenaHeight);
 
-            player = new Player(Tools.screen.Center.ToVector2());
+            player = new Player(Tools.Screen.Center.ToVector2());
             barrelBox = new Rectangle(100, 100, barrelImg.Width, barrelImg.Height);
             LoadPath();
 
@@ -93,17 +106,38 @@ namespace ISU_ButTanksThisTime
             combos[(int)TankType.RotateShooter, (int)TankType.BasicPath] = new BurstEnemie(Vector2.Zero, 0, Stage.Low);
             combos[(int)TankType.RotateShooter, (int)TankType.Bomber] = new TierTwoEnemie(Vector2.Zero, 0, Stage.Low);
 
+            frozenScreen = new Texture2D(Tools.Graphics, Tools.ArenaBounds.Width, Tools.ArenaBounds.Height);
+
+            Color[] data = new Color[Tools.ArenaBounds.Width * Tools.ArenaBounds.Height];
+            for (int i = 0; i < data.Length; ++i) 
+            {
+                data[i] = Color.LightGray;
+            } 
+            frozenScreen.SetData(data);
+
         }
 
         public static void Update()
         {
-            player.Update(Vector2.Zero);
             camera.Update(player.GetPos());
 
-            UpdateMines();
-            UpdateEnemies();
-            UpdateBullets();
-            player.CollideWithObject(barrelBox);
+            Vector2 ScreenTL = player.GetPos() - Tools.Screen.Size.ToVector2() / 2;
+            ScreenTL.X = MathHelper.Clamp(ScreenTL.X, Tools.ArenaBounds.Left, Tools.ArenaBounds.Right - Tools.Screen.Width / 2f);
+            ScreenTL.Y = MathHelper.Clamp(ScreenTL.Y, Tools.ArenaBounds.Top, Tools.ArenaBounds.Bottom - Tools.Screen.Height / 2);
+            Tools.TrueMousePos = Mouse.GetState().Position.ToVector2() + ScreenTL;
+
+            inventory.Update();
+            player.Update(Vector2.Zero);
+            freeze = !freezeTimer.IsTimeUp(Tools.GameTime);
+            if (!freeze)
+            {
+                UpdateMines();
+                UpdateEnemies();
+                UpdateBullets();
+                UpdateItems();
+            }
+
+
         }
 
         public static void Draw(SpriteBatch spriteBatch)
@@ -114,20 +148,21 @@ namespace ISU_ButTanksThisTime
             {
                 for (int c = -ARENA_HEIGHT / 2; c < ARENA_HEIGHT / 2; ++c)
                 {
-                    Rectangle bgBpx = new Rectangle(r * backgroundImg.Width + Tools.screen.Center.X, c * backgroundImg.Height + Tools.screen.Center.Y, backgroundImg.Width, backgroundImg.Height);
+                    Rectangle bgBpx = new Rectangle(r * backgroundImg.Width + Tools.Screen.Center.X, c * backgroundImg.Height + Tools.Screen.Center.Y, backgroundImg.Width, backgroundImg.Height);
                     spriteBatch.Draw(backgroundImg, bgBpx, null, Color.White, 0, new Vector2(backgroundImg.Width / 2, backgroundImg.Height / 2), SpriteEffects.None, 1f);
                 }
             }
             spriteBatch.Draw(barrelImg, barrelBox, Color.White);
 
-            foreach (Bullet bullet in bullets)
-            {
-                bullet.Draw(spriteBatch);
-            }
 
             foreach(LandMine mine in landmines)
             {
                 mine.Draw(spriteBatch);
+            }
+
+            foreach(Item item in itemsOnMap)
+            {
+                item.Draw(spriteBatch);
             }
 
             foreach (Tank enemie in enemies)
@@ -143,8 +178,20 @@ namespace ISU_ButTanksThisTime
             spriteBatch.Draw(Tools.RedSquare, obsticalBox.BotomRight, Color.White);
 
 
+
+            foreach (Bullet bullet in bullets)
+            {
+                bullet.Draw(spriteBatch);
+            }
+            if (freeze)
+            {
+                spriteBatch.Draw(frozenScreen, Tools.ArenaBounds, Color.DarkRed * 0.3f);
+            }
             player.Draw(spriteBatch);
+            spriteBatch.Draw(crossHairs, Tools.TrueMousePos, null, Color.White, 0, new Vector2(crossHairs.Width * 0.5f, crossHairs.Height * 0.5f), 0.25f, SpriteEffects.None, 10);
             spriteBatch.End();
+
+            inventory.Draw(spriteBatch);
         }
 
         private static void LoadPath()
@@ -189,21 +236,26 @@ namespace ISU_ButTanksThisTime
                 }
             }
         }
+
         public static void AddBullet(Bullet bullet)
         {
+            if (freeze)
+            {
+                return;
+            }
             bullets.Add(bullet);
         }
 
         private static void UpdateMines()
         {
             //Create mines
-            if (landMineTimer.IsTimeUp(Tools.gameTime) && Keyboard.GetState().IsKeyDown(Keys.Q))
+            if (landMineTimer.IsTimeUp(Tools.GameTime) && Keyboard.GetState().IsKeyDown(Keys.Q))
             {
                 landMineTimer.Reset();
                 landmines.Add(new RedMine(player.GetPos()));
             }
 
-            if (landMineTimer.IsTimeUp(Tools.gameTime) && Keyboard.GetState().IsKeyDown(Keys.E))
+            if (landMineTimer.IsTimeUp(Tools.GameTime) && Keyboard.GetState().IsKeyDown(Keys.E))
             {
                 landMineTimer.Reset();
                 landmines.Add(new BlueMine(player.GetPos()));
@@ -252,16 +304,16 @@ namespace ISU_ButTanksThisTime
         private static void UpdateEnemies()
         {
             //Spawn Enemies
-            if (enemieTimer.IsTimeUp(Tools.gameTime) && enemies.Count < 20)
+            if (enemieTimer.IsTimeUp(Tools.GameTime) && enemies.Count < 20)
             {
                 enemieTimer.Reset();
                 enemies.Add(new TierOneEnemie(pathPoints[0][0], pathPoints[0], Stage.Low, 0));
             }
 
-            if (bomberEnemieTimer.IsTimeUp(Tools.gameTime))
+            if (bomberEnemieTimer.IsTimeUp(Tools.GameTime))
             {
                 bomberEnemieTimer.Reset();
-                float angle = MathHelper.ToRadians(Tools.rnd.Next(0, 361));
+                float angle = MathHelper.ToRadians(Tools.Rnd.Next(0, 361));
                 Vector2 pos = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * ENEMIE_SPAWN_DIS;
                 pos = player.GetPos() + pos;
 
@@ -353,6 +405,10 @@ namespace ISU_ButTanksThisTime
             {
                 foreach (Bullet bullet in bullets)
                 {
+                    if (bullet.IsDead)
+                    {
+                        continue;
+                    }
                     if (bullet.bulletOwner == Owner.Player && Tools.BoxBoxCollision(enemies[i].GetRotatedRectangle(), bullet.GetRotatedRectangle()) != null)
                     {
                         enemies[i].Collide(bullet);
@@ -361,6 +417,20 @@ namespace ISU_ButTanksThisTime
                 }
             }
 
+        }
+
+        private static void UpdateItems()
+        {
+            for (int i = 0; i < itemsOnMap.Count; i++)
+            {
+                Item item = itemsOnMap[i];
+                if (Tools.BoxBoxCollision(item.Box, player.GetRotatedRectangle()) != null)
+                {
+                    itemsOnMap.RemoveAt(i);
+                    --i;
+                    inventory.AddItem(item);
+                }
+            }
         }
 
         public static void AddLandMine(LandMine mine)
@@ -375,6 +445,16 @@ namespace ISU_ButTanksThisTime
             stage = (Stage)Math.Min((int)stage, (int)(Stage.Player - 1));
 
             return tank1.Clone(newPos, tank2.GetRotation(), stage);
+        }
+
+        public static void AddItem(Item item)
+        {
+            itemsOnMap.Add(item);
+        }
+
+        public static void FreezeGame()
+        {
+            freezeTimer.Reset();
         }
     }
 }

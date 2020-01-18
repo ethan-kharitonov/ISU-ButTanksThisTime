@@ -17,7 +17,7 @@ namespace ISU_ButTanksThisTime
         private const int BAR_LENGTH = 78;
         private Rectangle healthBox;
 
-        public readonly int MAX_HEALTH;
+        public readonly float MAX_HEALTH;
 
         private Vector2 position;
         public HealthBar(int startHealth)
@@ -25,7 +25,7 @@ namespace ISU_ButTanksThisTime
             MAX_HEALTH = startHealth;
             barImg = Tools.Content.Load<Texture2D>("Images/Sprites/UI/HealthBar");
 
-            healthImg = new Texture2D(Tools.graphics, (int)(barImg.Width * IMG_SCALE_FACTOR), (int)(barImg.Height * IMG_SCALE_FACTOR));
+            healthImg = new Texture2D(Tools.Graphics, (int)(barImg.Width * IMG_SCALE_FACTOR), (int)(barImg.Height * IMG_SCALE_FACTOR));
 
             Color[] data = new Color[(int)(barImg.Width * IMG_SCALE_FACTOR) * (int)(barImg.Height * IMG_SCALE_FACTOR)];
             for (int i = 0; i < data.Length; ++i)
@@ -37,12 +37,11 @@ namespace ISU_ButTanksThisTime
 
         }
 
-        public void Update(Vector2 tankPos, int health)
+        public void Update(Vector2 tankPos, float health)
         {
             position = tankPos - new Vector2(0, DIS_ABOVE_TANK);
 
-            int healthPercent = (MAX_HEALTH / 100) * health;
-            healthBox = new Rectangle((int)(position.X - barImg.Width * 0.5f * IMG_SCALE_FACTOR + 3), (int)(position.Y - barImg.Height * 0.5 * IMG_SCALE_FACTOR + 3), (int)(BAR_LENGTH/100.0 * healthPercent), (int)(barImg.Height * IMG_SCALE_FACTOR) - 4);
+            healthBox = new Rectangle((int)(position.X - barImg.Width * 0.5f * IMG_SCALE_FACTOR + 3), (int)(position.Y - barImg.Height * 0.5 * IMG_SCALE_FACTOR + 3), (int)(health/MAX_HEALTH * BAR_LENGTH), (int)(barImg.Height * IMG_SCALE_FACTOR) - 4);
         }
 
         public void Draw(SpriteBatch spriteBatch)

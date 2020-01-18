@@ -23,7 +23,7 @@ namespace ISU_ButTanksThisTime
         }
         public bool Update()
         {
-            animations[currentAnim].Update(Tools.gameTime);
+            animations[currentAnim].Update(Tools.GameTime);
             if(currentAnim == 1 && !animations[currentAnim].isAnimating)
             {
                 currentAnim = 2;

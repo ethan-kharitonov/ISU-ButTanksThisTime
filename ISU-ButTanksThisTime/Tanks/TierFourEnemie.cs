@@ -12,17 +12,18 @@ namespace ISU_ButTanksThisTime
     class TierFourEnemie : Tank
     {
 
-        private Timer rotateCannonTimer = new Timer(500);
+        private static readonly int[] SPEED = { 3, 4, 6 };
+        private static readonly int[] ROTATION_SPEED = { 5, 6, 7 };
+        private static readonly int[] HEALTH = { 100, 200, 300 };
 
         private List<Vector2> path = new List<Vector2>();
         private int targetPoint = 0;
 
-        private int cannonRotation = 0;
-        public TierFourEnemie(Vector2 position, float rotation, Stage stage, List<Vector2> path) : base(position, stage, rotation)
+        public TierFourEnemie(Vector2 position, float rotation, Stage stage, List<Vector2> path) : base(position, stage, 0, SPEED[(int)stage], ROTATION_SPEED[(int)stage], HEALTH[(int)stage], rotation)
         {
             baseImg = Tools.Content.Load<Texture2D>("Images/Sprites/Tanks/TierFour/T4P" + ((int)stage + 1));
 
-            cannon = new TierFourCannon(Owner.Enemie, Stage.Low, basePosition, baseRotation);
+            cannon = new TierFourCannon(Owner.Enemie, stage, basePosition, baseRotation);
 
             Texture2D explosionSpritesheet = Tools.Content.Load<Texture2D>("Images/Sprites/Effects/spritesheet");
             explosionAnimation = new Animation(explosionSpritesheet, 3, 3, 9, 1, 1, 1, 2, basePosition, 0.3f, true);
@@ -32,19 +33,6 @@ namespace ISU_ButTanksThisTime
 
         public override bool Update(Vector2 NA)
         {
-            /*Vector2 target = new Vector2();
-            cannon.active = false;
-            if (rotateCannonTimer.IsTimeUp(Tools.gameTime))
-            {
-                cannonRotation += 45;
-                float angle = MathHelper.ToRadians(baseRotation + cannonRotation);
-                target = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
-                target = basePosition + target;
-                cannon.active = true;
-                rotateCannonTimer.Reset();
-            }
-*/
-            
             float distanceSquared = (path[targetPoint] - basePosition).LengthSquared();
             if (distanceSquared < Math.Pow(speed, 2))
             {

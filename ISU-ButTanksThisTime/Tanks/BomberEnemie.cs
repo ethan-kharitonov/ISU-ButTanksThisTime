@@ -11,7 +11,11 @@ namespace ISU_ButTanksThisTime
 {
     class BomberEnemie :Tank
     {
-        public BomberEnemie(Vector2 position, float rotation, Stage stage) : base(position, stage, 0, rotation)
+        private static readonly int[] SPEED = { 3, 4, 6 };
+        private static readonly int[] ROTATION_SPEED = { 5, 6, 7 };
+        private static readonly int[] HEALTH = { 100, 150, 200 };
+
+        public BomberEnemie(Vector2 position, float rotation, Stage stage) : base(position, stage, 0, SPEED[(int)stage], ROTATION_SPEED[(int)stage], HEALTH[(int)stage], rotation)
         {
 
             baseImg = Tools.Content.Load<Texture2D>("Images/Sprites/Tanks/BomberEnemie/BP" + ((int)stage + 1));
@@ -40,6 +44,7 @@ namespace ISU_ButTanksThisTime
                     break;
                 case Player _:
                     health = 0;
+                    killed = false;
                     break;
                 case LandMine _:
                     health = 0;
