@@ -17,6 +17,13 @@ namespace ISU_ButTanksThisTime
         private readonly Bullet bullet;
         private readonly Texture2D img;
 
+        public static readonly CannonInfo Info;
+        static MineDroperCannon()
+        {
+            Texture2D cannonImg = Tools.Content.Load<Texture2D>("Images/Sprites/Cannons/MineDroper/M4");
+            Info = new CannonInfo(500, 5, cannonImg, FireBullet.Info, null, null);
+        }
+
         public MineDroperCannon(Owner owner, Stage stage, Vector2 position, float rotation) : base(fireRate[(int)stage], rotationSpeed[(int)stage], ACTIVE, position, rotation)
         {
             img = Tools.Content.Load<Texture2D>("Images/Sprites/Cannons/MineDroper/M" + ((int)stage + 1));
@@ -25,6 +32,6 @@ namespace ISU_ButTanksThisTime
 
         protected override Bullet Bullet => bullet;
 
-        protected override Texture2D Img => img;
+        public override Texture2D Img => img;
     }
 }

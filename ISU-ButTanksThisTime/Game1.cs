@@ -18,6 +18,8 @@ namespace ISU_ButTanksThisTime
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
 
+        private bool inShop;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -64,15 +66,34 @@ namespace ISU_ButTanksThisTime
                 Exit();
 
             Tools.GameTime = gameTime;
-            GameScene.Update();
-
+            if (!Keyboard.GetState().IsKeyDown(Keys.Space))
+            {
+                inShop = true;
+            }
+            if (inShop)
+            {
+                
+            }
+            else
+            {
+                GameScene.Update();
+            }
+            
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            GameScene.Draw(spriteBatch);
+
+            if (inShop)
+            {
+                Shop.Draw(spriteBatch);
+            }
+            else
+            {
+                GameScene.Draw(spriteBatch);
+            }
 
             base.Draw(gameTime);
         }

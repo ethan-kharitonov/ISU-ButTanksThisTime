@@ -69,7 +69,6 @@ namespace ISU_ButTanksThisTime
                 cannon = new BurstCannon(Owner.Player, Stage.Player, basePosition, baseRotation);
                 canControleShooting = true;
             }
-            
         }
 
         private void MoveTank(KeyboardState kb)

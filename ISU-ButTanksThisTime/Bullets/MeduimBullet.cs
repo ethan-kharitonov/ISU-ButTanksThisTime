@@ -12,12 +12,19 @@ namespace ISU_ButTanksThisTime
     class MeduimBullet : Bullet
     {
         private readonly float scaleFactor;
-
         private readonly Animation exAnim;
+        private readonly static Texture2D bulletImg;
+
+        public static readonly BulletInfo Info;
+        static MeduimBullet()
+        {
+            bulletImg = Tools.Content.Load<Texture2D>("Images/Sprites/Bullets/Medium_Shell");
+            Info = new BulletInfo(bulletImg, 0);
+        }
 
         public MeduimBullet(Vector2 position, float rotation, float scaleFactor, Owner bulletOwner) : base(position, rotation, scaleFactor, bulletOwner)
         {
-            img = Tools.Content.Load<Texture2D>("Images/Sprites/Bullets/Medium_Shell");
+            img = bulletImg;
             this.scaleFactor = scaleFactor;
 
             Texture2D exSprite = Tools.Content.Load<Texture2D>("Images/Sprites/Effects/BulletExplode");

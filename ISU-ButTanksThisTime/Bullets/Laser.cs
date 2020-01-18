@@ -13,10 +13,18 @@ namespace ISU_ButTanksThisTime
     {
         private readonly float scaleFactor;
         private readonly Animation exAnim;
+        private readonly static Texture2D bulletImg;
+
+        public static readonly BulletInfo Info;
+        static Laser()
+        {
+            bulletImg = Tools.Content.Load<Texture2D>("Images/Sprites/Bullets/Laser");
+            Info = new BulletInfo(bulletImg, 0);
+        }
 
         public Laser(Vector2 position, float rotation, float scaleFactor, Owner owner) : base(position, rotation, scaleFactor, owner)
         {
-            img = Tools.Content.Load<Texture2D>("Images/Sprites/Bullets/Laser");
+            img = bulletImg;
             this.scaleFactor = scaleFactor;
 
             Texture2D exSprite = Tools.Content.Load<Texture2D>("Images/Sprites/Effects/LaserExplode");

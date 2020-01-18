@@ -47,7 +47,7 @@ namespace ISU_ButTanksThisTime
         }
 
         protected abstract Bullet Bullet { get; }
-        protected abstract Texture2D Img { get; }
+        public abstract Texture2D Img { get; }
 
         public Vector2 GetPosition() => pos;
         public float GetRotation() => rotation;

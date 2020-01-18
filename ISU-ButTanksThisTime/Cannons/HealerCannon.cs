@@ -22,6 +22,6 @@ namespace ISU_ButTanksThisTime
 
         protected override Bullet Bullet => null;
 
-        protected override Texture2D Img => img;
+        public override Texture2D Img => img;
     }
 }

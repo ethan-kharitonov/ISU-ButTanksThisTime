@@ -60,7 +60,6 @@ namespace ISU_ButTanksThisTime
 
         //Inventory variables
         private static List<Item> itemsOnMap = new List<Item>();
-        private static List<Item> items = new List<Item>();
         private static Inventory inventory = new Inventory();
 
         public static void LoadContent()
@@ -82,8 +81,8 @@ namespace ISU_ButTanksThisTime
             Tools.ArenaBounds = new Rectangle(arenaXPos, arenaYPos, arenaWidth, arenaHeight);
 
             player = new Player(Tools.Screen.Center.ToVector2());
-            barrelBox = new Rectangle(100, 100, barrelImg.Width, barrelImg.Height);
             LoadPath();
+            barrelBox = new Rectangle(Tools.ArenaBounds.Left, Tools.ArenaBounds.Top, barrelImg.Width, barrelImg.Height);
 
             enemies.Add(new TierTwoEnemie(new Vector2(0, 0), 0, Stage.Low));
             enemies.Add(new BurstEnemie(new Vector2(100, 300), 0, Stage.Low));
@@ -152,7 +151,6 @@ namespace ISU_ButTanksThisTime
                     spriteBatch.Draw(backgroundImg, bgBpx, null, Color.White, 0, new Vector2(backgroundImg.Width / 2, backgroundImg.Height / 2), SpriteEffects.None, 1f);
                 }
             }
-            spriteBatch.Draw(barrelImg, barrelBox, Color.White);
 
 
             foreach(LandMine mine in landmines)
@@ -183,6 +181,9 @@ namespace ISU_ButTanksThisTime
             {
                 bullet.Draw(spriteBatch);
             }
+
+            spriteBatch.Draw(barrelImg, barrelBox, null, Color.White, MathHelper.ToRadians(45), new Vector2(barrelImg.Width * 0.5f, barrelImg.Height * 0.5f), SpriteEffects.None, 1);
+            
             if (freeze)
             {
                 spriteBatch.Draw(frozenScreen, Tools.ArenaBounds, Color.DarkRed * 0.3f);

@@ -23,6 +23,14 @@ namespace ISU_ButTanksThisTime
 
         bool inBurst = false;
 
+        public static readonly CannonInfo Info;
+
+        static BurstCannon()
+        {
+            Texture2D cannonImg = Tools.Content.Load<Texture2D>("Images/Sprites/Cannons/TierThree/T3P1");
+            Info = new CannonInfo(60, 1000, cannonImg, Laser.Info, 1000, 1000);
+        }
+
 
         public BurstCannon(Owner owner, Stage stage, Vector2 position, float rotation) : base(fireRate[(int)stage], rotationSpeed[(int)owner], true, position, rotation)
         {
@@ -66,6 +74,7 @@ namespace ISU_ButTanksThisTime
 
         protected override Bullet Bullet => bullet;
 
-        protected override Texture2D Img => img;
+        public override Texture2D Img => img;
+
     }
 }

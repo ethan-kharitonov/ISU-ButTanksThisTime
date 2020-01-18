@@ -12,10 +12,18 @@ namespace ISU_ButTanksThisTime
     class FireBullet : Bullet
     {
         private Animation exAnim;
+        private static Texture2D bulletImg;
+
+        public static readonly BulletInfo Info;
+        static FireBullet()
+        {
+            bulletImg = Tools.Content.Load<Texture2D>("Images/Sprites/Bullets/FireBullet");
+            Info = new BulletInfo(bulletImg, 0);
+        }
 
         public FireBullet(Vector2 position, float rotation, Owner owner) : base(position, rotation, Tank.IMG_SCALE_FACTOR, owner)
         {
-            img = Tools.Content.Load<Texture2D>("Images/Sprites/Bullets/FireBullet");
+            img = bulletImg;
 
             Texture2D exSprite = Tools.Content.Load<Texture2D>("Images/Sprites/Effects/FireBulletHit");
             exAnim = new Animation(exSprite, 4, 1, 4, 0, 0, Animation.ANIMATE_ONCE, 2, Vector2.Zero, Tank.IMG_SCALE_FACTOR, true);

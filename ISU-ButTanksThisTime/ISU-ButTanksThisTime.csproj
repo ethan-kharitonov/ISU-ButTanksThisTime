@@ -72,9 +72,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bullets\BulletInfo.cs" />
     <Compile Include="Bullets\FireBullet.cs" />
     <Compile Include="Bullets\Laser.cs" />
     <Compile Include="Bullets\Plasma.cs" />
+    <Compile Include="Cannons\CannonInfo.cs" />
     <Compile Include="Cannons\HealerCannon.cs" />
     <Compile Include="Cannons\MineDroperCannon.cs" />
     <Compile Include="Cannons\TierFourCannon.cs" />
@@ -88,6 +90,7 @@
     <Compile Include="Inventory.cs" />
     <Compile Include="LandMines\BlueMine.cs" />
     <Compile Include="Shapes\Circle.cs" />
+    <Compile Include="Shop.cs" />
     <Compile Include="Tanks\BomberEnemie.cs" />
     <Compile Include="Bullets\Bullet.cs" />
     <Compile Include="Camera.cs" />

@@ -11,6 +11,7 @@ namespace ISU_ButTanksThisTime
 {
     class TierFourCannon : Cannon
     {
+
         private static readonly int[] fireRate = { 0, 75};
         private static readonly int[] rotationSpeed = { 100, 1000};
 
@@ -20,6 +21,13 @@ namespace ISU_ButTanksThisTime
         private Timer rotateTimer = new Timer(1000);
         private const int ROTATION_INC = 45;
         private int aditinalRotation = 0;
+
+        public static readonly CannonInfo Info;
+        static TierFourCannon()
+        {
+            Texture2D cannonImg = Tools.Content.Load<Texture2D>("Images/Sprites/Cannons/TierFour/T4P4");
+            Info = new CannonInfo(75, 1000, cannonImg, Plasma.Info, null, null);
+        }
         public TierFourCannon(Owner owner, Stage stage, Vector2 position, float rotation) : base(fireRate[(int)owner], rotationSpeed[(int)owner], true, position, rotation)
         {
             img = Tools.Content.Load<Texture2D>("Images/Sprites/Cannons/TierFour/T4P" + ((int)stage + 1));
@@ -46,6 +54,6 @@ namespace ISU_ButTanksThisTime
 
         protected override Bullet Bullet => bullet;
 
-        protected override Texture2D Img => img;
+        public override Texture2D Img => img;
     }
 }
