@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,22 +10,17 @@ namespace ISU_ButTanksThisTime
 {
     class BomberEnemieCannon : Cannon
     {
-        private const int FIRE_RATE = 1000;
-        private const int DAMEGE = 25;
+        private const int FIRE_RATE = 0;
         private const bool ACTIVE = false;
 
-        private readonly Texture2D[] stages = new Texture2D[3];
+        private readonly Texture2D img;
 
-
-        public BomberEnemieCannon(float disFromCentreBase, Stage stage) : base(FIRE_RATE, DAMEGE, ACTIVE, disFromCentreBase)
+        public BomberEnemieCannon(Stage stage, Vector2 position, float rotation) : base(FIRE_RATE, Tank.ROTATION_SPEED, ACTIVE, position, rotation)
         {
-            for (int i = 0; i < stages.Length; ++i)
-            {
-                stages[i] = Tools.Content.Load<Texture2D>("Images/Sprites/Cannons/Inactive/I" + (i + 1));
-            }
-
-            img = stages[(int)stage];
+            img = Tools.Content.Load<Texture2D>("Images/Sprites/Cannons/Inactive/I" + ((int)stage + 1));
         }
 
+        protected override Bullet Bullet => null;
+        protected override Texture2D Img => img;
     }
 }

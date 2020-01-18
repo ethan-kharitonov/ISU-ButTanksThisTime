@@ -1,0 +1,70 @@
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ISU_ButTanksThisTime
+{
+    class BurstCannon : Cannon
+    {
+        private static readonly int[] fireRate = { 200, 150, 100, 60 };
+        private static readonly int[] rotationSpeed = { Tank.ROTATION_SPEED, 1000};
+        private static readonly int[] burstRate = { 3500, 3000, 2000, 1000, 1000};
+        private static readonly int[] burstLength = { 300, 500, 700, 800, 1000 };
+
+        private readonly Timer timeBtwnBursts;
+        private readonly Timer burstDuration;
+
+        private readonly Bullet bullet;
+        private readonly Texture2D img;
+
+        bool inBurst = false;
+
+
+        public BurstCannon(Owner owner, Stage stage, Vector2 position, float rotation) : base(fireRate[(int)stage], rotationSpeed[(int)owner], true, position, rotation)
+        {
+            img = Tools.Content.Load<Texture2D>("Images/Sprites/Cannons/TierThree/T3P" + ((int)stage + 1));
+
+            bullet = new Laser(Vector2.Zero, 0, Tank.IMG_SCALE_FACTOR, owner);
+            
+            timeBtwnBursts = new Timer(burstRate[(int)stage]);
+            burstDuration = new Timer(burstLength[(int)stage]);
+
+
+        }
+
+        public override void Update(Vector2 basePos, float baseRotation, Vector2 target)
+        {
+            if (active && !inBurst)
+            {
+                burstDuration.Reset();
+                inBurst = true;
+            }
+
+            if (!burstDuration.IsTimeUp(Tools.gameTime))
+            {
+                active = true;
+            }
+
+            if (inBurst && burstDuration.IsTimeUp(Tools.gameTime))
+            {
+                active = false;
+                if (timeBtwnBursts.IsTimeUp(Tools.gameTime))
+                {
+                    inBurst = false;
+                    timeBtwnBursts.Reset();
+                }
+            }
+
+
+            base.Update(basePos, baseRotation, target);
+        }
+
+        protected override Bullet Bullet => bullet;
+
+        protected override Texture2D Img => img;
+    }
+}

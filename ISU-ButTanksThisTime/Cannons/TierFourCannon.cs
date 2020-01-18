@@ -11,18 +11,21 @@ namespace ISU_ButTanksThisTime
 {
     class TierFourCannon : Cannon
     {
-        private readonly Texture2D[] stages = new Texture2D[3];
+        private static readonly int[] fireRate = { 0, 75};
+        private static readonly int[] rotationSpeed = { 100, 1000};
 
-        public TierFourCannon(float disFromCentreBase, Owner owner, Stage stage) : base(0, 100, true, disFromCentreBase)
+
+        private readonly Bullet bullet;
+        private readonly Texture2D img;
+        public TierFourCannon(Owner owner, Stage stage, Vector2 position, float rotation) : base(fireRate[(int)owner], rotationSpeed[(int)owner], true, position, rotation)
         {
-            for (int i = 0; i < stages.Length - 1; ++i)
-            {
-                stages[i] = Tools.Content.Load<Texture2D>("Images/Sprites/Cannons/TierFour/T4P" + (i + 1));
-            }
+            img = Tools.Content.Load<Texture2D>("Images/Sprites/Cannons/TierFour/T4P" + ((int)stage + 1));
 
             bullet = new Plasma(Vector2.Zero, 0, owner);
-            img = stages[(int)stage];
         }
 
+        protected override Bullet Bullet => bullet;
+
+        protected override Texture2D Img => img;
     }
 }

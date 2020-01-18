@@ -18,7 +18,6 @@ namespace ISU_ButTanksThisTime
         public bool IsTimeUp(GameTime gameTime)
         {
             TimeLeft -= gameTime.ElapsedGameTime.Milliseconds;
-
             return TimeLeft <= 0;
         }
 

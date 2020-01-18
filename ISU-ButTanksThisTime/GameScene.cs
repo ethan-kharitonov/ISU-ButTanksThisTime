@@ -73,7 +73,7 @@ namespace ISU_ButTanksThisTime
             LoadPath();
 
             enemies.Add(new TierTwoEnemie(new Vector2(0, 0), 0, Stage.Low));
-            enemies.Add(new TierThreeEnemie(new Vector2(100, 300), 0, Stage.Low));
+            enemies.Add(new BurstEnemie(new Vector2(100, 300), 0, Stage.Low));
             enemies.Add(new TierFourEnemie(new Vector2(100, 500), 0, Stage.Low, pathPoints[1]));
 
             for(int i = 0; i < 5; ++i)
@@ -85,12 +85,12 @@ namespace ISU_ButTanksThisTime
             }
 
             combos[(int)TankType.BasicPath, (int)TankType.Bomber] = new HealerEnemy(Vector2.Zero, 0, Stage.Low, pathPoints[2]);
-            combos[(int)TankType.BasicPath, (int)TankType.RotateShooter] = new TierThreeEnemie(Vector2.Zero, 0, Stage.Low);
+            combos[(int)TankType.BasicPath, (int)TankType.RotateShooter] = new BurstEnemie(Vector2.Zero, 0, Stage.Low);
 
             combos[(int)TankType.Bomber, (int)TankType.BasicPath] = new HealerEnemy(Vector2.Zero, 0, Stage.Low, pathPoints[2]);
             combos[(int)TankType.Bomber, (int)TankType.RotateShooter] = new TierTwoEnemie(Vector2.Zero, 0, Stage.Low);
 
-            combos[(int)TankType.RotateShooter, (int)TankType.BasicPath] = new TierThreeEnemie(Vector2.Zero, 0, Stage.Low);
+            combos[(int)TankType.RotateShooter, (int)TankType.BasicPath] = new BurstEnemie(Vector2.Zero, 0, Stage.Low);
             combos[(int)TankType.RotateShooter, (int)TankType.Bomber] = new TierTwoEnemie(Vector2.Zero, 0, Stage.Low);
 
         }

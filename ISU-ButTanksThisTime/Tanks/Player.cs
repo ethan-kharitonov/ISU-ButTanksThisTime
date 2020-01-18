@@ -15,14 +15,10 @@ namespace ISU_ButTanksThisTime
         private const int MAX_SPEED = 10;
         private bool isKeyPressed = false;
 
-        //Cannon Variables
-        private const int CANNON_ROTATION_SPEED = 2;
-        private const float CANNON_DIS_FROM_CENTRE = 35 * IMG_SCALE_FACTOR;
-
         public Player(Vector2 position) : base(position, Stage.Player)
         {
             baseImg = Tools.Content.Load<Texture2D>("Images/Sprites/Tanks/TierOne/T1PP");
-            cannon = new TierOneCannon(CANNON_DIS_FROM_CENTRE, Owner.Player, Stage.Player);
+            cannon = new TierOneCannon(Owner.Player, Stage.Player, basePosition, baseRotation);
             basePosition = position;
 
             Texture2D explosionSpritesheet = Tools.Content.Load<Texture2D>("Images/Sprites/Effects/spritesheet");
@@ -32,21 +28,32 @@ namespace ISU_ButTanksThisTime
         public override bool Update(Vector2 NA)
         {
             var kb = Keyboard.GetState();
-            
+
             MoveTank(kb);
-
-            cannon.active = Mouse.GetState().LeftButton == ButtonState.Pressed;
-            Vector2 ScreenTL = basePosition - Tools.screen.Size.ToVector2() / 2;
-            ScreenTL.X = MathHelper.Clamp(ScreenTL.X, Tools.ArenaBounds.Left, Tools.ArenaBounds.Right);
-            ScreenTL.Y = MathHelper.Clamp(ScreenTL.Y, Tools.ArenaBounds.Top, Tools.ArenaBounds.Bottom);
-            Vector2 trueMousePos = Mouse.GetState().Position.ToVector2() + ScreenTL;
-
-
-            cannon.Update(basePosition, baseRotation, trueMousePos);
+            CannonUpdate(kb);
             bar.Update(basePosition, health);
 
             return false;
         }
+
+        private void CannonUpdate(KeyboardState kb)
+        {
+            cannon.active = Mouse.GetState().LeftButton == ButtonState.Pressed;
+            Vector2 ScreenTL = basePosition - Tools.screen.Size.ToVector2() / 2;
+            ScreenTL.X = MathHelper.Clamp(ScreenTL.X, Tools.ArenaBounds.Left, Tools.ArenaBounds.Right - Tools.screen.Width / 2f);
+            ScreenTL.Y = MathHelper.Clamp(ScreenTL.Y, Tools.ArenaBounds.Top, Tools.ArenaBounds.Bottom - Tools.screen.Height / 2);
+            Vector2 trueMousePos = Mouse.GetState().Position.ToVector2() + ScreenTL;
+
+
+            cannon.Update(basePosition, baseRotation, trueMousePos);
+
+            if (kb.IsKeyDown(Keys.D8))
+            {
+                cannon = new BurstCannon(Owner.Player, Stage.Player, basePosition, baseRotation);
+                //cannon = new TierOneCannon(Owner.Player, Stage.Player, basePosition, baseRotation);
+            }
+        }
+
         private void MoveTank(KeyboardState kb)
         {
             isKeyPressed = false;

@@ -11,22 +11,14 @@ namespace ISU_ButTanksThisTime
 {
     class TierTwoEnemie : Tank
     {
-        private const float CANNON_DIS_FROM_CENTRE = 35 * IMG_SCALE_FACTOR;
-
-        private readonly Texture2D[] stages = new Texture2D[3];
 
         private Vector2 target;
 
         public TierTwoEnemie(Vector2 position, float rotation, Stage stage) : base(position, stage, 0, rotation)
         {
-            for (int i = 0; i < stages.Length; ++i)
-            {
-                stages[i] = Tools.Content.Load<Texture2D>("Images/Sprites/Tanks/TierTwo/T2P" + (i + 1));
-            }
-            //stages[stages.Length - 1] = Tools.Content.Load<Texture2D>("Images/Sprites/Tanks/TierOne/T1PP");
+            baseImg = Tools.Content.Load<Texture2D>("Images/Sprites/Tanks/TierTwo/T2P" + ((int)stage + 1));
 
-            baseImg = stages[(int)stage];
-            cannon = new TierOneCannon(CANNON_DIS_FROM_CENTRE, Owner.Enemie, stage);
+            cannon = new TierOneCannon(Owner.Enemie, stage, basePosition, baseRotation);
 
             Texture2D explosionSpritesheet = Tools.Content.Load<Texture2D>("Images/Sprites/Effects/spritesheet");
             explosionAnimation = new Animation(explosionSpritesheet, 3, 3, 9, 1, 1, 1, 2, basePosition, 0.3f, true);
@@ -38,7 +30,7 @@ namespace ISU_ButTanksThisTime
         {
             if(basePosition == target)
             {
-                GameScene.AddLandMine(new BlueMine(basePosition - Dimensions/2f));
+                GameScene.AddLandMine(new RedMine(basePosition - Dimensions/2f));
                 target = SetTarget();
             }
             return base.Update(target);

@@ -1,60 +1,64 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ISU_ButTanksThisTime
 {
     abstract class Cannon
     {
-        protected Texture2D img;
-
         private Vector2 pos;
-        private readonly float disFromCentreBase;
-        private float rotation = 0;
+        private static readonly float disFromCentreBase = 35 * Tank.IMG_SCALE_FACTOR;
+        private float rotation;
 
         //Shooting Variables
         private readonly Timer shootTimer;
         public bool active;
-        protected Bullet bullet;
-        private const int ROTATE_SPEED = 3;
+        private readonly int ROTATE_SPEED;
 
-        public Cannon(int fireRate, int damage, bool active, float disFromCentreBase)
+
+        public Cannon(int fireRate, int rotationSpeed, bool active, Vector2 position, float rotation)
         {
             shootTimer = new Timer(fireRate);
-            this.disFromCentreBase = disFromCentreBase;
+            ROTATE_SPEED = rotationSpeed;
             this.active = active;
+            pos = CalcPos(position, rotation);
+            this.rotation = rotation;
         }
-
 
         public virtual void Update(Vector2 basePos, float baseRotation, Vector2 target)
         {
-
-            pos = new Vector2((float)Math.Cos(MathHelper.ToRadians(baseRotation)), (float)-Math.Sin(MathHelper.ToRadians(baseRotation))) * -disFromCentreBase;
-            pos += basePos;
+            pos = CalcPos(basePos, baseRotation);
 
             target -= pos;
             target *= new Vector2(1, -1);
-            rotation = Tools.RotateTowardsVector(rotation, target, 3);
+            rotation = Tools.RotateTowardsVector(rotation, target, ROTATE_SPEED);
             
             if (shootTimer.IsTimeUp(Tools.gameTime) && active)
             {
                 shootTimer.Reset();
-                Bullet newBullet = bullet.Clone(pos, this.rotation);
+                Bullet newBullet = Bullet.Clone(pos, this.rotation);
                 GameScene.AddBullet(newBullet);
             }
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(img, pos, null, Color.White, -MathHelper.ToRadians(rotation) + MathHelper.PiOver2, new Vector2(img.Width * 0.5f, img.Height * 0.75f), Tank.IMG_SCALE_FACTOR, SpriteEffects.None, 1f);
+            spriteBatch.Draw(Img, pos, null, Color.White, -MathHelper.ToRadians(rotation) + MathHelper.PiOver2, new Vector2(Img.Width * 0.5f, Img.Height * 0.75f), Tank.IMG_SCALE_FACTOR, SpriteEffects.None, 1f);
         }
-        public float Rotation { get => Rotation; private set => Rotation = value; }
+
+        protected abstract Bullet Bullet { get; }
+        protected abstract Texture2D Img { get; }
+
         public Vector2 GetPosition() => pos;
         public float GetRotation() => rotation;
+
+        private Vector2 CalcPos(Vector2 basePosition, float baseRotation)
+        {
+            Vector2 position = new Vector2((float)Math.Cos(MathHelper.ToRadians(baseRotation)), (float)-Math.Sin(MathHelper.ToRadians(baseRotation))) * -disFromCentreBase;
+            position += basePosition;
+
+            return position;
+        }
 
     }
 }

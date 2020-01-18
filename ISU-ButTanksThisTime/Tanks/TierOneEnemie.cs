@@ -18,18 +18,11 @@ namespace ISU_ButTanksThisTime
 
         private const float CANNON_DIS_FROM_CENTRE = 35 * IMG_SCALE_FACTOR;
 
-        private readonly Texture2D[] stages = new Texture2D[3];
-
         public TierOneEnemie(Vector2 position, List<Vector2> path, Stage stage, float rotation) : base(position, stage, ATTACK_RANGE, rotation)
         {
-            for (int i = 0; i < stages.Length; ++i)
-            {
-                stages[i] = Tools.Content.Load<Texture2D>("Images/Sprites/Tanks/TierOne/T1P" + (i + 1));
-            }
+            baseImg = Tools.Content.Load<Texture2D>("Images/Sprites/Tanks/TierOne/T1P" + ((int)stage + 1));
 
-
-            baseImg = stages[(int)stage];
-            cannon = new TierOneCannon(CANNON_DIS_FROM_CENTRE, Owner.Enemie, stage);
+            cannon = new TierOneCannon(Owner.Enemie, stage, basePosition, baseRotation);
 
             Texture2D explosionSpritesheet = Tools.Content.Load<Texture2D>("Images/Sprites/Effects/spritesheet");
             explosionAnimation = new Animation(explosionSpritesheet, 3, 3, 9, 1, 1, 1, 2, basePosition, 0.3f, true);

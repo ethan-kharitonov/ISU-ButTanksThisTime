@@ -30,11 +30,10 @@ namespace ISU_ButTanksThisTime
 
         //Cannon Variables
         protected Cannon cannon;
-        protected float cannonRotation = 0;
 
         //Movment Variables
         protected float speed = 3;
-        public static readonly float ROTATION_SPEED = 5;
+        public static readonly int ROTATION_SPEED = 5;
         protected float attackRange;
 
         //Dying Variable

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,16 +10,16 @@ namespace ISU_ButTanksThisTime
 {
     class HealerCannon : Cannon
     {
-        private readonly Texture2D[] stages = new Texture2D[3];
+        private readonly Texture2D img;
 
-        public HealerCannon(float disFromCentreBase, Stage stage) : base(0, 0, false, disFromCentreBase)
+        public HealerCannon(Stage stage, Vector2 position, float rotation) : base(0, Tank.ROTATION_SPEED, false, position, rotation)
         {
-            for (int i = 0; i < stages.Length - 1; ++i)
-            {
-                stages[i] = Tools.Content.Load<Texture2D>("Images/Sprites/Cannons/Healer/H" + (i + 1));
-            }
+            img = Tools.Content.Load<Texture2D>("Images/Sprites/Cannons/Healer/H" + ((int)stage + 1));
 
-            img = stages[(int)stage];
         }
+
+        protected override Bullet Bullet => null;
+
+        protected override Texture2D Img => img;
     }
 }

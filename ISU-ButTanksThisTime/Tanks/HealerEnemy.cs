@@ -11,9 +11,6 @@ namespace ISU_ButTanksThisTime
 {
     class HealerEnemy : Tank
     {
-        private const float CANNON_DIS_FROM_CENTRE = 35 * IMG_SCALE_FACTOR;
-
-        private readonly Texture2D[] stages = new Texture2D[3];
         private readonly Texture2D healArea;
 
         private const int HEAL_RADUIS = 200;
@@ -22,13 +19,9 @@ namespace ISU_ButTanksThisTime
         private int targetPoint = 0;
         public HealerEnemy(Vector2 position, float rotation, Stage stage, List<Vector2> path) : base(position, stage, 0, rotation)
         {
-            for (int i = 0; i < stages.Length; ++i)
-            {
-                stages[i] = Tools.Content.Load<Texture2D>("Images/Sprites/Tanks/Healer/HP" + (i + 1));
-            }
+            baseImg = Tools.Content.Load<Texture2D>("Images/Sprites/Tanks/Healer/HP" + ((int)stage + 1));
 
-            baseImg = stages[(int)stage];
-            cannon = new HealerCannon(CANNON_DIS_FROM_CENTRE, stage);
+            cannon = new HealerCannon(stage, basePosition, baseRotation);
 
             Texture2D explosionSpritesheet = Tools.Content.Load<Texture2D>("Images/Sprites/Effects/spritesheet");
             explosionAnimation = new Animation(explosionSpritesheet, 3, 3, 9, 1, 1, 1, 2, basePosition, 0.3f, true);
