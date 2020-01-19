@@ -13,7 +13,7 @@ namespace ISU_ButTanksThisTime
         public MedKit(Vector2 position) : base(position, 0, SCALE_FACTOR, Owner.Enemie)
         {
             img = Tools.Content.Load<Texture2D>("Images/Sprites/Items/HP_Bonus");
-            Damage = -100;
+            Damage = -300;
         }
 
         public override bool Update()

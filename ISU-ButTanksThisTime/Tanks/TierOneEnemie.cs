@@ -8,7 +8,7 @@ namespace ISU_ButTanksThisTime
 {
     class TierOneEnemie : Tank
     {
-        private static readonly int[] VIEW_RANGE_OPTIONS = {400, 550, 750 };
+        private static readonly int[] VIEW_RANGE_OPTIONS = {300, 450, 650 };
         private static readonly int[] ATTACK_RANGE_OPTIONS = { 250, 400 , 550};
         private static readonly int[] SPEED = { 4, 5, 6 };
         private static readonly int[] ROTATION_SPEED = { 5, 6, 7 };
@@ -33,7 +33,7 @@ namespace ISU_ButTanksThisTime
             this.path = path;
 
             playerAttackRange = ATTACK_RANGE_OPTIONS[(int)stage];
-            viewRange = ATTACK_RANGE_OPTIONS[(int)stage];
+            viewRange = VIEW_RANGE_OPTIONS[(int)stage];
 
         }
 
