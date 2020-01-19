@@ -21,7 +21,7 @@ namespace ISU_ButTanksThisTime
         static TierOneCannon()
         {
             Texture2D cannonImg = Tools.Content.Load<Texture2D>("Images/Sprites/Cannons/TierOne/T1P4");
-            Info = new CannonInfo(500, 3, cannonImg, MeduimBullet.Info, null, null);
+            Info = new CannonInfo(500, 3, cannonImg, MeduimBullet.Info, new TierOneCannon(Owner.Player, Stage.Player, default, 0));
         }
 
         public TierOneCannon( Owner owner, Stage stage, Vector2 position, float rotation) : base(fireRate[(int)stage], rotationSpeed[(int)stage], ACTIVE, position, rotation)

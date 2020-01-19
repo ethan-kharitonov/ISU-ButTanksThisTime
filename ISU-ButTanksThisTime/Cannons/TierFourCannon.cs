@@ -26,7 +26,7 @@ namespace ISU_ButTanksThisTime
         static TierFourCannon()
         {
             Texture2D cannonImg = Tools.Content.Load<Texture2D>("Images/Sprites/Cannons/TierFour/T4P4");
-            Info = new CannonInfo(75, 1000, cannonImg, Plasma.Info, null, null);
+            Info = new CannonInfo(75, 1000, cannonImg, Plasma.Info, new TierFourCannon(Owner.Player, Stage.Player, default, 0));
         }
         public TierFourCannon(Owner owner, Stage stage, Vector2 position, float rotation) : base(fireRate[(int)owner], rotationSpeed[(int)owner], true, position, rotation)
         {

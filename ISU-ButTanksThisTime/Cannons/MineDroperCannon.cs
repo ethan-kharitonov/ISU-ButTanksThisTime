@@ -21,7 +21,7 @@ namespace ISU_ButTanksThisTime
         static MineDroperCannon()
         {
             Texture2D cannonImg = Tools.Content.Load<Texture2D>("Images/Sprites/Cannons/MineDroper/M4");
-            Info = new CannonInfo(500, 5, cannonImg, FireBullet.Info, null, null);
+            Info = new CannonInfo(500, 5, cannonImg, FireBullet.Info, new MineDroperCannon(Owner.Player, Stage.Player, default, 0));
         }
 
         public MineDroperCannon(Owner owner, Stage stage, Vector2 position, float rotation) : base(fireRate[(int)stage], rotationSpeed[(int)stage], ACTIVE, position, rotation)

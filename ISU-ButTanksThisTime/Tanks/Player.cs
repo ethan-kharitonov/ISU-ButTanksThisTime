@@ -201,5 +201,11 @@ namespace ISU_ButTanksThisTime
             velocity = Vector2.Zero;
             basePosition = Tools.ArenaBounds.Location.ToVector2() + new Vector2(150, 150);
         }
+
+        public void TakeCannon(Cannon newCannon)
+        {
+            cannon = newCannon;
+            cannon.Update(basePosition, baseRotation, Tools.TrueMousePos);
+        }
     }
 }

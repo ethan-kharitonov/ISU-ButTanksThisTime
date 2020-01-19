@@ -16,7 +16,7 @@ namespace ISU_ButTanksThisTime
         private Color color = Color.White;
         private Item item;
 
-        private int quantity = 0;
+        private int quantity = 100000;
 
         public static readonly Texture2D Frame = Tools.Content.Load<Texture2D>("Images/Sprites/UI/Bonus 03");
         public Icon(Vector2 position, Item item)
@@ -72,6 +72,11 @@ namespace ISU_ButTanksThisTime
         public int GetQuantity()
         {
             return quantity;
+        }
+
+        public void DecreaseQuantity(int amount)
+        {
+            quantity -= amount;
         }
 
     }

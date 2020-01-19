@@ -1,10 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ISU_ButTanksThisTime
 {
@@ -28,7 +23,7 @@ namespace ISU_ButTanksThisTime
         static BurstCannon()
         {
             Texture2D cannonImg = Tools.Content.Load<Texture2D>("Images/Sprites/Cannons/TierThree/T3P4");
-            Info = new CannonInfo(60, 1000, cannonImg, Laser.Info, 1000, 1000);
+            Info = new CannonInfo(60, 1000, cannonImg, Laser.Info, new BurstCannon(Owner.Player, Stage.Player, default, 0),  1000, 1000);
         }
 
 

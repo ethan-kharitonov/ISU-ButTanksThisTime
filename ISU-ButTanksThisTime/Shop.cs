@@ -33,7 +33,16 @@ namespace ISU_ButTanksThisTime
         {
             foreach (ShopPiece piece in pieces)
             {
-                piece.Update();
+                if (piece.Update())
+                {
+                    foreach(ShopPiece pieceToDeactivate in pieces)
+                    {
+                        if (!piece.Equals(pieceToDeactivate))
+                        {
+                            pieceToDeactivate.Deactivate();
+                        }
+                    }
+                }
             }
             if (BackBtn.Update())
             {

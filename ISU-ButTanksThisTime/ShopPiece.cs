@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace ISU_ButTanksThisTime
 {
@@ -8,8 +9,7 @@ namespace ISU_ButTanksThisTime
         private Texture2D slot;
         private Rectangle slotBox;
         private CannonInfo rewardInfo;
-        private readonly int price;
-
+        private int price;
         private Button button;
 
         public static readonly Vector2 Dimensions = new Vector2(200, 310);
@@ -22,12 +22,24 @@ namespace ISU_ButTanksThisTime
 
             Texture2D buttonImg = Tools.Content.Load<Texture2D>("Images/Sprites/UI/Button BG shadow");
             button = new Button(buttonImg, new Rectangle(slotBox.Left + 5, slotBox.Bottom - 50, slotBox.Width - 15, 35), "$" + price);
+        
+            if(price == 0)
+            {
+                button.ChangeText("PURCHASED");
+            }
         }
 
-        public void Update()
+        public bool Update()
         {
             bool canBuy = GameScene.GetCurrentCredit() >= price;
-            button.Update(canBuy);
+            if (button.Update(canBuy))
+            {
+                GameScene.GivePlayerNewCannon(rewardInfo.cannon, price);
+                button.ChangeText("ACTIVE");
+                price = 0;
+                return true;
+            }
+            return false;
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -44,6 +56,14 @@ namespace ISU_ButTanksThisTime
             spriteBatch.DrawString(Tools.Font, "Bullet Damage: " + rewardInfo.Bullet.Damage, new Vector2(slotBox.Left + 10, slotBox.Top + 233), Color.White);
 
             button.Draw(spriteBatch);
+        }
+
+        public void Deactivate()
+        {
+            if(price == 0)
+            {
+                button.ChangeText("PURCHASED");
+            }
         }
     }
 }

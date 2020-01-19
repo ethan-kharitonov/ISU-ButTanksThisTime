@@ -474,5 +474,11 @@ namespace ISU_ButTanksThisTime
         {
             return inventory.GetCurrentCredit();
         }
+
+        public static void GivePlayerNewCannon(Cannon cannon, int price)
+        {
+            player.TakeCannon(cannon);
+            inventory.Pay(price);
+        }
     }
 }

@@ -53,5 +53,10 @@ namespace ISU_ButTanksThisTime
         {
             return icons[ItemType.Coin].GetQuantity();
         }
+
+        public int Pay(int price)
+        {
+            return icons[ItemType.Coin].GetQuantity();
+        }
     }
 }

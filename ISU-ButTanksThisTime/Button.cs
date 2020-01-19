@@ -51,5 +51,10 @@ namespace ISU_ButTanksThisTime
             spriteBatch.Draw(img, box, color);
             spriteBatch.DrawString(Tools.Font, text, box.Center.ToVector2() - Tools.Font.MeasureString(text)/2f, color);
         }
+
+        public void ChangeText(string newText)
+        {
+            text = newText;
+        }
     }
 }
