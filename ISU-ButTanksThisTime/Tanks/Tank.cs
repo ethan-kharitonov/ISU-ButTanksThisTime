@@ -61,9 +61,9 @@ namespace ISU_ButTanksThisTime
         public virtual bool Update(Vector2 target)
         {
             Vector2 distance = target - basePosition;
-            if((int)distance.Length() >= attackRange)
+            if ((int)distance.Length() >= attackRange)
             {
-                if(distance.Length() < speed)
+                if (distance.Length() < speed)
                 {
                     basePosition = target;
                 }
@@ -89,7 +89,7 @@ namespace ISU_ButTanksThisTime
 
             bar.Update(basePosition, health);
 
-            if(!explosionAnimation.isAnimating && health <= 0)
+            if (!explosionAnimation.isAnimating && health <= 0)
             {
                 if (killed)
                 {
@@ -170,13 +170,10 @@ namespace ISU_ButTanksThisTime
             {
                 case Bullet _:
                     Bullet bullet = collided as Bullet;
-                    if (bullet.bulletOwner == Owner.Player)
-                    {
-                        health -= 25;
-                    }
+                    health -= bullet.Damage;
                     break;
                 case Tank _:
-                    if(!(collided is Player))
+                    if (!(collided is Player))
                     {
                         health = 0;
                     }
@@ -219,5 +216,7 @@ namespace ISU_ButTanksThisTime
                     break;
             }
         }
+
+        public void Heal(int healAmount) => health += healAmount;
     }
 }

@@ -23,6 +23,15 @@ namespace ISU_ButTanksThisTime
         }
         public override TankType GetTankType() => TankType.Burst;
 
+        public override bool Update(Vector2 target)
+        {
+            if((basePosition - target).Length() <= attackRange)
+            {
+                cannon.active = true;
+            }
+            return base.Update(target);
+        }
+
         public override Tank Clone(Vector2 position, float rotation, Stage stage)
         {
             return new BurstEnemie(position, rotation, stage);

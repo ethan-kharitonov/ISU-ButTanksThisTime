@@ -31,7 +31,7 @@ namespace ISU_ButTanksThisTime
 
         public override void Use()
         {
-            
+            GameScene.SpeedUpPlayer();
         }
     }
 }

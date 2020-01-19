@@ -16,10 +16,12 @@ namespace ISU_ButTanksThisTime
         private readonly static Texture2D bulletImg;
 
         public static readonly BulletInfo Info;
+        private static int damage = 35;
+
         static Laser()
         {
             bulletImg = Tools.Content.Load<Texture2D>("Images/Sprites/Bullets/Laser");
-            Info = new BulletInfo(bulletImg, 0);
+            Info = new BulletInfo(bulletImg, damage);
         }
 
         public Laser(Vector2 position, float rotation, float scaleFactor, Owner owner) : base(position, rotation, scaleFactor, owner)
@@ -29,6 +31,8 @@ namespace ISU_ButTanksThisTime
 
             Texture2D exSprite = Tools.Content.Load<Texture2D>("Images/Sprites/Effects/LaserExplode");
             exAnim = new Animation(exSprite, 3, 1, 3, 0, 0, Animation.ANIMATE_ONCE, 2, Vector2.Zero, scaleFactor, true);
+
+            Damage = damage;
         }
 
         protected override Animation ExAnim => exAnim;

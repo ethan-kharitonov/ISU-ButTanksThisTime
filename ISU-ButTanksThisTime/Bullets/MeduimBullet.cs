@@ -16,10 +16,12 @@ namespace ISU_ButTanksThisTime
         private readonly static Texture2D bulletImg;
 
         public static readonly BulletInfo Info;
+        private static int damage = 40;
+
         static MeduimBullet()
         {
             bulletImg = Tools.Content.Load<Texture2D>("Images/Sprites/Bullets/Medium_Shell");
-            Info = new BulletInfo(bulletImg, 0);
+            Info = new BulletInfo(bulletImg, damage);
         }
 
         public MeduimBullet(Vector2 position, float rotation, float scaleFactor, Owner bulletOwner) : base(position, rotation, scaleFactor, bulletOwner)
@@ -29,6 +31,8 @@ namespace ISU_ButTanksThisTime
 
             Texture2D exSprite = Tools.Content.Load<Texture2D>("Images/Sprites/Effects/BulletExplode");
             exAnim = new Animation(exSprite, 3, 1, 3, 0, 0, Animation.ANIMATE_ONCE, 2, Vector2.Zero, scaleFactor, true);
+
+            Damage = damage;
         }
 
         protected override Animation ExAnim => exAnim;

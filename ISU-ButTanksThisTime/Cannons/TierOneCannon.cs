@@ -10,8 +10,8 @@ namespace ISU_ButTanksThisTime
 {
     class TierOneCannon : Cannon
     {
-        private static readonly int[] fireRate = {1000, 800, 700, 500};
-        private static readonly int[] rotationSpeed = { 3, 4, 5, 3};
+        private static readonly int[] fireRate = {1000, 800, 700, 300};
+        private static readonly int[] rotationSpeed = { 3, 4, 5, 4};
         private const bool ACTIVE = false;
 
         private readonly Bullet bullet;

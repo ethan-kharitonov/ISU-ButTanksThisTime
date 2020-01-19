@@ -5,9 +5,9 @@ namespace ISU_ButTanksThisTime
 {
     class BurstCannon : Cannon
     {
-        private static readonly int[] fireRate = { 200, 150, 100, 60 };
+        private static readonly int[] fireRate = { 150, 100, 80, 60 };
         private static readonly int[] rotationSpeed = { 4, 1000};
-        private static readonly int[] burstRate = { 3500, 3000, 2000, 1000, 1000};
+        private static readonly int[] burstRate = { 2000, 2500, 1500, 1000, 1000};
         private static readonly int[] burstLength = { 300, 500, 700, 800, 1000 };
 
         private readonly Timer timeBtwnBursts;

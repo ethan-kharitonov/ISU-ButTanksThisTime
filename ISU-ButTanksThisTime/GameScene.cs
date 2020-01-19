@@ -45,6 +45,10 @@ namespace ISU_ButTanksThisTime
 
         //Enemie Variables
         private static List<Tank> enemies = new List<Tank>();
+        private static Texture2D enemyBaseImg;
+        private static Rectangle enemyBaseEn;
+        private static Rectangle enemyBaseExit;
+
 
         //Camera Variables
         private static Camera camera;
@@ -71,6 +75,7 @@ namespace ISU_ButTanksThisTime
             bulletImg = Tools.Content.Load<Texture2D>("Images/Sprites/Bullets/Medium_Shell");
             barrelImg = Tools.Content.Load<Texture2D>("Images/Sprites/Terrain/Container_B");
             crossHairs = Tools.Content.Load<Texture2D>("Images/Sprites/Crosshairs/crosshair068");
+            enemyBaseImg = Tools.Content.Load<Texture2D>("Images/Sprites/Terrain/Container_D");
             ///////////////////
 
             int arenaXPos = -(ARENA_WIDTH / 2) * backgroundImg.Width + Tools.Screen.Center.X - backgroundImg.Width / 2;
@@ -84,9 +89,6 @@ namespace ISU_ButTanksThisTime
             LoadPath();
             barrelBox = new Rectangle(Tools.ArenaBounds.Left, Tools.ArenaBounds.Top, barrelImg.Width, barrelImg.Height * 2);
 
-            enemies.Add(new TierTwoEnemie(new Vector2(0, 0), 0, Stage.Low));
-            enemies.Add(new BurstEnemie(new Vector2(100, 300), 0, Stage.Low));
-            enemies.Add(new TierFourEnemie(new Vector2(100, 500), 0, Stage.Low, pathPoints[1]));
 
             for(int i = 0; i < 5; ++i)
             {
@@ -175,8 +177,9 @@ namespace ISU_ButTanksThisTime
                 enemie.Draw(spriteBatch);
             }
 
-            RotatedRectangle obsticalBox = new RotatedRectangle(barrelBox, 0, Vector2.Zero);
+            
 
+            RotatedRectangle obsticalBox = new RotatedRectangle(barrelBox, 0, Vector2.Zero);
             spriteBatch.Draw(Tools.RedSquare, obsticalBox.TopLeft, Color.White);
             spriteBatch.Draw(Tools.RedSquare, obsticalBox.TopRight, Color.White);
             spriteBatch.Draw(Tools.RedSquare, obsticalBox.BotomLeft, Color.White);
@@ -195,8 +198,13 @@ namespace ISU_ButTanksThisTime
                 spriteBatch.Draw(frozenScreen, Tools.ArenaBounds, Color.DarkRed * 0.3f);
             }
             player.Draw(spriteBatch);
+
+            spriteBatch.Draw(enemyBaseImg, new Vector2(Tools.ArenaBounds.Left - enemyBaseImg.Width + 30, Tools.ArenaBounds.Bottom - enemyBaseImg.Height + 1), Color.White);
+            spriteBatch.Draw(enemyBaseImg, new Vector2(Tools.ArenaBounds.Left - enemyBaseImg.Width + 30, -55), Color.White);
+
             spriteBatch.Draw(barrelImg, barrelBox, null, Color.White, MathHelper.ToRadians(45), new Vector2(barrelImg.Width * 0.5f, barrelImg.Height * 0.5f), SpriteEffects.None, 1);
             spriteBatch.Draw(crossHairs, Tools.TrueMousePos, null, Color.White, 0, new Vector2(crossHairs.Width * 0.5f, crossHairs.Height * 0.5f), 0.25f, SpriteEffects.None, 10);
+           
             spriteBatch.End();
 
             inventory.Draw(spriteBatch);
@@ -315,17 +323,23 @@ namespace ISU_ButTanksThisTime
             if (enemieTimer.IsTimeUp(Tools.GameTime) && enemies.Count < 20)
             {
                 enemieTimer.Reset();
-                enemies.Add(new TierOneEnemie(pathPoints[0][0], pathPoints[0], Stage.Low, 0));
-            }
+                switch(Tools.Rnd.Next(0, 100))
+                {
+                    case int n when n < 33:
+                        enemies.Add(new TierOneEnemie(pathPoints[0][0], pathPoints[0], Stage.Low, 0));
+                        break;
+                    case int n when n < 66:
+                        bomberEnemieTimer.Reset();
+                        float angle = MathHelper.ToRadians(Tools.Rnd.Next(0, 361));
+                        Vector2 pos = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * ENEMIE_SPAWN_DIS;
+                        pos = player.GetPos() + pos;
 
-            if (bomberEnemieTimer.IsTimeUp(Tools.GameTime))
-            {
-                bomberEnemieTimer.Reset();
-                float angle = MathHelper.ToRadians(Tools.Rnd.Next(0, 361));
-                Vector2 pos = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * ENEMIE_SPAWN_DIS;
-                pos = player.GetPos() + pos;
-
-                enemies.Add(new BomberEnemie(pos, 0, Stage.Low));
+                        enemies.Add(new BomberEnemie(pos, 0, Stage.Low));
+                        break;
+                    case int n when n < 100:
+                        enemies.Add(new TierFourEnemie(new Vector2(Tools.ArenaBounds.Center.X, Tools.ArenaBounds.Y - 50), 0, Stage.Low, pathPoints[1]));
+                        break;
+                }
             }
 
             //Update Enemies
@@ -356,7 +370,16 @@ namespace ISU_ButTanksThisTime
                 for (int k = 0; k < enemies.Count; k++)
                 {
                     Tank enemie2 = enemies[k];
-                    if (Tools.BoxBoxCollision(enemie1.GetRotatedRectangle(), enemie2.GetRotatedRectangle()) != null && !enemie1.Equals(enemie2))
+                    if (enemie1.Equals(enemie2))
+                    {
+                        continue;
+                    }
+                    if(enemie2 is HealerEnemy && Tools.CirclePointCollision((enemie2 as HealerEnemy).HealArea(), enemie1.GetPos()))
+                    {
+                        enemie1.Heal((enemie2 as HealerEnemy).HealAmount);
+                    }
+
+                    if (Tools.BoxBoxCollision(enemie1.GetRotatedRectangle(), enemie2.GetRotatedRectangle()) != null)
                     {
                         enemies.RemoveAt(i);
                         enemies.RemoveAt(k - 1);
@@ -403,7 +426,7 @@ namespace ISU_ButTanksThisTime
             {
                 if (bullet.bulletOwner == Owner.Enemie && Tools.BoxBoxCollision(player.GetRotatedRectangle(), bullet.GetRotatedRectangle()) != null)
                 {
-                    //player.Collide(bullet);
+                    //player.Collide()
                     bullet.Collide();
                 }
             }
@@ -480,5 +503,7 @@ namespace ISU_ButTanksThisTime
             player.TakeCannon(cannon);
             inventory.Pay(price);
         }
+
+        public static void SpeedUpPlayer() => player.SpeedUp();
     }
 }

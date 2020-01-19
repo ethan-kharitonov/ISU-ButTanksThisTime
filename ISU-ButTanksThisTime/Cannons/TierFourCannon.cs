@@ -14,11 +14,12 @@ namespace ISU_ButTanksThisTime
 
         private static readonly int[] fireRate = { 0, 75};
         private static readonly int[] rotationSpeed = { 100, 1000};
+        private static readonly int[] timeBTWRotations = { 1000, 150 };
 
         private readonly Bullet bullet;
         private readonly Texture2D img;
 
-        private Timer rotateTimer = new Timer(1000);
+        private Timer rotateTimer;
         private const int ROTATION_INC = 45;
         private int aditinalRotation = 0;
 
@@ -32,6 +33,7 @@ namespace ISU_ButTanksThisTime
         {
             img = Tools.Content.Load<Texture2D>("Images/Sprites/Cannons/TierFour/T4P" + ((int)stage + 1));
 
+            rotateTimer = new Timer(timeBTWRotations[(int)owner]);
             bullet = new Plasma(Vector2.Zero, 0, owner);
             active = false;
             rotateTimer.Reset();

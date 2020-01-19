@@ -14,11 +14,13 @@ namespace ISU_ButTanksThisTime
         private readonly Texture2D healArea;
 
         private static readonly int[] HEAL_RADUIS_OPTIONS = { 250, 350, 500 };
+        private static readonly int[] HEAL_AMOUNT_OPTIONS = { 1, 5, 10 };
         private static readonly int[] SPEED = { 3, 4, 6 };
         private static readonly int[] ROTATION_SPEED = { 5, 6, 7 };
         private static readonly int[] HEALTH = { 100, 150, 200 };
 
         private readonly int healRaduis;
+        public readonly int HealAmount;
 
         private List<Vector2> path = new List<Vector2>();
         private int targetPoint = 0;
@@ -36,6 +38,7 @@ namespace ISU_ButTanksThisTime
             this.path = path;
 
             healRaduis = HEAL_RADUIS_OPTIONS[(int)stage];
+            HealAmount = HEAL_AMOUNT_OPTIONS[(int)stage];
         }
 
         public override bool Update(Vector2 NA)
@@ -68,5 +71,7 @@ namespace ISU_ButTanksThisTime
         {
             return TankType.Healer;
         }
+
+        public Circle HealArea() => new Circle(basePosition, healRaduis);
     }
 }

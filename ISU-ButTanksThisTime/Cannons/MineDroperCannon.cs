@@ -10,7 +10,7 @@ namespace ISU_ButTanksThisTime
 {
     class MineDroperCannon : Cannon
     {
-        private static readonly int[] fireRate = { 1500, 1000, 700, 500 };
+        private static readonly int[] fireRate = { 1000, 750, 500, 90 };
         private static readonly int[] rotationSpeed = { 3, 4, 5, 5 };
         private const bool ACTIVE = false;
 

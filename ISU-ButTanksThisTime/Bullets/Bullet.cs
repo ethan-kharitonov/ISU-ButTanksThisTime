@@ -17,6 +17,8 @@ namespace ISU_ButTanksThisTime
 
         protected abstract Animation ExAnim { get; }
         public bool IsDead { get; private set; } = false;
+        public int Damage { get; protected set; }
+
 
         public Bullet(Vector2 position, float rotation, float scaleFactor, Owner bulletOwner)
         {

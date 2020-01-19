@@ -11,15 +11,17 @@ namespace ISU_ButTanksThisTime
     {
         //Movment Variables
         private Vector2 velocity = new Vector2(0, 0);
-        private const float ACC_RATE = 1f;
-        private const float FRICTION = 0.4f;
-        private const int MAX_SPEED = 10;
+        private float ACC_RATE = 1f;
+        private float FRICTION = 0.4f;
+        private int MAX_SPEED = 10;
         private bool isKeyPressed = false;
         private const int ROTATION_SPEED = 5;
 
+        private Timer speedBoostTimer = new Timer(5000);
+
         //Cannon Variables
         private bool canControleShooting = true;
-        
+
         public Player(Vector2 position) : base(position, Stage.Player, 0, 0, 0, 100, 0)
         {
             baseImg = Tools.Content.Load<Texture2D>("Images/Sprites/Tanks/TierOne/T1PP");
@@ -33,6 +35,13 @@ namespace ISU_ButTanksThisTime
         public override bool Update(Vector2 NA)
         {
             var kb = Keyboard.GetState();
+
+            if (speedBoostTimer.IsTimeUp(Tools.GameTime) && ACC_RATE != 1)
+            {
+                ACC_RATE = 1f;
+                FRICTION = 0.4f;
+                MAX_SPEED = 10;
+            }
 
             MoveTank(kb);
             CannonUpdate(kb);
@@ -150,7 +159,7 @@ namespace ISU_ButTanksThisTime
 
             isKeyPressed = false;
 
-            int top = (int)Math.Min(Math.Min(rotBox.TopLeft.Y, rotBox.TopRight.Y),Math.Min(rotBox.BotomLeft.Y, rotBox.BotomRight.Y));
+            int top = (int)Math.Min(Math.Min(rotBox.TopLeft.Y, rotBox.TopRight.Y), Math.Min(rotBox.BotomLeft.Y, rotBox.BotomRight.Y));
             int bottom = (int)Math.Max(Math.Max(rotBox.TopLeft.Y, rotBox.TopRight.Y), Math.Max(rotBox.BotomLeft.Y, rotBox.BotomRight.Y));
             int left = (int)Math.Min(Math.Min(rotBox.TopLeft.X, rotBox.TopRight.X), Math.Min(rotBox.BotomLeft.X, rotBox.BotomRight.X));
             int right = (int)Math.Max(Math.Max(rotBox.TopLeft.X, rotBox.TopRight.X), Math.Max(rotBox.BotomLeft.X, rotBox.BotomRight.X));
@@ -206,6 +215,14 @@ namespace ISU_ButTanksThisTime
         {
             cannon = newCannon;
             cannon.Update(basePosition, baseRotation, Tools.TrueMousePos);
+        }
+
+        public void SpeedUp()
+        {
+            speedBoostTimer.Reset();
+            ACC_RATE = 3f;
+            FRICTION = 1.5f;
+            MAX_SPEED = 20;
         }
     }
 }

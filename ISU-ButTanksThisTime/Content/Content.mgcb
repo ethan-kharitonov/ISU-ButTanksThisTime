@@ -884,6 +884,18 @@
 /processorParam:TextureFormat=Color
 /build:Images/Sprites/Terrain/Container_B.png
 
+#begin Images/Sprites/Terrain/Container_D.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/Sprites/Terrain/Container_D.png
+
 #begin Images/Sprites/UI/Bonus 03.png
 /importer:TextureImporter
 /processor:TextureProcessor

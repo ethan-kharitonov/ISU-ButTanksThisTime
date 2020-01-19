@@ -25,7 +25,7 @@ namespace ISU_ButTanksThisTime
         
             if(price == 0)
             {
-                button.ChangeText("PURCHASED");
+                button.ChangeText("ACTIVE");
             }
         }
 
