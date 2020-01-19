@@ -12,13 +12,13 @@ namespace ISU_ButTanksThisTime.Tanks
     {
         private readonly Texture2D healArea;
 
-        private static readonly int[] HEAL_RADUIS_OPTIONS = {250, 350, 500};
+        private static readonly int[] HEAL_RADIUS_OPTIONS = {250, 350, 500};
         private static readonly int[] HEAL_AMOUNT_OPTIONS = {1, 5, 10};
         private static readonly int[] SPEED = {3, 4, 6};
         private static readonly int[] ROTATION_SPEED = {5, 6, 7};
         private static readonly int[] HEALTH = {100, 150, 200};
 
-        private readonly int healRaduis;
+        private readonly int healRadius;
         public readonly int HealAmount;
 
         private readonly List<Vector2> path;
@@ -37,7 +37,7 @@ namespace ISU_ButTanksThisTime.Tanks
 
             this.path = path;
 
-            healRaduis = HEAL_RADUIS_OPTIONS[(int) stage];
+            healRadius = HEAL_RADIUS_OPTIONS[(int) stage];
             HealAmount = HEAL_AMOUNT_OPTIONS[(int) stage];
         }
 
@@ -57,7 +57,7 @@ namespace ISU_ButTanksThisTime.Tanks
         {
             if (Health > 0)
             {
-                var healBox = new Rectangle((int) BasePosition.X, (int) BasePosition.Y, 2 * healRaduis, 2 * healRaduis);
+                var healBox = new Rectangle((int) BasePosition.X, (int) BasePosition.Y, 2 * healRadius, 2 * healRadius);
                 spriteBatch.Draw(healArea, healBox, null, Color.White, 0, new Vector2(healArea.Width / 2f, healArea.Height / 2f), SpriteEffects.None, 0);
             }
 
@@ -68,6 +68,6 @@ namespace ISU_ButTanksThisTime.Tanks
 
         public override TankType GetTankType() => TankType.Healer;
 
-        public Circle HealArea() => new Circle(BasePosition, healRaduis);
+        public Circle HealArea() => new Circle(BasePosition, healRadius);
     }
 }

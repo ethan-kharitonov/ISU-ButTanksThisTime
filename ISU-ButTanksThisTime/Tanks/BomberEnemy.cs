@@ -29,8 +29,7 @@ namespace ISU_ButTanksThisTime.Tanks
         {
             switch (collided)
             {
-                case Bullet _:
-                    var bullet = collided as Bullet;
+                case Bullet bullet:
                     if (bullet.BulletOwner == Owner.Player)
                     {
                         Health -= 25;

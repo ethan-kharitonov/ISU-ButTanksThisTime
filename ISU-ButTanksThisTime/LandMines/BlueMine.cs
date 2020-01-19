@@ -7,10 +7,10 @@ namespace ISU_ButTanksThisTime.LandMines
     internal class BlueMine : LandMine
     {
         private const float IMG_SCALE_FACTOR = 0.4f;
-        public static readonly int Raduis = 38;
-        public static readonly int ExRaduis = 250;
+        private const int RADIUS = 38;
+        private const int EX_RADIUS = 250;
 
-        public BlueMine(Vector2 position) : base(Raduis, ExRaduis)
+        public BlueMine(Vector2 position) : base(RADIUS, EX_RADIUS)
         {
             var idleSprite = Tools.Content.Load<Texture2D>("Images/Sprites/LandMines/bomb2Idle");
             var triggeredSprite = Tools.Content.Load<Texture2D>("Images/Sprites/LandMines/bomb2Triggered");

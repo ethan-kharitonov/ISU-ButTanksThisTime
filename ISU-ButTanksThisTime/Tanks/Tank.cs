@@ -15,7 +15,7 @@ namespace ISU_ButTanksThisTime.Tanks
         Bomber = 1,
         RotateShooter = 2,
         Burst = 3,
-        MineDroper = 4,
+        MineDropper = 4,
         Healer = 5,
         Player = 6
     }
@@ -31,14 +31,14 @@ namespace ISU_ButTanksThisTime.Tanks
         //Cannon Variables
         protected Cannon Cannon;
 
-        //Movment Variables
-        protected float Speed;
+        //Movement Variables
+        protected readonly float Speed;
         private readonly int rotationSpeed;
         protected float AttackRange;
 
         //Health Variables
         protected int Health;
-        protected HealthBar Bar;
+        protected readonly HealthBar Bar;
         protected bool Killed = true;
         protected readonly int StartingHealth;
         protected Animation ExplosionAnimation;
@@ -46,7 +46,7 @@ namespace ISU_ButTanksThisTime.Tanks
         //the stage of this tank
         private readonly Stage stage;
 
-        public Tank(Vector2 position, Stage stage, float attackRange, float speed, int rotationSpeed, int health, float rotation = 0)
+        protected Tank(Vector2 position, Stage stage, float attackRange, float speed, int rotationSpeed, int health, float rotation = 0)
         {
             //assign tank details
             BaseRotation = rotation;
@@ -81,7 +81,7 @@ namespace ISU_ButTanksThisTime.Tanks
             var distance = target - BasePosition;
             if ((int)distance.Length() >= AttackRange && Health > 0)
             {
-                //if this object will overstep target this update and adjast the step
+                //if this object will overstep target this update and adjust the step
                 if (distance.Length() < Speed)
                 {
                     //equal this position ot target position
@@ -114,7 +114,7 @@ namespace ISU_ButTanksThisTime.Tanks
             //Update the health bar
             Bar.Update(BasePosition, Health);
 
-            //return true if dead and explosion done animatig
+            //return true if dead and explosion done animating
             if (!ExplosionAnimation.isAnimating && Health <= 0)
             {
                 if (Killed)
@@ -127,7 +127,7 @@ namespace ISU_ButTanksThisTime.Tanks
             return false;
         }
 
-        protected virtual bool Update(Vector2 target, Vector2 cannonTarget)
+        protected bool Update(Vector2 target, Vector2 cannonTarget)
         {
             //update cannon and call UpdateBaseAndHealthBar
             Cannon.Update(BasePosition, BaseRotation, cannonTarget);
@@ -165,22 +165,21 @@ namespace ISU_ButTanksThisTime.Tanks
             //choose a reaction based on the object collided with
             switch (collided)
             {
-                case Bullet _:
-                    //appla the bullets damage
-                    var bullet = collided as Bullet;
+                case Bullet bullet:
+                    //apply the bullets damage
                     Health -= bullet.Damage;
                     break;
                 case Tank _:
                     //if tank is not player kill self
                     if (!(collided is Player))
                     {
-                        //set heaklth to zero
+                        //set health to zero
                         Health = 0;
                     }
 
                     break;
                 case LandMine _:
-                    //set heaklth to zero
+                    //set health to zero
                     Health = 0;
                     break;
             }
@@ -190,16 +189,14 @@ namespace ISU_ButTanksThisTime.Tanks
 
         public float GetRotation() => BaseRotation;
 
-        public Vector2 Dimensions => new Vector2(BaseImg.Width * IMG_SCALE_FACTOR, BaseImg.Height * IMG_SCALE_FACTOR);
-
-        public Vector2 GetOrigin() => new Vector2(BaseImg.Width * 0.5f * IMG_SCALE_FACTOR, BaseImg.Height * 0.5f * IMG_SCALE_FACTOR);
+        protected Vector2 Dimensions => new Vector2(BaseImg.Width * IMG_SCALE_FACTOR, BaseImg.Height * IMG_SCALE_FACTOR);
 
 
         public abstract TankType GetTankType();
 
         public abstract Tank Clone(Vector2 position, float rotation, Stage stage);
 
-        protected void DropItem()
+        private void DropItem()
         {
             //randomly chase a number to decide which item to drop
             var chance = Tools.Rnd.Next(0, 210);

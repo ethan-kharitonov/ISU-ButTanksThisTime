@@ -16,7 +16,7 @@ namespace ISU_ButTanksThisTime
             var startXPos = (Tools.Screen.Width - 875) / 2;
             pieces[0] = new ShopPiece(BurstCannon.Info, new Vector2(startXPos, 100), 500);
             pieces[1] = new ShopPiece(TierFourCannon.Info, new Vector2(startXPos + (25 + ShopPiece.Dimensions.X), 100), 100);
-            pieces[2] = new ShopPiece(MineDroperCannon.Info, new Vector2(startXPos + 2 * (25 + ShopPiece.Dimensions.X), 100), 250);
+            pieces[2] = new ShopPiece(MineDropperCannon.Info, new Vector2(startXPos + 2 * (25 + ShopPiece.Dimensions.X), 100), 250);
             pieces[3] = new ShopPiece(TierOneCannon.Info, new Vector2(startXPos + 3 * (25 + ShopPiece.Dimensions.X), 100), 0);
 
             bgImg = Tools.Content.Load<Texture2D>("Images/Backgrounds/ShopBackground");

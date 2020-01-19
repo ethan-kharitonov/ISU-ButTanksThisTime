@@ -12,11 +12,8 @@ namespace ISU_ButTanksThisTime.Cannons
         private static readonly int[] burstRate = {2000, 2500, 1500, 1000, 1000};
         private static readonly int[] burstLength = {300, 500, 700, 800, 1000};
 
-        private readonly Timer timeBtwnBursts;
+        private readonly Timer timeBetweenBursts;
         private readonly Timer burstDuration;
-
-        private readonly Bullet bullet;
-        private readonly Texture2D img;
 
         private bool inBurst;
 
@@ -31,11 +28,11 @@ namespace ISU_ButTanksThisTime.Cannons
 
         public BurstCannon(Owner owner, Stage stage, Vector2 position, float rotation) : base(fireRate[(int) stage], rotationSpeed[(int) owner], true, position, rotation)
         {
-            img = Tools.Content.Load<Texture2D>("Images/Sprites/Cannons/TierThree/T3P" + ((int) stage + 1));
+            Img = Tools.Content.Load<Texture2D>("Images/Sprites/Cannons/TierThree/T3P" + ((int) stage + 1));
 
-            bullet = new Laser(Vector2.Zero, 0, Tank.IMG_SCALE_FACTOR, owner);
+            Bullet = new Laser(Vector2.Zero, 0, Tank.IMG_SCALE_FACTOR, owner);
 
-            timeBtwnBursts = new Timer(burstRate[(int) stage]);
+            timeBetweenBursts = new Timer(burstRate[(int) stage]);
             burstDuration = new Timer(burstLength[(int) stage]);
         }
 
@@ -57,18 +54,18 @@ namespace ISU_ButTanksThisTime.Cannons
             if (inBurst && burstDuration.IsTimeUp(Tools.GameTime))
             {
                 Active = false;
-                if (timeBtwnBursts.IsTimeUp(Tools.GameTime))
+                if (timeBetweenBursts.IsTimeUp(Tools.GameTime))
                 {
                     inBurst = false;
-                    timeBtwnBursts.Reset();
+                    timeBetweenBursts.Reset();
                 }
             }
 
             base.Update(basePos, baseRotation, target);
         }
 
-        protected override Bullet Bullet => bullet;
+        protected override Bullet Bullet { get; }
 
-        public override Texture2D Img => img;
+        protected override Texture2D Img { get; }
     }
 }

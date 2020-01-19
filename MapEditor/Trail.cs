@@ -8,7 +8,6 @@ namespace MapEditor
 {
     internal class Trail
     {
-        private List<Vector2> points = new List<Vector2>();
         private readonly Texture2D dot;
         private readonly Texture2D line;
 
@@ -62,15 +61,15 @@ namespace MapEditor
 
             if (Keyboard.GetState().IsKeyDown(Keys.Enter))
             {
-                if (!(points.Count > 0 && mousePos == points[points.Count - 1]))
+                if (!(Points.Count > 0 && mousePos == Points[Points.Count - 1]))
                 {
-                    points.Add(mousePos);
+                    Points.Add(mousePos);
                 }
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Delete) && points.Count > 0)
+            if (Keyboard.GetState().IsKeyDown(Keys.Delete) && Points.Count > 0)
             {
-                points.RemoveAt(points.Count - 1);
+                Points.RemoveAt(Points.Count - 1);
             }
 
             return mousePos;
@@ -78,32 +77,31 @@ namespace MapEditor
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            for (var i = 0; i < points.Count; ++i)
+            for (var i = 0; i < Points.Count; ++i)
             {
                 Vector2 distance;
-                if (i + 1 == points.Count)
+                if (i + 1 == Points.Count)
                 {
-                    distance = mousePos - points[i];
+                    distance = mousePos - Points[i];
                 }
                 else
                 {
-                    distance = points[i + 1] - points[i];
+                    distance = Points[i + 1] - Points[i];
                 }
 
                 var length = Math.Pow(distance.X, 2) + Math.Pow(distance.Y, 2);
                 length = Math.Sqrt(length);
                 var angle = (float) Math.Atan2(distance.Y, distance.X);
-                var box = new Rectangle((int) points[i].X, (int) points[i].Y, (int) length, 3);
+                var box = new Rectangle((int) Points[i].X, (int) Points[i].Y, (int) length, 3);
                 spriteBatch.Draw(line, box, null, Color.White, angle, new Vector2(0, line.Height / 2F), SpriteEffects.None, 1f);
             }
 
-            foreach (var point in points)
+            foreach (var point in Points)
             {
                 spriteBatch.Draw(dot, point, null, Color.White, 0, new Vector2(dot.Width / 2F, dot.Height / 2F), 1 / Camera.GetZoom(), SpriteEffects.None, 1f);
             }
         }
 
-        public List<Vector2> GetPoints => points;
-        public void SetPoints(List<Vector2> oldPoints) => points = oldPoints;
+        public List<Vector2> Points { get; set; } = new List<Vector2>();
     }
 }

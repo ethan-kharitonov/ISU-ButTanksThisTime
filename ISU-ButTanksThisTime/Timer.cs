@@ -21,8 +21,8 @@ namespace ISU_ButTanksThisTime
             TimeLeft = Interval;
         }
 
-        public int TimeLeft { get; private set; }
+        private int TimeLeft { get; set; }
 
-        public int Interval { get; set; }
+        private int Interval { get; }
     }
 }

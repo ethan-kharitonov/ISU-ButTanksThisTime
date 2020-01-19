@@ -17,7 +17,7 @@ namespace ISU_ButTanksThisTime.Cannons
         public bool Active;
         private readonly int rotateSpeed;
 
-        public Cannon(int fireRate, int rotationSpeed, bool active, Vector2 position, float rotation)
+        protected Cannon(int fireRate, int rotationSpeed, bool active, Vector2 position, float rotation)
         {
             shootTimer = new Timer(fireRate);
             rotateSpeed = rotationSpeed;
@@ -45,17 +45,13 @@ namespace ISU_ButTanksThisTime.Cannons
             }
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(Img, Pos, null, Color.White, -MathHelper.ToRadians(Rotation) + MathHelper.PiOver2, new Vector2(Img.Width * 0.5f, Img.Height * 0.75f), Tank.IMG_SCALE_FACTOR, SpriteEffects.None, 1f);
         }
 
         protected abstract Bullet Bullet { get; }
-        public abstract Texture2D Img { get; }
-
-        public Vector2 GetPosition() => Pos;
-
-        public float GetRotation() => Rotation;
+        protected abstract Texture2D Img { get; }
 
         protected Vector2 CalcPos(Vector2 basePosition, float baseRotation)
         {

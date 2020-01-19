@@ -20,7 +20,7 @@ namespace ISU_ButTanksThisTime.Bullets
         public int Damage { get; protected set; }
 
 
-        public Bullet(Vector2 position, float rotation, float scaleFactor, Owner bulletOwner)
+        protected Bullet(Vector2 position, float rotation, float scaleFactor, Owner bulletOwner)
         {
             this.scaleFactor = scaleFactor;
             Position = position;

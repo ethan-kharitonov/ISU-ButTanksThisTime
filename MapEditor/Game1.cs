@@ -118,7 +118,7 @@ namespace MapEditor
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, Camera.Transforme);
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, Camera.Transform);
 
             for (var r = -ARENA_WIDTH / 2; r < ARENA_WIDTH / 2; ++r)
             {
@@ -146,7 +146,7 @@ namespace MapEditor
             var outFile = File.CreateText(filePath);
             foreach (var path in paths)
             {
-                foreach (var point in path.GetPoints)
+                foreach (var point in path.Points)
                 {
                     outFile.WriteLine(point.X + "," + point.Y);
                 }
@@ -163,7 +163,6 @@ namespace MapEditor
             var points = new List<Vector2>();
             using (var inFile = File.OpenText(filePath))
             {
-                string[] data;
                 while (!inFile.EndOfStream)
                 {
                     string line;
@@ -174,11 +173,11 @@ namespace MapEditor
                             continue;
                         }
 
-                        data = line.Split(',');
+                        var data = line.Split(',');
                         points.Add(new Vector2((float) Convert.ToDouble(data[0]), (float) Convert.ToDouble(data[1])));
                     }
 
-                    paths[path].SetPoints(points);
+                    paths[path].Points = points;
                     points = new List<Vector2>();
                     ++path;
                 }

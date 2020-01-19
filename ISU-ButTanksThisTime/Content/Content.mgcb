@@ -176,7 +176,7 @@
 /processorParam:TextureFormat=Color
 /build:Images/Sprites/Cannons/Inactive/I3.png
 
-#begin Images/Sprites/Cannons/MineDroper/M1.png
+#begin Images/Sprites/Cannons/MineDropper/M1.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -186,9 +186,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Images/Sprites/Cannons/MineDroper/M1.png
+/build:Images/Sprites/Cannons/MineDropper/M1.png
 
-#begin Images/Sprites/Cannons/MineDroper/M2.png
+#begin Images/Sprites/Cannons/MineDropper/M2.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -198,9 +198,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Images/Sprites/Cannons/MineDroper/M2.png
+/build:Images/Sprites/Cannons/MineDropper/M2.png
 
-#begin Images/Sprites/Cannons/MineDroper/M3.png
+#begin Images/Sprites/Cannons/MineDropper/M3.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -210,9 +210,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Images/Sprites/Cannons/MineDroper/M3.png
+/build:Images/Sprites/Cannons/MineDropper/M3.png
 
-#begin Images/Sprites/Cannons/MineDroper/M4.png
+#begin Images/Sprites/Cannons/MineDropper/M4.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -222,7 +222,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Images/Sprites/Cannons/MineDroper/M4.png
+/build:Images/Sprites/Cannons/MineDropper/M4.png
 
 #begin Images/Sprites/Cannons/TierFour/T4P1.png
 /importer:TextureImporter

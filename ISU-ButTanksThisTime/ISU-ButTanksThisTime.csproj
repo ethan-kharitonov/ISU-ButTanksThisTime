@@ -72,7 +72,7 @@
     <Compile Include="Button.cs" />
     <Compile Include="Cannons\CannonInfo.cs" />
     <Compile Include="Cannons\HealerCannon.cs" />
-    <Compile Include="Cannons\MineDroperCannon.cs" />
+    <Compile Include="Cannons\MineDropperCannon.cs" />
     <Compile Include="Cannons\TierFourCannon.cs" />
     <Compile Include="Collectibles\Ammo.cs" />
     <Compile Include="Collectibles\CoinItem.cs" />

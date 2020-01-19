@@ -12,11 +12,11 @@ namespace ISU_ButTanksThisTime
         private const int BAR_LENGTH = 85;
         private Rectangle healthBox;
 
-        public readonly float MaxHealth;
+        private readonly float maxHealth;
 
         public HealthBar(int startHealth, Vector2 position)
         {
-            MaxHealth = startHealth;
+            maxHealth = startHealth;
             barImg = Tools.Content.Load<Texture2D>("Images/Sprites/UI/Loading Bar BG");
             barBox = new Rectangle((int) position.X, (int) position.Y, BAR_LENGTH, 8);
 
@@ -33,7 +33,7 @@ namespace ISU_ButTanksThisTime
             healthBox.Y = barBox.Y;
 
             //healthBox = barBox;
-            healthBox.Width = (int) (health / MaxHealth * BAR_LENGTH) - 2;
+            healthBox.Width = (int) (health / maxHealth * BAR_LENGTH) - 2;
             healthBox.Height = barBox.Height;
         }
 

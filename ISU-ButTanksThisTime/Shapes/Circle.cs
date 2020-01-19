@@ -5,12 +5,12 @@ namespace ISU_ButTanksThisTime.Shapes
     public class Circle
     {
         public Vector2 Centre;
-        public float Raduis;
+        public readonly float Radius;
 
-        public Circle(Vector2 centre, float raduis)
+        public Circle(Vector2 centre, float radius)
         {
             Centre = centre;
-            Raduis = raduis;
+            Radius = radius;
         }
     }
 }

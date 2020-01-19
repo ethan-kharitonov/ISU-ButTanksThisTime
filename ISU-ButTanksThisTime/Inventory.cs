@@ -52,7 +52,7 @@ namespace ISU_ButTanksThisTime
 
         public int GetCurrentCredit() => icons[ItemType.Coin].GetQuantity();
 
-        public int Pay(int price) => icons[ItemType.Coin].GetQuantity();
+        public void Pay() => icons[ItemType.Coin].GetQuantity();
 
         public bool AreAnyBulletsLeft() => icons[ItemType.Ammo].GetQuantity() > 0;
 

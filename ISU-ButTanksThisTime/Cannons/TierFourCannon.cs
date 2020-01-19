@@ -10,12 +10,9 @@ namespace ISU_ButTanksThisTime.Cannons
         private static readonly int[] rotationSpeed = {100, 1000};
         private static readonly int[] timeBtwRotations = {1000, 150};
 
-        private readonly Bullet bullet;
-        private readonly Texture2D img;
-
         private readonly Timer rotateTimer;
         private const int ROTATION_INC = 45;
-        private int aditinalRotation;
+        private int additionalRotation;
 
         public static readonly CannonInfo Info;
 
@@ -27,10 +24,10 @@ namespace ISU_ButTanksThisTime.Cannons
 
         public TierFourCannon(Owner owner, Stage stage, Vector2 position, float rotation) : base(fireRate[(int) owner], rotationSpeed[(int) owner], true, position, rotation)
         {
-            img = Tools.Content.Load<Texture2D>("Images/Sprites/Cannons/TierFour/T4P" + ((int) stage + 1));
+            Img = Tools.Content.Load<Texture2D>("Images/Sprites/Cannons/TierFour/T4P" + ((int) stage + 1));
 
             rotateTimer = new Timer(timeBtwRotations[(int) owner]);
-            bullet = new Plasma(Vector2.Zero, 0, owner);
+            Bullet = new Plasma(Vector2.Zero, 0, owner);
             Active = false;
             rotateTimer.Reset();
         }
@@ -41,8 +38,8 @@ namespace ISU_ButTanksThisTime.Cannons
 
             if (rotateTimer.IsTimeUp(Tools.GameTime))
             {
-                aditinalRotation += ROTATION_INC;
-                Rotation = aditinalRotation;
+                additionalRotation += ROTATION_INC;
+                Rotation = additionalRotation;
                 var newBullet = Bullet.Clone(Pos, Rotation);
                 GameScene.AddBullet(newBullet);
 
@@ -50,8 +47,8 @@ namespace ISU_ButTanksThisTime.Cannons
             }
         }
 
-        protected override Bullet Bullet => bullet;
+        protected override Bullet Bullet { get; }
 
-        public override Texture2D Img => img;
+        protected override Texture2D Img { get; }
     }
 }

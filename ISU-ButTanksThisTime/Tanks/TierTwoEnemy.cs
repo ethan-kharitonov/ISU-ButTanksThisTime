@@ -21,8 +21,10 @@ namespace ISU_ButTanksThisTime.Tanks
         {
             BaseImg = Tools.Content.Load<Texture2D>("Images/Sprites/Tanks/TierTwo/T2P" + ((int) stage + 1));
 
-            Cannon = new MineDroperCannon(Owner.Enemy, stage, BasePosition, BaseRotation);
-            Cannon.Active = false;
+            Cannon = new MineDropperCannon(Owner.Enemy, stage, BasePosition, BaseRotation)
+            {
+                Active = false
+            };
 
             var explosionSpritesheet = Tools.Content.Load<Texture2D>("Images/Sprites/Effects/spritesheet");
             ExplosionAnimation = new Animation(explosionSpritesheet, 3, 3, 9, 1, 1, 1, 2, BasePosition, 0.3f, true);
@@ -50,7 +52,7 @@ namespace ISU_ButTanksThisTime.Tanks
 
         private Vector2 SetTarget() => new Vector2(Tools.Rnd.Next(Tools.ArenaBounds.Left, Tools.ArenaBounds.Right), Tools.Rnd.Next(Tools.ArenaBounds.Top, Tools.ArenaBounds.Bottom));
 
-        public override TankType GetTankType() => TankType.MineDroper;
+        public override TankType GetTankType() => TankType.MineDropper;
 
         public override Tank Clone(Vector2 position, float rotation, Stage stage) => new TierTwoEnemy(position, rotation, stage);
     }

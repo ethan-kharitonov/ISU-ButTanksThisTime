@@ -3,7 +3,6 @@ using Animation2D;
 using ISU_ButTanksThisTime.Bullets;
 using ISU_ButTanksThisTime.Cannons;
 using ISU_ButTanksThisTime.LandMines;
-using ISU_ButTanksThisTime.Shapes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -12,7 +11,7 @@ namespace ISU_ButTanksThisTime.Tanks
 {
     internal class Player : Tank
     {
-        //Movment Variables
+        //Movement Variables
         private Vector2 velocity = new Vector2(0, 0);
         private int accRate = 1;
         private float friction = 0.4f;
@@ -24,7 +23,7 @@ namespace ISU_ButTanksThisTime.Tanks
         private readonly Timer speedBoostTimer = new Timer(5000);
 
         //stores if the player can shoot
-        private readonly bool canControleShooting = true;
+        private readonly bool canControlShooting = true;
 
         public Player(Vector2 position) : base(position, Stage.Player, 0, 0, 0, 1000)
         {
@@ -70,7 +69,7 @@ namespace ISU_ButTanksThisTime.Tanks
 
         private void CannonUpdate()
         {
-            Cannon.Active = Mouse.GetState().LeftButton == ButtonState.Pressed && canControleShooting && GameScene.AreAnyBulletsLeft();
+            Cannon.Active = Mouse.GetState().LeftButton == ButtonState.Pressed && canControlShooting && GameScene.AreAnyBulletsLeft();
 
             Cannon.Update(BasePosition, BaseRotation, Tools.TrueMousePos);
         }
@@ -126,8 +125,7 @@ namespace ISU_ButTanksThisTime.Tanks
         {
             switch (collided)
             {
-                case Bullet _:
-                    var bullet = collided as Bullet;
+                case Bullet bullet:
                     Health -= bullet.Damage;
                     break;
                 case BomberEnemy _:
@@ -141,64 +139,6 @@ namespace ISU_ButTanksThisTime.Tanks
             if (Health > StartingHealth)
             {
                 Health = StartingHealth;
-            }
-        }
-
-        public Vector2 GetBasePosition() => BasePosition;
-
-        public Vector2 GetCannonPosition() => Cannon.GetPosition();
-
-        public float GetCannonRotation() => Cannon.GetRotation();
-
-        public float GetScaleFactor() => IMG_SCALE_FACTOR;
-
-        public void CollideWithObject(Rectangle obstical)
-        {
-            var obsticalBox = new RotatedRectangle(obstical, 0, Vector2.Zero);
-            var rotBox = GetRotatedRectangle();
-            if (!Tools.BoxBoxCollision(obsticalBox, rotBox))
-            {
-                return;
-            }
-
-            isKeyPressed = false;
-
-            var top = (int) Math.Min(Math.Min(rotBox.TopLeft.Y, rotBox.TopRight.Y), Math.Min(rotBox.BotomLeft.Y, rotBox.BotomRight.Y));
-            var bottom = (int) Math.Max(Math.Max(rotBox.TopLeft.Y, rotBox.TopRight.Y), Math.Max(rotBox.BotomLeft.Y, rotBox.BotomRight.Y));
-            var left = (int) Math.Min(Math.Min(rotBox.TopLeft.X, rotBox.TopRight.X), Math.Min(rotBox.BotomLeft.X, rotBox.BotomRight.X));
-            var right = (int) Math.Max(Math.Max(rotBox.TopLeft.X, rotBox.TopRight.X), Math.Max(rotBox.BotomLeft.X, rotBox.BotomRight.X));
-
-            var processX = true;
-            var processY = true;
-            if ((BasePosition.X < obstical.Left || BasePosition.X > obstical.Right) &&
-                (BasePosition.Y < obstical.Top || BasePosition.Y > obstical.Bottom))
-            {
-                processX = Tools.Rnd.Next(0, 10000) < 5000;
-                processY = !processX;
-            }
-
-            var trueRectangle = new Rectangle(left, top, right - left, bottom - top);
-
-            if (BasePosition.X < obstical.Left && processX)
-            {
-                BasePosition.X = obstical.Left - trueRectangle.Width * 0.5f;
-                velocity.X = 0;
-            }
-            else if (BasePosition.X > obstical.Right && processX)
-            {
-                BasePosition.X = obstical.Right + trueRectangle.Width * 0.5f;
-                velocity.X = 0;
-            }
-
-            if (BasePosition.Y < obstical.Top && processY)
-            {
-                BasePosition.Y = obstical.Top - trueRectangle.Height * 0.5f;
-                velocity.Y = 0;
-            }
-            else if (BasePosition.Y > obstical.Bottom && processY)
-            {
-                BasePosition.Y = obstical.Bottom + trueRectangle.Height * 0.5f;
-                velocity.Y = 0;
             }
         }
 

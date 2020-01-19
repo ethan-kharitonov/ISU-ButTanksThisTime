@@ -7,16 +7,16 @@ namespace ISU_ButTanksThisTime.LandMines
 {
     internal abstract class LandMine
     {
-        protected Animation[] Animations = new Animation[3];
+        protected readonly Animation[] Animations = new Animation[3];
         private int currentAnim;
         private bool active;
-        private readonly int raduis;
-        private readonly float explosionRaduis;
+        private readonly int radius;
+        private readonly float explosionRadius;
 
-        public LandMine(int raduis, float explosionRaduis)
+        protected LandMine(int radius, float explosionRadius)
         {
-            this.raduis = raduis;
-            this.explosionRaduis = explosionRaduis;
+            this.radius = radius;
+            this.explosionRadius = explosionRadius;
         }
 
         public bool Update()
@@ -44,14 +44,14 @@ namespace ISU_ButTanksThisTime.LandMines
         public RotatedRectangle GetBox()
         {
             var fullBox = Animations[currentAnim].destRec;
-            var box = new Rectangle(fullBox.Center.X - raduis / 2, fullBox.Center.Y - raduis / 2, raduis, raduis);
+            var box = new Rectangle(fullBox.Center.X - radius / 2, fullBox.Center.Y - radius / 2, radius, radius);
             return new RotatedRectangle(box, 0, Vector2.Zero);
         }
 
         public Circle GetExplosionArea()
         {
             var centre = Animations[currentAnim].destRec.Center.ToVector2();
-            return new Circle(centre, explosionRaduis);
+            return new Circle(centre, explosionRadius);
         }
 
         public bool IsActive() => active;

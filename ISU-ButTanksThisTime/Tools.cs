@@ -15,16 +15,18 @@ namespace ISU_ButTanksThisTime
     internal enum Stage
     {
         Low = 0,
+        // ReSharper disable UnusedMember.Global
         Medium = 1,
         High = 2,
+        // ReSharper restore UnusedMember.Global
         Player = 3
     }
 
     public static class Tools
     {
         public static Rectangle Screen;
-        public static Random Rnd = new Random();
-        public const int ROUND_PRECISION = 3;
+        public static readonly Random Rnd = new Random();
+        private const int ROUND_PRECISION = 3;
         public static Rectangle ArenaBounds;
 
         public static GameTime GameTime;
@@ -35,7 +37,7 @@ namespace ISU_ButTanksThisTime
         public static Vector2 TrueMousePos;
         public static SpriteFont Font;
         public static Texture2D ButtonImg;
-        public const float TOLERANCE = 0.00001F;
+        private const float TOLERANCE = 0.00001F;
 
         public static float ApproachValue(float current, float target, float speed)
         {
@@ -171,17 +173,17 @@ namespace ISU_ButTanksThisTime
             Line[] lines1 =
             {
                 new Line(box1.TopRight, box1.TopLeft),
-                new Line(box1.BotomRight, box1.BotomLeft),
-                new Line(box1.TopRight, box1.BotomRight),
-                new Line(box1.TopLeft, box1.BotomLeft),
+                new Line(box1.BottomRight, box1.BottomLeft),
+                new Line(box1.TopRight, box1.BottomRight),
+                new Line(box1.TopLeft, box1.BottomLeft),
             };
 
             Line[] lines2 =
             {
                 new Line(box2.TopRight, box2.TopLeft),
-                new Line(box2.BotomRight, box2.BotomLeft),
-                new Line(box2.TopRight, box2.BotomRight),
-                new Line(box2.TopLeft, box2.BotomLeft),
+                new Line(box2.BottomRight, box2.BottomLeft),
+                new Line(box2.TopRight, box2.BottomRight),
+                new Line(box2.TopLeft, box2.BottomLeft),
             };
 
             foreach (var line1 in lines1)
@@ -196,35 +198,6 @@ namespace ISU_ButTanksThisTime
             return false;
         }
 
-        public static bool LineBoxCollision(Line line, RotatedRectangle box)
-        {
-            Line[] lines =
-            {
-                new Line(box.TopRight, box.TopLeft),
-                new Line(box.BotomRight, box.BotomLeft),
-                new Line(box.TopRight, box.BotomRight),
-                new Line(box.TopLeft, box.BotomLeft),
-            };
-
-            foreach (var lineB in lines)
-            {
-                if (LineLineCol(lineB, line))
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        public static bool CirclePointCollision(Circle circle, Vector2 point)
-        {
-            if ((point - circle.Centre).LengthSquared() <= Math.Pow(circle.Raduis, 2))
-            {
-                return true;
-            }
-
-            return false;
-        }
+        public static bool CirclePointCollision(Circle circle, Vector2 point) => (point - circle.Centre).LengthSquared() <= Math.Pow(circle.Radius, 2);
     }
 }

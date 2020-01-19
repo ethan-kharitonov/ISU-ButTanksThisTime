@@ -19,7 +19,7 @@ namespace ISU_ButTanksThisTime.Collectibles
         private const float IMG_SCALE_FACTOR = 0.7f;
         public readonly int Amount;
 
-        public Item(Vector2 position, int amount = 1)
+        protected Item(Vector2 position, int amount = 1)
         {
             this.position = position;
             Amount = amount;
