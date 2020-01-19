@@ -138,7 +138,7 @@ namespace ISU_ButTanksThisTime
 
             var trueBarrelBox = barrelBox;
             trueBarrelBox.Height = (int) (trueBarrelBox.Height * 0.60);
-            if (Tools.BoxBoxCollision(player.GetRotatedRectangle(), new RotatedRectangle(trueBarrelBox, 45, new Vector2(barrelBox.Width / 2f, barrelBox.Height / 2f))) != null)
+            if (Tools.BoxBoxCollision(player.GetRotatedRectangle(), new RotatedRectangle(trueBarrelBox, 45, new Vector2(barrelBox.Width / 2f, barrelBox.Height / 2f))))
             {
                 Game1.State = State.Shop;
             }
@@ -294,7 +294,7 @@ namespace ISU_ButTanksThisTime
                 //check on player
                 if (landmines[k] is RedMine)
                 {
-                    if (Tools.BoxBoxCollision(player.GetRotatedRectangle(), landmines[k].GetBox()) != null)
+                    if (Tools.BoxBoxCollision(player.GetRotatedRectangle(), landmines[k].GetBox()))
                     {
                         landmines[k].Collide();
                     }
@@ -305,7 +305,7 @@ namespace ISU_ButTanksThisTime
                 //check on enemy;
                 for (var i = 0; i < enemies.Count; ++i)
                 {
-                    if (Tools.BoxBoxCollision(enemies[i].GetRotatedRectangle(), landmines[k].GetBox()) != null)
+                    if (Tools.BoxBoxCollision(enemies[i].GetRotatedRectangle(), landmines[k].GetBox()))
                     {
                         landmines[k].Collide();
                     }
@@ -362,7 +362,7 @@ namespace ISU_ButTanksThisTime
                     continue;
                 }
 
-                if (Tools.BoxBoxCollision(enemy1.GetRotatedRectangle(), player.GetRotatedRectangle()) != null)
+                if (Tools.BoxBoxCollision(enemy1.GetRotatedRectangle(), player.GetRotatedRectangle()))
                 {
                     enemy1.Collide(player);
                     player.Collide(enemy1);
@@ -391,7 +391,7 @@ namespace ISU_ButTanksThisTime
                         enemy1.Heal((enemy2 as HealerEnemy).HealAmount);
                     }
 
-                    if (Tools.BoxBoxCollision(enemy1.GetRotatedRectangle(), enemy2.GetRotatedRectangle()) != null)
+                    if (Tools.BoxBoxCollision(enemy1.GetRotatedRectangle(), enemy2.GetRotatedRectangle()))
                     {
                         enemies.RemoveAt(i);
                         enemies.RemoveAt(k - 1);
@@ -441,7 +441,7 @@ namespace ISU_ButTanksThisTime
                     continue;
                 }
 
-                if (bullet.BulletOwner == Owner.Enemy && Tools.BoxBoxCollision(player.GetRotatedRectangle(), bullet.GetRotatedRectangle()) != null)
+                if (bullet.BulletOwner == Owner.Enemy && Tools.BoxBoxCollision(player.GetRotatedRectangle(), bullet.GetRotatedRectangle()))
                 {
                     player.Collide(bullet);
                     bullet.Collide();
@@ -458,7 +458,7 @@ namespace ISU_ButTanksThisTime
                         continue;
                     }
 
-                    if (bullet.BulletOwner == Owner.Player && Tools.BoxBoxCollision(enemies[i].GetRotatedRectangle(), bullet.GetRotatedRectangle()) != null)
+                    if (bullet.BulletOwner == Owner.Player && Tools.BoxBoxCollision(enemies[i].GetRotatedRectangle(), bullet.GetRotatedRectangle()))
                     {
                         enemies[i].Collide(bullet);
                         bullet.Collide();
@@ -472,7 +472,7 @@ namespace ISU_ButTanksThisTime
             for (var i = 0; i < itemsOnMap.Count; i++)
             {
                 var item = itemsOnMap[i];
-                if (Tools.BoxBoxCollision(item.Box, player.GetRotatedRectangle()) != null)
+                if (Tools.BoxBoxCollision(item.Box, player.GetRotatedRectangle()))
                 {
                     itemsOnMap.RemoveAt(i);
                     --i;

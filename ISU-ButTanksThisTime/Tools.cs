@@ -2,8 +2,6 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using ISU_ButTanksThisTime.Shapes;
 
 namespace ISU_ButTanksThisTime
@@ -92,7 +90,7 @@ namespace ISU_ButTanksThisTime
             return newAngle;
         }
 
-        private static PointOrInterval? LineLineCol(Line line1, Line line2)
+        private static bool LineLineCol(Line line1, Line line2)
         {
             var s1 = line1.StartPoint;
             var e1 = line1.EndPoint;
@@ -104,9 +102,7 @@ namespace ISU_ButTanksThisTime
 
             if (isFirstPerpendicularToAxisX && isSecondPerpendicularToAxisX)
             {
-                return Math.Abs(s1.X - s2.X) < TOLERANCE
-                    ? DoSameLineIntervalsNotPerpendicularToAxisYIntersect(s1, e1, s2, e2)
-                    : null;
+                return Math.Abs(s1.X - s2.X) < TOLERANCE && DoSameLineIntervalsNotPerpendicularToAxisYIntersect(s1, e1, s2, e2);
             }
 
             if (isFirstPerpendicularToAxisX)
@@ -124,11 +120,9 @@ namespace ISU_ButTanksThisTime
 
             if (Math.Abs(a1 - a2) < TOLERANCE)
             {
-                return Math.Abs(b1 - b2) < TOLERANCE
-                    ? Math.Abs(a1) < TOLERANCE
-                        ? DoSameLineIntervalsPerpendicularToAxisYIntersect(s1, e1, s2, e2) // both intervals are on a line perpendicular to the axis Y
-                        : DoSameLineIntervalsNotPerpendicularToAxisYIntersect(s1, e1, s2, e2)
-                    : null;
+                return Math.Abs(b1 - b2) < TOLERANCE && (Math.Abs(a1) < TOLERANCE
+                           ? DoSameLineIntervalsPerpendicularToAxisYIntersect(s1, e1, s2, e2) // both intervals are on a line perpendicular to the axis Y
+                           : DoSameLineIntervalsNotPerpendicularToAxisYIntersect(s1, e1, s2, e2));
             }
 
             var intersection = new Vector2(
@@ -139,106 +133,30 @@ namespace ISU_ButTanksThisTime
                 IsBetween(s1.X, intersection.X, e1.X) &&
                 IsBetween(s2.X, intersection.X, e2.X) &&
                 IsBetween(s1.Y, intersection.Y, e1.Y) &&
-                IsBetween(s2.Y, intersection.Y, e2.Y)
-                    ? new PointOrInterval(new Vector2(intersection.X, intersection.Y))
-                    : default(PointOrInterval?);
+                IsBetween(s2.Y, intersection.Y, e2.Y);
         }
 
         #region CalculateIntersectionResultFinal
 
-        private static PointOrInterval? CalculateIntersectionResult(
-            bool s1BelongsToInterval2, bool e1BelongsToInterval2,
-            bool s2BelongsToInterval1, bool e2BelongsToInterval1,
-            Vector2 s1, Vector2 e1, Vector2 s2, Vector2 e2)
-        {
-            if (s1BelongsToInterval2)
-            {
-                if (e1BelongsToInterval2)
-                {
-                    return new PointOrInterval(s1, e1);
-                }
-
-                if (s2BelongsToInterval1)
-                {
-                    return new PointOrInterval(s1, s2);
-                }
-
-                Debug.Assert(e2BelongsToInterval1);
-                return new PointOrInterval(s1, e2);
-            }
-
-            return null;
-        }
-
-        private static PointOrInterval? CalculateIntersectionResultFinal(
-            bool s1BelongsToInterval2, bool e1BelongsToInterval2,
-            bool s2BelongsToInterval1, bool e2BelongsToInterval1,
-            Vector2 s1, Vector2 e1, Vector2 s2, Vector2 e2)
-        {
-            var res = CalculateIntersectionResult(
-                s1BelongsToInterval2, e1BelongsToInterval2,
-                s2BelongsToInterval1, e2BelongsToInterval1,
-                s1, e1, s2, e2);
-            if (res == null)
-            {
-                res = CalculateIntersectionResult(
-                    e1BelongsToInterval2, s1BelongsToInterval2,
-                    s2BelongsToInterval1, e2BelongsToInterval1,
-                    e1, s1, s2, e2);
-                if (res == null)
-                {
-                    res = CalculateIntersectionResult(
-                        s2BelongsToInterval1, e2BelongsToInterval1,
-                        s1BelongsToInterval2, e1BelongsToInterval2,
-                        s2, e2, s1, e1);
-                    if (res == null)
-                    {
-                        res = CalculateIntersectionResult(
-                            e2BelongsToInterval1, s2BelongsToInterval1,
-                            s1BelongsToInterval2, e1BelongsToInterval2,
-                            e2, s2, s1, e1);
-                    }
-                }
-            }
-
-            return res;
-        }
-
         #endregion
 
-        private static PointOrInterval? DoSameLineIntervalsNotPerpendicularToAxisYIntersect(Vector2 s1, Vector2 e1, Vector2 s2, Vector2 e2)
-        {
-            var s1BelongsToInterval2 = IsBetween(s2.Y, s1.Y, e2.Y);
-            var e1BelongsToInterval2 = IsBetween(s2.Y, e1.Y, e2.Y);
-            var s2BelongsToInterval1 = IsBetween(s1.Y, s2.Y, e1.Y);
-            var e2BelongsToInterval1 = IsBetween(s1.Y, e2.Y, e1.Y);
+        private static bool DoSameLineIntervalsNotPerpendicularToAxisYIntersect(Vector2 s1, Vector2 e1, Vector2 s2, Vector2 e2) => 
+            IsBetween(s2.Y, s1.Y, e2.Y) ||  // s1 is between s2 and e2
+            IsBetween(s2.Y, e1.Y, e2.Y) ||  // e1 is between s2 and e2
+            IsBetween(s1.Y, s2.Y, e1.Y) ||  // s2 is between s1 and e1
+            IsBetween(s1.Y, e2.Y, e1.Y);    // e2 is between s1 and e1
 
-            return CalculateIntersectionResultFinal(
-                s1BelongsToInterval2, e1BelongsToInterval2,
-                s2BelongsToInterval1, e2BelongsToInterval1,
-                s1, e1, s2, e2);
-        }
+        private static bool DoSameLineIntervalsPerpendicularToAxisYIntersect(Vector2 s1, Vector2 e1, Vector2 s2, Vector2 e2) =>
+            IsBetween(s2.X, s1.X, e2.X) ||  // s1 is between s2 and e2
+            IsBetween(s2.X, e1.X, e2.X) ||  // e1 is between s2 and e2
+            IsBetween(s1.X, s2.X, e1.X) ||  // s2 is between s1 and e1
+            IsBetween(s1.X, e2.X, e1.X);    // e2 is between s1 and e1
 
-        private static PointOrInterval? DoSameLineIntervalsPerpendicularToAxisYIntersect(Vector2 s1, Vector2 e1, Vector2 s2, Vector2 e2)
-        {
-            var s1BelongsToInterval2 = IsBetween(s2.X, s1.X, e2.X);
-            var e1BelongsToInterval2 = IsBetween(s2.X, e1.X, e2.X);
-            var s2BelongsToInterval1 = IsBetween(s1.X, s2.X, e1.X);
-            var e2BelongsToInterval1 = IsBetween(s1.X, e2.X, e1.X);
-
-            return CalculateIntersectionResultFinal(
-                s1BelongsToInterval2, e1BelongsToInterval2,
-                s2BelongsToInterval1, e2BelongsToInterval1,
-                s1, e1, s2, e2);
-        }
-
-        private static PointOrInterval? IsIntersectingWithPerpendicular(Vector2 s1, Vector2 e1, Vector2 s2, Vector2 e2)
+        private static bool IsIntersectingWithPerpendicular(Vector2 s1, Vector2 e1, Vector2 s2, Vector2 e2)
         {
             var (a2, b2) = CalcLine(s2, e2);
             var y = (float) Math.Round(a2 * s1.X + b2, ROUND_PRECISION);
-            return IsBetween(s2.X, s1.X, e2.X) && IsBetween(s1.Y, y, e1.Y) && IsBetween(s2.Y, y, e2.Y)
-                ? new PointOrInterval(new Vector2(s1.X, y))
-                : default(PointOrInterval?);
+            return IsBetween(s2.X, s1.X, e2.X) && IsBetween(s1.Y, y, e1.Y) && IsBetween(s2.Y, y, e2.Y);
         }
 
         public static bool IsBetween(float f1, float x, float f2) => Math.Min(f1, f2) <= x && x <= Math.Max(f1, f2);
@@ -248,7 +166,7 @@ namespace ISU_ButTanksThisTime
             Math.Round((s.Y - e.Y) / (s.X - e.X), ROUND_PRECISION),
             Math.Round((s.X * e.Y - s.Y * e.X) / (s.X - e.X), ROUND_PRECISION));
 
-        public static List<LineIntersectionResult> BoxBoxCollision(RotatedRectangle box1, RotatedRectangle box2)
+        public static bool BoxBoxCollision(RotatedRectangle box1, RotatedRectangle box2)
         {
             Line[] lines1 =
             {
@@ -266,26 +184,19 @@ namespace ISU_ButTanksThisTime
                 new Line(box2.TopLeft, box2.BotomLeft),
             };
 
-            List<LineIntersectionResult> res = null;
             foreach (var line1 in lines1)
             foreach (var line2 in lines2)
             {
-                var pointOrInterval = LineLineCol(line1, line2);
-                if (pointOrInterval != null)
+                if (LineLineCol(line1, line2))
                 {
-                    if (res == null)
-                    {
-                        res = new List<LineIntersectionResult>();
-                    }
-
-                    res.Add(new LineIntersectionResult(line1, line2, pointOrInterval.Value));
+                    return true;
                 }
             }
 
-            return res;
+            return false;
         }
 
-        public static List<LineIntersectionResult> LineBoxCollision(Line line, RotatedRectangle box)
+        public static bool LineBoxCollision(Line line, RotatedRectangle box)
         {
             Line[] lines =
             {
@@ -295,22 +206,15 @@ namespace ISU_ButTanksThisTime
                 new Line(box.TopLeft, box.BotomLeft),
             };
 
-            List<LineIntersectionResult> res = null;
             foreach (var lineB in lines)
             {
-                var pointOrInterval = LineLineCol(lineB, line);
-                if (pointOrInterval != null)
+                if (LineLineCol(lineB, line))
                 {
-                    if (res == null)
-                    {
-                        res = new List<LineIntersectionResult>();
-                    }
-
-                    res.Add(new LineIntersectionResult(lineB, line, pointOrInterval.Value));
+                    return true;
                 }
             }
 
-            return res;
+            return false;
         }
 
         public static bool CirclePointCollision(Circle circle, Vector2 point)

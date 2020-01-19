@@ -156,7 +156,7 @@ namespace ISU_ButTanksThisTime.Tanks
         {
             var obsticalBox = new RotatedRectangle(obstical, 0, Vector2.Zero);
             var rotBox = GetRotatedRectangle();
-            if (Tools.BoxBoxCollision(obsticalBox, rotBox) == null)
+            if (!Tools.BoxBoxCollision(obsticalBox, rotBox))
             {
                 return;
             }
