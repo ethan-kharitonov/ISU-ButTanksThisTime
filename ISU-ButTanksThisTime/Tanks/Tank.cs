@@ -199,24 +199,32 @@ namespace ISU_ButTanksThisTime
 
         protected void DropItem()
         {
-            int chance = Tools.Rnd.Next(76, 100);
+            int chance = Tools.Rnd.Next(110, 120);
             switch (chance)
             {
-                case int n when n < 25:
+                case int n when n < 20:
                     GameScene.AddItem(new RelocateItem(basePosition));
                     break;
-                case int n when n < 50:
+                case int n when n < 40:
                     GameScene.AddItem(new SpeedBoostItem(basePosition));
                     break;
-                case int n when n < 75:
+                case int n when n < 60:
                     GameScene.AddItem(new CoinItem(basePosition));
                     break;
-                case int n when n < 100:
+                case int n when n < 80:
                     GameScene.AddItem(new CoinPileItem(basePosition));
+                    break;
+                case int n when n < 100:
+                    GameScene.AddItem(new Ammo(basePosition));
+                    break;
+                case int n when n < 120:
+                    GameScene.AddBullet(new MedKit(basePosition));
                     break;
             }
         }
 
         public void Heal(int healAmount) => health += healAmount;
+
+        public int GetHealth() => health;
     }
 }

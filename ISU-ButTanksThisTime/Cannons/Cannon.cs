@@ -33,6 +33,7 @@ namespace ISU_ButTanksThisTime
             rotation = Tools.RotateTowardsVector(rotation, target, ROTATE_SPEED);
             if (shootTimer.IsTimeUp(Tools.GameTime) && active)
             {
+                GameScene.RemoveBullet();
                 shootTimer.Reset();
                 Bullet newBullet = Bullet.Clone(pos, rotation);
                 GameScene.AddBullet(newBullet);

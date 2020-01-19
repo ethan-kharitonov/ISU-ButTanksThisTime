@@ -512,6 +512,18 @@
 /processorParam:TextureFormat=Color
 /build:Images/Sprites/Items/Coin_B.png
 
+#begin Images/Sprites/Items/HP_Bonus.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/Sprites/Items/HP_Bonus.png
+
 #begin Images/Sprites/Items/Mobility_Icon.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -523,6 +535,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/Sprites/Items/Mobility_Icon.png
+
+#begin Images/Sprites/Items/Shotgun_Shells.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/Sprites/Items/Shotgun_Shells.png
 
 #begin Images/Sprites/Items/Speed_Bonus.png
 /importer:TextureImporter

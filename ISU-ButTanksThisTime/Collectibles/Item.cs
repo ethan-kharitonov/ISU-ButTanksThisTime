@@ -13,6 +13,7 @@ namespace ISU_ButTanksThisTime
         SpeedBoost,
         Relocate,
         Coin,
+        Ammo
     }
 
     abstract class Item

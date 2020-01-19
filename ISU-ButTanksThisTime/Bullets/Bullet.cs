@@ -8,7 +8,7 @@ namespace ISU_ButTanksThisTime
     abstract class Bullet
     {
         protected Texture2D img;
-        private Vector2 position;
+        protected Vector2 position;
         private float rotation;
         private const float DEF_VELOCITY = 10f;
         private readonly float SCALE_FACTOR;
@@ -16,7 +16,7 @@ namespace ISU_ButTanksThisTime
         public readonly Owner bulletOwner;
 
         protected abstract Animation ExAnim { get; }
-        public bool IsDead { get; private set; } = false;
+        public bool IsDead { get; protected set; } = false;
         public int Damage { get; protected set; }
 
 
@@ -28,7 +28,7 @@ namespace ISU_ButTanksThisTime
             this.bulletOwner = bulletOwner;
         }
 
-        public bool Update()
+        public virtual bool Update()
         {
             if (!IsDead)
             {
@@ -42,7 +42,7 @@ namespace ISU_ButTanksThisTime
             return (IsDead && !ExAnim.isAnimating) || !Tools.IsBetween(Tools.ArenaBounds.Left, position.X, Tools.ArenaBounds.Right + img.Width) || !Tools.IsBetween(Tools.ArenaBounds.Bottom - img.Height, position.Y, Tools.ArenaBounds.Top);
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
             if (!IsDead)
             {
@@ -60,9 +60,9 @@ namespace ISU_ButTanksThisTime
 
         }
 
-        public RotatedRectangle GetRotatedRectangle() => new RotatedRectangle(box, MathHelper.ToRadians(rotation) + MathHelper.PiOver2, new Vector2((img.Width * 0.5f * SCALE_FACTOR), (img.Height * 0.5f * SCALE_FACTOR)));
+        public virtual RotatedRectangle GetRotatedRectangle() => new RotatedRectangle(box, MathHelper.ToRadians(rotation) + MathHelper.PiOver2, new Vector2((img.Width * 0.5f * SCALE_FACTOR), (img.Height * 0.5f * SCALE_FACTOR)));
 
-        public void Collide()
+        public virtual void Collide()
         {
             IsDead = true;
             ExAnim.destRec.X = (int)position.X - ExAnim.destRec.Width / 2;

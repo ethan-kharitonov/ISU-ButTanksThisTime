@@ -21,8 +21,11 @@ namespace ISU_ButTanksThisTime
             Icon speedBoostIcon = new Icon(new Vector2(Tools.Screen.Width - 2 * (10 + Icon.Frame.Width), 10), SpeedBoostItem.VoidObject);
             icons.Add(ItemType.SpeedBoost, speedBoostIcon);
 
-            Icon coinIcon = new Icon(new Vector2(Tools.Screen.Width - 3 * (15 + Icon.Frame.Width), 10), CoinItem.VoidObject);
+            Icon coinIcon = new Icon(new Vector2(Tools.Screen.Width - 3 * (15 + Icon.Frame.Width) + 20, 10), CoinItem.VoidObject);
             icons.Add(ItemType.Coin, coinIcon);
+
+            Icon ammoIcon = new Icon(new Vector2(Tools.Screen.Width - 4 * (15 + Icon.Frame.Width) + 20, 10), Ammo.VoidObject, 50);
+            icons.Add(ItemType.Ammo, ammoIcon);
 
         }
 
@@ -58,5 +61,12 @@ namespace ISU_ButTanksThisTime
         {
             return icons[ItemType.Coin].GetQuantity();
         }
+
+        public bool AreAnyBulletsLeft()
+        {
+            return icons[ItemType.Ammo].GetQuantity() > 0;
+        }
+
+        public void RemoveBullet() => icons[ItemType.Ammo].DecreaseQuantity(1);
     }
 }

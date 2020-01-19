@@ -79,9 +79,11 @@
     <Compile Include="Cannons\HealerCannon.cs" />
     <Compile Include="Cannons\MineDroperCannon.cs" />
     <Compile Include="Cannons\TierFourCannon.cs" />
+    <Compile Include="Collectibles\Ammo.cs" />
     <Compile Include="Collectibles\CoinItem.cs" />
     <Compile Include="Collectibles\CoinPileItem.cs" />
     <Compile Include="Collectibles\Item.cs" />
+    <Compile Include="Collectibles\MedKit.cs" />
     <Compile Include="Collectibles\RelocateItem1.cs" />
     <Compile Include="Collectibles\SpeedBoostItem.cs" />
     <Compile Include="HealthBar.cs" />

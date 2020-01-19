@@ -356,6 +356,10 @@ namespace ISU_ButTanksThisTime
             for (int i = 0; i < enemies.Count; i++)
             {
                 Tank enemie1 = enemies[i];
+                if(enemie1.GetHealth() <= 0)
+                {
+                    continue;
+                }
                 if (Tools.BoxBoxCollision(enemie1.GetRotatedRectangle(), player.GetRotatedRectangle()) != null)
                 {
                     enemie1.Collide(player);
@@ -367,10 +371,14 @@ namespace ISU_ButTanksThisTime
             for (int i = 0; i < enemies.Count; i++)
             {
                 Tank enemie1 = enemies[i];
+                if (enemie1.GetHealth() <= 0)
+                {
+                    continue;
+                }
                 for (int k = 0; k < enemies.Count; k++)
                 {
                     Tank enemie2 = enemies[k];
-                    if (enemie1.Equals(enemie2))
+                    if (enemie1.Equals(enemie2) || enemie2.GetHealth() <= 0)
                     {
                         continue;
                     }
@@ -424,9 +432,13 @@ namespace ISU_ButTanksThisTime
             //Bullet to player collision
             foreach (Bullet bullet in bullets)
             {
+                if (bullet.IsDead)
+                {
+                    continue;
+                }
                 if (bullet.bulletOwner == Owner.Enemie && Tools.BoxBoxCollision(player.GetRotatedRectangle(), bullet.GetRotatedRectangle()) != null)
                 {
-                    //player.Collide()
+                    player.Collide(bullet);
                     bullet.Collide();
                 }
             }
@@ -505,5 +517,9 @@ namespace ISU_ButTanksThisTime
         }
 
         public static void SpeedUpPlayer() => player.SpeedUp();
+
+        public static bool AreAnyBulletsLeft() => inventory.AreAnyBulletsLeft();
+
+        public static void RemoveBullet() => inventory.RemoveBullet();
     }
 }

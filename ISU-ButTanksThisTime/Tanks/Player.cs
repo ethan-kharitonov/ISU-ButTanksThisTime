@@ -22,7 +22,7 @@ namespace ISU_ButTanksThisTime
         //Cannon Variables
         private bool canControleShooting = true;
 
-        public Player(Vector2 position) : base(position, Stage.Player, 0, 0, 0, 100, 0)
+        public Player(Vector2 position) : base(position, Stage.Player, 0, 0, 0, 1000, 0)
         {
             baseImg = Tools.Content.Load<Texture2D>("Images/Sprites/Tanks/TierOne/T1PP");
             cannon = new TierOneCannon(Owner.Player, Stage.Player, basePosition, baseRotation);
@@ -52,30 +52,9 @@ namespace ISU_ButTanksThisTime
 
         private void CannonUpdate(KeyboardState kb)
         {
-            cannon.active = Mouse.GetState().LeftButton == ButtonState.Pressed && canControleShooting;
+            cannon.active = Mouse.GetState().LeftButton == ButtonState.Pressed && canControleShooting && GameScene.AreAnyBulletsLeft();
 
             cannon.Update(basePosition, baseRotation, Tools.TrueMousePos);
-
-            if (kb.IsKeyDown(Keys.D1))
-            {
-                cannon = new TierOneCannon(Owner.Player, Stage.Player, basePosition, baseRotation);
-                canControleShooting = true;
-            }
-            if (kb.IsKeyDown(Keys.D2))
-            {
-                cannon = new MineDroperCannon(Owner.Player, Stage.Player, basePosition, baseRotation);
-                canControleShooting = true;
-            }
-            if (kb.IsKeyDown(Keys.D3))
-            {
-                cannon = new TierFourCannon(Owner.Player, Stage.Player, basePosition, baseRotation);
-                canControleShooting = false;
-            }
-            if (kb.IsKeyDown(Keys.D4))
-            {
-                cannon = new BurstCannon(Owner.Player, Stage.Player, basePosition, baseRotation);
-                canControleShooting = true;
-            }
         }
 
         private void MoveTank(KeyboardState kb)
@@ -130,14 +109,11 @@ namespace ISU_ButTanksThisTime
             {
                 case Bullet _:
                     Bullet bullet = collided as Bullet;
-                    if (bullet.bulletOwner == Owner.Enemie)
-                    {
-                        health -= 25;
-                    }
+                    health -= bullet.Damage;
                     break;
                 case BomberEnemie _:
                     //Tank tank = collided as BomberEnemie;
-                    health = 25;
+                    health -=25;
                     break;
                 case LandMine _:
                     health = 0;

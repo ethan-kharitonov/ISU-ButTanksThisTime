@@ -16,14 +16,15 @@ namespace ISU_ButTanksThisTime
         private Color color = Color.White;
         private Item item;
 
-        private int quantity = 100000;
+        private int quantity;
 
         public static readonly Texture2D Frame = Tools.Content.Load<Texture2D>("Images/Sprites/UI/Bonus 03");
-        public Icon(Vector2 position, Item item)
+        public Icon(Vector2 position, Item item, int startingQuantity = 0)
         {
             this.item = item;
             frameBox = new Rectangle((int)position.X, (int)position.Y, Frame.Width, Frame.Height);
             img = item.Img;
+            quantity = startingQuantity;
         }
 
         public void Update()
