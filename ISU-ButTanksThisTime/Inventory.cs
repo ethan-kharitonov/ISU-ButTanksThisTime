@@ -1,14 +1,30 @@
-﻿using Microsoft.Xna.Framework;
+﻿// ***********************************************************************
+// Assembly         : ISU-ButTanksThisTime
+// Author           : Ethan Kharitonov
+// Created          : 01-19-2020
+//
+// Last Modified By : Ethan Kharitonov
+// Last Modified On : 01-19-2020
+// ***********************************************************************
+// <summary></summary>
+// ***********************************************************************
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using ISU_ButTanksThisTime.Collectibles;
 
 namespace ISU_ButTanksThisTime
 {
+    /// <summary>
+    /// Class Inventory.
+    /// </summary>
     internal class Inventory
     {
         private readonly Dictionary<ItemType, Icon> icons = new Dictionary<ItemType, Icon>();
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Inventory"/> class.
+        /// </summary>
         public Inventory()
         {
             //Add re-locate icon
@@ -26,6 +42,9 @@ namespace ISU_ButTanksThisTime
             icons.Add(ItemType.Ammo, ammoIcon);
         }
 
+        /// <summary>
+        /// Updates this instance.
+        /// </summary>
         public void Update()
         {
             foreach (var icon in icons.Values)
@@ -34,6 +53,10 @@ namespace ISU_ButTanksThisTime
             }
         }
 
+        /// <summary>
+        /// Draws the specified sprite batch.
+        /// </summary>
+        /// <param name="spriteBatch">The sprite batch.</param>
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
@@ -45,17 +68,35 @@ namespace ISU_ButTanksThisTime
             spriteBatch.End();
         }
 
+        /// <summary>
+        /// Adds the item.
+        /// </summary>
+        /// <param name="item">The item.</param>
         public void AddItem(Item item)
         {
             icons[item.ItemType].Add(item.Amount);
         }
 
+        /// <summary>
+        /// Gets the current credit.
+        /// </summary>
+        /// <returns>System.Int32.</returns>
         public int GetCurrentCredit() => icons[ItemType.Coin].GetQuantity();
 
+        /// <summary>
+        /// Pays this instance.
+        /// </summary>
         public void Pay() => icons[ItemType.Coin].GetQuantity();
 
+        /// <summary>
+        /// Ares any bullets left.
+        /// </summary>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public bool AreAnyBulletsLeft() => icons[ItemType.Ammo].GetQuantity() > 0;
 
+        /// <summary>
+        /// Removes the bullet.
+        /// </summary>
         public void RemoveBullet()
         {
             icons[ItemType.Ammo].DecreaseQuantity(1);

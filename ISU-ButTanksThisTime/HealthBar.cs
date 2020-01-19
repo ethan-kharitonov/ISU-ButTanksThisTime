@@ -1,8 +1,21 @@
-﻿using Microsoft.Xna.Framework;
+﻿// ***********************************************************************
+// Assembly         : ISU-ButTanksThisTime
+// Author           : Ethan Kharitonov
+// Created          : 01-19-2020
+//
+// Last Modified By : Ethan Kharitonov
+// Last Modified On : 01-19-2020
+// ***********************************************************************
+// <summary></summary>
+// ***********************************************************************
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace ISU_ButTanksThisTime
 {
+    /// <summary>
+    /// Class HealthBar.
+    /// </summary>
     internal class HealthBar
     {
         private readonly Texture2D barImg;
@@ -14,6 +27,11 @@ namespace ISU_ButTanksThisTime
 
         private readonly float maxHealth;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HealthBar"/> class.
+        /// </summary>
+        /// <param name="startHealth">The start health.</param>
+        /// <param name="position">The position.</param>
         public HealthBar(int startHealth, Vector2 position)
         {
             maxHealth = startHealth;
@@ -24,6 +42,11 @@ namespace ISU_ButTanksThisTime
             healthBox = barBox;
         }
 
+        /// <summary>
+        /// Updates the specified tank position.
+        /// </summary>
+        /// <param name="tankPos">The tank position.</param>
+        /// <param name="health">The health.</param>
         public void Update(Vector2 tankPos, float health)
         {
             barBox.X = (int) tankPos.X;
@@ -37,6 +60,10 @@ namespace ISU_ButTanksThisTime
             healthBox.Height = barBox.Height;
         }
 
+        /// <summary>
+        /// Draws the specified sprite batch.
+        /// </summary>
+        /// <param name="spriteBatch">The sprite batch.</param>
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(barImg, barBox, null, Color.White, 0, new Vector2(barImg.Width * 0.5f, barImg.Height * 0.5f), SpriteEffects.None, 1f);

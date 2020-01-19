@@ -1,4 +1,14 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : ISU-ButTanksThisTime
+// Author           : Ethan Kharitonov
+// Created          : 01-16-2020
+//
+// Last Modified By : Ethan Kharitonov
+// Last Modified On : 01-19-2020
+// ***********************************************************************
+// <summary></summary>
+// ***********************************************************************
+using System;
 using Animation2D;
 using ISU_ButTanksThisTime.Bullets;
 using ISU_ButTanksThisTime.Cannons;
@@ -9,6 +19,11 @@ using Microsoft.Xna.Framework.Input;
 
 namespace ISU_ButTanksThisTime.Tanks
 {
+    /// <summary>
+    /// Class Player.
+    /// Implements the <see cref="ISU_ButTanksThisTime.Tanks.Tank" />
+    /// </summary>
+    /// <seealso cref="ISU_ButTanksThisTime.Tanks.Tank" />
     internal class Player : Tank
     {
         //Movement Variables
@@ -25,6 +40,10 @@ namespace ISU_ButTanksThisTime.Tanks
         //stores if the player can shoot
         private readonly bool canControlShooting = true;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Player"/> class.
+        /// </summary>
+        /// <param name="position">The position.</param>
         public Player(Vector2 position) : base(position, Stage.Player, 0, 0, 0, 1000)
         {
             //implement tank variables
@@ -37,6 +56,11 @@ namespace ISU_ButTanksThisTime.Tanks
             ExplosionAnimation = new Animation(explosionSpritesheet, 3, 3, 9, 1, 1, 1, 2, BasePosition, 0.3f, true);
         }
 
+        /// <summary>
+        /// Updates the specified na.
+        /// </summary>
+        /// <param name="na">The na.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public override bool Update(Vector2 na)
         {
             //store the state of the keyboard
@@ -67,6 +91,9 @@ namespace ISU_ButTanksThisTime.Tanks
             return false;
         }
 
+        /// <summary>
+        /// Cannons the update.
+        /// </summary>
         private void CannonUpdate()
         {
             Cannon.Active = Mouse.GetState().LeftButton == ButtonState.Pressed && canControlShooting && GameScene.AreAnyBulletsLeft();
@@ -74,6 +101,10 @@ namespace ISU_ButTanksThisTime.Tanks
             Cannon.Update(BasePosition, BaseRotation, Tools.TrueMousePos);
         }
 
+        /// <summary>
+        /// Moves the tank.
+        /// </summary>
+        /// <param name="kb">The kb.</param>
         private void MoveTank(KeyboardState kb)
         {
             isKeyPressed = false;
@@ -121,6 +152,10 @@ namespace ISU_ButTanksThisTime.Tanks
             }
         }
 
+        /// <summary>
+        /// Collides the specified collided.
+        /// </summary>
+        /// <param name="collided">The collided.</param>
         public override void Collide(object collided)
         {
             switch (collided)
@@ -142,22 +177,44 @@ namespace ISU_ButTanksThisTime.Tanks
             }
         }
 
+        /// <summary>
+        /// Gets the type of the tank.
+        /// </summary>
+        /// <returns>TankType.</returns>
         public override TankType GetTankType() => TankType.Player;
 
+        /// <summary>
+        /// Clones the specified position.
+        /// </summary>
+        /// <param name="position">The position.</param>
+        /// <param name="rotation">The rotation.</param>
+        /// <param name="stage">The stage.</param>
+        /// <returns>Tank.</returns>
+        /// <exception cref="NotImplementedException"></exception>
         public override Tank Clone(Vector2 position, float rotation, Stage stage) => throw new NotImplementedException();
 
+        /// <summary>
+        /// Steps the out of shop.
+        /// </summary>
         public void StepOutOfShop()
         {
             velocity = Vector2.Zero;
             BasePosition = Tools.ArenaBounds.Location.ToVector2() + new Vector2(150, 150);
         }
 
+        /// <summary>
+        /// Takes the cannon.
+        /// </summary>
+        /// <param name="newCannon">The new cannon.</param>
         public void TakeCannon(Cannon newCannon)
         {
             Cannon = newCannon;
             Cannon.Update(BasePosition, BaseRotation, Tools.TrueMousePos);
         }
 
+        /// <summary>
+        /// Speeds up.
+        /// </summary>
         public void SpeedUp()
         {
             speedBoostTimer.Reset();

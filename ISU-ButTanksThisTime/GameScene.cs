@@ -1,4 +1,14 @@
-﻿using Microsoft.Xna.Framework;
+﻿// ***********************************************************************
+// Assembly         : ISU-ButTanksThisTime
+// Author           : Ethan Kharitonov
+// Created          : 01-16-2020
+//
+// Last Modified By : Ethan Kharitonov
+// Last Modified On : 01-19-2020
+// ***********************************************************************
+// <summary></summary>
+// ***********************************************************************
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -13,6 +23,9 @@ using ISU_ButTanksThisTime.Tanks;
 
 namespace ISU_ButTanksThisTime
 {
+    /// <summary>
+    /// Class GameScene.
+    /// </summary>
     internal static class GameScene
     {
         //Background Variables
@@ -67,6 +80,9 @@ namespace ISU_ButTanksThisTime
 
         private static Button pauseBtn;
 
+        /// <summary>
+        /// Loads the content.
+        /// </summary>
         public static void LoadContent()
         {
             camera = new Camera(Tools.Graphics.Viewport);
@@ -119,6 +135,9 @@ namespace ISU_ButTanksThisTime
             frozenScreen.SetData(data);
         }
 
+        /// <summary>
+        /// Updates this instance.
+        /// </summary>
         public static void Update()
         {
             camera.Update(player.GetPos());
@@ -155,6 +174,10 @@ namespace ISU_ButTanksThisTime
             UpdateItems();
         }
 
+        /// <summary>
+        /// Draws the specified sprite batch.
+        /// </summary>
+        /// <param name="spriteBatch">The sprite batch.</param>
         public static void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.Transform);
@@ -212,6 +235,9 @@ namespace ISU_ButTanksThisTime
             inventory.Draw(spriteBatch);
         }
 
+        /// <summary>
+        /// Loads the path.
+        /// </summary>
         private static void LoadPath()
         {
             var filePath = System.Reflection.Assembly.GetExecutingAssembly().CodeBase;
@@ -259,6 +285,10 @@ namespace ISU_ButTanksThisTime
             }
         }
 
+        /// <summary>
+        /// Adds the bullet.
+        /// </summary>
+        /// <param name="bullet">The bullet.</param>
         public static void AddBullet(Bullet bullet)
         {
             if (freeze)
@@ -269,6 +299,9 @@ namespace ISU_ButTanksThisTime
             bullets.Add(bullet);
         }
 
+        /// <summary>
+        /// Updates the mines.
+        /// </summary>
         private static void UpdateMines()
         {
             //Create mines
@@ -319,6 +352,9 @@ namespace ISU_ButTanksThisTime
             }
         }
 
+        /// <summary>
+        /// Updates the enemies.
+        /// </summary>
         private static void UpdateEnemies()
         {
             //Spawn Enemies
@@ -416,6 +452,9 @@ namespace ISU_ButTanksThisTime
             }
         }
 
+        /// <summary>
+        /// Updates the bullets.
+        /// </summary>
         private static void UpdateBullets()
         {
             //Update bullets
@@ -460,6 +499,9 @@ namespace ISU_ButTanksThisTime
             }
         }
 
+        /// <summary>
+        /// Updates the items.
+        /// </summary>
         private static void UpdateItems()
         {
             for (var i = 0; i < itemsOnMap.Count; i++)
@@ -474,11 +516,21 @@ namespace ISU_ButTanksThisTime
             }
         }
 
+        /// <summary>
+        /// Adds the land mine.
+        /// </summary>
+        /// <param name="mine">The mine.</param>
         public static void AddLandMine(LandMine mine)
         {
             landmines.Add(mine);
         }
 
+        /// <summary>
+        /// Merges the tanks.
+        /// </summary>
+        /// <param name="tank1">The tank1.</param>
+        /// <param name="tank2">The tank2.</param>
+        /// <returns>Tank.</returns>
         private static Tank MergeTanks(Tank tank1, Tank tank2)
         {
             var newPos = (tank1.GetPos() + tank2.GetPos()) / 2;
@@ -488,41 +540,72 @@ namespace ISU_ButTanksThisTime
             return tank1.Clone(newPos, tank2.GetRotation(), stage);
         }
 
+        /// <summary>
+        /// Adds the item.
+        /// </summary>
+        /// <param name="item">The item.</param>
         public static void AddItem(Item item)
         {
             itemsOnMap.Add(item);
         }
 
+        /// <summary>
+        /// Freezes the game.
+        /// </summary>
         public static void FreezeGame()
         {
             freezeTimer.Reset();
         }
 
+        /// <summary>
+        /// Makes the player leave shop.
+        /// </summary>
         public static void MakePlayerLeaveShop()
         {
             player.StepOutOfShop();
         }
 
+        /// <summary>
+        /// Gets the current credit.
+        /// </summary>
+        /// <returns>System.Int32.</returns>
         public static int GetCurrentCredit() => inventory.GetCurrentCredit();
 
+        /// <summary>
+        /// Gives the player new cannon.
+        /// </summary>
+        /// <param name="cannon">The cannon.</param>
         public static void GivePlayerNewCannon(Cannon cannon)
         {
             player.TakeCannon(cannon);
             inventory.Pay();
         }
 
+        /// <summary>
+        /// Speeds up player.
+        /// </summary>
         public static void SpeedUpPlayer()
         {
             player.SpeedUp();
         }
 
+        /// <summary>
+        /// Ares any bullets left.
+        /// </summary>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public static bool AreAnyBulletsLeft() => inventory.AreAnyBulletsLeft();
 
+        /// <summary>
+        /// Removes the bullet.
+        /// </summary>
         public static void RemoveBullet()
         {
             inventory.RemoveBullet();
         }
 
+        /// <summary>
+        /// Resets this instance.
+        /// </summary>
         public static void Reset()
         {
             enemies.Clear();
@@ -532,6 +615,10 @@ namespace ISU_ButTanksThisTime
             inventory = new Inventory();
         }
 
+        /// <summary>
+        /// Games the is frozen.
+        /// </summary>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public static bool GameIsFrozen() => freeze;
     }
 }

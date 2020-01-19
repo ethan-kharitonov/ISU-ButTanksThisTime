@@ -1,17 +1,38 @@
-﻿using Microsoft.Xna.Framework;
+﻿// ***********************************************************************
+// Assembly         : ISU-ButTanksThisTime
+// Author           : Ethan Kharitonov
+// Created          : 01-16-2020
+//
+// Last Modified By : Ethan Kharitonov
+// Last Modified On : 01-19-2020
+// ***********************************************************************
+// <summary></summary>
+// ***********************************************************************
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace ISU_ButTanksThisTime
 {
+    /// <summary>
+    /// Class Camera.
+    /// </summary>
     internal class Camera
     {
         public Matrix Transform;
         private Viewport viewport;
         private float zoom = 1;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Camera"/> class.
+        /// </summary>
+        /// <param name="viewport">The viewport.</param>
         public Camera(Viewport viewport) => this.viewport = viewport;
 
+        /// <summary>
+        /// Updates the specified target.
+        /// </summary>
+        /// <param name="target">The target.</param>
         public void Update(Vector2 target)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.O))

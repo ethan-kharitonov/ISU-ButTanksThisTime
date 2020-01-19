@@ -1,4 +1,14 @@
-﻿using Animation2D;
+﻿// ***********************************************************************
+// Assembly         : ISU-ButTanksThisTime
+// Author           : Ethan Kharitonov
+// Created          : 01-16-2020
+//
+// Last Modified By : Ethan Kharitonov
+// Last Modified On : 01-19-2020
+// ***********************************************************************
+// <summary></summary>
+// ***********************************************************************
+using Animation2D;
 using ISU_ButTanksThisTime.Bullets;
 using ISU_ButTanksThisTime.Cannons;
 using ISU_ButTanksThisTime.Collectibles;
@@ -9,6 +19,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace ISU_ButTanksThisTime.Tanks
 {
+    /// <summary>
+    /// Enum TankType
+    /// </summary>
     public enum TankType
     {
         BasicPath = 0,
@@ -20,6 +33,9 @@ namespace ISU_ButTanksThisTime.Tanks
         Player = 6
     }
 
+    /// <summary>
+    /// Class Tank.
+    /// </summary>
     internal abstract class Tank
     {
         //Base Variables
@@ -46,6 +62,16 @@ namespace ISU_ButTanksThisTime.Tanks
         //the stage of this tank
         private readonly Stage stage;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Tank"/> class.
+        /// </summary>
+        /// <param name="position">The position.</param>
+        /// <param name="stage">The stage.</param>
+        /// <param name="attackRange">The attack range.</param>
+        /// <param name="speed">The speed.</param>
+        /// <param name="rotationSpeed">The rotation speed.</param>
+        /// <param name="health">The health.</param>
+        /// <param name="rotation">The rotation.</param>
         protected Tank(Vector2 position, Stage stage, float attackRange, float speed, int rotationSpeed, int health, float rotation = 0)
         {
             //assign tank details
@@ -62,6 +88,11 @@ namespace ISU_ButTanksThisTime.Tanks
             Bar = new HealthBar(health, position);
         }
 
+        /// <summary>
+        /// Updates the specified target.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public virtual bool Update(Vector2 target)
         {
             //call cannon update
@@ -69,6 +100,11 @@ namespace ISU_ButTanksThisTime.Tanks
             return UpdateBaseAndHealthBar(target);
         }
 
+        /// <summary>
+        /// Updates the base and health bar.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         private bool UpdateBaseAndHealthBar(Vector2 target)
         {
             //keep health under max health
@@ -127,6 +163,12 @@ namespace ISU_ButTanksThisTime.Tanks
             return false;
         }
 
+        /// <summary>
+        /// Updates the specified target.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <param name="cannonTarget">The cannon target.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         protected bool Update(Vector2 target, Vector2 cannonTarget)
         {
             //update cannon and call UpdateBaseAndHealthBar
@@ -134,6 +176,10 @@ namespace ISU_ButTanksThisTime.Tanks
             return UpdateBaseAndHealthBar(target);
         }
 
+        /// <summary>
+        /// Draws the specified sprite batch.
+        /// </summary>
+        /// <param name="spriteBatch">The sprite batch.</param>
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             //either draw the explosion animation or the tank and cannon depending on if tank is dead
@@ -151,6 +197,10 @@ namespace ISU_ButTanksThisTime.Tanks
             }
         }
 
+        /// <summary>
+        /// Gets the rotated rectangle.
+        /// </summary>
+        /// <returns>RotatedRectangle.</returns>
         public RotatedRectangle GetRotatedRectangle()
         {
             //calculate the regular rectangle of the tank and construct a rotated rectangle
@@ -158,8 +208,16 @@ namespace ISU_ButTanksThisTime.Tanks
             return new RotatedRectangle(box, MathHelper.ToRadians(BaseRotation) + MathHelper.PiOver2, new Vector2(box.Width * 0.5f, box.Height * 0.5f));
         }
 
+        /// <summary>
+        /// Gets the position.
+        /// </summary>
+        /// <returns>Vector2.</returns>
         public Vector2 GetPos() => BasePosition;
 
+        /// <summary>
+        /// Collides the specified collided.
+        /// </summary>
+        /// <param name="collided">The collided.</param>
         public virtual void Collide(object collided)
         {
             //choose a reaction based on the object collided with
@@ -185,17 +243,43 @@ namespace ISU_ButTanksThisTime.Tanks
             }
         }
 
+        /// <summary>
+        /// Gets the stage.
+        /// </summary>
+        /// <returns>Stage.</returns>
         public Stage GetStage() => stage;
 
+        /// <summary>
+        /// Gets the rotation.
+        /// </summary>
+        /// <returns>System.Single.</returns>
         public float GetRotation() => BaseRotation;
 
+        /// <summary>
+        /// Gets the dimensions.
+        /// </summary>
+        /// <value>The dimensions.</value>
         protected Vector2 Dimensions => new Vector2(BaseImg.Width * IMG_SCALE_FACTOR, BaseImg.Height * IMG_SCALE_FACTOR);
 
 
+        /// <summary>
+        /// Gets the type of the tank.
+        /// </summary>
+        /// <returns>TankType.</returns>
         public abstract TankType GetTankType();
 
+        /// <summary>
+        /// Clones the specified position.
+        /// </summary>
+        /// <param name="position">The position.</param>
+        /// <param name="rotation">The rotation.</param>
+        /// <param name="stage">The stage.</param>
+        /// <returns>Tank.</returns>
         public abstract Tank Clone(Vector2 position, float rotation, Stage stage);
 
+        /// <summary>
+        /// Drops the item.
+        /// </summary>
         private void DropItem()
         {
             //randomly chase a number to decide which item to drop
@@ -229,8 +313,16 @@ namespace ISU_ButTanksThisTime.Tanks
             }
         }
 
+        /// <summary>
+        /// Heals the specified heal amount.
+        /// </summary>
+        /// <param name="healAmount">The heal amount.</param>
         public void Heal(int healAmount) => Health += healAmount;
 
+        /// <summary>
+        /// Gets the health.
+        /// </summary>
+        /// <returns>System.Int32.</returns>
         public int GetHealth() => Health;
     }
 }

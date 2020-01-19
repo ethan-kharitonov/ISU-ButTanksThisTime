@@ -1,9 +1,22 @@
-﻿using Microsoft.Xna.Framework;
+﻿// ***********************************************************************
+// Assembly         : ISU-ButTanksThisTime
+// Author           : Ethan Kharitonov
+// Created          : 01-19-2020
+//
+// Last Modified By : Ethan Kharitonov
+// Last Modified On : 01-19-2020
+// ***********************************************************************
+// <summary></summary>
+// ***********************************************************************
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ISU_ButTanksThisTime.Cannons;
 
 namespace ISU_ButTanksThisTime
 {
+    /// <summary>
+    /// Class Shop.
+    /// </summary>
     internal static class Shop
     {
         private static readonly ShopPiece[] pieces = new ShopPiece[4];
@@ -11,6 +24,9 @@ namespace ISU_ButTanksThisTime
 
         private static readonly Texture2D bgImg;
 
+        /// <summary>
+        /// Initializes static members of the <see cref="Shop"/> class.
+        /// </summary>
         static Shop()
         {
             var startXPos = (Tools.Screen.Width - 875) / 2;
@@ -25,6 +41,9 @@ namespace ISU_ButTanksThisTime
             backBtn = new Button(backBtnImg, new Rectangle(Tools.Screen.Center.X - backBtnImg.Width, 475, 2 * backBtnImg.Width, 2 * backBtnImg.Height), "");
         }
 
+        /// <summary>
+        /// Updates this instance.
+        /// </summary>
         public static void Update()
         {
             foreach (var piece in pieces)
@@ -48,6 +67,10 @@ namespace ISU_ButTanksThisTime
             }
         }
 
+        /// <summary>
+        /// Draws the specified sprite batch.
+        /// </summary>
+        /// <param name="spriteBatch">The sprite batch.</param>
         public static void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();

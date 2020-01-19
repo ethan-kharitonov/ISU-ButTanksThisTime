@@ -1,14 +1,30 @@
-﻿using Microsoft.Xna.Framework;
+﻿// ***********************************************************************
+// Assembly         : ISU-ButTanksThisTime
+// Author           : Ethan Kharitonov
+// Created          : 01-19-2020
+//
+// Last Modified By : Ethan Kharitonov
+// Last Modified On : 01-19-2020
+// ***********************************************************************
+// <summary></summary>
+// ***********************************************************************
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace ISU_ButTanksThisTime
 {
+    /// <summary>
+    /// Class PauseMenu.
+    /// </summary>
     internal static class PauseMenu
     {
         private static readonly Texture2D bgImg;
         private static readonly Button backBtn;
         private static readonly Button backToMenuBtn;
 
+        /// <summary>
+        /// Initializes static members of the <see cref="PauseMenu"/> class.
+        /// </summary>
         static PauseMenu()
         {
             var btnImg = Tools.Content.Load<Texture2D>("Images/Sprites/UI/BTN BACK");
@@ -18,6 +34,9 @@ namespace ISU_ButTanksThisTime
             bgImg = Tools.Content.Load<Texture2D>("Images/Backgrounds/ShopBackground");
         }
 
+        /// <summary>
+        /// Updates this instance.
+        /// </summary>
         public static void Update()
         {
             if (backBtn.Update())
@@ -32,6 +51,10 @@ namespace ISU_ButTanksThisTime
             }
         }
 
+        /// <summary>
+        /// Draws the specified sprite batch.
+        /// </summary>
+        /// <param name="spriteBatch">The sprite batch.</param>
         public static void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();

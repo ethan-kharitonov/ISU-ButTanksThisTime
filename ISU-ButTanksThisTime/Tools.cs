@@ -1,4 +1,14 @@
-﻿using Microsoft.Xna.Framework;
+﻿// ***********************************************************************
+// Assembly         : ISU-ButTanksThisTime
+// Author           : Ethan Kharitonov
+// Created          : 01-16-2020
+//
+// Last Modified By : Ethan Kharitonov
+// Last Modified On : 01-19-2020
+// ***********************************************************************
+// <summary></summary>
+// ***********************************************************************
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -6,12 +16,18 @@ using ISU_ButTanksThisTime.Shapes;
 
 namespace ISU_ButTanksThisTime
 {
+    /// <summary>
+    /// Enum Owner
+    /// </summary>
     internal enum Owner
     {
         Enemy = 0,
         Player = 1
     }
 
+    /// <summary>
+    /// Enum Stage
+    /// </summary>
     internal enum Stage
     {
         Low = 0,
@@ -22,6 +38,9 @@ namespace ISU_ButTanksThisTime
         Player = 3
     }
 
+    /// <summary>
+    /// Class Tools.
+    /// </summary>
     public static class Tools
     {
         public static Rectangle Screen;
@@ -39,6 +58,13 @@ namespace ISU_ButTanksThisTime
         public static Texture2D ButtonImg;
         private const float TOLERANCE = 0.00001F;
 
+        /// <summary>
+        /// Approaches the value.
+        /// </summary>
+        /// <param name="current">The current.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="speed">The speed.</param>
+        /// <returns>System.Single.</returns>
         public static float ApproachValue(float current, float target, float speed)
         {
             if (current < target)
@@ -56,6 +82,12 @@ namespace ISU_ButTanksThisTime
             return current;
         }
 
+        /// <summary>
+        /// Atans the specified y.
+        /// </summary>
+        /// <param name="y">The y.</param>
+        /// <param name="x">The x.</param>
+        /// <returns>System.Single.</returns>
         private static float Atan(float y, float x)
         {
             var angle = (float) Math.Atan2(y, x);
@@ -63,6 +95,13 @@ namespace ISU_ButTanksThisTime
             return angle;
         }
 
+        /// <summary>
+        /// Rotates the towards vector.
+        /// </summary>
+        /// <param name="current">The current.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="rotationSpeed">The rotation speed.</param>
+        /// <returns>System.Single.</returns>
         public static float RotateTowardsVector(float current, Vector2 target, float rotationSpeed)
         {
             var targetAngel = MathHelper.ToDegrees(Atan(target.Y, target.X));
@@ -92,6 +131,12 @@ namespace ISU_ButTanksThisTime
             return newAngle;
         }
 
+        /// <summary>
+        /// Lines the line col.
+        /// </summary>
+        /// <param name="line1">The line1.</param>
+        /// <param name="line2">The line2.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         private static bool LineLineCol(Line line1, Line line2)
         {
             var s1 = line1.StartPoint;
@@ -142,18 +187,42 @@ namespace ISU_ButTanksThisTime
 
         #endregion
 
+        /// <summary>
+        /// Does the same line intervals not perpendicular to axis y intersect.
+        /// </summary>
+        /// <param name="s1">The s1.</param>
+        /// <param name="e1">The e1.</param>
+        /// <param name="s2">The s2.</param>
+        /// <param name="e2">The e2.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         private static bool DoSameLineIntervalsNotPerpendicularToAxisYIntersect(Vector2 s1, Vector2 e1, Vector2 s2, Vector2 e2) => 
             IsBetween(s2.Y, s1.Y, e2.Y) ||  // s1 is between s2 and e2
             IsBetween(s2.Y, e1.Y, e2.Y) ||  // e1 is between s2 and e2
             IsBetween(s1.Y, s2.Y, e1.Y) ||  // s2 is between s1 and e1
             IsBetween(s1.Y, e2.Y, e1.Y);    // e2 is between s1 and e1
 
+        /// <summary>
+        /// Does the same line intervals perpendicular to axis y intersect.
+        /// </summary>
+        /// <param name="s1">The s1.</param>
+        /// <param name="e1">The e1.</param>
+        /// <param name="s2">The s2.</param>
+        /// <param name="e2">The e2.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         private static bool DoSameLineIntervalsPerpendicularToAxisYIntersect(Vector2 s1, Vector2 e1, Vector2 s2, Vector2 e2) =>
             IsBetween(s2.X, s1.X, e2.X) ||  // s1 is between s2 and e2
             IsBetween(s2.X, e1.X, e2.X) ||  // e1 is between s2 and e2
             IsBetween(s1.X, s2.X, e1.X) ||  // s2 is between s1 and e1
             IsBetween(s1.X, e2.X, e1.X);    // e2 is between s1 and e1
 
+        /// <summary>
+        /// Determines whether [is intersecting with perpendicular] [the specified s1].
+        /// </summary>
+        /// <param name="s1">The s1.</param>
+        /// <param name="e1">The e1.</param>
+        /// <param name="s2">The s2.</param>
+        /// <param name="e2">The e2.</param>
+        /// <returns><c>true</c> if [is intersecting with perpendicular] [the specified s1]; otherwise, <c>false</c>.</returns>
         private static bool IsIntersectingWithPerpendicular(Vector2 s1, Vector2 e1, Vector2 s2, Vector2 e2)
         {
             var (a2, b2) = CalcLine(s2, e2);
@@ -161,13 +230,32 @@ namespace ISU_ButTanksThisTime
             return IsBetween(s2.X, s1.X, e2.X) && IsBetween(s1.Y, y, e1.Y) && IsBetween(s2.Y, y, e2.Y);
         }
 
+        /// <summary>
+        /// Determines whether the specified f1 is between.
+        /// </summary>
+        /// <param name="f1">The f1.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="f2">The f2.</param>
+        /// <returns><c>true</c> if the specified f1 is between; otherwise, <c>false</c>.</returns>
         public static bool IsBetween(float f1, float x, float f2) => Math.Min(f1, f2) <= x && x <= Math.Max(f1, f2);
 
+        /// <summary>
+        /// Calculates the line.
+        /// </summary>
+        /// <param name="s">The s.</param>
+        /// <param name="e">The e.</param>
+        /// <returns>System.ValueTuple&lt;System.Double, System.Double&gt;.</returns>
         private static (double a, double b) CalcLine(Vector2 s, Vector2 e) =>
         (
             Math.Round((s.Y - e.Y) / (s.X - e.X), ROUND_PRECISION),
             Math.Round((s.X * e.Y - s.Y * e.X) / (s.X - e.X), ROUND_PRECISION));
 
+        /// <summary>
+        /// Boxes the box collision.
+        /// </summary>
+        /// <param name="box1">The box1.</param>
+        /// <param name="box2">The box2.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public static bool BoxBoxCollision(RotatedRectangle box1, RotatedRectangle box2)
         {
             Line[] lines1 =
@@ -198,6 +286,12 @@ namespace ISU_ButTanksThisTime
             return false;
         }
 
+        /// <summary>
+        /// Circles the point collision.
+        /// </summary>
+        /// <param name="circle">The circle.</param>
+        /// <param name="point">The point.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public static bool CirclePointCollision(Circle circle, Vector2 point) => (point - circle.Centre).LengthSquared() <= Math.Pow(circle.Radius, 2);
     }
 }

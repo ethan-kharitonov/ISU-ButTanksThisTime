@@ -1,4 +1,14 @@
-﻿using Microsoft.Xna.Framework;
+﻿// ***********************************************************************
+// Assembly         : ISU-ButTanksThisTime
+// Author           : Ethan Kharitonov
+// Created          : 01-19-2020
+//
+// Last Modified By : Ethan Kharitonov
+// Last Modified On : 01-19-2020
+// ***********************************************************************
+// <summary></summary>
+// ***********************************************************************
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -6,6 +16,9 @@ using ISU_ButTanksThisTime.Collectibles;
 
 namespace ISU_ButTanksThisTime
 {
+    /// <summary>
+    /// Class Icon.
+    /// </summary>
     internal class Icon
     {
         private Rectangle frameBox;
@@ -17,6 +30,12 @@ namespace ISU_ButTanksThisTime
 
         public static readonly Texture2D Frame = Tools.Content.Load<Texture2D>("Images/Sprites/UI/Bonus 03");
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Icon"/> class.
+        /// </summary>
+        /// <param name="position">The position.</param>
+        /// <param name="item">The item.</param>
+        /// <param name="startingQuantity">The starting quantity.</param>
         public Icon(Vector2 position, Item item, int startingQuantity = 0)
         {
             this.item = item;
@@ -25,6 +44,9 @@ namespace ISU_ButTanksThisTime
             quantity = startingQuantity;
         }
 
+        /// <summary>
+        /// Updates this instance.
+        /// </summary>
         public void Update()
         {
             if (!item.Usable)
@@ -47,6 +69,10 @@ namespace ISU_ButTanksThisTime
             }
         }
 
+        /// <summary>
+        /// Draws the specified sprite batch.
+        /// </summary>
+        /// <param name="spriteBatch">The sprite batch.</param>
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(Frame, frameBox, color);
@@ -57,11 +83,21 @@ namespace ISU_ButTanksThisTime
             spriteBatch.DrawString(Tools.Font, "x" + quantity, new Vector2(iconBox.Right - 17, iconBox.Bottom - 33) - Tools.Font.MeasureString("$" + quantity), Color.White);
         }
 
+        /// <summary>
+        /// Adds the specified amount.
+        /// </summary>
+        /// <param name="amount">The amount.</param>
         public void Add(int amount)
         {
             quantity += amount;
         }
 
+        /// <summary>
+        /// Scales the img.
+        /// </summary>
+        /// <param name="rec1">The rec1.</param>
+        /// <param name="rec2">The rec2.</param>
+        /// <returns>System.Single.</returns>
         private float ScaleImg(Rectangle rec1, Rectangle rec2)
         {
             var ratio1 = rec1.Width / (float) rec2.Width;
@@ -70,8 +106,16 @@ namespace ISU_ButTanksThisTime
             return Math.Min(ratio1, ratio2);
         }
 
+        /// <summary>
+        /// Gets the quantity.
+        /// </summary>
+        /// <returns>System.Int32.</returns>
         public int GetQuantity() => quantity;
 
+        /// <summary>
+        /// Decreases the quantity.
+        /// </summary>
+        /// <param name="amount">The amount.</param>
         public void DecreaseQuantity(int amount)
         {
             quantity -= amount;

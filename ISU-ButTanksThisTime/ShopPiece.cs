@@ -1,9 +1,22 @@
-﻿using Microsoft.Xna.Framework;
+﻿// ***********************************************************************
+// Assembly         : ISU-ButTanksThisTime
+// Author           : Ethan Kharitonov
+// Created          : 01-19-2020
+//
+// Last Modified By : Ethan Kharitonov
+// Last Modified On : 01-19-2020
+// ***********************************************************************
+// <summary></summary>
+// ***********************************************************************
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ISU_ButTanksThisTime.Cannons;
 
 namespace ISU_ButTanksThisTime
 {
+    /// <summary>
+    /// Class ShopPiece.
+    /// </summary>
     internal class ShopPiece
     {
         private readonly Texture2D slot;
@@ -14,6 +27,12 @@ namespace ISU_ButTanksThisTime
 
         public static readonly Vector2 Dimensions = new Vector2(200, 310);
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ShopPiece"/> class.
+        /// </summary>
+        /// <param name="info">The information.</param>
+        /// <param name="position">The position.</param>
+        /// <param name="price">The price.</param>
         public ShopPiece(CannonInfo info, Vector2 position, int price)
         {
             this.price = price;
@@ -30,6 +49,10 @@ namespace ISU_ButTanksThisTime
             }
         }
 
+        /// <summary>
+        /// Updates this instance.
+        /// </summary>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public bool Update()
         {
             var canBuy = GameScene.GetCurrentCredit() >= price;
@@ -44,6 +67,10 @@ namespace ISU_ButTanksThisTime
             return false;
         }
 
+        /// <summary>
+        /// Draws the specified sprite batch.
+        /// </summary>
+        /// <param name="spriteBatch">The sprite batch.</param>
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(slot, slotBox, Color.White);
@@ -60,6 +87,9 @@ namespace ISU_ButTanksThisTime
             button.Draw(spriteBatch);
         }
 
+        /// <summary>
+        /// Deactivates this instance.
+        /// </summary>
         public void Deactivate()
         {
             if (price == 0)

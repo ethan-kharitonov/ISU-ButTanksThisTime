@@ -1,10 +1,25 @@
-﻿using ISU_ButTanksThisTime.Bullets;
+﻿// ***********************************************************************
+// Assembly         : ISU-ButTanksThisTime
+// Author           : Ethan Kharitonov
+// Created          : 01-19-2020
+//
+// Last Modified By : Ethan Kharitonov
+// Last Modified On : 01-19-2020
+// ***********************************************************************
+// <summary></summary>
+// ***********************************************************************
+using ISU_ButTanksThisTime.Bullets;
 using ISU_ButTanksThisTime.Tanks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace ISU_ButTanksThisTime.Cannons
 {
+    /// <summary>
+    /// Class BurstCannon.
+    /// Implements the <see cref="ISU_ButTanksThisTime.Cannons.Cannon" />
+    /// </summary>
+    /// <seealso cref="ISU_ButTanksThisTime.Cannons.Cannon" />
     internal class BurstCannon : Cannon
     {
         private static readonly int[] fireRate = {150, 100, 80, 60};
@@ -19,6 +34,9 @@ namespace ISU_ButTanksThisTime.Cannons
 
         public static readonly CannonInfo Info;
 
+        /// <summary>
+        /// Initializes static members of the <see cref="BurstCannon"/> class.
+        /// </summary>
         static BurstCannon()
         {
             var cannonImg = Tools.Content.Load<Texture2D>("Images/Sprites/Cannons/TierThree/T3P4");
@@ -26,6 +44,13 @@ namespace ISU_ButTanksThisTime.Cannons
         }
 
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BurstCannon"/> class.
+        /// </summary>
+        /// <param name="owner">The owner.</param>
+        /// <param name="stage">The stage.</param>
+        /// <param name="position">The position.</param>
+        /// <param name="rotation">The rotation.</param>
         public BurstCannon(Owner owner, Stage stage, Vector2 position, float rotation) : base(fireRate[(int) stage], rotationSpeed[(int) owner], true, position, rotation)
         {
             Img = Tools.Content.Load<Texture2D>("Images/Sprites/Cannons/TierThree/T3P" + ((int) stage + 1));
@@ -36,6 +61,12 @@ namespace ISU_ButTanksThisTime.Cannons
             burstDuration = new Timer(burstLength[(int) stage]);
         }
 
+        /// <summary>
+        /// Updates the specified base position.
+        /// </summary>
+        /// <param name="basePos">The base position.</param>
+        /// <param name="baseRotation">The base rotation.</param>
+        /// <param name="target">The target.</param>
         public override void Update(Vector2 basePos, float baseRotation, Vector2 target)
         {
             //start timer for shooting period
@@ -64,8 +95,16 @@ namespace ISU_ButTanksThisTime.Cannons
             base.Update(basePos, baseRotation, target);
         }
 
+        /// <summary>
+        /// Gets the bullet.
+        /// </summary>
+        /// <value>The bullet.</value>
         protected override Bullet Bullet { get; }
 
+        /// <summary>
+        /// Gets the img.
+        /// </summary>
+        /// <value>The img.</value>
         protected override Texture2D Img { get; }
     }
 }
