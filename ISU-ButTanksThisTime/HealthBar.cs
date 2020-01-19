@@ -7,17 +7,16 @@ namespace ISU_ButTanksThisTime
     {
         private readonly Texture2D barImg;
         private Rectangle barBox;
-        private const float IMG_SCALE_FACTOR = 0.5f;
         private const int DIS_ABOVE_TANK = 40;
-        private Texture2D healthImg;
+        private readonly Texture2D healthImg;
         private const int BAR_LENGTH = 85;
         private Rectangle healthBox;
 
-        public readonly float MAX_HEALTH;
+        public readonly float MaxHealth;
 
         public HealthBar(int startHealth, Vector2 position)
         {
-            MAX_HEALTH = startHealth;
+            MaxHealth = startHealth;
             barImg = Tools.Content.Load<Texture2D>("Images/Sprites/UI/Loading Bar BG");
             barBox = new Rectangle((int) position.X, (int) position.Y, BAR_LENGTH, 8);
 
@@ -34,7 +33,7 @@ namespace ISU_ButTanksThisTime
             healthBox.Y = barBox.Y;
 
             //healthBox = barBox;
-            healthBox.Width = (int) (health / MAX_HEALTH * BAR_LENGTH) - 2;
+            healthBox.Width = (int) (health / MaxHealth * BAR_LENGTH) - 2;
             healthBox.Height = barBox.Height;
         }
 

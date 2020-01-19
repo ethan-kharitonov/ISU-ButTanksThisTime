@@ -13,27 +13,27 @@ namespace ISU_ButTanksThisTime.Tanks
         private static readonly int[] ROTATION_SPEED = {5, 6, 7};
         private static readonly int[] HEALTH = {100, 200, 300};
 
-        private List<Vector2> path = new List<Vector2>();
-        private int targetPoint = 0;
+        private readonly List<Vector2> path;
+        private int targetPoint;
 
         public TierFourEnemie(Vector2 position, float rotation, Stage stage, List<Vector2> path) : base(position, stage, 0, SPEED[(int) stage], ROTATION_SPEED[(int) stage], HEALTH[(int) stage], rotation)
         {
-            baseImg = Tools.Content.Load<Texture2D>("Images/Sprites/Tanks/TierFour/T4P" + ((int) stage + 1));
+            BaseImg = Tools.Content.Load<Texture2D>("Images/Sprites/Tanks/TierFour/T4P" + ((int) stage + 1));
 
-            cannon = new TierFourCannon(Owner.Enemie, stage, basePosition, baseRotation);
+            Cannon = new TierFourCannon(Owner.Enemie, stage, BasePosition, BaseRotation);
 
             var explosionSpritesheet = Tools.Content.Load<Texture2D>("Images/Sprites/Effects/spritesheet");
-            explosionAnimation = new Animation(explosionSpritesheet, 3, 3, 9, 1, 1, 1, 2, basePosition, 0.3f, true);
+            ExplosionAnimation = new Animation(explosionSpritesheet, 3, 3, 9, 1, 1, 1, 2, BasePosition, 0.3f, true);
 
             this.path = path;
         }
 
-        public override bool Update(Vector2 NA)
+        public override bool Update(Vector2 na)
         {
-            var distanceSquared = (path[targetPoint] - basePosition).LengthSquared();
-            if (distanceSquared < Math.Pow(speed, 2))
+            var distanceSquared = (path[targetPoint] - BasePosition).LengthSquared();
+            if (distanceSquared < Math.Pow(Speed, 2))
             {
-                basePosition = path[targetPoint];
+                BasePosition = path[targetPoint];
                 targetPoint = targetPoint == path.Count - 1 ? 0 : targetPoint + 1;
             }
 

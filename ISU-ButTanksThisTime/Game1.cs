@@ -14,10 +14,10 @@ namespace ISU_ButTanksThisTime
 
     public class Game1 : Game
     {
-        private GraphicsDeviceManager graphics;
+        private readonly GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
 
-        public static State state = State.Menu;
+        public static State State = State.Menu;
 
         public Game1()
         {
@@ -41,7 +41,7 @@ namespace ISU_ButTanksThisTime
             Tools.Screen = GraphicsDevice.Viewport.Bounds;
             Tools.Graphics = GraphicsDevice;
             Tools.Content = Content;
-            Tools.buttonImg = Content.Load<Texture2D>("Images/Sprites/UI/Button BG shadow");
+            Tools.ButtonImg = Content.Load<Texture2D>("Images/Sprites/UI/Button BG shadow");
             GameScene.LoadContent();
 
             Tools.Font = Content.Load<SpriteFont>("Fonts/File");
@@ -54,7 +54,7 @@ namespace ISU_ButTanksThisTime
         protected override void Update(GameTime gameTime)
         {
             Tools.GameTime = gameTime;
-            switch (state)
+            switch (State)
             {
                 case State.Game:
                     GameScene.Update();
@@ -90,7 +90,7 @@ namespace ISU_ButTanksThisTime
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            switch (state)
+            switch (State)
             {
                 case State.Game:
                     GameScene.Draw(spriteBatch);

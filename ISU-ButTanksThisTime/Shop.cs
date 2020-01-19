@@ -6,10 +6,10 @@ namespace ISU_ButTanksThisTime
 {
     internal static class Shop
     {
-        private static ShopPiece[] pieces = new ShopPiece[4];
-        private static Button BackBtn;
+        private static readonly ShopPiece[] pieces = new ShopPiece[4];
+        private static readonly Button backBtn;
 
-        private static Texture2D bgImg;
+        private static readonly Texture2D bgImg;
 
         static Shop()
         {
@@ -22,7 +22,7 @@ namespace ISU_ButTanksThisTime
             bgImg = Tools.Content.Load<Texture2D>("Images/Backgrounds/ShopBackground");
 
             var backBtnImg = Tools.Content.Load<Texture2D>("Images/Sprites/UI/BTN BACK");
-            BackBtn = new Button(backBtnImg, new Rectangle(Tools.Screen.Center.X - backBtnImg.Width, 475, 2 * backBtnImg.Width, 2 * backBtnImg.Height), "");
+            backBtn = new Button(backBtnImg, new Rectangle(Tools.Screen.Center.X - backBtnImg.Width, 475, 2 * backBtnImg.Width, 2 * backBtnImg.Height), "");
         }
 
         public static void Update()
@@ -41,9 +41,9 @@ namespace ISU_ButTanksThisTime
                 }
             }
 
-            if (BackBtn.Update())
+            if (backBtn.Update())
             {
-                Game1.state = State.Game;
+                Game1.State = State.Game;
                 GameScene.MakePlayerLeaveShop();
             }
         }
@@ -57,7 +57,7 @@ namespace ISU_ButTanksThisTime
                 piece.Draw(spriteBatch);
             }
 
-            BackBtn.Draw(spriteBatch);
+            backBtn.Draw(spriteBatch);
 
             spriteBatch.End();
         }

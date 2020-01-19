@@ -14,7 +14,7 @@ namespace ISU_ButTanksThisTime.Collectibles
 
     internal abstract class Item
     {
-        private Vector2 position;
+        private readonly Vector2 position;
 
         private const float IMG_SCALE_FACTOR = 0.7f;
         public readonly int Amount;

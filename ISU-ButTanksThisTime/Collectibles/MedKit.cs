@@ -10,7 +10,7 @@ namespace ISU_ButTanksThisTime.Collectibles
     {
         protected override Animation ExAnim => null;
 
-        private static float SCALE_FACTOR = 0.5f;
+        private static readonly float scaleFactor = 0.5f;
         private static readonly Texture2D medKitImg;
 
         static MedKit()
@@ -18,7 +18,7 @@ namespace ISU_ButTanksThisTime.Collectibles
             medKitImg = Tools.Content.Load<Texture2D>("Images/Sprites/Items/HP_Bonus");
         }
 
-        public MedKit(Vector2 position) : base(position, 0, SCALE_FACTOR, Owner.Enemie)
+        public MedKit(Vector2 position) : base(position, 0, scaleFactor, Owner.Enemie)
         {
             Damage = -300;
         }
@@ -27,10 +27,10 @@ namespace ISU_ButTanksThisTime.Collectibles
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(medKitImg, position, null, Color.White, 0, Vector2.Zero, SCALE_FACTOR, SpriteEffects.None, 1f);
+            spriteBatch.Draw(medKitImg, Position, null, Color.White, 0, Vector2.Zero, scaleFactor, SpriteEffects.None, 1f);
         }
 
-        public override RotatedRectangle GetRotatedRectangle() => new RotatedRectangle(new Rectangle((int) position.X, (int) position.Y, (int) (medKitImg.Width * 0.5f * SCALE_FACTOR), (int) (medKitImg.Height * 0.5f * SCALE_FACTOR)), 0, Vector2.Zero);
+        public override RotatedRectangle GetRotatedRectangle() => new RotatedRectangle(new Rectangle((int) Position.X, (int) Position.Y, (int) (medKitImg.Width * 0.5f * scaleFactor), (int) (medKitImg.Height * 0.5f * scaleFactor)), 0, Vector2.Zero);
 
         public override void Collide()
         {

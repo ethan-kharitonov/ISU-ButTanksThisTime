@@ -9,9 +9,9 @@ namespace ISU_ButTanksThisTime
     internal class Icon
     {
         private Rectangle frameBox;
-        private Texture2D img;
+        private readonly Texture2D img;
         private Color color = Color.White;
-        private Item item;
+        private readonly Item item;
 
         private int quantity;
 

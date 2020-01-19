@@ -23,78 +23,78 @@ namespace ISU_ButTanksThisTime.Tanks
     internal abstract class Tank
     {
         //Base Variables
-        protected Texture2D baseImg;
-        protected Vector2 basePosition;
-        protected float baseRotation = 0;
+        protected Texture2D BaseImg;
+        protected Vector2 BasePosition;
+        protected float BaseRotation;
         public const float IMG_SCALE_FACTOR = 0.25f;
 
         //Cannon Variables
-        protected Cannon cannon;
+        protected Cannon Cannon;
 
         //Movment Variables
-        protected float speed = 3;
-        private readonly int ROTATION_SPEED = 5;
-        protected float attackRange;
+        protected float Speed;
+        private readonly int rotationSpeed;
+        protected float AttackRange;
 
         //Dying Variable
-        protected Animation explosionAnimation;
+        protected Animation ExplosionAnimation;
 
         //Health Variables
-        protected int health;
-        protected HealthBar bar;
-        protected bool killed = true;
-        protected readonly int startingHealth;
+        protected int Health;
+        protected HealthBar Bar;
+        protected bool Killed = true;
+        protected readonly int StartingHealth;
 
-        private Stage stage;
+        private readonly Stage stage;
 
         public Tank(Vector2 position, Stage stage, float attackRange, float speed, int rotationSpeed, int health, float rotation = 0)
         {
-            baseRotation = rotation;
-            basePosition = position;
+            BaseRotation = rotation;
+            BasePosition = position;
             this.stage = stage;
-            this.attackRange = attackRange;
-            ROTATION_SPEED = rotationSpeed;
-            startingHealth = health;
-            this.health = health;
-            this.speed = speed;
+            this.AttackRange = attackRange;
+            this.rotationSpeed = rotationSpeed;
+            StartingHealth = health;
+            this.Health = health;
+            this.Speed = speed;
 
-            bar = new HealthBar(health, position);
+            Bar = new HealthBar(health, position);
         }
 
         public virtual bool Update(Vector2 target)
         {
-            var distance = target - basePosition;
-            if ((int) distance.Length() >= attackRange)
+            var distance = target - BasePosition;
+            if ((int) distance.Length() >= AttackRange)
             {
-                if (distance.Length() < speed)
+                if (distance.Length() < Speed)
                 {
-                    basePosition = target;
+                    BasePosition = target;
                 }
                 else
                 {
-                    basePosition += distance / distance.Length() * speed;
+                    BasePosition += distance / distance.Length() * Speed;
                 }
             }
 
-            baseRotation = Tools.RotateTowardsVector(baseRotation, (target - basePosition) * new Vector2(1, -1), ROTATION_SPEED);
+            BaseRotation = Tools.RotateTowardsVector(BaseRotation, (target - BasePosition) * new Vector2(1, -1), rotationSpeed);
 
-            cannon.Update(basePosition, baseRotation, target);
+            Cannon.Update(BasePosition, BaseRotation, target);
 
-            if (health <= 0)
+            if (Health <= 0)
             {
-                explosionAnimation.Update(Tools.GameTime);
+                ExplosionAnimation.Update(Tools.GameTime);
             }
             else
             {
-                var explosionPos = new Vector2(basePosition.X - explosionAnimation.destRec.Width / 2, basePosition.Y - explosionAnimation.destRec.Height / 2);
-                explosionAnimation.destRec = new Rectangle((int) explosionPos.X, (int) explosionPos.Y, explosionAnimation.destRec.Width, explosionAnimation.destRec.Height);
+                var explosionPos = new Vector2(BasePosition.X - ExplosionAnimation.destRec.Width / 2F, BasePosition.Y - ExplosionAnimation.destRec.Height / 2F);
+                ExplosionAnimation.destRec = new Rectangle((int) explosionPos.X, (int) explosionPos.Y, ExplosionAnimation.destRec.Width, ExplosionAnimation.destRec.Height);
             }
 
-            bar.Update(basePosition, health);
+            Bar.Update(BasePosition, Health);
 
-            if (!explosionAnimation.isAnimating && health <= 0)
+            if (!ExplosionAnimation.isAnimating && Health <= 0)
             {
-                if (killed)
+                if (Killed)
                 {
                     DropItem();
                 }
@@ -112,59 +112,59 @@ namespace ISU_ButTanksThisTime.Tanks
                 health = startingHealth;
             }
 
-            var distance = target - basePosition;
-            if ((int) distance.Length() >= attackRange)
+            var distance = target - BasePosition;
+            if ((int) distance.Length() >= AttackRange)
             {
-                if (distance.Length() < speed)
+                if (distance.Length() < Speed)
                 {
-                    basePosition = target;
+                    BasePosition = target;
                 }
                 else
                 {
-                    basePosition += distance / distance.Length() * speed;
+                    BasePosition += distance / distance.Length() * Speed;
                 }
             }
 
-            baseRotation = Tools.RotateTowardsVector(baseRotation, (target - basePosition) * new Vector2(1, -1), ROTATION_SPEED);
+            BaseRotation = Tools.RotateTowardsVector(BaseRotation, (target - BasePosition) * new Vector2(1, -1), rotationSpeed);
 
-            cannon.Update(basePosition, baseRotation, cannonTarget);
+            Cannon.Update(BasePosition, BaseRotation, cannonTarget);
 
-            if (health <= 0)
+            if (Health <= 0)
             {
-                explosionAnimation.Update(Tools.GameTime);
+                ExplosionAnimation.Update(Tools.GameTime);
             }
             else
             {
-                var explosionPos = new Vector2(basePosition.X - explosionAnimation.destRec.Width / 2, basePosition.Y - explosionAnimation.destRec.Height / 2);
-                explosionAnimation.destRec = new Rectangle((int) explosionPos.X, (int) explosionPos.Y, explosionAnimation.destRec.Width, explosionAnimation.destRec.Height);
+                var explosionPos = new Vector2(BasePosition.X - ExplosionAnimation.destRec.Width / 2F, BasePosition.Y - ExplosionAnimation.destRec.Height / 2F);
+                ExplosionAnimation.destRec = new Rectangle((int) explosionPos.X, (int) explosionPos.Y, ExplosionAnimation.destRec.Width, ExplosionAnimation.destRec.Height);
             }
 
-            bar.Update(basePosition, health);
+            Bar.Update(BasePosition, Health);
 
-            return !explosionAnimation.isAnimating && health <= 0;
+            return !ExplosionAnimation.isAnimating && Health <= 0;
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            if (health <= 0)
+            if (Health <= 0)
             {
-                explosionAnimation.Draw(spriteBatch, Color.White, SpriteEffects.None);
+                ExplosionAnimation.Draw(spriteBatch, Color.White, SpriteEffects.None);
             }
             else
             {
-                spriteBatch.Draw(baseImg, basePosition, null, Color.White, -MathHelper.ToRadians(baseRotation) + MathHelper.PiOver2, new Vector2(baseImg.Width / 2, baseImg.Height / 2), IMG_SCALE_FACTOR, SpriteEffects.None, 1f);
-                cannon.Draw(spriteBatch);
-                bar.Draw(spriteBatch);
+                spriteBatch.Draw(BaseImg, BasePosition, null, Color.White, -MathHelper.ToRadians(BaseRotation) + MathHelper.PiOver2, new Vector2(BaseImg.Width / 2F, BaseImg.Height / 2F), IMG_SCALE_FACTOR, SpriteEffects.None, 1f);
+                Cannon.Draw(spriteBatch);
+                Bar.Draw(spriteBatch);
             }
         }
 
         public RotatedRectangle GetRotatedRectangle()
         {
-            var box = new Rectangle((int) basePosition.X, (int) basePosition.Y, (int) (baseImg.Width * IMG_SCALE_FACTOR), (int) (baseImg.Height * IMG_SCALE_FACTOR));
-            return new RotatedRectangle(box, MathHelper.ToRadians(baseRotation) + MathHelper.PiOver2, new Vector2(box.Width * 0.5f, box.Height * 0.5f));
+            var box = new Rectangle((int) BasePosition.X, (int) BasePosition.Y, (int) (BaseImg.Width * IMG_SCALE_FACTOR), (int) (BaseImg.Height * IMG_SCALE_FACTOR));
+            return new RotatedRectangle(box, MathHelper.ToRadians(BaseRotation) + MathHelper.PiOver2, new Vector2(box.Width * 0.5f, box.Height * 0.5f));
         }
 
-        public Vector2 GetPos() => basePosition;
+        public Vector2 GetPos() => BasePosition;
 
         public virtual void Collide(object collided)
         {
@@ -172,17 +172,17 @@ namespace ISU_ButTanksThisTime.Tanks
             {
                 case Bullet _:
                     var bullet = collided as Bullet;
-                    health -= bullet.Damage;
+                    Health -= bullet.Damage;
                     break;
                 case Tank _:
                     if (!(collided is Player))
                     {
-                        health = 0;
+                        Health = 0;
                     }
 
                     break;
                 case LandMine _:
-                    health = 0;
+                    Health = 0;
                     break;
             }
 
@@ -191,11 +191,11 @@ namespace ISU_ButTanksThisTime.Tanks
 
         public Stage GetStage() => stage;
 
-        public float GetRotation() => baseRotation;
+        public float GetRotation() => BaseRotation;
 
-        public Vector2 Dimensions => new Vector2(baseImg.Width * IMG_SCALE_FACTOR, baseImg.Height * IMG_SCALE_FACTOR);
+        public Vector2 Dimensions => new Vector2(BaseImg.Width * IMG_SCALE_FACTOR, BaseImg.Height * IMG_SCALE_FACTOR);
 
-        public Vector2 GetOrigin() => new Vector2(baseImg.Width * 0.5f * IMG_SCALE_FACTOR, baseImg.Height * 0.5f * IMG_SCALE_FACTOR);
+        public Vector2 GetOrigin() => new Vector2(BaseImg.Width * 0.5f * IMG_SCALE_FACTOR, BaseImg.Height * 0.5f * IMG_SCALE_FACTOR);
 
 
         public abstract TankType GetTankType();
@@ -208,31 +208,31 @@ namespace ISU_ButTanksThisTime.Tanks
             switch (chance)
             {
                 case int n when n < 20:
-                    GameScene.AddItem(new RelocateItem(basePosition));
+                    GameScene.AddItem(new RelocateItem(BasePosition));
                     break;
                 case int n when n < 40:
-                    GameScene.AddItem(new SpeedBoostItem(basePosition));
+                    GameScene.AddItem(new SpeedBoostItem(BasePosition));
                     break;
                 case int n when n < 60:
-                    GameScene.AddItem(new CoinItem(basePosition));
+                    GameScene.AddItem(new CoinItem(BasePosition));
                     break;
                 case int n when n < 80:
-                    GameScene.AddItem(new CoinPileItem(basePosition));
+                    GameScene.AddItem(new CoinPileItem(BasePosition));
                     break;
                 case int n when n < 120:
-                    GameScene.AddItem(new Ammo(basePosition));
+                    GameScene.AddItem(new Ammo(BasePosition));
                     break;
                 case int n when n < 140:
-                    GameScene.AddBullet(new MedKit(basePosition));
+                    GameScene.AddBullet(new MedKit(BasePosition));
                     break;
             }
         }
 
         public void Heal(int healAmount)
         {
-            health += healAmount;
+            Health += healAmount;
         }
 
-        public int GetHealth() => health;
+        public int GetHealth() => Health;
     }
 }

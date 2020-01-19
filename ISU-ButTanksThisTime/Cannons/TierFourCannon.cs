@@ -8,14 +8,14 @@ namespace ISU_ButTanksThisTime.Cannons
     {
         private static readonly int[] fireRate = {0, 75};
         private static readonly int[] rotationSpeed = {100, 1000};
-        private static readonly int[] timeBTWRotations = {1000, 150};
+        private static readonly int[] timeBtwRotations = {1000, 150};
 
         private readonly Bullet bullet;
         private readonly Texture2D img;
 
-        private Timer rotateTimer;
+        private readonly Timer rotateTimer;
         private const int ROTATION_INC = 45;
-        private int aditinalRotation = 0;
+        private int aditinalRotation;
 
         public static readonly CannonInfo Info;
 
@@ -29,21 +29,21 @@ namespace ISU_ButTanksThisTime.Cannons
         {
             img = Tools.Content.Load<Texture2D>("Images/Sprites/Cannons/TierFour/T4P" + ((int) stage + 1));
 
-            rotateTimer = new Timer(timeBTWRotations[(int) owner]);
+            rotateTimer = new Timer(timeBtwRotations[(int) owner]);
             bullet = new Plasma(Vector2.Zero, 0, owner);
-            active = false;
+            Active = false;
             rotateTimer.Reset();
         }
 
-        public override void Update(Vector2 basePos, float baseRotation, Vector2 NA)
+        public override void Update(Vector2 basePos, float baseRotation, Vector2 na)
         {
-            pos = CalcPos(basePos, baseRotation);
+            Pos = CalcPos(basePos, baseRotation);
 
             if (rotateTimer.IsTimeUp(Tools.GameTime))
             {
                 aditinalRotation += ROTATION_INC;
-                rotation = aditinalRotation;
-                var newBullet = Bullet.Clone(pos, rotation);
+                Rotation = aditinalRotation;
+                var newBullet = Bullet.Clone(Pos, Rotation);
                 GameScene.AddBullet(newBullet);
 
                 rotateTimer.Reset();

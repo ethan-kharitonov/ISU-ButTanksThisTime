@@ -19,32 +19,32 @@ namespace ISU_ButTanksThisTime.Tanks
 
         public TierTwoEnemie(Vector2 position, float rotation, Stage stage) : base(position, stage, 0, SPEED[(int) stage], ROTATION_SPEED[(int) stage], HEALTH[(int) stage], rotation)
         {
-            baseImg = Tools.Content.Load<Texture2D>("Images/Sprites/Tanks/TierTwo/T2P" + ((int) stage + 1));
+            BaseImg = Tools.Content.Load<Texture2D>("Images/Sprites/Tanks/TierTwo/T2P" + ((int) stage + 1));
 
-            cannon = new MineDroperCannon(Owner.Enemie, stage, basePosition, baseRotation);
-            cannon.active = false;
+            Cannon = new MineDroperCannon(Owner.Enemie, stage, BasePosition, BaseRotation);
+            Cannon.Active = false;
 
             var explosionSpritesheet = Tools.Content.Load<Texture2D>("Images/Sprites/Effects/spritesheet");
-            explosionAnimation = new Animation(explosionSpritesheet, 3, 3, 9, 1, 1, 1, 2, basePosition, 0.3f, true);
+            ExplosionAnimation = new Animation(explosionSpritesheet, 3, 3, 9, 1, 1, 1, 2, BasePosition, 0.3f, true);
 
             target = SetTarget();
         }
 
         public override bool Update(Vector2 playerPos)
         {
-            if (basePosition == target)
+            if (BasePosition == target)
             {
-                GameScene.AddLandMine(new RedMine(basePosition - Dimensions / 2f));
+                GameScene.AddLandMine(new RedMine(BasePosition - Dimensions / 2f));
                 target = SetTarget();
             }
 
-            if ((basePosition - playerPos).LengthSquared() <= Math.Pow(viewRange, 2))
+            if ((BasePosition - playerPos).LengthSquared() <= Math.Pow(viewRange, 2))
             {
-                cannon.active = true;
+                Cannon.Active = true;
                 return base.Update(target, playerPos);
             }
 
-            cannon.active = false;
+            Cannon.Active = false;
             return base.Update(target);
         }
 

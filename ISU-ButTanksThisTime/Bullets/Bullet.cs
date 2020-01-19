@@ -8,45 +8,45 @@ namespace ISU_ButTanksThisTime.Bullets
 {
     internal abstract class Bullet
     {
-        protected Vector2 position;
-        private float rotation;
+        protected Vector2 Position;
+        private readonly float rotation;
         private const float DEF_VELOCITY = 10f;
-        private readonly float SCALE_FACTOR;
+        private readonly float scaleFactor;
         private Rectangle box;
-        public readonly Owner bulletOwner;
+        public readonly Owner BulletOwner;
 
         protected abstract Animation ExAnim { get; }
-        public bool IsDead { get; protected set; } = false;
+        public bool IsDead { get; protected set; }
         public int Damage { get; protected set; }
 
 
         public Bullet(Vector2 position, float rotation, float scaleFactor, Owner bulletOwner)
         {
-            SCALE_FACTOR = scaleFactor;
-            this.position = position;
+            this.scaleFactor = scaleFactor;
+            this.Position = position;
             this.rotation = rotation;
-            this.bulletOwner = bulletOwner;
+            this.BulletOwner = bulletOwner;
         }
 
         public virtual bool Update()
         {
             if (!IsDead)
             {
-                position += new Vector2((float) Math.Cos(MathHelper.ToRadians(rotation)), (float) -Math.Sin(MathHelper.ToRadians(rotation))) * DEF_VELOCITY;
+                Position += new Vector2((float) Math.Cos(MathHelper.ToRadians(rotation)), (float) -Math.Sin(MathHelper.ToRadians(rotation))) * DEF_VELOCITY;
             }
             else
             {
                 ExAnim.Update(Tools.GameTime);
             }
 
-            return IsDead && !ExAnim.isAnimating || !Tools.IsBetween(Tools.ArenaBounds.Left, position.X, Tools.ArenaBounds.Right + Img.Width) || !Tools.IsBetween(Tools.ArenaBounds.Bottom - Img.Height, position.Y, Tools.ArenaBounds.Top);
+            return IsDead && !ExAnim.isAnimating || !Tools.IsBetween(Tools.ArenaBounds.Left, Position.X, Tools.ArenaBounds.Right + Img.Width) || !Tools.IsBetween(Tools.ArenaBounds.Bottom - Img.Height, Position.Y, Tools.ArenaBounds.Top);
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             if (!IsDead)
             {
-                box = new Rectangle((int) position.X, (int) position.Y, (int) (Img.Width * SCALE_FACTOR), (int) (Img.Height * SCALE_FACTOR));
+                box = new Rectangle((int) Position.X, (int) Position.Y, (int) (Img.Width * scaleFactor), (int) (Img.Height * scaleFactor));
                 spriteBatch.Draw(Img, box, null, Color.White, -MathHelper.ToRadians(rotation) + MathHelper.PiOver2, new Vector2((float) (Img.Width / 2.0), (float) (Img.Height / 2.0)), SpriteEffects.None, 1f);
             }
             else
@@ -55,13 +55,13 @@ namespace ISU_ButTanksThisTime.Bullets
             }
         }
 
-        public virtual RotatedRectangle GetRotatedRectangle() => new RotatedRectangle(box, MathHelper.ToRadians(rotation) + MathHelper.PiOver2, new Vector2(Img.Width * 0.5f * SCALE_FACTOR, Img.Height * 0.5f * SCALE_FACTOR));
+        public virtual RotatedRectangle GetRotatedRectangle() => new RotatedRectangle(box, MathHelper.ToRadians(rotation) + MathHelper.PiOver2, new Vector2(Img.Width * 0.5f * scaleFactor, Img.Height * 0.5f * scaleFactor));
 
         public virtual void Collide()
         {
             IsDead = true;
-            ExAnim.destRec.X = (int) position.X - ExAnim.destRec.Width / 2;
-            ExAnim.destRec.Y = (int) position.Y - ExAnim.destRec.Height / 2;
+            ExAnim.destRec.X = (int) Position.X - ExAnim.destRec.Width / 2;
+            ExAnim.destRec.Y = (int) Position.Y - ExAnim.destRec.Height / 2;
         }
 
         public abstract Bullet Clone(Vector2 pos, float rotation);

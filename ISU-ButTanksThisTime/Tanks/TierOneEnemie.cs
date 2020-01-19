@@ -19,17 +19,17 @@ namespace ISU_ButTanksThisTime.Tanks
         private readonly int viewRange;
 
 
-        private readonly List<Vector2> path = new List<Vector2>();
+        private readonly List<Vector2> path;
         private int targetPoint = 1;
 
         public TierOneEnemie(Vector2 position, List<Vector2> path, Stage stage, float rotation) : base(position, stage, VIEW_RANGE_OPTIONS[(int) stage], SPEED[(int) stage], ROTATION_SPEED[(int) stage], HEALTH[(int) stage], rotation)
         {
-            baseImg = Tools.Content.Load<Texture2D>("Images/Sprites/Tanks/TierOne/T1P" + ((int) stage + 1));
+            BaseImg = Tools.Content.Load<Texture2D>("Images/Sprites/Tanks/TierOne/T1P" + ((int) stage + 1));
 
-            cannon = new TierOneCannon(Owner.Enemie, stage, basePosition, baseRotation);
+            Cannon = new TierOneCannon(Owner.Enemie, stage, BasePosition, BaseRotation);
 
             var explosionSpritesheet = Tools.Content.Load<Texture2D>("Images/Sprites/Effects/spritesheet");
-            explosionAnimation = new Animation(explosionSpritesheet, 3, 3, 9, 1, 1, 1, 2, basePosition, 0.3f, true);
+            ExplosionAnimation = new Animation(explosionSpritesheet, 3, 3, 9, 1, 1, 1, 2, BasePosition, 0.3f, true);
 
             this.path = path;
 
@@ -39,20 +39,20 @@ namespace ISU_ButTanksThisTime.Tanks
 
         public override bool Update(Vector2 playerPos)
         {
-            if ((playerPos - basePosition).LengthSquared() <= Math.Pow(viewRange, 2))
+            if ((playerPos - BasePosition).LengthSquared() <= Math.Pow(viewRange, 2))
             {
-                cannon.active = true;
-                attackRange = playerAttackRange;
+                Cannon.Active = true;
+                AttackRange = playerAttackRange;
                 return base.Update(playerPos);
             }
             else
             {
-                cannon.active = false;
-                attackRange = 0;
-                var distanceSquared = (path[targetPoint] - basePosition).LengthSquared();
-                if (distanceSquared < Math.Pow(speed, 2))
+                Cannon.Active = false;
+                AttackRange = 0;
+                var distanceSquared = (path[targetPoint] - BasePosition).LengthSquared();
+                if (distanceSquared < Math.Pow(Speed, 2))
                 {
-                    basePosition = path[targetPoint];
+                    BasePosition = path[targetPoint];
                     targetPoint = targetPoint == path.Count - 1 ? 0 : targetPoint + 1;
                 }
 

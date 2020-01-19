@@ -5,23 +5,23 @@ namespace ISU_ButTanksThisTime
 {
     internal static class Menu
     {
-        private static Texture2D bgImg;
-        private static Button playBtn;
-        private static Button quitBtn;
+        private static readonly Texture2D bgImg;
+        private static readonly Button playBtn;
+        private static readonly Button quitBtn;
 
         static Menu()
         {
             bgImg = Tools.Content.Load<Texture2D>("Images/Backgrounds/ShopBackground");
 
-            playBtn = new Button(Tools.buttonImg, new Rectangle(Tools.Screen.Center.X - Tools.buttonImg.Width, 100, 2 * Tools.buttonImg.Width, 2 * Tools.buttonImg.Height), "PLAY");
-            quitBtn = new Button(Tools.buttonImg, new Rectangle(Tools.Screen.Center.X - Tools.buttonImg.Width / 2, 300, Tools.buttonImg.Width, Tools.buttonImg.Height), "QUIT");
+            playBtn = new Button(Tools.ButtonImg, new Rectangle(Tools.Screen.Center.X - Tools.ButtonImg.Width, 100, 2 * Tools.ButtonImg.Width, 2 * Tools.ButtonImg.Height), "PLAY");
+            quitBtn = new Button(Tools.ButtonImg, new Rectangle(Tools.Screen.Center.X - Tools.ButtonImg.Width / 2, 300, Tools.ButtonImg.Width, Tools.ButtonImg.Height), "QUIT");
         }
 
         public static void Update(Game1 game)
         {
             if (playBtn.Update())
             {
-                Game1.state = State.Game;
+                Game1.State = State.Game;
             }
 
             if (quitBtn.Update())

@@ -11,7 +11,7 @@ namespace ISU_ButTanksThisTime.Bullets
         private static readonly Texture2D bulletImg;
 
         public static readonly BulletInfo Info;
-        private static int damage = 40;
+        private static readonly int damage = 40;
 
         static MeduimBullet()
         {
@@ -31,7 +31,7 @@ namespace ISU_ButTanksThisTime.Bullets
 
         protected override Animation ExAnim => exAnim;
 
-        public override Bullet Clone(Vector2 pos, float rotation) => new MeduimBullet(pos, rotation, scaleFactor, bulletOwner);
+        public override Bullet Clone(Vector2 pos, float rotation) => new MeduimBullet(pos, rotation, scaleFactor, BulletOwner);
         protected override Texture2D Img => bulletImg;
     }
 }

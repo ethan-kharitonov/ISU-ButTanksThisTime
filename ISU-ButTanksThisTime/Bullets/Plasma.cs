@@ -7,11 +7,11 @@ namespace ISU_ButTanksThisTime.Bullets
 {
     internal class Plasma : Bullet
     {
-        private Animation exAnim;
+        private readonly Animation exAnim;
         private static readonly Texture2D bulletImg;
 
         public static readonly BulletInfo Info;
-        private static int damage = 25;
+        private static readonly int damage = 25;
 
         static Plasma()
         {
@@ -29,7 +29,7 @@ namespace ISU_ButTanksThisTime.Bullets
 
         protected override Animation ExAnim => exAnim;
 
-        public override Bullet Clone(Vector2 pos, float rotation) => new Plasma(pos, rotation, bulletOwner);
+        public override Bullet Clone(Vector2 pos, float rotation) => new Plasma(pos, rotation, BulletOwner);
         protected override Texture2D Img => bulletImg;
     }
 }

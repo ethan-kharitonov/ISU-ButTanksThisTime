@@ -9,8 +9,8 @@ namespace MapEditor
     internal class Trail
     {
         private List<Vector2> points = new List<Vector2>();
-        private Texture2D dot;
-        private Texture2D line;
+        private readonly Texture2D dot;
+        private readonly Texture2D line;
 
         private Vector2 mousePos = Vector2.Zero;
         private const int MOUSE_SPEED = 2;
@@ -94,12 +94,12 @@ namespace MapEditor
                 length = Math.Sqrt(length);
                 var angle = (float) Math.Atan2(distance.Y, distance.X);
                 var box = new Rectangle((int) points[i].X, (int) points[i].Y, (int) length, 3);
-                spriteBatch.Draw(line, box, null, Color.White, angle, new Vector2(0, line.Height / 2), SpriteEffects.None, 1f);
+                spriteBatch.Draw(line, box, null, Color.White, angle, new Vector2(0, line.Height / 2F), SpriteEffects.None, 1f);
             }
 
             foreach (var point in points)
             {
-                spriteBatch.Draw(dot, point, null, Color.White, 0, new Vector2(dot.Width / 2, dot.Height / 2), 1 / Camera.GetZoom(), SpriteEffects.None, 1f);
+                spriteBatch.Draw(dot, point, null, Color.White, 0, new Vector2(dot.Width / 2F, dot.Height / 2F), 1 / Camera.GetZoom(), SpriteEffects.None, 1f);
             }
         }
 

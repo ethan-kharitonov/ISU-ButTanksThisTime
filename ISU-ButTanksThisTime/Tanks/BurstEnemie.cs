@@ -14,21 +14,21 @@ namespace ISU_ButTanksThisTime.Tanks
 
         public BurstEnemie(Vector2 position, float rotation, Stage stage) : base(position, stage, ATTACK_RANGE[(int) stage], SPEED[(int) stage], ROTATION_SPEED[(int) stage], HEALTH[(int) stage], rotation)
         {
-            baseImg = Tools.Content.Load<Texture2D>("Images/Sprites/Tanks/TierThree/T3P" + ((int) stage + 1));
+            BaseImg = Tools.Content.Load<Texture2D>("Images/Sprites/Tanks/TierThree/T3P" + ((int) stage + 1));
 
-            cannon = new BurstCannon(Owner.Enemie, stage, basePosition, baseRotation);
+            Cannon = new BurstCannon(Owner.Enemie, stage, BasePosition, BaseRotation);
 
             var explosionSpritesheet = Tools.Content.Load<Texture2D>("Images/Sprites/Effects/spritesheet");
-            explosionAnimation = new Animation(explosionSpritesheet, 3, 3, 9, 1, 1, 1, 2, basePosition, 0.3f, true);
+            ExplosionAnimation = new Animation(explosionSpritesheet, 3, 3, 9, 1, 1, 1, 2, BasePosition, 0.3f, true);
         }
 
         public override TankType GetTankType() => TankType.Burst;
 
         public override bool Update(Vector2 target)
         {
-            if ((basePosition - target).Length() <= attackRange)
+            if ((BasePosition - target).Length() <= AttackRange)
             {
-                cannon.active = true;
+                Cannon.Active = true;
             }
 
             return base.Update(target);

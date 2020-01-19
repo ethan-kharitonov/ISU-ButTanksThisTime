@@ -13,13 +13,13 @@ namespace ISU_ButTanksThisTime.Shapes
         public readonly Vector2 Centre;
         public readonly int Width;
         public readonly int Height;
-        public readonly double raduis;
+        public readonly double Raduis;
 
         public RotatedRectangle(Rectangle box, float rotation, Vector2 origin)
         {
             Width = box.Width;
             Height = box.Height;
-            raduis = (float) Math.Sqrt(Math.Pow(Height / 2.0, 2) + Math.Pow(Width / 2.0, 2));
+            Raduis = (float) Math.Sqrt(Math.Pow(Height / 2.0, 2) + Math.Pow(Width / 2.0, 2));
 
             box.X -= (int) origin.X;
             box.Y -= (int) origin.Y;

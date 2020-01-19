@@ -5,16 +5,16 @@ namespace ISU_ButTanksThisTime
 {
     internal static class PauseMenu
     {
-        private static Texture2D bgImg;
-        private static Button backBtn;
-        private static Button backToMenuBtn;
+        private static readonly Texture2D bgImg;
+        private static readonly Button backBtn;
+        private static readonly Button backToMenuBtn;
 
         static PauseMenu()
         {
             var btnImg = Tools.Content.Load<Texture2D>("Images/Sprites/UI/BTN BACK");
 
             backBtn = new Button(btnImg, new Rectangle(Tools.Screen.Center.X - 150, Tools.Screen.Center.Y - 75, 300, 150), "");
-            backToMenuBtn = new Button(Tools.buttonImg, new Rectangle(Tools.Screen.Center.X - 75, 450, 150, 75), "BACK TO MENU");
+            backToMenuBtn = new Button(Tools.ButtonImg, new Rectangle(Tools.Screen.Center.X - 75, 450, 150, 75), "BACK TO MENU");
             bgImg = Tools.Content.Load<Texture2D>("Images/Backgrounds/ShopBackground");
         }
 
@@ -22,13 +22,13 @@ namespace ISU_ButTanksThisTime
         {
             if (backBtn.Update())
             {
-                Game1.state = State.Game;
+                Game1.State = State.Game;
             }
 
             if (backToMenuBtn.Update())
             {
                 GameScene.Reset();
-                Game1.state = State.Menu;
+                Game1.State = State.Menu;
             }
         }
 

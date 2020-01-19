@@ -7,7 +7,7 @@ namespace ISU_ButTanksThisTime.Collectibles
     {
         public static readonly Item VoidObject = new SpeedBoostItem(default);
 
-        public static readonly Texture2D img;
+        private static readonly Texture2D img;
 
         // Guarantees that the static state is initialized right before the class is used. Without it, the static state
         // could be initialized too early.

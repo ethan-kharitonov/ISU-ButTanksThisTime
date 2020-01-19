@@ -15,12 +15,12 @@ namespace ISU_ButTanksThisTime.Tanks
 
         public BomberEnemie(Vector2 position, float rotation, Stage stage) : base(position, stage, 0, SPEED[(int) stage], ROTATION_SPEED[(int) stage], HEALTH[(int) stage], rotation)
         {
-            baseImg = Tools.Content.Load<Texture2D>("Images/Sprites/Tanks/BomberEnemie/BP" + ((int) stage + 1));
+            BaseImg = Tools.Content.Load<Texture2D>("Images/Sprites/Tanks/BomberEnemie/BP" + ((int) stage + 1));
 
-            cannon = new BomberEnemieCannon(stage, basePosition, baseRotation);
+            Cannon = new BomberEnemieCannon(stage, BasePosition, BaseRotation);
 
             var explosionSpritesheet = Tools.Content.Load<Texture2D>("Images/Sprites/Effects/spritesheet");
-            explosionAnimation = new Animation(explosionSpritesheet, 3, 3, 9, 1, 1, 1, 2, basePosition, 0.3f, true);
+            ExplosionAnimation = new Animation(explosionSpritesheet, 3, 3, 9, 1, 1, 1, 2, BasePosition, 0.3f, true);
         }
 
         public override Tank Clone(Vector2 position, float rotation, Stage stage) => new BomberEnemie(position, rotation, stage);
@@ -31,18 +31,18 @@ namespace ISU_ButTanksThisTime.Tanks
             {
                 case Bullet _:
                     var bullet = collided as Bullet;
-                    if (bullet.bulletOwner == Owner.Player)
+                    if (bullet.BulletOwner == Owner.Player)
                     {
-                        health -= 25;
+                        Health -= 25;
                     }
 
                     break;
                 case Player _:
-                    health = 0;
-                    killed = false;
+                    Health = 0;
+                    Killed = false;
                     break;
                 case LandMine _:
-                    health = 0;
+                    Health = 0;
                     break;
             }
         }

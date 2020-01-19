@@ -5,28 +5,28 @@ namespace ISU_ButTanksThisTime
 {
     internal static class LoseScreen
     {
-        private static Texture2D bgImg;
-        private static Button BackToMenuBtn;
-        private static Button playAgainBtn;
+        private static readonly Texture2D bgImg;
+        private static readonly Button backToMenuBtn;
+        private static readonly Button playAgainBtn;
 
         static LoseScreen()
         {
             bgImg = Tools.Content.Load<Texture2D>("Images/Backgrounds/ShopBackground");
 
-            playAgainBtn = new Button(Tools.buttonImg, new Rectangle(Tools.Screen.Center.X - Tools.buttonImg.Width * 2, 100, 4 * Tools.buttonImg.Width, 3 * Tools.buttonImg.Height), "PLAY AGAIN");
-            BackToMenuBtn = new Button(Tools.buttonImg, new Rectangle(Tools.Screen.Center.X - Tools.buttonImg.Width, 400, 2 * Tools.buttonImg.Width, 2 * Tools.buttonImg.Height), "BACK TO MENU");
+            playAgainBtn = new Button(Tools.ButtonImg, new Rectangle(Tools.Screen.Center.X - Tools.ButtonImg.Width * 2, 100, 4 * Tools.ButtonImg.Width, 3 * Tools.ButtonImg.Height), "PLAY AGAIN");
+            backToMenuBtn = new Button(Tools.ButtonImg, new Rectangle(Tools.Screen.Center.X - Tools.ButtonImg.Width, 400, 2 * Tools.ButtonImg.Width, 2 * Tools.ButtonImg.Height), "BACK TO MENU");
         }
 
         public static void Update()
         {
             if (playAgainBtn.Update())
             {
-                Game1.state = State.Game;
+                Game1.State = State.Game;
                 GameScene.Reset();
             }
-            else if (BackToMenuBtn.Update())
+            else if (backToMenuBtn.Update())
             {
-                Game1.state = State.Menu;
+                Game1.State = State.Menu;
             }
         }
 
@@ -35,7 +35,7 @@ namespace ISU_ButTanksThisTime
             spriteBatch.Begin();
             spriteBatch.Draw(bgImg, Tools.Screen, Color.White * 0.75f);
             playAgainBtn.Draw(spriteBatch);
-            BackToMenuBtn.Draw(spriteBatch);
+            backToMenuBtn.Draw(spriteBatch);
             spriteBatch.End();
         }
     }

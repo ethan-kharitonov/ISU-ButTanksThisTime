@@ -9,7 +9,7 @@ namespace MapEditor
 {
     public class Game1 : Game
     {
-        private GraphicsDeviceManager graphics;
+        private readonly GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
 
         //Path Maker Variables
@@ -116,14 +116,14 @@ namespace MapEditor
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, Camera.transforme);
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, Camera.Transforme);
 
             for (var r = -ARENA_WIDTH / 2; r < ARENA_WIDTH / 2; ++r)
             {
                 for (var c = -ARENA_HEIGHT / 2; c < ARENA_HEIGHT / 2; ++c)
                 {
                     var bgBpx = new Rectangle(r * backgroundImg.Width + screen.Center.X, c * backgroundImg.Height + screen.Center.Y, backgroundImg.Width, backgroundImg.Height);
-                    spriteBatch.Draw(backgroundImg, bgBpx, null, Color.White, 0, new Vector2(backgroundImg.Width / 2, backgroundImg.Height / 2), SpriteEffects.None, 1f);
+                    spriteBatch.Draw(backgroundImg, bgBpx, null, Color.White, 0, new Vector2(backgroundImg.Width / 2F, backgroundImg.Height / 2F), SpriteEffects.None, 1f);
                 }
             }
 
@@ -132,7 +132,7 @@ namespace MapEditor
                 path.Draw(spriteBatch);
             }
 
-            spriteBatch.Draw(mouseImg, mousePos, null, Color.White, 0, new Vector2(mouseImg.Width / 2, mouseImg.Height / 2), 1, SpriteEffects.None, 1f);
+            spriteBatch.Draw(mouseImg, mousePos, null, Color.White, 0, new Vector2(mouseImg.Width / 2F, mouseImg.Height / 2F), 1, SpriteEffects.None, 1f);
 
             spriteBatch.End();
 
@@ -157,7 +157,7 @@ namespace MapEditor
 
         private void LoadPath()
         {
-            var curPath = 0;
+            var path = 0;
             var points = new List<Vector2>();
             using (var inFile = File.OpenText(filePath))
             {
@@ -176,9 +176,9 @@ namespace MapEditor
                         points.Add(new Vector2((float) Convert.ToDouble(data[0]), (float) Convert.ToDouble(data[1])));
                     }
 
-                    paths[curPath].SetPoints(points);
+                    paths[path].SetPoints(points);
                     points = new List<Vector2>();
-                    ++curPath;
+                    ++path;
                 }
             }
         }

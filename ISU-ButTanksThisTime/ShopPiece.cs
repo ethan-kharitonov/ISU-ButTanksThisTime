@@ -6,11 +6,11 @@ namespace ISU_ButTanksThisTime
 {
     internal class ShopPiece
     {
-        private Texture2D slot;
+        private readonly Texture2D slot;
         private Rectangle slotBox;
-        private CannonInfo rewardInfo;
+        private readonly CannonInfo rewardInfo;
         private int price;
-        private Button button;
+        private readonly Button button;
 
         public static readonly Vector2 Dimensions = new Vector2(200, 310);
 
@@ -35,7 +35,7 @@ namespace ISU_ButTanksThisTime
             var canBuy = GameScene.GetCurrentCredit() >= price;
             if (button.Update(canBuy))
             {
-                GameScene.GivePlayerNewCannon(rewardInfo.cannon, price);
+                GameScene.GivePlayerNewCannon(rewardInfo.Cannon, price);
                 button.ChangeText("ACTIVE");
                 price = 0;
                 return true;

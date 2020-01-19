@@ -14,56 +14,56 @@ namespace ISU_ButTanksThisTime.Tanks
     {
         //Movment Variables
         private Vector2 velocity = new Vector2(0, 0);
-        private float ACC_RATE = 1f;
-        private float FRICTION = 0.4f;
-        private int MAX_SPEED = 10;
-        private bool isKeyPressed = false;
+        private float accRate = 1f;
+        private float friction = 0.4f;
+        private int maxSpeed = 10;
+        private bool isKeyPressed;
         private const int ROTATION_SPEED = 5;
 
-        private Timer speedBoostTimer = new Timer(5000);
+        private readonly Timer speedBoostTimer = new Timer(5000);
 
         //Cannon Variables
-        private bool canControleShooting = true;
+        private readonly bool canControleShooting = true;
 
-        public Player(Vector2 position) : base(position, Stage.Player, 0, 0, 0, 1000, 0)
+        public Player(Vector2 position) : base(position, Stage.Player, 0, 0, 0, 1000)
         {
-            baseImg = Tools.Content.Load<Texture2D>("Images/Sprites/Tanks/TierOne/T1PP");
-            cannon = new TierOneCannon(Owner.Player, Stage.Player, basePosition, baseRotation);
-            basePosition = position;
+            BaseImg = Tools.Content.Load<Texture2D>("Images/Sprites/Tanks/TierOne/T1PP");
+            Cannon = new TierOneCannon(Owner.Player, Stage.Player, BasePosition, BaseRotation);
+            BasePosition = position;
 
             var explosionSpritesheet = Tools.Content.Load<Texture2D>("Images/Sprites/Effects/spritesheet");
-            explosionAnimation = new Animation(explosionSpritesheet, 3, 3, 9, 1, 1, 1, 2, basePosition, 0.3f, true);
+            ExplosionAnimation = new Animation(explosionSpritesheet, 3, 3, 9, 1, 1, 1, 2, BasePosition, 0.3f, true);
         }
 
-        public override bool Update(Vector2 NA)
+        public override bool Update(Vector2 na)
         {
             var kb = Keyboard.GetState();
 
-            if (speedBoostTimer.IsTimeUp(Tools.GameTime) && ACC_RATE != 1)
+            if (speedBoostTimer.IsTimeUp(Tools.GameTime) && accRate != 1)
             {
-                ACC_RATE = 1f;
-                FRICTION = 0.4f;
-                MAX_SPEED = 10;
+                accRate = 1f;
+                friction = 0.4f;
+                maxSpeed = 10;
             }
 
             MoveTank(kb);
-            CannonUpdate(kb);
-            bar.Update(basePosition, health);
+            CannonUpdate();
+            Bar.Update(BasePosition, Health);
 
-            if (health <= 0)
+            if (Health <= 0)
             {
-                Game1.state = State.LoseScreen;
+                Game1.State = State.LoseScreen;
             }
 
-            Console.WriteLine(health);
+            Console.WriteLine(Health);
             return false;
         }
 
-        private void CannonUpdate(KeyboardState kb)
+        private void CannonUpdate()
         {
-            cannon.active = Mouse.GetState().LeftButton == ButtonState.Pressed && canControleShooting && GameScene.AreAnyBulletsLeft();
+            Cannon.Active = Mouse.GetState().LeftButton == ButtonState.Pressed && canControleShooting && GameScene.AreAnyBulletsLeft();
 
-            cannon.Update(basePosition, baseRotation, Tools.TrueMousePos);
+            Cannon.Update(BasePosition, BaseRotation, Tools.TrueMousePos);
         }
 
         private void MoveTank(KeyboardState kb)
@@ -72,44 +72,44 @@ namespace ISU_ButTanksThisTime.Tanks
 
             if (kb.IsKeyDown(Keys.D))
             {
-                velocity.X += ACC_RATE;
+                velocity.X += accRate;
                 isKeyPressed = true;
             }
 
             if (kb.IsKeyDown(Keys.A))
             {
-                velocity.X -= ACC_RATE;
+                velocity.X -= accRate;
                 isKeyPressed = true;
             }
 
             if (kb.IsKeyDown(Keys.W))
             {
-                velocity.Y -= ACC_RATE;
+                velocity.Y -= accRate;
                 isKeyPressed = true;
             }
 
             if (kb.IsKeyDown(Keys.S))
             {
-                velocity.Y += ACC_RATE;
+                velocity.Y += accRate;
                 isKeyPressed = true;
             }
 
-            velocity.X = MathHelper.Clamp(velocity.X, -MAX_SPEED, MAX_SPEED);
-            velocity.Y = MathHelper.Clamp(velocity.Y, -MAX_SPEED, MAX_SPEED);
+            velocity.X = MathHelper.Clamp(velocity.X, -maxSpeed, maxSpeed);
+            velocity.Y = MathHelper.Clamp(velocity.Y, -maxSpeed, maxSpeed);
 
-            velocity.X = Tools.ApproachValue(velocity.X, 0, FRICTION);
-            velocity.Y = Tools.ApproachValue(velocity.Y, 0, FRICTION);
+            velocity.X = Tools.ApproachValue(velocity.X, 0, friction);
+            velocity.Y = Tools.ApproachValue(velocity.Y, 0, friction);
 
-            basePosition += velocity;
+            BasePosition += velocity;
 
-            basePosition.X = MathHelper.Clamp(basePosition.X, Tools.ArenaBounds.Left + (int) (baseImg.Width * IMG_SCALE_FACTOR / 2.0), Tools.ArenaBounds.Right - (int) (baseImg.Width * IMG_SCALE_FACTOR / 2.0));
-            basePosition.Y = MathHelper.Clamp(basePosition.Y, Tools.ArenaBounds.Top + (int) (baseImg.Height * IMG_SCALE_FACTOR / 2.0), Tools.ArenaBounds.Bottom - (int) (baseImg.Height * IMG_SCALE_FACTOR / 2.0));
+            BasePosition.X = MathHelper.Clamp(BasePosition.X, Tools.ArenaBounds.Left + (int) (BaseImg.Width * IMG_SCALE_FACTOR / 2.0), Tools.ArenaBounds.Right - (int) (BaseImg.Width * IMG_SCALE_FACTOR / 2.0));
+            BasePosition.Y = MathHelper.Clamp(BasePosition.Y, Tools.ArenaBounds.Top + (int) (BaseImg.Height * IMG_SCALE_FACTOR / 2.0), Tools.ArenaBounds.Bottom - (int) (BaseImg.Height * IMG_SCALE_FACTOR / 2.0));
 
             if (isKeyPressed)
             {
-                baseRotation = Tools.RotateTowardsVector(baseRotation, velocity * new Vector2(1, -1), ROTATION_SPEED) + 180;
-                baseRotation += 180;
-                baseRotation %= 360;
+                BaseRotation = Tools.RotateTowardsVector(BaseRotation, velocity * new Vector2(1, -1), ROTATION_SPEED) + 180;
+                BaseRotation += 180;
+                BaseRotation %= 360;
             }
         }
 
@@ -119,27 +119,27 @@ namespace ISU_ButTanksThisTime.Tanks
             {
                 case Bullet _:
                     var bullet = collided as Bullet;
-                    health -= bullet.Damage;
+                    Health -= bullet.Damage;
                     break;
                 case BomberEnemie _:
-                    health -= 25;
+                    Health -= 25;
                     break;
                 case RedMine _:
-                    health = 0;
+                    Health = 0;
                     break;
             }
 
-            if (health > startingHealth)
+            if (Health > StartingHealth)
             {
-                health = startingHealth;
+                Health = StartingHealth;
             }
         }
 
-        public Vector2 GetBasePosition() => basePosition;
+        public Vector2 GetBasePosition() => BasePosition;
 
-        public Vector2 GetCannonPosition() => cannon.GetPosition();
+        public Vector2 GetCannonPosition() => Cannon.GetPosition();
 
-        public float GetCannonRotation() => cannon.GetRotation();
+        public float GetCannonRotation() => Cannon.GetRotation();
 
         public float GetScaleFactor() => IMG_SCALE_FACTOR;
 
@@ -161,8 +161,8 @@ namespace ISU_ButTanksThisTime.Tanks
 
             var processX = true;
             var processY = true;
-            if ((basePosition.X < obstical.Left || basePosition.X > obstical.Right) &&
-                (basePosition.Y < obstical.Top || basePosition.Y > obstical.Bottom))
+            if ((BasePosition.X < obstical.Left || BasePosition.X > obstical.Right) &&
+                (BasePosition.Y < obstical.Top || BasePosition.Y > obstical.Bottom))
             {
                 processX = Tools.Rnd.Next(0, 10000) < 5000;
                 processY = !processX;
@@ -170,25 +170,25 @@ namespace ISU_ButTanksThisTime.Tanks
 
             var trueRectangle = new Rectangle(left, top, right - left, bottom - top);
 
-            if (basePosition.X < obstical.Left && processX)
+            if (BasePosition.X < obstical.Left && processX)
             {
-                basePosition.X = obstical.Left - trueRectangle.Width * 0.5f;
+                BasePosition.X = obstical.Left - trueRectangle.Width * 0.5f;
                 velocity.X = 0;
             }
-            else if (basePosition.X > obstical.Right && processX)
+            else if (BasePosition.X > obstical.Right && processX)
             {
-                basePosition.X = obstical.Right + trueRectangle.Width * 0.5f;
+                BasePosition.X = obstical.Right + trueRectangle.Width * 0.5f;
                 velocity.X = 0;
             }
 
-            if (basePosition.Y < obstical.Top && processY)
+            if (BasePosition.Y < obstical.Top && processY)
             {
-                basePosition.Y = obstical.Top - trueRectangle.Height * 0.5f;
+                BasePosition.Y = obstical.Top - trueRectangle.Height * 0.5f;
                 velocity.Y = 0;
             }
-            else if (basePosition.Y > obstical.Bottom && processY)
+            else if (BasePosition.Y > obstical.Bottom && processY)
             {
-                basePosition.Y = obstical.Bottom + trueRectangle.Height * 0.5f;
+                BasePosition.Y = obstical.Bottom + trueRectangle.Height * 0.5f;
                 velocity.Y = 0;
             }
         }
@@ -200,21 +200,21 @@ namespace ISU_ButTanksThisTime.Tanks
         public void StepOutOfShop()
         {
             velocity = Vector2.Zero;
-            basePosition = Tools.ArenaBounds.Location.ToVector2() + new Vector2(150, 150);
+            BasePosition = Tools.ArenaBounds.Location.ToVector2() + new Vector2(150, 150);
         }
 
         public void TakeCannon(Cannon newCannon)
         {
-            cannon = newCannon;
-            cannon.Update(basePosition, baseRotation, Tools.TrueMousePos);
+            Cannon = newCannon;
+            Cannon.Update(BasePosition, BaseRotation, Tools.TrueMousePos);
         }
 
         public void SpeedUp()
         {
             speedBoostTimer.Reset();
-            ACC_RATE = 3f;
-            FRICTION = 1.5f;
-            MAX_SPEED = 20;
+            accRate = 3f;
+            friction = 1.5f;
+            maxSpeed = 20;
         }
     }
 }

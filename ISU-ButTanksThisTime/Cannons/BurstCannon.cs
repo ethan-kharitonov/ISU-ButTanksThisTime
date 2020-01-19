@@ -18,7 +18,7 @@ namespace ISU_ButTanksThisTime.Cannons
         private readonly Bullet bullet;
         private readonly Texture2D img;
 
-        private bool inBurst = false;
+        private bool inBurst;
 
         public static readonly CannonInfo Info;
 
@@ -42,7 +42,7 @@ namespace ISU_ButTanksThisTime.Cannons
         public override void Update(Vector2 basePos, float baseRotation, Vector2 target)
         {
             //start timer for shooting period
-            if (active && !inBurst)
+            if (Active && !inBurst)
             {
                 burstDuration.Reset();
                 inBurst = true;
@@ -50,13 +50,13 @@ namespace ISU_ButTanksThisTime.Cannons
 
             if (!burstDuration.IsTimeUp(Tools.GameTime))
             {
-                active = true;
+                Active = true;
             }
 
             //if shooting is done but still inBurst start timer for reloading
             if (inBurst && burstDuration.IsTimeUp(Tools.GameTime))
             {
-                active = false;
+                Active = false;
                 if (timeBtwnBursts.IsTimeUp(Tools.GameTime))
                 {
                     inBurst = false;

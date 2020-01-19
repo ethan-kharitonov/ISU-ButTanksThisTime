@@ -36,7 +36,7 @@ namespace ISU_ButTanksThisTime
         public static GraphicsDevice Graphics;
         public static Vector2 TrueMousePos;
         public static SpriteFont Font;
-        public static Texture2D buttonImg;
+        public static Texture2D ButtonImg;
 
         public static float ApproachValue(float current, float target, float speed)
         {

@@ -7,13 +7,13 @@ namespace ISU_ButTanksThisTime.LandMines
 {
     internal abstract class LandMine
     {
-        protected Animation[] animations = new Animation[3];
-        private int currentAnim = 0;
-        private bool active = false;
-        private int raduis;
-        private float explosionRaduis;
+        protected Animation[] Animations = new Animation[3];
+        private int currentAnim;
+        private bool active;
+        private readonly int raduis;
+        private readonly float explosionRaduis;
 
-        public LandMine(int raduis, float explosionRaduis, int damage)
+        public LandMine(int raduis, float explosionRaduis)
         {
             this.raduis = raduis;
             this.explosionRaduis = explosionRaduis;
@@ -21,19 +21,19 @@ namespace ISU_ButTanksThisTime.LandMines
 
         public bool Update()
         {
-            animations[currentAnim].Update(Tools.GameTime);
-            if (currentAnim == 1 && !animations[currentAnim].isAnimating)
+            Animations[currentAnim].Update(Tools.GameTime);
+            if (currentAnim == 1 && !Animations[currentAnim].isAnimating)
             {
                 currentAnim = 2;
                 active = true;
             }
 
-            return currentAnim == 2 && !animations[currentAnim].isAnimating;
+            return currentAnim == 2 && !Animations[currentAnim].isAnimating;
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            animations[currentAnim].Draw(spriteBatch, Color.White, SpriteEffects.None);
+            Animations[currentAnim].Draw(spriteBatch, Color.White, SpriteEffects.None);
         }
 
         public void Collide()
@@ -43,14 +43,14 @@ namespace ISU_ButTanksThisTime.LandMines
 
         public RotatedRectangle GetBox()
         {
-            var fullBox = animations[currentAnim].destRec;
+            var fullBox = Animations[currentAnim].destRec;
             var box = new Rectangle(fullBox.Center.X - raduis / 2, fullBox.Center.Y - raduis / 2, raduis, raduis);
             return new RotatedRectangle(box, 0, Vector2.Zero);
         }
 
         public Circle GetExplosionArea()
         {
-            var centre = animations[currentAnim].destRec.Center.ToVector2();
+            var centre = Animations[currentAnim].destRec.Center.ToVector2();
             return new Circle(centre, explosionRaduis);
         }
 

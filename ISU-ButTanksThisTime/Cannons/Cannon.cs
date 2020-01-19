@@ -8,37 +8,37 @@ namespace ISU_ButTanksThisTime.Cannons
 {
     internal abstract class Cannon
     {
-        protected Vector2 pos;
+        protected Vector2 Pos;
         private static readonly float disFromCentreBase = 35 * Tank.IMG_SCALE_FACTOR;
-        protected float rotation;
+        protected float Rotation;
 
         //Shooting Variables
         private readonly Timer shootTimer;
-        public bool active;
-        private readonly int ROTATE_SPEED;
+        public bool Active;
+        private readonly int rotateSpeed;
 
         public Cannon(int fireRate, int rotationSpeed, bool active, Vector2 position, float rotation)
         {
             shootTimer = new Timer(fireRate);
-            ROTATE_SPEED = rotationSpeed;
-            this.active = active;
-            pos = CalcPos(position, rotation);
-            this.rotation = rotation;
+            rotateSpeed = rotationSpeed;
+            this.Active = active;
+            Pos = CalcPos(position, rotation);
+            this.Rotation = rotation;
         }
 
         public virtual void Update(Vector2 basePos, float baseRotation, Vector2 target)
         {
-            pos = CalcPos(basePos, baseRotation);
+            Pos = CalcPos(basePos, baseRotation);
 
-            target -= pos;
+            target -= Pos;
             target *= new Vector2(1, -1);
-            rotation = Tools.RotateTowardsVector(rotation, target, ROTATE_SPEED);
-            if (shootTimer.IsTimeUp(Tools.GameTime) && active && !GameScene.GameIsFrozen())
+            Rotation = Tools.RotateTowardsVector(Rotation, target, rotateSpeed);
+            if (shootTimer.IsTimeUp(Tools.GameTime) && Active && !GameScene.GameIsFrozen())
             {
                 shootTimer.Reset();
-                var newBullet = Bullet.Clone(pos, rotation);
+                var newBullet = Bullet.Clone(Pos, Rotation);
                 GameScene.AddBullet(newBullet);
-                if (newBullet.bulletOwner == Owner.Player)
+                if (newBullet.BulletOwner == Owner.Player)
                 {
                     GameScene.RemoveBullet();
                 }
@@ -47,15 +47,15 @@ namespace ISU_ButTanksThisTime.Cannons
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Img, pos, null, Color.White, -MathHelper.ToRadians(rotation) + MathHelper.PiOver2, new Vector2(Img.Width * 0.5f, Img.Height * 0.75f), Tank.IMG_SCALE_FACTOR, SpriteEffects.None, 1f);
+            spriteBatch.Draw(Img, Pos, null, Color.White, -MathHelper.ToRadians(Rotation) + MathHelper.PiOver2, new Vector2(Img.Width * 0.5f, Img.Height * 0.75f), Tank.IMG_SCALE_FACTOR, SpriteEffects.None, 1f);
         }
 
         protected abstract Bullet Bullet { get; }
         public abstract Texture2D Img { get; }
 
-        public Vector2 GetPosition() => pos;
+        public Vector2 GetPosition() => Pos;
 
-        public float GetRotation() => rotation;
+        public float GetRotation() => Rotation;
 
         protected Vector2 CalcPos(Vector2 basePosition, float baseRotation)
         {

@@ -9,7 +9,7 @@ namespace ISU_ButTanksThisTime.Cannons
         public readonly int RotationSpeed;
         public readonly Texture2D Img;
         public readonly BulletInfo Bullet;
-        public readonly Cannon cannon;
+        public readonly Cannon Cannon;
         public readonly int? BurstRate;
         public readonly int? BurstDuration;
 
@@ -21,7 +21,7 @@ namespace ISU_ButTanksThisTime.Cannons
             RotationSpeed = rotationSpeed;
             Img = img;
             Bullet = bullet;
-            this.cannon = cannon;
+            this.Cannon = cannon;
             BurstRate = burstRate;
             BurstDuration = burstDuration;
         }

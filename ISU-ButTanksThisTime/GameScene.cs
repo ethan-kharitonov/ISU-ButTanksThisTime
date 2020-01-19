@@ -23,18 +23,16 @@ namespace ISU_ButTanksThisTime
         private static Player player;
 
         //Bullet Variables
-        private static List<Bullet> bullets = new List<Bullet>();
-        private static Texture2D bulletImg;
-        private static Timer bulletTimer = new Timer(300);
-        private static List<LandMine> landmines = new List<LandMine>();
-        private static Timer landMineTimer = new Timer(2000);
+        private static readonly List<Bullet> bullets = new List<Bullet>();
+        private static readonly List<LandMine> landmines = new List<LandMine>();
+        private static readonly Timer landMineTimer = new Timer(2000);
 
         //Basic Enemie Variables
-        private static Timer enemieTimer = new Timer(2000);
+        private static readonly Timer enemieTimer = new Timer(2000);
         private const int ENEMIE_SPAWN_DIS = 1000;
 
         //Bomber Enemie Variables
-        private static Timer bomberEnemieTimer = new Timer(4000);
+        private static readonly Timer bomberEnemieTimer = new Timer(4000);
 
         //Barrel Variables
         private static Texture2D barrelImg;
@@ -42,28 +40,28 @@ namespace ISU_ButTanksThisTime
 
 
         //Load Path Variables
-        private static List<Vector2>[] pathPoints = new List<Vector2>[3];
+        private static readonly List<Vector2>[] pathPoints = new List<Vector2>[3];
 
 
         //Enemie Variables
-        private static List<Tank> enemies = new List<Tank>();
+        private static readonly List<Tank> enemies = new List<Tank>();
         private static Texture2D enemyBaseImg;
 
 
         //Camera Variables
         private static Camera camera;
 
-        private static Tank[,] combos = new Tank[6, 6];
+        private static readonly Tank[,] combos = new Tank[6, 6];
 
         private static Texture2D crossHairs;
 
-        private static Timer freezeTimer = new Timer(4000);
-        private static bool freeze = false;
+        private static readonly Timer freezeTimer = new Timer(4000);
+        private static bool freeze;
         private static Texture2D frozenScreen;
 
 
         //Inventory variables
-        private static List<Item> itemsOnMap = new List<Item>();
+        private static readonly List<Item> itemsOnMap = new List<Item>();
         private static Inventory inventory = new Inventory();
 
 
@@ -75,13 +73,13 @@ namespace ISU_ButTanksThisTime
 
             //Load All Images//
             backgroundImg = Tools.Content.Load<Texture2D>("Images/Backgrounds/bg");
-            bulletImg = Tools.Content.Load<Texture2D>("Images/Sprites/Bullets/Medium_Shell");
+            Tools.Content.Load<Texture2D>("Images/Sprites/Bullets/Medium_Shell");
             barrelImg = Tools.Content.Load<Texture2D>("Images/Sprites/Terrain/Container_B");
             crossHairs = Tools.Content.Load<Texture2D>("Images/Sprites/Crosshairs/crosshair068");
             enemyBaseImg = Tools.Content.Load<Texture2D>("Images/Sprites/Terrain/Container_D");
             ///////////////////
 
-            pauseBtn = new Button(Tools.buttonImg, new Rectangle(15, 15, 100, 50), "PAUSE");
+            pauseBtn = new Button(Tools.ButtonImg, new Rectangle(15, 15, 100, 50), "PAUSE");
 
             var arenaXPos = -(ARENA_WIDTH / 2) * backgroundImg.Width + Tools.Screen.Center.X - backgroundImg.Width / 2;
             var arenaYPos = -ARENA_HEIGHT / 2 * backgroundImg.Height + Tools.Screen.Center.Y - backgroundImg.Height / 2;
@@ -125,14 +123,14 @@ namespace ISU_ButTanksThisTime
         {
             camera.Update(player.GetPos());
 
-            var ScreenTL = player.GetPos() - Tools.Screen.Size.ToVector2() / 2;
-            ScreenTL.X = MathHelper.Clamp(ScreenTL.X, Tools.ArenaBounds.Left, Tools.ArenaBounds.Right - Tools.Screen.Width / 2f);
-            ScreenTL.Y = MathHelper.Clamp(ScreenTL.Y, Tools.ArenaBounds.Top, Tools.ArenaBounds.Bottom - Tools.Screen.Height / 2);
-            Tools.TrueMousePos = Mouse.GetState().Position.ToVector2() + ScreenTL;
+            var screenTl = player.GetPos() - Tools.Screen.Size.ToVector2() / 2;
+            screenTl.X = MathHelper.Clamp(screenTl.X, Tools.ArenaBounds.Left, Tools.ArenaBounds.Right - Tools.Screen.Width / 2f);
+            screenTl.Y = MathHelper.Clamp(screenTl.Y, Tools.ArenaBounds.Top, Tools.ArenaBounds.Bottom - Tools.Screen.Height / 2);
+            Tools.TrueMousePos = Mouse.GetState().Position.ToVector2() + screenTl;
 
             if (pauseBtn.Update())
             {
-                Game1.state = State.Pause;
+                Game1.State = State.Pause;
             }
 
             inventory.Update();
@@ -142,7 +140,7 @@ namespace ISU_ButTanksThisTime
             trueBarrelBox.Height = (int) (trueBarrelBox.Height * 0.60);
             if (Tools.BoxBoxCollision(player.GetRotatedRectangle(), new RotatedRectangle(trueBarrelBox, 45, new Vector2(barrelBox.Width / 2f, barrelBox.Height / 2f))) != null)
             {
-                Game1.state = State.Shop;
+                Game1.State = State.Shop;
             }
 
             freeze = !freezeTimer.IsTimeUp(Tools.GameTime);
@@ -157,13 +155,13 @@ namespace ISU_ButTanksThisTime
 
         public static void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.transforme);
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.Transforme);
 
             for (var r = -ARENA_WIDTH / 2; r < ARENA_WIDTH / 2; ++r)
             for (var c = -ARENA_HEIGHT / 2; c < ARENA_HEIGHT / 2; ++c)
             {
                 var bgBpx = new Rectangle(r * backgroundImg.Width + Tools.Screen.Center.X, c * backgroundImg.Height + Tools.Screen.Center.Y, backgroundImg.Width, backgroundImg.Height);
-                spriteBatch.Draw(backgroundImg, bgBpx, null, Color.White, 0, new Vector2(backgroundImg.Width / 2, backgroundImg.Height / 2), SpriteEffects.None, 1f);
+                spriteBatch.Draw(backgroundImg, bgBpx, null, Color.White, 0, new Vector2(backgroundImg.Width / 2F, backgroundImg.Height / 2F), SpriteEffects.None, 1f);
             }
 
 
@@ -181,10 +179,6 @@ namespace ISU_ButTanksThisTime
             {
                 enemie.Draw(spriteBatch);
             }
-
-
-            var obsticalBox = new RotatedRectangle(barrelBox, 0, Vector2.Zero);
-
 
             foreach (var bullet in bullets)
             {
@@ -444,7 +438,7 @@ namespace ISU_ButTanksThisTime
                     continue;
                 }
 
-                if (bullet.bulletOwner == Owner.Enemie && Tools.BoxBoxCollision(player.GetRotatedRectangle(), bullet.GetRotatedRectangle()) != null)
+                if (bullet.BulletOwner == Owner.Enemie && Tools.BoxBoxCollision(player.GetRotatedRectangle(), bullet.GetRotatedRectangle()) != null)
                 {
                     player.Collide(bullet);
                     bullet.Collide();
@@ -461,7 +455,7 @@ namespace ISU_ButTanksThisTime
                         continue;
                     }
 
-                    if (bullet.bulletOwner == Owner.Player && Tools.BoxBoxCollision(enemies[i].GetRotatedRectangle(), bullet.GetRotatedRectangle()) != null)
+                    if (bullet.BulletOwner == Owner.Player && Tools.BoxBoxCollision(enemies[i].GetRotatedRectangle(), bullet.GetRotatedRectangle()) != null)
                     {
                         enemies[i].Collide(bullet);
                         bullet.Collide();
