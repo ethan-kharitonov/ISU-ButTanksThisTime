@@ -48,10 +48,6 @@ namespace ISU_ButTanksThisTime
             {
                 box = new Rectangle((int)position.X, (int)position.Y, (int)(img.Width * SCALE_FACTOR), (int)(img.Height * SCALE_FACTOR));
                 spriteBatch.Draw(img, box, null, Color.White, -MathHelper.ToRadians(rotation) + MathHelper.PiOver2, new Vector2((float)(img.Width / 2.0), (float)(img.Height / 2.0)), SpriteEffects.None, 1f);
-                spriteBatch.Draw(Tools.RedSquare, GetRotatedRectangle().TopLeft, Color.White);
-                spriteBatch.Draw(Tools.RedSquare, GetRotatedRectangle().TopRight, Color.White);
-                spriteBatch.Draw(Tools.RedSquare, GetRotatedRectangle().BotomLeft, Color.White);
-                spriteBatch.Draw(Tools.RedSquare, GetRotatedRectangle().BotomRight, Color.White);
             }
             else
             {

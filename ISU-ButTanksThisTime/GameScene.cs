@@ -182,11 +182,6 @@ namespace ISU_ButTanksThisTime
             
 
             RotatedRectangle obsticalBox = new RotatedRectangle(barrelBox, 0, Vector2.Zero);
-            spriteBatch.Draw(Tools.RedSquare, obsticalBox.TopLeft, Color.White);
-            spriteBatch.Draw(Tools.RedSquare, obsticalBox.TopRight, Color.White);
-            spriteBatch.Draw(Tools.RedSquare, obsticalBox.BotomLeft, Color.White);
-            spriteBatch.Draw(Tools.RedSquare, obsticalBox.BotomRight, Color.White);
-
 
 
             foreach (Bullet bullet in bullets)
@@ -267,12 +262,6 @@ namespace ISU_ButTanksThisTime
         private static void UpdateMines()
         {
             //Create mines
-            if (landMineTimer.IsTimeUp(Tools.GameTime) && Keyboard.GetState().IsKeyDown(Keys.Q))
-            {
-                landMineTimer.Reset();
-                landmines.Add(new RedMine(player.GetPos()));
-            }
-
             if (landMineTimer.IsTimeUp(Tools.GameTime) && Keyboard.GetState().IsKeyDown(Keys.E))
             {
                 landMineTimer.Reset();

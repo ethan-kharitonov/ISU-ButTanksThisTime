@@ -149,11 +149,6 @@ namespace ISU_ButTanksThisTime
             }
 
 
-            spriteBatch.Draw(Tools.RedSquare, GetRotatedRectangle().TopLeft, Color.White);
-            spriteBatch.Draw(Tools.RedSquare, GetRotatedRectangle().TopRight, Color.White);
-            spriteBatch.Draw(Tools.RedSquare, GetRotatedRectangle().BotomLeft, Color.White);
-            spriteBatch.Draw(Tools.RedSquare, GetRotatedRectangle().BotomRight, Color.White);
-
         }
 
         public RotatedRectangle GetRotatedRectangle()

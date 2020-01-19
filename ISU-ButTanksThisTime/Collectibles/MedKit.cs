@@ -30,11 +30,6 @@ namespace ISU_ButTanksThisTime
         {
             spriteBatch.Draw(img, position, null, Color.White, 0, Vector2.Zero, SCALE_FACTOR, SpriteEffects.None, 1f);
 
-            spriteBatch.Draw(Tools.RedSquare, GetRotatedRectangle().TopLeft, Color.White);
-            spriteBatch.Draw(Tools.RedSquare, GetRotatedRectangle().TopRight, Color.White);
-            spriteBatch.Draw(Tools.RedSquare, GetRotatedRectangle().BotomLeft, Color.White);
-            spriteBatch.Draw(Tools.RedSquare, GetRotatedRectangle().BotomRight, Color.White);
-
         }
 
         public override RotatedRectangle GetRotatedRectangle() => new RotatedRectangle(new Rectangle((int)(position.X), (int)(position.Y), (int)(img.Width * 0.5f * SCALE_FACTOR), (int)(img.Height * 0.5f * SCALE_FACTOR)), 0, Vector2.Zero);

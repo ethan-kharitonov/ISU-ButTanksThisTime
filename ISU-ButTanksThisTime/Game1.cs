@@ -51,16 +51,6 @@ namespace ISU_ButTanksThisTime
             Tools.buttonImg = Content.Load<Texture2D>("Images/Sprites/UI/Button BG shadow");
             GameScene.LoadContent();
 
-            Tools.RedSquare = new Texture2D(graphics.GraphicsDevice, 2, 2);
-
-            Color[] data = new Color[2 * 2];
-            for (int i = 0; i < data.Length; ++i)
-            {
-                data[i] = Color.Red;
-            }
-
-            Tools.RedSquare.SetData(data);
-
             Tools.Font = Content.Load<SpriteFont>("Fonts/File");
         }
 

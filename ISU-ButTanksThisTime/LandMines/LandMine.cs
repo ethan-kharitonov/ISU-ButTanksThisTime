@@ -36,10 +36,6 @@ namespace ISU_ButTanksThisTime
         {
             animations[currentAnim].Draw(spriteBatch, Color.White, SpriteEffects.None);
 
-            spriteBatch.Draw(Tools.RedSquare, GetBox().TopLeft, Color.White);
-            spriteBatch.Draw(Tools.RedSquare, GetBox().TopRight, Color.White);
-            spriteBatch.Draw(Tools.RedSquare, GetBox().BotomLeft, Color.White);
-            spriteBatch.Draw(Tools.RedSquare, GetBox().BotomRight, Color.White);
         }
 
         public void Collide()

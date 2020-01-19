@@ -63,7 +63,7 @@ namespace ISU_ButTanksThisTime
         public const int ROUND_PRECISION = 3;
         public static Rectangle ArenaBounds;
         public static GameTime GameTime;
-        public static Texture2D RedSquare;
+        //public static Texture2D RedSquare;
         public static ContentManager Content;
         public static GraphicsDevice Graphics;
         public static Vector2 TrueMousePos;
