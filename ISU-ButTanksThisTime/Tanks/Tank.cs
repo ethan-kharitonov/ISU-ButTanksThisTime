@@ -43,6 +43,7 @@ namespace ISU_ButTanksThisTime
         protected int health;
         protected HealthBar bar;
         protected bool killed = true;
+        protected readonly int startingHealth;
 
         private Stage stage;
         public Tank(Vector2 position, Stage stage, float attackRange, float speed, int rotationSpeed, int health, float rotation = 0)
@@ -52,10 +53,11 @@ namespace ISU_ButTanksThisTime
             this.stage = stage;
             this.attackRange = attackRange;
             ROTATION_SPEED = rotationSpeed;
+            this.startingHealth = health;
             this.health = health;
             this.speed = speed;
 
-            bar = new HealthBar(health);
+            bar = new HealthBar(health, position);
         }
 
         public virtual bool Update(Vector2 target)
@@ -176,6 +178,10 @@ namespace ISU_ButTanksThisTime
                 case LandMine _:
                     health = 0;
                     break;
+            }
+            if(health > startingHealth)
+            {
+                health = startingHealth;
             }
         }
 

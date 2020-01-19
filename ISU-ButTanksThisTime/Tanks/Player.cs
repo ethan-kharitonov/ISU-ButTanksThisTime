@@ -51,7 +51,7 @@ namespace ISU_ButTanksThisTime
             {
                 Game1.state = State.LoseScreen;
             }
-
+            Console.WriteLine(health);
             return false;
         }
 
@@ -117,12 +117,15 @@ namespace ISU_ButTanksThisTime
                     health -= bullet.Damage;
                     break;
                 case BomberEnemie _:
-                    //Tank tank = collided as BomberEnemie;
                     health -= 25;
                     break;
-                case LandMine _:
+                case RedMine _:
                     health = 0;
                     break;
+            }
+            if (health > startingHealth)
+            {
+                health = startingHealth;
             }
         }
         public Vector2 GetBasePosition() => basePosition;
