@@ -1,13 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ISU_ButTanksThisTime
 {
-    class Timer
+    internal class Timer
     {
         public Timer(int intervalMilliseconds)
         {
@@ -21,7 +20,10 @@ namespace ISU_ButTanksThisTime
             return TimeLeft <= 0;
         }
 
-        public void Reset() => TimeLeft = Interval;
+        public void Reset()
+        {
+            TimeLeft = Interval;
+        }
 
         public int TimeLeft { get; private set; }
 

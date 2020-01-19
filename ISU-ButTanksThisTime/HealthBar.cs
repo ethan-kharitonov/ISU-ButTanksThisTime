@@ -2,13 +2,12 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ISU_ButTanksThisTime
 {
-    class HealthBar
+    internal class HealthBar
     {
         private readonly Texture2D barImg;
         private Rectangle barBox;
@@ -24,24 +23,22 @@ namespace ISU_ButTanksThisTime
         {
             MAX_HEALTH = startHealth;
             barImg = Tools.Content.Load<Texture2D>("Images/Sprites/UI/Loading Bar BG");
-            barBox = new Rectangle((int)position.X, (int)position.Y, BAR_LENGTH, 8);
-            
+            barBox = new Rectangle((int) position.X, (int) position.Y, BAR_LENGTH, 8);
+
             healthImg = Tools.Content.Load<Texture2D>("Images/Sprites/UI/Loading Bar");
             healthBox = barBox;
-
-            
         }
 
         public void Update(Vector2 tankPos, float health)
         {
-            barBox.X = (int)tankPos.X;
-            barBox.Y = (int)tankPos.Y- DIS_ABOVE_TANK;
+            barBox.X = (int) tankPos.X;
+            barBox.Y = (int) tankPos.Y - DIS_ABOVE_TANK;
 
-            healthBox.X = barBox.X  - barBox.Width/2;
+            healthBox.X = barBox.X - barBox.Width / 2;
             healthBox.Y = barBox.Y;
 
             //healthBox = barBox;
-            healthBox.Width = (int)(health / MAX_HEALTH * BAR_LENGTH) - 2;
+            healthBox.Width = (int) (health / MAX_HEALTH * BAR_LENGTH) - 2;
             healthBox.Height = barBox.Height;
         }
 

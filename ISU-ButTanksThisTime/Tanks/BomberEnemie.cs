@@ -1,46 +1,41 @@
 ﻿using Animation2D;
+using ISU_ButTanksThisTime.Bullets;
+using ISU_ButTanksThisTime.Cannons;
+using ISU_ButTanksThisTime.LandMines;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ISU_ButTanksThisTime
+namespace ISU_ButTanksThisTime.Tanks
 {
-    class BomberEnemie :Tank
+    internal class BomberEnemie : Tank
     {
-        private static readonly int[] SPEED = { 3, 4, 6 };
-        private static readonly int[] ROTATION_SPEED = { 5, 6, 7 };
-        private static readonly int[] HEALTH = { 100, 150, 200 };
+        private static readonly int[] SPEED = {3, 4, 6};
+        private static readonly int[] ROTATION_SPEED = {5, 6, 7};
+        private static readonly int[] HEALTH = {100, 150, 200};
 
-        public BomberEnemie(Vector2 position, float rotation, Stage stage) : base(position, stage, 0, SPEED[(int)stage], ROTATION_SPEED[(int)stage], HEALTH[(int)stage], rotation)
+        public BomberEnemie(Vector2 position, float rotation, Stage stage) : base(position, stage, 0, SPEED[(int) stage], ROTATION_SPEED[(int) stage], HEALTH[(int) stage], rotation)
         {
-
-            baseImg = Tools.Content.Load<Texture2D>("Images/Sprites/Tanks/BomberEnemie/BP" + ((int)stage + 1));
+            baseImg = Tools.Content.Load<Texture2D>("Images/Sprites/Tanks/BomberEnemie/BP" + ((int) stage + 1));
 
             cannon = new BomberEnemieCannon(stage, basePosition, baseRotation);
 
-            Texture2D explosionSpritesheet = Tools.Content.Load<Texture2D>("Images/Sprites/Effects/spritesheet");
+            var explosionSpritesheet = Tools.Content.Load<Texture2D>("Images/Sprites/Effects/spritesheet");
             explosionAnimation = new Animation(explosionSpritesheet, 3, 3, 9, 1, 1, 1, 2, basePosition, 0.3f, true);
         }
 
-        public override Tank Clone(Vector2 position, float rotation, Stage stage)
-        {
-            return new BomberEnemie(position, rotation, stage);
-        }
+        public override Tank Clone(Vector2 position, float rotation, Stage stage) => new BomberEnemie(position, rotation, stage);
 
         public override void Collide(object collided)
         {
             switch (collided)
             {
                 case Bullet _:
-                    Bullet bullet = collided as Bullet;
-                    if(bullet.bulletOwner == Owner.Player)
+                    var bullet = collided as Bullet;
+                    if (bullet.bulletOwner == Owner.Player)
                     {
                         health -= 25;
                     }
+
                     break;
                 case Player _:
                     health = 0;
@@ -55,4 +50,3 @@ namespace ISU_ButTanksThisTime
         public override TankType GetTankType() => TankType.Bomber;
     }
 }
-

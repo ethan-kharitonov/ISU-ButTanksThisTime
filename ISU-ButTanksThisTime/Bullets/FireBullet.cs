@@ -1,21 +1,18 @@
 ﻿using Animation2D;
+using ISU_ButTanksThisTime.Tanks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ISU_ButTanksThisTime
+namespace ISU_ButTanksThisTime.Bullets
 {
-    class FireBullet : Bullet
+    internal class FireBullet : Bullet
     {
         private Animation exAnim;
         private static Texture2D bulletImg;
 
         public static readonly BulletInfo Info;
         private static int damage = 30;
+
         static FireBullet()
         {
             bulletImg = Tools.Content.Load<Texture2D>("Images/Sprites/Bullets/FireBullet");
@@ -26,7 +23,7 @@ namespace ISU_ButTanksThisTime
         {
             img = bulletImg;
 
-            Texture2D exSprite = Tools.Content.Load<Texture2D>("Images/Sprites/Effects/FireBulletHit");
+            var exSprite = Tools.Content.Load<Texture2D>("Images/Sprites/Effects/FireBulletHit");
             exAnim = new Animation(exSprite, 4, 1, 4, 0, 0, Animation.ANIMATE_ONCE, 2, Vector2.Zero, Tank.IMG_SCALE_FACTOR, true);
             Damage = damage;
         }
@@ -34,9 +31,6 @@ namespace ISU_ButTanksThisTime
         protected override Animation ExAnim => exAnim;
 
 
-        public override Bullet Clone(Vector2 pos, float rotation)
-        {
-            return new FireBullet(pos, rotation, bulletOwner);
-        }
+        public override Bullet Clone(Vector2 pos, float rotation) => new FireBullet(pos, rotation, bulletOwner);
     }
 }

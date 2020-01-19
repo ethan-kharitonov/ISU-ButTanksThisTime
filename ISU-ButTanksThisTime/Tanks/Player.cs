@@ -1,13 +1,16 @@
-﻿using Animation2D;
+﻿using System;
+using Animation2D;
+using ISU_ButTanksThisTime.Bullets;
+using ISU_ButTanksThisTime.Cannons;
+using ISU_ButTanksThisTime.LandMines;
+using ISU_ButTanksThisTime.Shapes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
-using System.Collections.Generic;
 
-namespace ISU_ButTanksThisTime
+namespace ISU_ButTanksThisTime.Tanks
 {
-    class Player : Tank
+    internal class Player : Tank
     {
         //Movment Variables
         private Vector2 velocity = new Vector2(0, 0);
@@ -28,7 +31,7 @@ namespace ISU_ButTanksThisTime
             cannon = new TierOneCannon(Owner.Player, Stage.Player, basePosition, baseRotation);
             basePosition = position;
 
-            Texture2D explosionSpritesheet = Tools.Content.Load<Texture2D>("Images/Sprites/Effects/spritesheet");
+            var explosionSpritesheet = Tools.Content.Load<Texture2D>("Images/Sprites/Effects/spritesheet");
             explosionAnimation = new Animation(explosionSpritesheet, 3, 3, 9, 1, 1, 1, 2, basePosition, 0.3f, true);
         }
 
@@ -47,10 +50,11 @@ namespace ISU_ButTanksThisTime
             CannonUpdate(kb);
             bar.Update(basePosition, health);
 
-            if(health <= 0)
+            if (health <= 0)
             {
                 Game1.state = State.LoseScreen;
             }
+
             Console.WriteLine(health);
             return false;
         }
@@ -98,8 +102,8 @@ namespace ISU_ButTanksThisTime
 
             basePosition += velocity;
 
-            basePosition.X = MathHelper.Clamp(basePosition.X, Tools.ArenaBounds.Left + (int)(baseImg.Width * IMG_SCALE_FACTOR / 2.0), Tools.ArenaBounds.Right - (int)(baseImg.Width * IMG_SCALE_FACTOR / 2.0));
-            basePosition.Y = MathHelper.Clamp(basePosition.Y, Tools.ArenaBounds.Top + (int)(baseImg.Height * IMG_SCALE_FACTOR / 2.0), Tools.ArenaBounds.Bottom - (int)(baseImg.Height * IMG_SCALE_FACTOR / 2.0));
+            basePosition.X = MathHelper.Clamp(basePosition.X, Tools.ArenaBounds.Left + (int) (baseImg.Width * IMG_SCALE_FACTOR / 2.0), Tools.ArenaBounds.Right - (int) (baseImg.Width * IMG_SCALE_FACTOR / 2.0));
+            basePosition.Y = MathHelper.Clamp(basePosition.Y, Tools.ArenaBounds.Top + (int) (baseImg.Height * IMG_SCALE_FACTOR / 2.0), Tools.ArenaBounds.Bottom - (int) (baseImg.Height * IMG_SCALE_FACTOR / 2.0));
 
             if (isKeyPressed)
             {
@@ -108,12 +112,13 @@ namespace ISU_ButTanksThisTime
                 baseRotation %= 360;
             }
         }
+
         public override void Collide(object collided)
         {
             switch (collided)
             {
                 case Bullet _:
-                    Bullet bullet = collided as Bullet;
+                    var bullet = collided as Bullet;
                     health -= bullet.Damage;
                     break;
                 case BomberEnemie _:
@@ -123,19 +128,25 @@ namespace ISU_ButTanksThisTime
                     health = 0;
                     break;
             }
+
             if (health > startingHealth)
             {
                 health = startingHealth;
             }
         }
+
         public Vector2 GetBasePosition() => basePosition;
+
         public Vector2 GetCannonPosition() => cannon.GetPosition();
+
         public float GetCannonRotation() => cannon.GetRotation();
+
         public float GetScaleFactor() => IMG_SCALE_FACTOR;
+
         public void CollideWithObject(Rectangle obstical)
         {
-            RotatedRectangle obsticalBox = new RotatedRectangle(obstical, 0, Vector2.Zero);
-            RotatedRectangle rotBox = GetRotatedRectangle();
+            var obsticalBox = new RotatedRectangle(obstical, 0, Vector2.Zero);
+            var rotBox = GetRotatedRectangle();
             if (Tools.BoxBoxCollision(obsticalBox, rotBox) == null)
             {
                 return;
@@ -143,13 +154,13 @@ namespace ISU_ButTanksThisTime
 
             isKeyPressed = false;
 
-            int top = (int)Math.Min(Math.Min(rotBox.TopLeft.Y, rotBox.TopRight.Y), Math.Min(rotBox.BotomLeft.Y, rotBox.BotomRight.Y));
-            int bottom = (int)Math.Max(Math.Max(rotBox.TopLeft.Y, rotBox.TopRight.Y), Math.Max(rotBox.BotomLeft.Y, rotBox.BotomRight.Y));
-            int left = (int)Math.Min(Math.Min(rotBox.TopLeft.X, rotBox.TopRight.X), Math.Min(rotBox.BotomLeft.X, rotBox.BotomRight.X));
-            int right = (int)Math.Max(Math.Max(rotBox.TopLeft.X, rotBox.TopRight.X), Math.Max(rotBox.BotomLeft.X, rotBox.BotomRight.X));
+            var top = (int) Math.Min(Math.Min(rotBox.TopLeft.Y, rotBox.TopRight.Y), Math.Min(rotBox.BotomLeft.Y, rotBox.BotomRight.Y));
+            var bottom = (int) Math.Max(Math.Max(rotBox.TopLeft.Y, rotBox.TopRight.Y), Math.Max(rotBox.BotomLeft.Y, rotBox.BotomRight.Y));
+            var left = (int) Math.Min(Math.Min(rotBox.TopLeft.X, rotBox.TopRight.X), Math.Min(rotBox.BotomLeft.X, rotBox.BotomRight.X));
+            var right = (int) Math.Max(Math.Max(rotBox.TopLeft.X, rotBox.TopRight.X), Math.Max(rotBox.BotomLeft.X, rotBox.BotomRight.X));
 
-            bool processX = true;
-            bool processY = true;
+            var processX = true;
+            var processY = true;
             if ((basePosition.X < obstical.Left || basePosition.X > obstical.Right) &&
                 (basePosition.Y < obstical.Top || basePosition.Y > obstical.Bottom))
             {
@@ -157,7 +168,7 @@ namespace ISU_ButTanksThisTime
                 processY = !processX;
             }
 
-            Rectangle trueRectangle = new Rectangle(left, top, right - left, bottom - top);
+            var trueRectangle = new Rectangle(left, top, right - left, bottom - top);
 
             if (basePosition.X < obstical.Left && processX)
             {
@@ -184,10 +195,7 @@ namespace ISU_ButTanksThisTime
 
         public override TankType GetTankType() => TankType.Player;
 
-        public override Tank Clone(Vector2 position, float rotation, Stage stage)
-        {
-            throw new NotImplementedException();
-        }
+        public override Tank Clone(Vector2 position, float rotation, Stage stage) => throw new NotImplementedException();
 
         public void StepOutOfShop()
         {

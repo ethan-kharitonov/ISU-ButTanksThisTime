@@ -1,14 +1,9 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ISU_ButTanksThisTime.Bullets;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ISU_ButTanksThisTime
+namespace ISU_ButTanksThisTime.Cannons
 {
-    class CannonInfo
+    internal class CannonInfo
     {
         public readonly int FireRate;
         public readonly int RotationSpeed;
@@ -17,6 +12,7 @@ namespace ISU_ButTanksThisTime
         public readonly Cannon cannon;
         public readonly int? BurstRate;
         public readonly int? BurstDuration;
+
         public CannonInfo(int fireRate, int rotationSpeed, Texture2D img, BulletInfo bullet,
             Cannon cannon,
             int? burstRate = null, int? burstDuration = null)

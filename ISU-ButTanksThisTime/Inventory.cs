@@ -1,28 +1,29 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using ISU_ButTanksThisTime.Collectibles;
 
 namespace ISU_ButTanksThisTime
 {
-    class Inventory
+    internal class Inventory
     {
         private readonly Dictionary<ItemType, Icon> icons = new Dictionary<ItemType, Icon>();
+
         public Inventory()
         {
             //Add re-locate icon
-            Icon reLocateIcon = new Icon(new Vector2(Tools.Screen.Width - 10 - Icon.Frame.Width, 10), RelocateItem.VoidObject);
+            var reLocateIcon = new Icon(new Vector2(Tools.Screen.Width - 10 - Icon.Frame.Width, 10), RelocateItem.VoidObject);
             icons.Add(ItemType.Relocate, reLocateIcon);
 
             //Add speed boost icon
-            Icon speedBoostIcon = new Icon(new Vector2(Tools.Screen.Width - 2 * (10 + Icon.Frame.Width), 10), SpeedBoostItem.VoidObject);
+            var speedBoostIcon = new Icon(new Vector2(Tools.Screen.Width - 2 * (10 + Icon.Frame.Width), 10), SpeedBoostItem.VoidObject);
             icons.Add(ItemType.SpeedBoost, speedBoostIcon);
 
-            Icon coinIcon = new Icon(new Vector2(Tools.Screen.Width - 3 * (15 + Icon.Frame.Width) + 20, 10), CoinItem.VoidObject);
+            var coinIcon = new Icon(new Vector2(Tools.Screen.Width - 3 * (15 + Icon.Frame.Width) + 20, 10), CoinItem.VoidObject);
             icons.Add(ItemType.Coin, coinIcon);
 
-            Icon ammoIcon = new Icon(new Vector2(Tools.Screen.Width - 4 * (15 + Icon.Frame.Width) + 20, 10), Ammo.VoidObject, 150);
+            var ammoIcon = new Icon(new Vector2(Tools.Screen.Width - 4 * (15 + Icon.Frame.Width) + 20, 10), Ammo.VoidObject, 50);
             icons.Add(ItemType.Ammo, ammoIcon);
-
         }
 
         public void Update()
@@ -40,6 +41,7 @@ namespace ISU_ButTanksThisTime
             {
                 icon.Draw(spriteBatch);
             }
+
             spriteBatch.End();
         }
 
@@ -48,21 +50,15 @@ namespace ISU_ButTanksThisTime
             icons[item.ItemType].Add(item.Amount);
         }
 
-        public int GetCurrentCredit()
-        {
-            return icons[ItemType.Coin].GetQuantity();
-        }
+        public int GetCurrentCredit() => icons[ItemType.Coin].GetQuantity();
 
-        public int Pay(int price)
-        {
-            return icons[ItemType.Coin].GetQuantity();
-        }
+        public int Pay(int price) => icons[ItemType.Coin].GetQuantity();
 
-        public bool AreAnyBulletsLeft()
-        {
-            return icons[ItemType.Ammo].GetQuantity() > 0;
-        }
+        public bool AreAnyBulletsLeft() => icons[ItemType.Ammo].GetQuantity() > 0;
 
-        public void RemoveBullet() => icons[ItemType.Ammo].DecreaseQuantity(1);
+        public void RemoveBullet()
+        {
+            icons[ItemType.Ammo].DecreaseQuantity(1);
+        }
     }
 }

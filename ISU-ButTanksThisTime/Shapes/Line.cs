@@ -1,10 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
-namespace ISU_ButTanksThisTime
+
+namespace ISU_ButTanksThisTime.Shapes
 {
     public class Line
     {
         public Vector2 StartPoint;
         public Vector2 EndPoint;
+
         public Line(Vector2 startPoint, Vector2 endPoint)
         {
             StartPoint = startPoint;

@@ -1,9 +1,7 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
-
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -21,12 +19,14 @@ namespace ISU_ButTanksThisTime
         LoseScreen,
         Pause
     }
+
     public class Game1 : Game
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
 
         public static State state = State.Menu;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -57,7 +57,6 @@ namespace ISU_ButTanksThisTime
 
         protected override void UnloadContent()
         {
-
         }
 
         protected override void Update(GameTime gameTime)
@@ -99,7 +98,7 @@ namespace ISU_ButTanksThisTime
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            switch(state)
+            switch (state)
             {
                 case State.Game:
                     GameScene.Draw(spriteBatch);
@@ -123,9 +122,5 @@ namespace ISU_ButTanksThisTime
 
             base.Draw(gameTime);
         }
-
     }
 }
-
-
-

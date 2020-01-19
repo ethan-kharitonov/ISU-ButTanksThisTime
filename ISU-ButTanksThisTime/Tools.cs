@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using ISU_ButTanksThisTime.Shapes;
 
 namespace ISU_ButTanksThisTime
 {
@@ -62,13 +63,16 @@ namespace ISU_ButTanksThisTime
         public static Random Rnd = new Random();
         public const int ROUND_PRECISION = 3;
         public static Rectangle ArenaBounds;
+
         public static GameTime GameTime;
+
         //public static Texture2D RedSquare;
         public static ContentManager Content;
         public static GraphicsDevice Graphics;
         public static Vector2 TrueMousePos;
         public static SpriteFont Font;
         public static Texture2D buttonImg;
+
         public static float ApproachValue(float current, float target, float speed)
         {
             if (current < target)
@@ -89,7 +93,7 @@ namespace ISU_ButTanksThisTime
         public static float Atan(float y, float x)
         {
             y = y == -0 ? 0 : y;
-            float angle = (float)Math.Atan2(y, x);
+            var angle = (float) Math.Atan2(y, x);
 
             angle = angle < 0 ? angle + MathHelper.TwoPi : angle;
 
@@ -98,8 +102,8 @@ namespace ISU_ButTanksThisTime
 
         public static float RotateTowardsVector(float current, Vector2 target, float rotationSpeed)
         {
-            float targetAngel = MathHelper.ToDegrees(Tools.Atan(target.Y, target.X));
-            float delta = targetAngel - current;
+            var targetAngel = MathHelper.ToDegrees(Atan(target.Y, target.X));
+            var delta = targetAngel - current;
 
             if (delta == 0)
             {
@@ -111,12 +115,13 @@ namespace ISU_ButTanksThisTime
             }
 
 
-            int dir = 1;
+            var dir = 1;
             if (current > targetAngel)
             {
                 dir = -1;
             }
-            float newAngle = Math.Abs(delta) <= 180 ? current + dir * rotationSpeed : current - dir * rotationSpeed;
+
+            var newAngle = Math.Abs(delta) <= 180 ? current + dir * rotationSpeed : current - dir * rotationSpeed;
             newAngle = newAngle < 0 ? newAngle + 360 : newAngle;
             newAngle %= 360;
 
@@ -125,13 +130,13 @@ namespace ISU_ButTanksThisTime
 
         private static PointOrInterval? LineLineCol(Line line1, Line line2)
         {
-            Vector2 s1 = line1.StartPoint;
-            Vector2 e1 = line1.EndPoint;
-            Vector2 s2 = line2.StartPoint;
-            Vector2 e2 = line2.EndPoint;
+            var s1 = line1.StartPoint;
+            var e1 = line1.EndPoint;
+            var s2 = line2.StartPoint;
+            var e2 = line2.EndPoint;
 
-            bool isFirstPerpendicularToAxisX = s1.X == e1.X;
-            bool isSecondPerpendicularToAxisX = s2.X == e2.X;
+            var isFirstPerpendicularToAxisX = s1.X == e1.X;
+            var isSecondPerpendicularToAxisX = s2.X == e2.X;
 
             if (isFirstPerpendicularToAxisX && isSecondPerpendicularToAxisX)
             {
@@ -155,23 +160,24 @@ namespace ISU_ButTanksThisTime
 
             if (a1 == a2)
             {
-                return b1 == b2 ? (a1 == 0
-                    ? DoSameLineIntervalsPerpendicularToAxisYIntersect(s1, e1, s2, e2)      // both intervals are on a line perpendicular to the axis Y
-                    : DoSameLineIntervalsNotPerpendicularToAxisYIntersect(s1, e1, s2, e2)   // both intervals are on a line that is not perpendicular to any axis
-                    ) : null;
+                return b1 == b2
+                    ? a1 == 0
+                        ? DoSameLineIntervalsPerpendicularToAxisYIntersect(s1, e1, s2, e2) // both intervals are on a line perpendicular to the axis Y
+                        : DoSameLineIntervalsNotPerpendicularToAxisYIntersect(s1, e1, s2, e2)
+                    : null;
             }
 
-            Vector2 intersection = new Vector2(
-                (float)Math.Round((b2 - b1) / (a1 - a2), ROUND_PRECISION),
-                (float)Math.Round((b2 * a1 - a2 * b1) / (a1 - a2), ROUND_PRECISION));
+            var intersection = new Vector2(
+                (float) Math.Round((b2 - b1) / (a1 - a2), ROUND_PRECISION),
+                (float) Math.Round((b2 * a1 - a2 * b1) / (a1 - a2), ROUND_PRECISION));
 
             return
                 IsBetween(s1.X, intersection.X, e1.X) &&
                 IsBetween(s2.X, intersection.X, e2.X) &&
                 IsBetween(s1.Y, intersection.Y, e1.Y) &&
                 IsBetween(s2.Y, intersection.Y, e2.Y)
-                ? new PointOrInterval(new Vector2(intersection.X, intersection.Y))
-                : default(PointOrInterval?);
+                    ? new PointOrInterval(new Vector2(intersection.X, intersection.Y))
+                    : default(PointOrInterval?);
         }
 
         #region CalculateIntersectionResultFinal
@@ -187,13 +193,16 @@ namespace ISU_ButTanksThisTime
                 {
                     return new PointOrInterval(s1, e1);
                 }
+
                 if (s2BelongsToInterval1)
                 {
                     return new PointOrInterval(s1, s2);
                 }
+
                 Debug.Assert(e2BelongsToInterval1);
                 return new PointOrInterval(s1, e2);
             }
+
             return null;
         }
 
@@ -227,6 +236,7 @@ namespace ISU_ButTanksThisTime
                     }
                 }
             }
+
             return res;
         }
 
@@ -261,7 +271,7 @@ namespace ISU_ButTanksThisTime
         private static PointOrInterval? IsIntersectingWithPerpendicular(Vector2 s1, Vector2 e1, Vector2 s2, Vector2 e2)
         {
             var (a2, b2) = CalcLine(s2, e2);
-            var y = (float)Math.Round(a2 * s1.X + b2, ROUND_PRECISION);
+            var y = (float) Math.Round(a2 * s1.X + b2, ROUND_PRECISION);
             return IsBetween(s2.X, s1.X, e2.X) && IsBetween(s1.Y, y, e1.Y) && IsBetween(s2.Y, y, e2.Y)
                 ? new PointOrInterval(new Vector2(s1.X, y))
                 : default(PointOrInterval?);
@@ -269,9 +279,10 @@ namespace ISU_ButTanksThisTime
 
         public static bool IsBetween(float f1, float x, float f2) => Math.Min(f1, f2) <= x && x <= Math.Max(f1, f2);
 
-        private static (double a, double b) CalcLine(Vector2 s, Vector2 e) => (
-            Math.Round((s.Y - e.Y) / (s.X - e.X), Tools.ROUND_PRECISION),
-            Math.Round((s.X * e.Y - s.Y * e.X) / (s.X - e.X), Tools.ROUND_PRECISION));
+        private static (double a, double b) CalcLine(Vector2 s, Vector2 e) =>
+        (
+            Math.Round((s.Y - e.Y) / (s.X - e.X), ROUND_PRECISION),
+            Math.Round((s.X * e.Y - s.Y * e.X) / (s.X - e.X), ROUND_PRECISION));
 
         public static List<LineIntersectionResult> BoxBoxCollision(RotatedRectangle box1, RotatedRectangle box2)
         {
@@ -292,19 +303,18 @@ namespace ISU_ButTanksThisTime
             };
 
             List<LineIntersectionResult> res = null;
-            foreach (Line line1 in lines1)
+            foreach (var line1 in lines1)
+            foreach (var line2 in lines2)
             {
-                foreach (Line line2 in lines2)
+                var pointOrInterval = LineLineCol(line1, line2);
+                if (pointOrInterval != null)
                 {
-                    var pointOrInterval = LineLineCol(line1, line2);
-                    if (pointOrInterval != null)
+                    if (res == null)
                     {
-                        if (res == null)
-                        {
-                            res = new List<LineIntersectionResult>();
-                        }
-                        res.Add(new LineIntersectionResult(line1, line2, pointOrInterval.Value));
+                        res = new List<LineIntersectionResult>();
                     }
+
+                    res.Add(new LineIntersectionResult(line1, line2, pointOrInterval.Value));
                 }
             }
 
@@ -322,7 +332,7 @@ namespace ISU_ButTanksThisTime
             };
 
             List<LineIntersectionResult> res = null;
-            foreach (Line lineB in lines)
+            foreach (var lineB in lines)
             {
                 var pointOrInterval = LineLineCol(lineB, line);
                 if (pointOrInterval != null)
@@ -331,6 +341,7 @@ namespace ISU_ButTanksThisTime
                     {
                         res = new List<LineIntersectionResult>();
                     }
+
                     res.Add(new LineIntersectionResult(lineB, line, pointOrInterval.Value));
                 }
             }
@@ -340,13 +351,12 @@ namespace ISU_ButTanksThisTime
 
         public static bool CirclePointCollision(Circle circle, Vector2 point)
         {
-            if((point - circle.Centre).LengthSquared() <= Math.Pow(circle.Raduis, 2))
+            if ((point - circle.Centre).LengthSquared() <= Math.Pow(circle.Raduis, 2))
             {
                 return true;
             }
-            
+
             return false;
         }
-
     }
 }

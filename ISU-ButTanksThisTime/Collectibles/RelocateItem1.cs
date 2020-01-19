@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace ISU_ButTanksThisTime
+namespace ISU_ButTanksThisTime.Collectibles
 {
-    class RelocateItem : Item
+    internal class RelocateItem : Item
     {
         public static readonly Item VoidObject = new RelocateItem(default);
 
@@ -11,10 +11,7 @@ namespace ISU_ButTanksThisTime
 
         // Guarantees that the static state is initialized right before the class is used. Without it, the static state
         // could be initialized too early.
-        static RelocateItem()
-        {
-            img = Tools.Content.Load<Texture2D>("Images/Sprites/Items/Mobility_Icon");
-        }
+        static RelocateItem() => img = Tools.Content.Load<Texture2D>("Images/Sprites/Items/Mobility_Icon");
 
         public RelocateItem(Vector2 position) : base(position)
         {

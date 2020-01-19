@@ -2,20 +2,20 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ISU_ButTanksThisTime
 {
-    static class PauseMenu
+    internal static class PauseMenu
     {
         private static Texture2D bgImg;
         private static Button backBtn;
         private static Button backToMenuBtn;
+
         static PauseMenu()
         {
-            Texture2D btnImg = Tools.Content.Load<Texture2D>("Images/Sprites/UI/BTN BACK");
+            var btnImg = Tools.Content.Load<Texture2D>("Images/Sprites/UI/BTN BACK");
 
             backBtn = new Button(btnImg, new Rectangle(Tools.Screen.Center.X - 150, Tools.Screen.Center.Y - 75, 300, 150), "");
             backToMenuBtn = new Button(Tools.buttonImg, new Rectangle(Tools.Screen.Center.X - 75, 450, 150, 75), "BACK TO MENU");

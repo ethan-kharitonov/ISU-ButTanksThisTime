@@ -3,22 +3,18 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ISU_ButTanksThisTime
 {
-    class Camera
+    internal class Camera
     {
         public Matrix transforme;
         private Viewport viewport;
         private float zoom = 1;
 
-        public Camera (Viewport viewport)
-        {
-            this.viewport = viewport;
-        }
+        public Camera(Viewport viewport) => this.viewport = viewport;
 
         public void Update(Vector2 target)
         {
@@ -26,6 +22,7 @@ namespace ISU_ButTanksThisTime
             {
                 zoom += 0.01f;
             }
+
             if (Keyboard.GetState().IsKeyDown(Keys.L))
             {
                 zoom -= 0.01f;
@@ -35,7 +32,6 @@ namespace ISU_ButTanksThisTime
             target.Y = MathHelper.Clamp(target.Y, Tools.ArenaBounds.Top + Tools.Screen.Height / 2, Tools.ArenaBounds.Bottom - Tools.Screen.Height / 2);
 
             transforme = Matrix.CreateTranslation(new Vector3(-target.X, -target.Y, 0)) * Matrix.CreateScale(new Vector3(zoom, zoom, 0)) * Matrix.CreateTranslation(new Vector3(viewport.Width / 2, viewport.Height / 2, 0));
-
         }
 
         public float GetZoom() => zoom;

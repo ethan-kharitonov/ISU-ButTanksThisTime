@@ -3,13 +3,12 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ISU_ButTanksThisTime
 {
-    class Button
+    internal class Button
     {
         private Texture2D img;
         private Rectangle box;
@@ -17,7 +16,7 @@ namespace ISU_ButTanksThisTime
         private Color color = Color.White;
         private bool active = true;
 
-        public Button(Texture2D img, Rectangle box, String text)
+        public Button(Texture2D img, Rectangle box, string text)
         {
             this.img = img;
             this.box = box;
@@ -36,12 +35,14 @@ namespace ISU_ButTanksThisTime
             if (box.Contains(Mouse.GetState().Position))
             {
                 color = Color.LightGray;
-                if(Mouse.GetState().LeftButton == ButtonState.Pressed)
+                if (Mouse.GetState().LeftButton == ButtonState.Pressed)
                 {
                     return true;
                 }
+
                 return false;
             }
+
             color = Color.White;
             return false;
         }
@@ -49,7 +50,7 @@ namespace ISU_ButTanksThisTime
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(img, box, color);
-            spriteBatch.DrawString(Tools.Font, text, box.Center.ToVector2() - Tools.Font.MeasureString(text)/2f, color);
+            spriteBatch.DrawString(Tools.Font, text, box.Center.ToVector2() - Tools.Font.MeasureString(text) / 2f, color);
         }
 
         public void ChangeText(string newText)

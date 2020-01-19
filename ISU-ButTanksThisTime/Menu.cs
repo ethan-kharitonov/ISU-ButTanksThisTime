@@ -2,17 +2,16 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ISU_ButTanksThisTime
 {
-    static class Menu
+    internal static class Menu
     {
         private static Texture2D bgImg;
         private static Button playBtn;
-        private static Button quitBtn; 
+        private static Button quitBtn;
 
         static Menu()
         {
@@ -20,7 +19,6 @@ namespace ISU_ButTanksThisTime
 
             playBtn = new Button(Tools.buttonImg, new Rectangle(Tools.Screen.Center.X - Tools.buttonImg.Width, 100, 2 * Tools.buttonImg.Width, 2 * Tools.buttonImg.Height), "PLAY");
             quitBtn = new Button(Tools.buttonImg, new Rectangle(Tools.Screen.Center.X - Tools.buttonImg.Width / 2, 300, Tools.buttonImg.Width, Tools.buttonImg.Height), "QUIT");
-        
         }
 
         public static void Update(Game1 game)

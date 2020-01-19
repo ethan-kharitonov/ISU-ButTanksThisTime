@@ -1,15 +1,12 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
-
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
-using Animation2D;
 
 namespace MapEditor
 {
@@ -33,7 +30,7 @@ namespace MapEditor
         private string filePath;
 
         private readonly IList<Trail> paths = new Trail[3];
-        int curPath = 1;
+        private int curPath = 1;
 
         public Game1()
         {
@@ -67,7 +64,6 @@ namespace MapEditor
             paths[2] = new Trail(Color.Black, Color.Purple, GraphicsDevice);
 
 
-
             filePath = System.Reflection.Assembly.GetExecutingAssembly().CodeBase;
             filePath = Path.GetDirectoryName(filePath);
             filePath = filePath.Substring(6);
@@ -95,17 +91,19 @@ namespace MapEditor
             }
 
             //mousePos = enemyCheckPoints.Count > 0 ? enemyCheckPoints[enemyCheckPoints.Count - 1] : mousePos;
-            
+
             Camera.Update();
 
             if (Keyboard.GetState().IsKeyDown(Keys.D1))
             {
                 curPath = 0;
             }
+
             if (Keyboard.GetState().IsKeyDown(Keys.D2))
             {
                 curPath = 1;
             }
+
             if (Keyboard.GetState().IsKeyDown(Keys.D3))
             {
                 curPath = 2;
@@ -123,43 +121,47 @@ namespace MapEditor
 
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, Camera.transforme);
 
-            for (int r = -ARENA_WIDTH / 2; r < ARENA_WIDTH / 2; ++r)
+            for (var r = -ARENA_WIDTH / 2; r < ARENA_WIDTH / 2; ++r)
             {
-                for (int c = -ARENA_HEIGHT / 2; c < ARENA_HEIGHT / 2; ++c)
+                for (var c = -ARENA_HEIGHT / 2; c < ARENA_HEIGHT / 2; ++c)
                 {
-                    Rectangle bgBpx = new Rectangle(r * backgroundImg.Width + screen.Center.X, c * backgroundImg.Height + screen.Center.Y, backgroundImg.Width, backgroundImg.Height);
+                    var bgBpx = new Rectangle(r * backgroundImg.Width + screen.Center.X, c * backgroundImg.Height + screen.Center.Y, backgroundImg.Width, backgroundImg.Height);
                     spriteBatch.Draw(backgroundImg, bgBpx, null, Color.White, 0, new Vector2(backgroundImg.Width / 2, backgroundImg.Height / 2), SpriteEffects.None, 1f);
                 }
             }
 
-            foreach(Trail path in paths)
+            foreach (var path in paths)
             {
                 path.Draw(spriteBatch);
             }
+
             spriteBatch.Draw(mouseImg, mousePos, null, Color.White, 0, new Vector2(mouseImg.Width / 2, mouseImg.Height / 2), 1, SpriteEffects.None, 1f);
 
             spriteBatch.End();
 
             base.Draw(gameTime);
         }
+
         private void SavePath()
         {
             var outFile = File.CreateText(filePath);
-            foreach (Trail path in paths)
+            foreach (var path in paths)
             {
-                foreach(Vector2 point in path.GetPoints)
+                foreach (var point in path.GetPoints)
                 {
                     outFile.WriteLine(point.X + "," + point.Y);
                 }
+
                 outFile.WriteLine("#");
             }
+
             outFile.Close();
         }
 
         private void LoadPath()
         {
             var curPath = 0;
-            List<Vector2> points = new List<Vector2>();
+            var points = new List<Vector2>();
             using (var inFile = File.OpenText(filePath))
             {
                 string[] data;
@@ -174,8 +176,9 @@ namespace MapEditor
                         }
 
                         data = line.Split(',');
-                        points.Add(new Vector2((float)Convert.ToDouble(data[0]), (float)Convert.ToDouble(data[1])));
+                        points.Add(new Vector2((float) Convert.ToDouble(data[0]), (float) Convert.ToDouble(data[1])));
                     }
+
                     paths[curPath].SetPoints(points);
                     points = new List<Vector2>();
                     ++curPath;
@@ -183,5 +186,4 @@ namespace MapEditor
             }
         }
     }
-
 }

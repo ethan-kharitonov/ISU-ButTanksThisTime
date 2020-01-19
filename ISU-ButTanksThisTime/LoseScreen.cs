@@ -2,13 +2,12 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ISU_ButTanksThisTime
 {
-    static class LoseScreen
+    internal static class LoseScreen
     {
         private static Texture2D bgImg;
         private static Button BackToMenuBtn;
@@ -24,7 +23,7 @@ namespace ISU_ButTanksThisTime
 
         public static void Update()
         {
-            if(playAgainBtn.Update())
+            if (playAgainBtn.Update())
             {
                 Game1.state = State.Game;
                 GameScene.Reset();
@@ -43,7 +42,5 @@ namespace ISU_ButTanksThisTime
             BackToMenuBtn.Draw(spriteBatch);
             spriteBatch.End();
         }
-
-
     }
 }

@@ -1,10 +1,12 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using ISU_ButTanksThisTime.Bullets;
+using ISU_ButTanksThisTime.Tanks;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 
-namespace ISU_ButTanksThisTime
+namespace ISU_ButTanksThisTime.Cannons
 {
-    abstract class Cannon
+    internal abstract class Cannon
     {
         protected Vector2 pos;
         private static readonly float disFromCentreBase = 35 * Tank.IMG_SCALE_FACTOR;
@@ -34,9 +36,9 @@ namespace ISU_ButTanksThisTime
             if (shootTimer.IsTimeUp(Tools.GameTime) && active && !GameScene.GameIsFrozen())
             {
                 shootTimer.Reset();
-                Bullet newBullet = Bullet.Clone(pos, rotation);
+                var newBullet = Bullet.Clone(pos, rotation);
                 GameScene.AddBullet(newBullet);
-                if(newBullet.bulletOwner == Owner.Player)
+                if (newBullet.bulletOwner == Owner.Player)
                 {
                     GameScene.RemoveBullet();
                 }
@@ -52,15 +54,15 @@ namespace ISU_ButTanksThisTime
         public abstract Texture2D Img { get; }
 
         public Vector2 GetPosition() => pos;
+
         public float GetRotation() => rotation;
 
         protected Vector2 CalcPos(Vector2 basePosition, float baseRotation)
         {
-            Vector2 position = new Vector2((float)Math.Cos(MathHelper.ToRadians(baseRotation)), (float)-Math.Sin(MathHelper.ToRadians(baseRotation))) * -disFromCentreBase;
+            var position = new Vector2((float) Math.Cos(MathHelper.ToRadians(baseRotation)), (float) -Math.Sin(MathHelper.ToRadians(baseRotation))) * -disFromCentreBase;
             position += basePosition;
 
             return position;
         }
-
     }
 }

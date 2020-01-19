@@ -3,13 +3,12 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MapEditor
 {
-    class Trail
+    internal class Trail
     {
         private List<Vector2> points = new List<Vector2>();
         private Texture2D dot;
@@ -17,12 +16,13 @@ namespace MapEditor
 
         private Vector2 mousePos = Vector2.Zero;
         private const int MOUSE_SPEED = 2;
+
         public Trail(Color dots, Color lines, GraphicsDevice graphics)
         {
             dot = new Texture2D(graphics, 2, 2);
 
-            Color[] data = new Color[2 * 2];
-            for (int i = 0; i < data.Length; ++i)
+            var data = new Color[2 * 2];
+            for (var i = 0; i < data.Length; ++i)
             {
                 data[i] = dots;
             }
@@ -31,8 +31,8 @@ namespace MapEditor
 
 
             line = new Texture2D(graphics, 2, 2);
-            Color[] data1 = new Color[2 * 2];
-            for (int i = 0; i < data.Length; ++i)
+            var data1 = new Color[2 * 2];
+            for (var i = 0; i < data.Length; ++i)
             {
                 data1[i] = lines;
             }
@@ -46,14 +46,17 @@ namespace MapEditor
             {
                 mousePos.X -= MOUSE_SPEED / Camera.GetZoom();
             }
+
             if (Keyboard.GetState().IsKeyDown(Keys.Right))
             {
                 mousePos.X += MOUSE_SPEED / Camera.GetZoom();
             }
+
             if (Keyboard.GetState().IsKeyDown(Keys.Up))
             {
                 mousePos.Y -= MOUSE_SPEED / Camera.GetZoom();
             }
+
             if (Keyboard.GetState().IsKeyDown(Keys.Down))
             {
                 mousePos.Y += MOUSE_SPEED / Camera.GetZoom();
@@ -77,7 +80,7 @@ namespace MapEditor
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            for (int i = 0; i < points.Count; ++i)
+            for (var i = 0; i < points.Count; ++i)
             {
                 Vector2 distance;
                 if (i + 1 == points.Count)
@@ -88,14 +91,15 @@ namespace MapEditor
                 {
                     distance = points[i + 1] - points[i];
                 }
+
                 var length = Math.Pow(distance.X, 2) + Math.Pow(distance.Y, 2);
                 length = Math.Sqrt(length);
-                float angle = (float)Math.Atan2(distance.Y, distance.X);
-                Rectangle box = new Rectangle((int)points[i].X, (int)points[i].Y, (int)length, 3);
+                var angle = (float) Math.Atan2(distance.Y, distance.X);
+                var box = new Rectangle((int) points[i].X, (int) points[i].Y, (int) length, 3);
                 spriteBatch.Draw(line, box, null, Color.White, angle, new Vector2(0, line.Height / 2), SpriteEffects.None, 1f);
             }
 
-            foreach (Vector2 point in points)
+            foreach (var point in points)
             {
                 spriteBatch.Draw(dot, point, null, Color.White, 0, new Vector2(dot.Width / 2, dot.Height / 2), 1 / Camera.GetZoom(), SpriteEffects.None, 1f);
             }
