@@ -17,6 +17,13 @@ namespace ISU_ButTanksThisTime
         private readonly Bullet bullet;
         private readonly Texture2D img;
 
+        public static readonly CannonInfo Info;
+        static TierOneCannon()
+        {
+            Texture2D cannonImg = Tools.Content.Load<Texture2D>("Images/Sprites/Cannons/TierOne/T1P4");
+            Info = new CannonInfo(500, 3, cannonImg, MeduimBullet.Info, null, null);
+        }
+
         public TierOneCannon( Owner owner, Stage stage, Vector2 position, float rotation) : base(fireRate[(int)stage], rotationSpeed[(int)stage], ACTIVE, position, rotation)
         {
             img = Tools.Content.Load<Texture2D>("Images/Sprites/Cannons/TierOne/T1P" + ((int)stage + 1));

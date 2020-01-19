@@ -19,9 +19,7 @@ namespace ISU_ButTanksThisTime
 
         //Cannon Variables
         private bool canControleShooting = true;
-
         
-
         public Player(Vector2 position) : base(position, Stage.Player, 0, 0, 0, 100, 0)
         {
             baseImg = Tools.Content.Load<Texture2D>("Images/Sprites/Tanks/TierOne/T1PP");
@@ -196,6 +194,12 @@ namespace ISU_ButTanksThisTime
         public override Tank Clone(Vector2 position, float rotation, Stage stage)
         {
             throw new NotImplementedException();
+        }
+
+        public void StepOutOfShop()
+        {
+            velocity = Vector2.Zero;
+            basePosition = Tools.ArenaBounds.Location.ToVector2() + new Vector2(150, 150);
         }
     }
 }

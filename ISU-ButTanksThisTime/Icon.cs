@@ -55,6 +55,8 @@ namespace ISU_ButTanksThisTime
             float scaleRatio = ScaleImg(frameBox, img.Bounds);
             Rectangle iconBox = new Rectangle(frameBox.Center.X, frameBox.Center.Y, (int)(img.Width * scaleRatio), (int)(img.Height * scaleRatio));
             spriteBatch.Draw(img, iconBox, null, color, 0, new Vector2(img.Width * 0.5f, img.Height * 0.5f), SpriteEffects.None, 1);
+            spriteBatch.DrawString(Tools.Font, "x" + quantity, new Vector2(iconBox.Right - 17, iconBox.Bottom - 33) - Tools.Font.MeasureString("$" + quantity), Color.White);
+        
         }
 
         public void Add(int amount) => quantity += amount;
@@ -66,5 +68,11 @@ namespace ISU_ButTanksThisTime
 
             return Math.Min(ratio1, ratio2);
         }
+
+        public int GetQuantity()
+        {
+            return quantity;
+        }
+
     }
 }

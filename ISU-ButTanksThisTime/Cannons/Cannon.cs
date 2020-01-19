@@ -10,12 +10,10 @@ namespace ISU_ButTanksThisTime
         private static readonly float disFromCentreBase = 35 * Tank.IMG_SCALE_FACTOR;
         protected float rotation;
 
-
         //Shooting Variables
         private readonly Timer shootTimer;
         public bool active;
         private readonly int ROTATE_SPEED;
-
 
         public Cannon(int fireRate, int rotationSpeed, bool active, Vector2 position, float rotation)
         {

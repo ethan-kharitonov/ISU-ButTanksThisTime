@@ -27,7 +27,7 @@ namespace ISU_ButTanksThisTime
 
         static BurstCannon()
         {
-            Texture2D cannonImg = Tools.Content.Load<Texture2D>("Images/Sprites/Cannons/TierThree/T3P1");
+            Texture2D cannonImg = Tools.Content.Load<Texture2D>("Images/Sprites/Cannons/TierThree/T3P4");
             Info = new CannonInfo(60, 1000, cannonImg, Laser.Info, 1000, 1000);
         }
 

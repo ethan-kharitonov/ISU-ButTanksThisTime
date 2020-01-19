@@ -49,6 +49,9 @@ namespace ISU_ButTanksThisTime
             icons[item.ItemType].Add(item.Amount);
         }
 
-
+        public int GetCurrentCredit()
+        {
+            return icons[ItemType.Coin].GetQuantity();
+        }
     }
 }

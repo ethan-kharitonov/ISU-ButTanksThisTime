@@ -13,13 +13,17 @@ using Animation2D;
 
 namespace ISU_ButTanksThisTime
 {
+    public enum State
+    {
+        Game,
+        Shop
+    }
     public class Game1 : Game
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
 
-        private bool inShop;
-
+        public static State state = State.Game;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -53,6 +57,8 @@ namespace ISU_ButTanksThisTime
             }
 
             Tools.RedSquare.SetData(data);
+
+            Tools.Font = Content.Load<SpriteFont>("Fonts/File");
         }
 
         protected override void UnloadContent()
@@ -66,19 +72,21 @@ namespace ISU_ButTanksThisTime
                 Exit();
 
             Tools.GameTime = gameTime;
-            if (!Keyboard.GetState().IsKeyDown(Keys.Space))
+
+            switch (state)
             {
-                inShop = true;
+                case State.Game:
+                    GameScene.Update();
+                    IsMouseVisible = false;
+                    graphics.ApplyChanges();
+                    break;
+                case State.Shop:
+                    Shop.Update();
+                    IsMouseVisible = true;
+                    graphics.ApplyChanges();
+                    break;
             }
-            if (inShop)
-            {
-                
-            }
-            else
-            {
-                GameScene.Update();
-            }
-            
+
             base.Update(gameTime);
         }
 
@@ -86,13 +94,15 @@ namespace ISU_ButTanksThisTime
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            if (inShop)
+            switch(state)
             {
-                Shop.Draw(spriteBatch);
-            }
-            else
-            {
-                GameScene.Draw(spriteBatch);
+                case State.Game:
+                    GameScene.Draw(spriteBatch);
+                    break;
+                case State.Shop:
+                    GameScene.Draw(spriteBatch);
+                    Shop.Draw(spriteBatch);
+                    break;
             }
 
             base.Draw(gameTime);

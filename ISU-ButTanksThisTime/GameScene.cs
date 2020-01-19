@@ -82,7 +82,7 @@ namespace ISU_ButTanksThisTime
 
             player = new Player(Tools.Screen.Center.ToVector2());
             LoadPath();
-            barrelBox = new Rectangle(Tools.ArenaBounds.Left, Tools.ArenaBounds.Top, barrelImg.Width, barrelImg.Height);
+            barrelBox = new Rectangle(Tools.ArenaBounds.Left, Tools.ArenaBounds.Top, barrelImg.Width, barrelImg.Height * 2);
 
             enemies.Add(new TierTwoEnemie(new Vector2(0, 0), 0, Stage.Low));
             enemies.Add(new BurstEnemie(new Vector2(100, 300), 0, Stage.Low));
@@ -127,6 +127,13 @@ namespace ISU_ButTanksThisTime
 
             inventory.Update();
             player.Update(Vector2.Zero);
+
+            Rectangle trueBarrelBox = barrelBox;
+            trueBarrelBox.Height = (int)(trueBarrelBox.Height * 0.60);
+            if(Tools.BoxBoxCollision(player.GetRotatedRectangle(), new RotatedRectangle(trueBarrelBox, 45, new Vector2(barrelBox.Width/2f, barrelBox.Height/2f))) != null)
+            {
+                Game1.state = State.Shop;
+            }
             freeze = !freezeTimer.IsTimeUp(Tools.GameTime);
             if (!freeze)
             {
@@ -182,13 +189,13 @@ namespace ISU_ButTanksThisTime
                 bullet.Draw(spriteBatch);
             }
 
-            spriteBatch.Draw(barrelImg, barrelBox, null, Color.White, MathHelper.ToRadians(45), new Vector2(barrelImg.Width * 0.5f, barrelImg.Height * 0.5f), SpriteEffects.None, 1);
             
             if (freeze)
             {
                 spriteBatch.Draw(frozenScreen, Tools.ArenaBounds, Color.DarkRed * 0.3f);
             }
             player.Draw(spriteBatch);
+            spriteBatch.Draw(barrelImg, barrelBox, null, Color.White, MathHelper.ToRadians(45), new Vector2(barrelImg.Width * 0.5f, barrelImg.Height * 0.5f), SpriteEffects.None, 1);
             spriteBatch.Draw(crossHairs, Tools.TrueMousePos, null, Color.White, 0, new Vector2(crossHairs.Width * 0.5f, crossHairs.Height * 0.5f), 0.25f, SpriteEffects.None, 10);
             spriteBatch.End();
 
@@ -456,6 +463,16 @@ namespace ISU_ButTanksThisTime
         public static void FreezeGame()
         {
             freezeTimer.Reset();
+        }
+
+        public static void MakePlayerLeaveShop()
+        {
+            player.StepOutOfShop();
+        }
+
+        public static int GetCurrentCredit()
+        {
+            return inventory.GetCurrentCredit();
         }
     }
 }

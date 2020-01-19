@@ -67,6 +67,7 @@ namespace ISU_ButTanksThisTime
         public static ContentManager Content;
         public static GraphicsDevice Graphics;
         public static Vector2 TrueMousePos;
+        public static SpriteFont Font;
         public static float ApproachValue(float current, float target, float speed)
         {
             if (current < target)
