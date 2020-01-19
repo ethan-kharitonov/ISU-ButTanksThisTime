@@ -55,10 +55,12 @@ namespace ISU_ButTanksThisTime.Tanks
         //Health Variables
         protected int Health;
         protected readonly HealthBar Bar;
-        protected bool Killed = true;
         protected readonly int StartingHealth;
         protected Animation ExplosionAnimation;
 
+        //indicates if the this tank has been killed by the player
+        protected bool KilledByPlayer = true;
+        
         //the stage of this tank
         private readonly Stage stage;
 
@@ -89,10 +91,10 @@ namespace ISU_ButTanksThisTime.Tanks
         }
 
         /// <summary>
-        /// Updates the specified target.
+        /// moves the tank towards teh target
         /// </summary>
-        /// <param name="target">The target.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <param name="target">what the tank moves towards</param>
+        /// <returns>true if this tank is dead and done exploding, false otherwise</returns>
         public virtual bool Update(Vector2 target)
         {
             //call cannon update
@@ -153,7 +155,7 @@ namespace ISU_ButTanksThisTime.Tanks
             //return true if dead and explosion done animating
             if (!ExplosionAnimation.isAnimating && Health <= 0)
             {
-                if (Killed)
+                if (KilledByPlayer)
                 {
                     DropItem();
                 }
@@ -244,41 +246,45 @@ namespace ISU_ButTanksThisTime.Tanks
         }
 
         /// <summary>
-        /// Gets the stage.
+        /// Gets the stage of this tank
         /// </summary>
-        /// <returns>Stage.</returns>
+        /// <returns>the stage of this tank</returns>
         public Stage GetStage() => stage;
 
         /// <summary>
-        /// Gets the rotation.
+        /// Gets the rotation of this tank
         /// </summary>
-        /// <returns>System.Single.</returns>
+        /// <returns>the rotation of the base of this tank</returns>
         public float GetRotation() => BaseRotation;
 
         /// <summary>
-        /// Gets the dimensions.
+        /// returns the width and height of this tank
         /// </summary>
-        /// <value>The dimensions.</value>
+        /// <value>the width and height of this tank</value>
         protected Vector2 Dimensions => new Vector2(BaseImg.Width * IMG_SCALE_FACTOR, BaseImg.Height * IMG_SCALE_FACTOR);
 
 
         /// <summary>
-        /// Gets the type of the tank.
+        /// gets the type of this tank
         /// </summary>
-        /// <returns>TankType.</returns>
+        /// <returns>the type of this tank</returns>
+        /// <seealso cref="TankType"/>
         public abstract TankType GetTankType();
 
         /// <summary>
-        /// Clones the specified position.
+        /// creates and instance of this tank
         /// </summary>
         /// <param name="position">The position.</param>
         /// <param name="rotation">The rotation.</param>
         /// <param name="stage">The stage.</param>
-        /// <returns>Tank.</returns>
+        /// <returns>the new instance</returns>
+        /// <remarks>
+        /// acts as a constructor when havign an instance but not knowing the type
+        /// </remarks>
         public abstract Tank Clone(Vector2 position, float rotation, Stage stage);
 
         /// <summary>
-        /// Drops the item.
+        /// chooses with loot to drop
         /// </summary>
         private void DropItem()
         {
@@ -314,15 +320,15 @@ namespace ISU_ButTanksThisTime.Tanks
         }
 
         /// <summary>
-        /// Heals the specified heal amount.
+        /// adds the given heal amount to this tanks health
         /// </summary>
-        /// <param name="healAmount">The heal amount.</param>
+        /// <param name="healAmount">the amount of health to be added</param>
         public void Heal(int healAmount) => Health += healAmount;
 
         /// <summary>
-        /// Gets the health.
+        /// Gets the health of this tank
         /// </summary>
-        /// <returns>System.Int32.</returns>
+        /// <returns>the health of the player</returns>
         public int GetHealth() => Health;
     }
 }
