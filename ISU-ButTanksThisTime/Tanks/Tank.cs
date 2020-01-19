@@ -107,9 +107,9 @@ namespace ISU_ButTanksThisTime.Tanks
 
         protected virtual bool Update(Vector2 target, Vector2 cannonTarget)
         {
-            if (health > startingHealth)
+            if (Health > StartingHealth)
             {
-                health = startingHealth;
+                Health = StartingHealth;
             }
 
             var distance = target - BasePosition;
