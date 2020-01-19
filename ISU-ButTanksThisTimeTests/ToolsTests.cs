@@ -24,7 +24,7 @@ namespace ISU_ButTanksThisTime.Tests
         [TestCaseSource(nameof(rotateToVecTestData))]
         public float RotateTowardsVectorTest(float current, Vector2 target, float rotationSpeed)
         {
-            return Tools.RotateTowardsVectorTest(current, target, rotationSpeed);
+            return Tools.RotateTowardsVector(current, target, rotationSpeed);
         }
     }
 }
