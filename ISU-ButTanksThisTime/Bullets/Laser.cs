@@ -21,7 +21,6 @@ namespace ISU_ButTanksThisTime.Bullets
 
         public Laser(Vector2 position, float rotation, float scaleFactor, Owner owner) : base(position, rotation, scaleFactor, owner)
         {
-            img = bulletImg;
             this.scaleFactor = scaleFactor;
 
             var exSprite = Tools.Content.Load<Texture2D>("Images/Sprites/Effects/LaserExplode");
@@ -33,5 +32,6 @@ namespace ISU_ButTanksThisTime.Bullets
         protected override Animation ExAnim => exAnim;
 
         public override Bullet Clone(Vector2 pos, float rotation) => new Laser(pos, rotation, scaleFactor, bulletOwner);
+        protected override Texture2D Img => bulletImg;
     }
 }

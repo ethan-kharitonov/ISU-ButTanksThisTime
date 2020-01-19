@@ -21,7 +21,6 @@ namespace ISU_ButTanksThisTime.Bullets
 
         public MeduimBullet(Vector2 position, float rotation, float scaleFactor, Owner bulletOwner) : base(position, rotation, scaleFactor, bulletOwner)
         {
-            img = bulletImg;
             this.scaleFactor = scaleFactor;
 
             var exSprite = Tools.Content.Load<Texture2D>("Images/Sprites/Effects/BulletExplode");
@@ -33,5 +32,6 @@ namespace ISU_ButTanksThisTime.Bullets
         protected override Animation ExAnim => exAnim;
 
         public override Bullet Clone(Vector2 pos, float rotation) => new MeduimBullet(pos, rotation, scaleFactor, bulletOwner);
+        protected override Texture2D Img => bulletImg;
     }
 }

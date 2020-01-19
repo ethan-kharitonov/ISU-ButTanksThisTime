@@ -21,8 +21,6 @@ namespace ISU_ButTanksThisTime.Bullets
 
         public FireBullet(Vector2 position, float rotation, Owner owner) : base(position, rotation, Tank.IMG_SCALE_FACTOR, owner)
         {
-            img = bulletImg;
-
             var exSprite = Tools.Content.Load<Texture2D>("Images/Sprites/Effects/FireBulletHit");
             exAnim = new Animation(exSprite, 4, 1, 4, 0, 0, Animation.ANIMATE_ONCE, 2, Vector2.Zero, Tank.IMG_SCALE_FACTOR, true);
             Damage = damage;
@@ -32,5 +30,6 @@ namespace ISU_ButTanksThisTime.Bullets
 
 
         public override Bullet Clone(Vector2 pos, float rotation) => new FireBullet(pos, rotation, bulletOwner);
+        protected override Texture2D Img => bulletImg;
     }
 }
