@@ -23,9 +23,9 @@ namespace ISU_ButTanksThisTime.Bullets
         public Bullet(Vector2 position, float rotation, float scaleFactor, Owner bulletOwner)
         {
             this.scaleFactor = scaleFactor;
-            this.Position = position;
+            Position = position;
             this.rotation = rotation;
-            this.BulletOwner = bulletOwner;
+            BulletOwner = bulletOwner;
         }
 
         public virtual bool Update()

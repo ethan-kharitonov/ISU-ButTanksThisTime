@@ -184,13 +184,12 @@ namespace ISU_ButTanksThisTime.Tanks
                     {
                         Health = 0;
                     }
+
                     break;
                 case LandMine _:
                     Health = 0;
                     break;
             }
-
-            
         }
 
         public Stage GetStage() => stage;
@@ -208,7 +207,7 @@ namespace ISU_ButTanksThisTime.Tanks
 
         protected void DropItem()
         {
-            int chance = Tools.Rnd.Next(0, 210);
+            var chance = Tools.Rnd.Next(0, 210);
             switch (chance)
             {
                 case int n when n < 20:

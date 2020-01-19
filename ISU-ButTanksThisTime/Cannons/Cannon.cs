@@ -21,9 +21,9 @@ namespace ISU_ButTanksThisTime.Cannons
         {
             shootTimer = new Timer(fireRate);
             rotateSpeed = rotationSpeed;
-            this.Active = active;
+            Active = active;
             Pos = CalcPos(position, rotation);
-            this.Rotation = rotation;
+            Rotation = rotation;
         }
 
         public virtual void Update(Vector2 basePos, float baseRotation, Vector2 target)

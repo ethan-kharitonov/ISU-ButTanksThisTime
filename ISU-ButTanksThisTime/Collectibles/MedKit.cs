@@ -13,15 +13,9 @@ namespace ISU_ButTanksThisTime.Collectibles
         private static readonly float scaleFactor = 0.5f;
         private static readonly Texture2D medKitImg;
 
-        static MedKit()
-        {
-            medKitImg = Tools.Content.Load<Texture2D>("Images/Sprites/Items/HP_Bonus");
-        }
+        static MedKit() => medKitImg = Tools.Content.Load<Texture2D>("Images/Sprites/Items/HP_Bonus");
 
-        public MedKit(Vector2 position) : base(position, 0, scaleFactor, Owner.Enemie)
-        {
-            Damage = -300;
-        }
+        public MedKit(Vector2 position) : base(position, 0, scaleFactor, Owner.Enemie) => Damage = -300;
 
         public override bool Update() => IsDead;
 

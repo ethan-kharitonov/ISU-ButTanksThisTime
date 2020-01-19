@@ -21,7 +21,7 @@ namespace ISU_ButTanksThisTime.Cannons
             RotationSpeed = rotationSpeed;
             Img = img;
             Bullet = bullet;
-            this.Cannon = cannon;
+            Cannon = cannon;
             BurstRate = burstRate;
             BurstDuration = burstDuration;
         }
