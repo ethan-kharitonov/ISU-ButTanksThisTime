@@ -14,42 +14,51 @@ namespace ISU_ButTanksThisTime.Tanks
     {
         //Movment Variables
         private Vector2 velocity = new Vector2(0, 0);
-        private float accRate = 1f;
+        private int accRate = 1;
         private float friction = 0.4f;
         private int maxSpeed = 10;
         private bool isKeyPressed;
         private const int ROTATION_SPEED = 5;
 
+        //how long the player gets increased speed
         private readonly Timer speedBoostTimer = new Timer(5000);
 
-        //Cannon Variables
+        //stores if the player can shoot
         private readonly bool canControleShooting = true;
 
         public Player(Vector2 position) : base(position, Stage.Player, 0, 0, 0, 1000)
         {
+            //implement tank variables
             BaseImg = Tools.Content.Load<Texture2D>("Images/Sprites/Tanks/TierOne/T1PP");
             Cannon = new TierOneCannon(Owner.Player, Stage.Player, BasePosition, BaseRotation);
             BasePosition = position;
 
+            //load and implement tank explosion animation
             var explosionSpritesheet = Tools.Content.Load<Texture2D>("Images/Sprites/Effects/spritesheet");
             ExplosionAnimation = new Animation(explosionSpritesheet, 3, 3, 9, 1, 1, 1, 2, BasePosition, 0.3f, true);
         }
 
         public override bool Update(Vector2 na)
         {
+            //store the state of the keyboard
             var kb = Keyboard.GetState();
-
-            if (speedBoostTimer.IsTimeUp(Tools.GameTime) && Math.Abs(accRate - 1) > Tools.TOLERANCE)
+            
+            //reset  speed variables if speed boost is over and the variables have not been changed
+            if (speedBoostTimer.IsTimeUp(Tools.GameTime) && accRate != 1)
             {
-                accRate = 1f;
+                //reset speed variables
+                accRate = 1;
                 friction = 0.4f;
                 maxSpeed = 10;
             }
-
+            //call MoveTank and CannonUpdate functions
             MoveTank(kb);
             CannonUpdate();
+            
+            //update health bar
             Bar.Update(BasePosition, Health);
 
+            //if player is dead go to loose screen
             if (Health <= 0)
             {
                 Game1.State = State.LoseScreen;
@@ -212,7 +221,7 @@ namespace ISU_ButTanksThisTime.Tanks
         public void SpeedUp()
         {
             speedBoostTimer.Reset();
-            accRate = 3f;
+            accRate = 3;
             friction = 1.5f;
             maxSpeed = 20;
         }
