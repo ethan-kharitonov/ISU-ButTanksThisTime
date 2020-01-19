@@ -31,7 +31,7 @@ namespace ISU_ButTanksThisTime
             target -= pos;
             target *= new Vector2(1, -1);
             rotation = Tools.RotateTowardsVector(rotation, target, ROTATE_SPEED);
-            if (shootTimer.IsTimeUp(Tools.GameTime) && active)
+            if (shootTimer.IsTimeUp(Tools.GameTime) && active && !GameScene.GameIsFrozen())
             {
                 shootTimer.Reset();
                 Bullet newBullet = Bullet.Clone(pos, rotation);

@@ -92,6 +92,7 @@
     <Compile Include="LandMines\BlueMine.cs" />
     <Compile Include="LoseScreen.cs" />
     <Compile Include="Menu.cs" />
+    <Compile Include="PauseMenu.cs" />
     <Compile Include="Shapes\Circle.cs" />
     <Compile Include="Shop.cs" />
     <Compile Include="ShopPiece.cs" />

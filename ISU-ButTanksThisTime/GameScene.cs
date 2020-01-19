@@ -79,6 +79,7 @@ namespace ISU_ButTanksThisTime
             enemyBaseImg = Tools.Content.Load<Texture2D>("Images/Sprites/Terrain/Container_D");
             ///////////////////
 
+            pauseBtn = new Button(Tools.buttonImg, new Rectangle(15, 15, 100, 50), "PAUSE"); 
 
             int arenaXPos = -(ARENA_WIDTH / 2) * backgroundImg.Width + Tools.Screen.Center.X - backgroundImg.Width / 2;
             int arenaYPos = -ARENA_HEIGHT / 2 * backgroundImg.Height + Tools.Screen.Center.Y - backgroundImg.Height / 2;
@@ -128,6 +129,11 @@ namespace ISU_ButTanksThisTime
             ScreenTL.X = MathHelper.Clamp(ScreenTL.X, Tools.ArenaBounds.Left, Tools.ArenaBounds.Right - Tools.Screen.Width / 2f);
             ScreenTL.Y = MathHelper.Clamp(ScreenTL.Y, Tools.ArenaBounds.Top, Tools.ArenaBounds.Bottom - Tools.Screen.Height / 2);
             Tools.TrueMousePos = Mouse.GetState().Position.ToVector2() + ScreenTL;
+
+            if (pauseBtn.Update())
+            {
+                Game1.state = State.Pause;
+            }
 
             inventory.Update();
             player.Update(Vector2.Zero);
@@ -196,6 +202,7 @@ namespace ISU_ButTanksThisTime
             }
             player.Draw(spriteBatch);
 
+
             spriteBatch.Draw(enemyBaseImg, new Vector2(Tools.ArenaBounds.Left - enemyBaseImg.Width + 30, Tools.ArenaBounds.Bottom - enemyBaseImg.Height + 1), Color.White);
             spriteBatch.Draw(enemyBaseImg, new Vector2(Tools.ArenaBounds.Left - enemyBaseImg.Width + 30, -55), Color.White);
 
@@ -203,6 +210,11 @@ namespace ISU_ButTanksThisTime
             spriteBatch.Draw(crossHairs, Tools.TrueMousePos, null, Color.White, 0, new Vector2(crossHairs.Width * 0.5f, crossHairs.Height * 0.5f), 0.25f, SpriteEffects.None, 10);
            
             spriteBatch.End();
+
+            spriteBatch.Begin();
+            pauseBtn.Draw(spriteBatch);
+            spriteBatch.End();
+
 
             inventory.Draw(spriteBatch);
         }
@@ -520,7 +532,8 @@ namespace ISU_ButTanksThisTime
             itemsOnMap.Clear();
             player = new Player(Tools.Screen.Center.ToVector2());
             inventory = new Inventory();
-
         }
+
+        public static bool GameIsFrozen() => freeze;
     }
 }

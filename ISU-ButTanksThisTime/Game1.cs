@@ -18,7 +18,8 @@ namespace ISU_ButTanksThisTime
         Game,
         Shop,
         Menu,
-        LoseScreen
+        LoseScreen,
+        Pause
     }
     public class Game1 : Game
     {
@@ -61,11 +62,7 @@ namespace ISU_ButTanksThisTime
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-
             Tools.GameTime = gameTime;
-
             switch (state)
             {
                 case State.Game:
@@ -79,12 +76,17 @@ namespace ISU_ButTanksThisTime
                     graphics.ApplyChanges();
                     break;
                 case State.Menu:
-                    Menu.Update();
+                    Menu.Update(this);
                     IsMouseVisible = true;
                     graphics.ApplyChanges();
                     break;
                 case State.LoseScreen:
                     LoseScreen.Update();
+                    IsMouseVisible = true;
+                    graphics.ApplyChanges();
+                    break;
+                case State.Pause:
+                    PauseMenu.Update();
                     IsMouseVisible = true;
                     graphics.ApplyChanges();
                     break;
@@ -112,6 +114,10 @@ namespace ISU_ButTanksThisTime
                 case State.LoseScreen:
                     GameScene.Draw(spriteBatch);
                     LoseScreen.Draw(spriteBatch);
+                    break;
+                case State.Pause:
+                    GameScene.Draw(spriteBatch);
+                    PauseMenu.Draw(spriteBatch);
                     break;
             }
 
