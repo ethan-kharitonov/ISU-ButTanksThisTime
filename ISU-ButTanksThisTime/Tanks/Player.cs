@@ -39,7 +39,7 @@ namespace ISU_ButTanksThisTime.Tanks
         {
             var kb = Keyboard.GetState();
 
-            if (speedBoostTimer.IsTimeUp(Tools.GameTime) && accRate != 1)
+            if (speedBoostTimer.IsTimeUp(Tools.GameTime) && Math.Abs(accRate - 1) > Tools.TOLERANCE)
             {
                 accRate = 1f;
                 friction = 0.4f;

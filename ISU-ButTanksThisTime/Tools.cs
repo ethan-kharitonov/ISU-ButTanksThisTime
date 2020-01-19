@@ -37,6 +37,7 @@ namespace ISU_ButTanksThisTime
         public static Vector2 TrueMousePos;
         public static SpriteFont Font;
         public static Texture2D ButtonImg;
+        public const float TOLERANCE = 0.00001F;
 
         public static float ApproachValue(float current, float target, float speed)
         {
@@ -55,13 +56,10 @@ namespace ISU_ButTanksThisTime
             return current;
         }
 
-        public static float Atan(float y, float x)
+        private static float Atan(float y, float x)
         {
-            y = y == -0 ? 0 : y;
             var angle = (float) Math.Atan2(y, x);
-
             angle = angle < 0 ? angle + MathHelper.TwoPi : angle;
-
             return angle;
         }
 
@@ -70,11 +68,12 @@ namespace ISU_ButTanksThisTime
             var targetAngel = MathHelper.ToDegrees(Atan(target.Y, target.X));
             var delta = targetAngel - current;
 
-            if (delta == 0)
+            if (Math.Abs(delta) < TOLERANCE)
             {
                 return current;
             }
-            else if (Math.Abs(delta) < rotationSpeed)
+
+            if (Math.Abs(delta) < rotationSpeed)
             {
                 return targetAngel;
             }
@@ -100,12 +99,12 @@ namespace ISU_ButTanksThisTime
             var s2 = line2.StartPoint;
             var e2 = line2.EndPoint;
 
-            var isFirstPerpendicularToAxisX = s1.X == e1.X;
-            var isSecondPerpendicularToAxisX = s2.X == e2.X;
+            var isFirstPerpendicularToAxisX = Math.Abs(s1.X - e1.X) < TOLERANCE;
+            var isSecondPerpendicularToAxisX = Math.Abs(s2.X - e2.X) < TOLERANCE;
 
             if (isFirstPerpendicularToAxisX && isSecondPerpendicularToAxisX)
             {
-                return s1.X == s2.X
+                return Math.Abs(s1.X - s2.X) < TOLERANCE
                     ? DoSameLineIntervalsNotPerpendicularToAxisYIntersect(s1, e1, s2, e2)
                     : null;
             }
@@ -123,10 +122,10 @@ namespace ISU_ButTanksThisTime
             var (a1, b1) = CalcLine(s1, e1);
             var (a2, b2) = CalcLine(s2, e2);
 
-            if (a1 == a2)
+            if (Math.Abs(a1 - a2) < TOLERANCE)
             {
-                return b1 == b2
-                    ? a1 == 0
+                return Math.Abs(b1 - b2) < TOLERANCE
+                    ? Math.Abs(a1) < TOLERANCE
                         ? DoSameLineIntervalsPerpendicularToAxisYIntersect(s1, e1, s2, e2) // both intervals are on a line perpendicular to the axis Y
                         : DoSameLineIntervalsNotPerpendicularToAxisYIntersect(s1, e1, s2, e2)
                     : null;

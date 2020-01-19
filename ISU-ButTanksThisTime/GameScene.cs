@@ -214,6 +214,8 @@ namespace ISU_ButTanksThisTime
         {
             var filePath = System.Reflection.Assembly.GetExecutingAssembly().CodeBase;
             filePath = Path.GetDirectoryName(filePath);
+
+            // ReSharper disable PossibleNullReferenceException
             filePath = filePath.Substring(6);
             string foundPath = null;
             var found = false;
@@ -221,6 +223,7 @@ namespace ISU_ButTanksThisTime
             {
                 filePath = Path.GetDirectoryName(filePath);
             }
+            // ReSharper restore PossibleNullReferenceException
 
             if (!found)
             {

@@ -7,6 +7,7 @@ namespace ISU_ButTanksThisTime.Cannons
     internal class HealerCannon : Cannon
     {
         private readonly Texture2D img;
+        // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
         private static readonly int[] ROTATION_SPEED = {5, 6, 7};
 
 

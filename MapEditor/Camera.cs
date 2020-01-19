@@ -11,6 +11,7 @@ namespace MapEditor
         private static float zoom = 1;
         private static Vector2 target;
 
+        // ReSharper disable once ParameterHidesMember
         public static void LoadCamera(Viewport viewport, Rectangle screen)
         {
             Camera.viewport = viewport;

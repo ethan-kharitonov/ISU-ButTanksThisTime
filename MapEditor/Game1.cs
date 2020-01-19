@@ -63,10 +63,12 @@ namespace MapEditor
 
             filePath = System.Reflection.Assembly.GetExecutingAssembly().CodeBase;
             filePath = Path.GetDirectoryName(filePath);
+            // ReSharper disable PossibleNullReferenceException
             filePath = filePath.Substring(6);
             filePath = filePath + "../../../../ISU-ButTanksThisTime/saves/MyFile.txt";
             if (!File.Exists(filePath))
             {
+                // ReSharper disable once AssignNullToNotNullAttribute
                 Directory.CreateDirectory(Path.GetDirectoryName(filePath));
             }
             else

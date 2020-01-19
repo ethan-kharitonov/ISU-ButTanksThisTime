@@ -8,6 +8,7 @@ namespace ISU_ButTanksThisTime.Cannons
     {
         private const int FIRE_RATE = 0;
         private const bool ACTIVE = false;
+        // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
         private static readonly int[] ROTATION_SPEED = {5, 6, 7};
 
         private readonly Texture2D img;
