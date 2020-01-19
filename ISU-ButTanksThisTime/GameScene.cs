@@ -46,8 +46,6 @@ namespace ISU_ButTanksThisTime
         //Enemie Variables
         private static List<Tank> enemies = new List<Tank>();
         private static Texture2D enemyBaseImg;
-        private static Rectangle enemyBaseEn;
-        private static Rectangle enemyBaseExit;
 
 
         //Camera Variables
@@ -66,6 +64,9 @@ namespace ISU_ButTanksThisTime
         private static List<Item> itemsOnMap = new List<Item>();
         private static Inventory inventory = new Inventory();
 
+
+        private static Button pauseBtn;
+
         public static void LoadContent()
         {
             camera = new Camera(Tools.Graphics.Viewport);
@@ -77,6 +78,7 @@ namespace ISU_ButTanksThisTime
             crossHairs = Tools.Content.Load<Texture2D>("Images/Sprites/Crosshairs/crosshair068");
             enemyBaseImg = Tools.Content.Load<Texture2D>("Images/Sprites/Terrain/Container_D");
             ///////////////////
+
 
             int arenaXPos = -(ARENA_WIDTH / 2) * backgroundImg.Width + Tools.Screen.Center.X - backgroundImg.Width / 2;
             int arenaYPos = -ARENA_HEIGHT / 2 * backgroundImg.Height + Tools.Screen.Center.Y - backgroundImg.Height / 2;
@@ -521,5 +523,15 @@ namespace ISU_ButTanksThisTime
         public static bool AreAnyBulletsLeft() => inventory.AreAnyBulletsLeft();
 
         public static void RemoveBullet() => inventory.RemoveBullet();
+
+        public static void Reset()
+        {
+            enemies.Clear();
+            bullets.Clear();
+            itemsOnMap.Clear();
+            player = new Player(Tools.Screen.Center.ToVector2());
+            inventory = new Inventory();
+
+        }
     }
 }

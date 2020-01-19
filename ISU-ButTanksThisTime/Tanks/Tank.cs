@@ -199,7 +199,7 @@ namespace ISU_ButTanksThisTime
 
         protected void DropItem()
         {
-            int chance = Tools.Rnd.Next(110, 120);
+            int chance = Tools.Rnd.Next(0, 120);
             switch (chance)
             {
                 case int n when n < 20:

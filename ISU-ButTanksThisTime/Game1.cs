@@ -16,14 +16,16 @@ namespace ISU_ButTanksThisTime
     public enum State
     {
         Game,
-        Shop
+        Shop,
+        Menu,
+        LoseScreen
     }
     public class Game1 : Game
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
 
-        public static State state = State.Game;
+        public static State state = State.Menu;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -46,6 +48,7 @@ namespace ISU_ButTanksThisTime
             Tools.Screen = GraphicsDevice.Viewport.Bounds;
             Tools.Graphics = GraphicsDevice;
             Tools.Content = Content;
+            Tools.buttonImg = Content.Load<Texture2D>("Images/Sprites/UI/Button BG shadow");
             GameScene.LoadContent();
 
             Tools.RedSquare = new Texture2D(graphics.GraphicsDevice, 2, 2);
@@ -85,6 +88,16 @@ namespace ISU_ButTanksThisTime
                     IsMouseVisible = true;
                     graphics.ApplyChanges();
                     break;
+                case State.Menu:
+                    Menu.Update();
+                    IsMouseVisible = true;
+                    graphics.ApplyChanges();
+                    break;
+                case State.LoseScreen:
+                    LoseScreen.Update();
+                    IsMouseVisible = true;
+                    graphics.ApplyChanges();
+                    break;
             }
 
             base.Update(gameTime);
@@ -102,6 +115,13 @@ namespace ISU_ButTanksThisTime
                 case State.Shop:
                     GameScene.Draw(spriteBatch);
                     Shop.Draw(spriteBatch);
+                    break;
+                case State.Menu:
+                    Menu.Draw(spriteBatch);
+                    break;
+                case State.LoseScreen:
+                    GameScene.Draw(spriteBatch);
+                    LoseScreen.Draw(spriteBatch);
                     break;
             }
 

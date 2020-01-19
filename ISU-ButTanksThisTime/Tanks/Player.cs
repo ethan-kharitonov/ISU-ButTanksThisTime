@@ -47,6 +47,11 @@ namespace ISU_ButTanksThisTime
             CannonUpdate(kb);
             bar.Update(basePosition, health);
 
+            if(health <= 0)
+            {
+                Game1.state = State.LoseScreen;
+            }
+
             return false;
         }
 
@@ -113,7 +118,7 @@ namespace ISU_ButTanksThisTime
                     break;
                 case BomberEnemie _:
                     //Tank tank = collided as BomberEnemie;
-                    health -=25;
+                    health -= 25;
                     break;
                 case LandMine _:
                     health = 0;
