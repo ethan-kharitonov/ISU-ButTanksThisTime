@@ -1,11 +1,6 @@
 ﻿using Animation2D;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ISU_ButTanksThisTime
 {
@@ -18,7 +13,7 @@ namespace ISU_ButTanksThisTime
         public MedKit(Vector2 position) : base(position, 0, SCALE_FACTOR, Owner.Enemie)
         {
             img = Tools.Content.Load<Texture2D>("Images/Sprites/Items/HP_Bonus");
-            Damage = -20;
+            Damage = -100;
         }
 
         public override bool Update()

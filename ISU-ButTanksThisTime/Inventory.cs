@@ -20,7 +20,7 @@ namespace ISU_ButTanksThisTime
             Icon coinIcon = new Icon(new Vector2(Tools.Screen.Width - 3 * (15 + Icon.Frame.Width) + 20, 10), CoinItem.VoidObject);
             icons.Add(ItemType.Coin, coinIcon);
 
-            Icon ammoIcon = new Icon(new Vector2(Tools.Screen.Width - 4 * (15 + Icon.Frame.Width) + 20, 10), Ammo.VoidObject, 50);
+            Icon ammoIcon = new Icon(new Vector2(Tools.Screen.Width - 4 * (15 + Icon.Frame.Width) + 20, 10), Ammo.VoidObject, 150);
             icons.Add(ItemType.Ammo, ammoIcon);
 
         }

@@ -53,7 +53,7 @@ namespace ISU_ButTanksThisTime
             this.stage = stage;
             this.attackRange = attackRange;
             ROTATION_SPEED = rotationSpeed;
-            this.startingHealth = health;
+            startingHealth = health;
             this.health = health;
             this.speed = speed;
 
@@ -105,6 +105,11 @@ namespace ISU_ButTanksThisTime
 
         protected virtual bool Update(Vector2 target, Vector2 cannonTarget)
         {
+            if (health > startingHealth)
+            {
+                health = startingHealth;
+            }
+
             Vector2 distance = target - basePosition;
             if ((int)distance.Length() >= attackRange)
             {
@@ -179,10 +184,7 @@ namespace ISU_ButTanksThisTime
                     health = 0;
                     break;
             }
-            if(health > startingHealth)
-            {
-                health = startingHealth;
-            }
+            
         }
 
         public Stage GetStage() => stage;
@@ -200,7 +202,7 @@ namespace ISU_ButTanksThisTime
 
         protected void DropItem()
         {
-            int chance = Tools.Rnd.Next(0, 120);
+            int chance = Tools.Rnd.Next(0, 140);
             switch (chance)
             {
                 case int n when n < 20:
@@ -215,10 +217,10 @@ namespace ISU_ButTanksThisTime
                 case int n when n < 80:
                     GameScene.AddItem(new CoinPileItem(basePosition));
                     break;
-                case int n when n < 100:
+                case int n when n < 120:
                     GameScene.AddItem(new Ammo(basePosition));
                     break;
-                case int n when n < 120:
+                case int n when n < 140:
                     GameScene.AddBullet(new MedKit(basePosition));
                     break;
             }
