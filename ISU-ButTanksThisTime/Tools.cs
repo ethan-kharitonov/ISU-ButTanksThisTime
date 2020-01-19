@@ -22,41 +22,6 @@ namespace ISU_ButTanksThisTime
         Player = 3
     }
 
-    public struct PointOrInterval
-    {
-        public readonly bool IsInterval;
-        public readonly Vector2 Point1;
-        public readonly Vector2 Point2;
-
-        public PointOrInterval(Vector2 pt)
-        {
-            IsInterval = false;
-            Point1 = pt;
-            Point2 = pt;
-        }
-
-        public PointOrInterval(Vector2 pt1, Vector2 pt2)
-        {
-            IsInterval = pt1 != pt2;
-            Point1 = pt1;
-            Point2 = pt2;
-        }
-    }
-
-    public struct LineIntersectionResult
-    {
-        public readonly Line Line1;
-        public readonly Line Line2;
-        public readonly PointOrInterval Intersection;
-
-        public LineIntersectionResult(Line line1, Line line2, PointOrInterval intersection)
-        {
-            Line1 = line1;
-            Line2 = line2;
-            Intersection = intersection;
-        }
-    }
-
     public static class Tools
     {
         public static Rectangle Screen;

@@ -79,15 +79,17 @@
     <Compile Include="Collectibles\CoinPileItem.cs" />
     <Compile Include="Collectibles\Item.cs" />
     <Compile Include="Collectibles\MedKit.cs" />
-    <Compile Include="Collectibles\RelocateItem1.cs" />
+    <Compile Include="Collectibles\RelocateItem.cs" />
     <Compile Include="Collectibles\SpeedBoostItem.cs" />
     <Compile Include="HealthBar.cs" />
     <Compile Include="Icon.cs" />
     <Compile Include="Inventory.cs" />
     <Compile Include="LandMines\BlueMine.cs" />
+    <Compile Include="LineIntersectionResult.cs" />
     <Compile Include="LoseScreen.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="PauseMenu.cs" />
+    <Compile Include="PointOrInterval.cs" />
     <Compile Include="Shapes\Circle.cs" />
     <Compile Include="Shop.cs" />
     <Compile Include="ShopPiece.cs" />
@@ -110,7 +112,7 @@
     <Compile Include="Tanks\Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Shapes\RotatedRecangle.cs" />
+    <Compile Include="Shapes\RotatedRectangle.cs" />
     <Compile Include="Tanks\Tank.cs" />
     <Compile Include="Cannons\BurstCannon.cs" />
     <Compile Include="Tanks\BurstEnemie.cs" />
