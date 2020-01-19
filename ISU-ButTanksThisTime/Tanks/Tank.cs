@@ -52,17 +52,22 @@ namespace ISU_ButTanksThisTime.Tanks
             BaseRotation = rotation;
             BasePosition = position;
             this.stage = stage;
-            this.AttackRange = attackRange;
+            AttackRange = attackRange;
             this.rotationSpeed = rotationSpeed;
             StartingHealth = health;
-            this.Health = health;
-            this.Speed = speed;
+            Health = health;
+            Speed = speed;
 
             Bar = new HealthBar(health, position);
         }
 
         public virtual bool Update(Vector2 target)
         {
+            if (Health > StartingHealth)
+            {
+                Health = StartingHealth;
+            }
+
             var distance = target - BasePosition;
             if ((int) distance.Length() >= AttackRange)
             {
@@ -179,7 +184,6 @@ namespace ISU_ButTanksThisTime.Tanks
                     {
                         Health = 0;
                     }
-
                     break;
                 case LandMine _:
                     Health = 0;
@@ -204,7 +208,7 @@ namespace ISU_ButTanksThisTime.Tanks
 
         protected void DropItem()
         {
-            int chance = Tools.Rnd.Next(0, 140);
+            int chance = Tools.Rnd.Next(0, 210);
             switch (chance)
             {
                 case int n when n < 20:
@@ -213,16 +217,16 @@ namespace ISU_ButTanksThisTime.Tanks
                 case int n when n < 40:
                     GameScene.AddItem(new SpeedBoostItem(BasePosition));
                     break;
-                case int n when n < 60:
+                case int n when n < 100:
                     GameScene.AddItem(new CoinItem(BasePosition));
                     break;
-                case int n when n < 80:
+                case int n when n < 130:
                     GameScene.AddItem(new CoinPileItem(BasePosition));
                     break;
-                case int n when n < 120:
+                case int n when n < 170:
                     GameScene.AddItem(new Ammo(BasePosition));
                     break;
-                case int n when n < 140:
+                case int n when n < 210:
                     GameScene.AddBullet(new MedKit(BasePosition));
                     break;
             }
