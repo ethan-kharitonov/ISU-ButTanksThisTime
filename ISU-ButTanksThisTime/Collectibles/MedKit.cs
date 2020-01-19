@@ -15,7 +15,7 @@ namespace ISU_ButTanksThisTime.Collectibles
 
         static MedKit() => medKitImg = Tools.Content.Load<Texture2D>("Images/Sprites/Items/HP_Bonus");
 
-        public MedKit(Vector2 position) : base(position, 0, scaleFactor, Owner.Enemie) => Damage = -300;
+        public MedKit(Vector2 position) : base(position, 0, scaleFactor, Owner.Enemy) => Damage = -300;
 
         public override bool Update() => IsDead;
 

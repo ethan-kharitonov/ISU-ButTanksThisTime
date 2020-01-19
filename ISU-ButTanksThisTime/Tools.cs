@@ -10,7 +10,7 @@ namespace ISU_ButTanksThisTime
 {
     internal enum Owner
     {
-        Enemie = 0,
+        Enemy = 0,
         Player = 1
     }
 

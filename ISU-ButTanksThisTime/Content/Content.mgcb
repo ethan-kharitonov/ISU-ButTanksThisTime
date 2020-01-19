@@ -668,7 +668,7 @@
 /processorParam:TextureFormat=Color
 /build:Images/Sprites/LandMines/RedMineTRigered.png
 
-#begin Images/Sprites/Tanks/BomberEnemie/BP1.png
+#begin Images/Sprites/Tanks/BomberEnemy/BP1.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -678,9 +678,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Images/Sprites/Tanks/BomberEnemie/BP1.png
+/build:Images/Sprites/Tanks/BomberEnemy/BP1.png
 
-#begin Images/Sprites/Tanks/BomberEnemie/BP2.png
+#begin Images/Sprites/Tanks/BomberEnemy/BP2.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -690,9 +690,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Images/Sprites/Tanks/BomberEnemie/BP2.png
+/build:Images/Sprites/Tanks/BomberEnemy/BP2.png
 
-#begin Images/Sprites/Tanks/BomberEnemie/BP3.png
+#begin Images/Sprites/Tanks/BomberEnemy/BP3.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -702,7 +702,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Images/Sprites/Tanks/BomberEnemie/BP3.png
+/build:Images/Sprites/Tanks/BomberEnemy/BP3.png
 
 #begin Images/Sprites/Tanks/Healer/HP1.png
 /importer:TextureImporter

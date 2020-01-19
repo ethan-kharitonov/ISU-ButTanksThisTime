@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace ISU_ButTanksThisTime.Cannons
 {
-    internal class BomberEnemieCannon : Cannon
+    internal class BomberEnemyCannon : Cannon
     {
         private const int FIRE_RATE = 0;
         private const bool ACTIVE = false;
@@ -14,7 +14,7 @@ namespace ISU_ButTanksThisTime.Cannons
 
         private readonly Texture2D img;
 
-        public BomberEnemieCannon(Stage stage, Vector2 position, float rotation) : base(FIRE_RATE, ROTATION_SPEED[(int) stage], ACTIVE, position, rotation) => img = Tools.Content.Load<Texture2D>("Images/Sprites/Cannons/Inactive/I" + ((int) stage + 1));
+        public BomberEnemyCannon(Stage stage, Vector2 position, float rotation) : base(FIRE_RATE, ROTATION_SPEED[(int) stage], ACTIVE, position, rotation) => img = Tools.Content.Load<Texture2D>("Images/Sprites/Cannons/Inactive/I" + ((int) stage + 1));
 
         protected override Bullet Bullet => null;
         public override Texture2D Img => img;

@@ -27,12 +27,12 @@ namespace ISU_ButTanksThisTime
         private static readonly List<LandMine> landmines = new List<LandMine>();
         private static readonly Timer landMineTimer = new Timer(2000);
 
-        //Basic Enemie Variables
-        private static readonly Timer enemieTimer = new Timer(2000);
-        private const int ENEMIE_SPAWN_DIS = 1000;
+        //Basic Enemy Variables
+        private static readonly Timer enemyTimer = new Timer(2000);
+        private const int ENEMY_SPAWN_DIS = 1000;
 
-        //Bomber Enemie Variables
-        private static readonly Timer bomberEnemieTimer = new Timer(4000);
+        //Bomber Enemy Variables
+        private static readonly Timer bomberEnemyTimer = new Timer(4000);
 
         //Barrel Variables
         private static Texture2D barrelImg;
@@ -43,7 +43,7 @@ namespace ISU_ButTanksThisTime
         private static readonly List<Vector2>[] pathPoints = new List<Vector2>[3];
 
 
-        //Enemie Variables
+        //Enemy Variables
         private static readonly List<Tank> enemies = new List<Tank>();
         private static Texture2D enemyBaseImg;
 
@@ -100,13 +100,13 @@ namespace ISU_ButTanksThisTime
             }
 
             combos[(int) TankType.BasicPath, (int) TankType.Bomber] = new HealerEnemy(Vector2.Zero, 0, Stage.Low, pathPoints[2]);
-            combos[(int) TankType.BasicPath, (int) TankType.RotateShooter] = new BurstEnemie(Vector2.Zero, 0, Stage.Low);
+            combos[(int) TankType.BasicPath, (int) TankType.RotateShooter] = new BurstEnemy(Vector2.Zero, 0, Stage.Low);
 
             combos[(int) TankType.Bomber, (int) TankType.BasicPath] = new HealerEnemy(Vector2.Zero, 0, Stage.Low, pathPoints[2]);
-            combos[(int) TankType.Bomber, (int) TankType.RotateShooter] = new TierTwoEnemie(Vector2.Zero, 0, Stage.Low);
+            combos[(int) TankType.Bomber, (int) TankType.RotateShooter] = new TierTwoEnemy(Vector2.Zero, 0, Stage.Low);
 
-            combos[(int) TankType.RotateShooter, (int) TankType.BasicPath] = new BurstEnemie(Vector2.Zero, 0, Stage.Low);
-            combos[(int) TankType.RotateShooter, (int) TankType.Bomber] = new TierTwoEnemie(Vector2.Zero, 0, Stage.Low);
+            combos[(int) TankType.RotateShooter, (int) TankType.BasicPath] = new BurstEnemy(Vector2.Zero, 0, Stage.Low);
+            combos[(int) TankType.RotateShooter, (int) TankType.Bomber] = new TierTwoEnemy(Vector2.Zero, 0, Stage.Low);
 
             frozenScreen = new Texture2D(Tools.Graphics, Tools.ArenaBounds.Width, Tools.ArenaBounds.Height);
 
@@ -175,9 +175,9 @@ namespace ISU_ButTanksThisTime
                 item.Draw(spriteBatch);
             }
 
-            foreach (var enemie in enemies)
+            foreach (var enemy in enemies)
             {
-                enemie.Draw(spriteBatch);
+                enemy.Draw(spriteBatch);
             }
 
             foreach (var bullet in bullets)
@@ -321,24 +321,24 @@ namespace ISU_ButTanksThisTime
         private static void UpdateEnemies()
         {
             //Spawn Enemies
-            if (enemieTimer.IsTimeUp(Tools.GameTime) && enemies.Count < 20)
+            if (enemyTimer.IsTimeUp(Tools.GameTime) && enemies.Count < 20)
             {
-                enemieTimer.Reset();
+                enemyTimer.Reset();
                 switch (Tools.Rnd.Next(0, 100))
                 {
                     case int n when n < 33:
-                        enemies.Add(new TierOneEnemie(pathPoints[0][0], pathPoints[0], Stage.Low, 0));
+                        enemies.Add(new TierOneEnemy(pathPoints[0][0], pathPoints[0], Stage.Low, 0));
                         break;
                     case int n when n < 66:
-                        bomberEnemieTimer.Reset();
+                        bomberEnemyTimer.Reset();
                         var angle = MathHelper.ToRadians(Tools.Rnd.Next(0, 361));
-                        var pos = new Vector2((float) Math.Cos(angle), (float) Math.Sin(angle)) * ENEMIE_SPAWN_DIS;
+                        var pos = new Vector2((float) Math.Cos(angle), (float) Math.Sin(angle)) * ENEMY_SPAWN_DIS;
                         pos = player.GetPos() + pos;
 
-                        enemies.Add(new BomberEnemie(pos, 0, Stage.Low));
+                        enemies.Add(new BomberEnemy(pos, 0, Stage.Low));
                         break;
                     case int n when n < 100:
-                        enemies.Add(new TierFourEnemie(new Vector2(Tools.ArenaBounds.Center.X, Tools.ArenaBounds.Y - 50), 0, Stage.Low, pathPoints[1]));
+                        enemies.Add(new TierFourEnemy(new Vector2(Tools.ArenaBounds.Center.X, Tools.ArenaBounds.Y - 50), 0, Stage.Low, pathPoints[1]));
                         break;
                 }
             }
@@ -353,65 +353,65 @@ namespace ISU_ButTanksThisTime
                 }
             }
 
-            //Enemie to player collision
+            //Enemy to player collision
             for (var i = 0; i < enemies.Count; i++)
             {
-                var enemie1 = enemies[i];
-                if (enemie1.GetHealth() <= 0)
+                var enemy1 = enemies[i];
+                if (enemy1.GetHealth() <= 0)
                 {
                     continue;
                 }
 
-                if (Tools.BoxBoxCollision(enemie1.GetRotatedRectangle(), player.GetRotatedRectangle()) != null)
+                if (Tools.BoxBoxCollision(enemy1.GetRotatedRectangle(), player.GetRotatedRectangle()) != null)
                 {
-                    enemie1.Collide(player);
-                    player.Collide(enemie1);
+                    enemy1.Collide(player);
+                    player.Collide(enemy1);
                 }
             }
 
-            //Enemie to enemie collision
+            //Enemy to enemy collision
             for (var i = 0; i < enemies.Count; i++)
             {
-                var enemie1 = enemies[i];
-                if (enemie1.GetHealth() <= 0)
+                var enemy1 = enemies[i];
+                if (enemy1.GetHealth() <= 0)
                 {
                     continue;
                 }
 
                 for (var k = 0; k < enemies.Count; k++)
                 {
-                    var enemie2 = enemies[k];
-                    if (enemie1.Equals(enemie2) || enemie2.GetHealth() <= 0)
+                    var enemy2 = enemies[k];
+                    if (enemy1.Equals(enemy2) || enemy2.GetHealth() <= 0)
                     {
                         continue;
                     }
 
-                    if (enemie2 is HealerEnemy && Tools.CirclePointCollision((enemie2 as HealerEnemy).HealArea(), enemie1.GetPos()))
+                    if (enemy2 is HealerEnemy && Tools.CirclePointCollision((enemy2 as HealerEnemy).HealArea(), enemy1.GetPos()))
                     {
-                        enemie1.Heal((enemie2 as HealerEnemy).HealAmount);
+                        enemy1.Heal((enemy2 as HealerEnemy).HealAmount);
                     }
 
-                    if (Tools.BoxBoxCollision(enemie1.GetRotatedRectangle(), enemie2.GetRotatedRectangle()) != null)
+                    if (Tools.BoxBoxCollision(enemy1.GetRotatedRectangle(), enemy2.GetRotatedRectangle()) != null)
                     {
                         enemies.RemoveAt(i);
                         enemies.RemoveAt(k - 1);
                         --i;
 
-                        if (enemie1.GetTankType() == enemie2.GetTankType())
+                        if (enemy1.GetTankType() == enemy2.GetTankType())
                         {
-                            enemies.Add(MergeTanks(enemie1, enemie2));
+                            enemies.Add(MergeTanks(enemy1, enemy2));
                         }
                         else
                         {
-                            var newPos = (enemie1.GetPos() + enemie2.GetPos()) / 2;
-                            var newEnemie = combos[(int) enemie1.GetTankType(), (int) enemie2.GetTankType()];
-                            if (newEnemie == null)
+                            var newPos = (enemy1.GetPos() + enemy2.GetPos()) / 2;
+                            var newEnemy = combos[(int) enemy1.GetTankType(), (int) enemy2.GetTankType()];
+                            if (newEnemy == null)
                             {
-                                enemies.Add(MergeTanks(enemie1, enemie2));
+                                enemies.Add(MergeTanks(enemy1, enemy2));
                             }
                             else
                             {
-                                enemies.Add(newEnemie.Clone(newPos, enemie2.GetRotation(), Stage.Low));
+                                enemies.Add(newEnemy.Clone(newPos, enemy2.GetRotation(), Stage.Low));
                             }
                         }
 
@@ -441,14 +441,14 @@ namespace ISU_ButTanksThisTime
                     continue;
                 }
 
-                if (bullet.BulletOwner == Owner.Enemie && Tools.BoxBoxCollision(player.GetRotatedRectangle(), bullet.GetRotatedRectangle()) != null)
+                if (bullet.BulletOwner == Owner.Enemy && Tools.BoxBoxCollision(player.GetRotatedRectangle(), bullet.GetRotatedRectangle()) != null)
                 {
                     player.Collide(bullet);
                     bullet.Collide();
                 }
             }
 
-            //Bullet enemie collision
+            //Bullet enemy collision
             for (var i = 0; i < enemies.Count; i++)
             {
                 foreach (var bullet in bullets)

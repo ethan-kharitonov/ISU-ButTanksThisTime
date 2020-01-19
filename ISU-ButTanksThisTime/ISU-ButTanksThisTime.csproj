@@ -93,20 +93,19 @@
     <Compile Include="Shapes\Circle.cs" />
     <Compile Include="Shop.cs" />
     <Compile Include="ShopPiece.cs" />
-    <Compile Include="Tanks\BomberEnemie.cs" />
+    <Compile Include="Tanks\BomberEnemy.cs" />
     <Compile Include="Bullets\Bullet.cs" />
     <Compile Include="Camera.cs" />
-    <Compile Include="Cannons\BomberEnemieCannon.cs" />
+    <Compile Include="Cannons\BomberEnemyCannon.cs" />
     <Compile Include="Cannons\Cannon.cs" />
     <Compile Include="Cannons\TierOneCannon.cs" />
     <Compile Include="LandMines\LandMine.cs" />
     <Compile Include="LandMines\RedMine.cs" />
     <Compile Include="Tanks\HealerEnemy.cs" />
-    <Compile Include="Tanks\TierFourEnemie.cs" />
-    <Compile Include="Tanks\TierOneEnemie.cs" />
+    <Compile Include="Tanks\TierFourEnemy.cs" />
+    <Compile Include="Tanks\TierOneEnemy.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameScene.cs" />
-    <Compile Include="IMerable.cs" />
     <Compile Include="Shapes\Line.cs" />
     <Compile Include="Bullets\MeduimBullet.cs" />
     <Compile Include="Tanks\Player.cs" />
@@ -115,8 +114,8 @@
     <Compile Include="Shapes\RotatedRectangle.cs" />
     <Compile Include="Tanks\Tank.cs" />
     <Compile Include="Cannons\BurstCannon.cs" />
-    <Compile Include="Tanks\BurstEnemie.cs" />
-    <Compile Include="Tanks\TierTwoEnemie.cs" />
+    <Compile Include="Tanks\BurstEnemy.cs" />
+    <Compile Include="Tanks\TierTwoEnemy.cs" />
     <Compile Include="Timer.cs" />
     <Compile Include="Tools.cs" />
   </ItemGroup>

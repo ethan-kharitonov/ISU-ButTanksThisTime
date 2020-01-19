@@ -121,7 +121,7 @@ namespace ISU_ButTanksThisTime.Tanks
                     var bullet = collided as Bullet;
                     Health -= bullet.Damage;
                     break;
-                case BomberEnemie _:
+                case BomberEnemy _:
                     Health -= 25;
                     break;
                 case RedMine _:

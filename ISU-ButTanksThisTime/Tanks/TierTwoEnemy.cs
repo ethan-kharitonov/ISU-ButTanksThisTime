@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace ISU_ButTanksThisTime.Tanks
 {
-    internal class TierTwoEnemie : Tank
+    internal class TierTwoEnemy : Tank
     {
         private Vector2 target;
 
@@ -17,11 +17,11 @@ namespace ISU_ButTanksThisTime.Tanks
 
         private readonly int viewRange = 300;
 
-        public TierTwoEnemie(Vector2 position, float rotation, Stage stage) : base(position, stage, 0, SPEED[(int) stage], ROTATION_SPEED[(int) stage], HEALTH[(int) stage], rotation)
+        public TierTwoEnemy(Vector2 position, float rotation, Stage stage) : base(position, stage, 0, SPEED[(int) stage], ROTATION_SPEED[(int) stage], HEALTH[(int) stage], rotation)
         {
             BaseImg = Tools.Content.Load<Texture2D>("Images/Sprites/Tanks/TierTwo/T2P" + ((int) stage + 1));
 
-            Cannon = new MineDroperCannon(Owner.Enemie, stage, BasePosition, BaseRotation);
+            Cannon = new MineDroperCannon(Owner.Enemy, stage, BasePosition, BaseRotation);
             Cannon.Active = false;
 
             var explosionSpritesheet = Tools.Content.Load<Texture2D>("Images/Sprites/Effects/spritesheet");
@@ -52,6 +52,6 @@ namespace ISU_ButTanksThisTime.Tanks
 
         public override TankType GetTankType() => TankType.MineDroper;
 
-        public override Tank Clone(Vector2 position, float rotation, Stage stage) => new TierTwoEnemie(position, rotation, stage);
+        public override Tank Clone(Vector2 position, float rotation, Stage stage) => new TierTwoEnemy(position, rotation, stage);
     }
 }

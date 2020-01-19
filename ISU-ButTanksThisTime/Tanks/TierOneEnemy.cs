@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace ISU_ButTanksThisTime.Tanks
 {
-    internal class TierOneEnemie : Tank
+    internal class TierOneEnemy : Tank
     {
         private static readonly int[] VIEW_RANGE_OPTIONS = {300, 450, 650};
         private static readonly int[] ATTACK_RANGE_OPTIONS = {250, 400, 550};
@@ -22,11 +22,11 @@ namespace ISU_ButTanksThisTime.Tanks
         private readonly List<Vector2> path;
         private int targetPoint = 1;
 
-        public TierOneEnemie(Vector2 position, List<Vector2> path, Stage stage, float rotation) : base(position, stage, VIEW_RANGE_OPTIONS[(int) stage], SPEED[(int) stage], ROTATION_SPEED[(int) stage], HEALTH[(int) stage], rotation)
+        public TierOneEnemy(Vector2 position, List<Vector2> path, Stage stage, float rotation) : base(position, stage, VIEW_RANGE_OPTIONS[(int) stage], SPEED[(int) stage], ROTATION_SPEED[(int) stage], HEALTH[(int) stage], rotation)
         {
             BaseImg = Tools.Content.Load<Texture2D>("Images/Sprites/Tanks/TierOne/T1P" + ((int) stage + 1));
 
-            Cannon = new TierOneCannon(Owner.Enemie, stage, BasePosition, BaseRotation);
+            Cannon = new TierOneCannon(Owner.Enemy, stage, BasePosition, BaseRotation);
 
             var explosionSpritesheet = Tools.Content.Load<Texture2D>("Images/Sprites/Effects/spritesheet");
             ExplosionAnimation = new Animation(explosionSpritesheet, 3, 3, 9, 1, 1, 1, 2, BasePosition, 0.3f, true);
@@ -62,6 +62,6 @@ namespace ISU_ButTanksThisTime.Tanks
 
         public override TankType GetTankType() => TankType.BasicPath;
 
-        public override Tank Clone(Vector2 position, float rotation, Stage stage) => new TierOneEnemie(position, path, stage, rotation);
+        public override Tank Clone(Vector2 position, float rotation, Stage stage) => new TierOneEnemy(position, path, stage, rotation);
     }
 }
