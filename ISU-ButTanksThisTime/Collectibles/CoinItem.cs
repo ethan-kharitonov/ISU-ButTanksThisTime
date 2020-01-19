@@ -15,57 +15,66 @@ using Microsoft.Xna.Framework.Graphics;
 namespace ISU_ButTanksThisTime.Collectibles
 {
     /// <summary>
-    /// Class CoinItem.
-    /// Implements the <see cref="ISU_ButTanksThisTime.Collectibles.Item" />
+    /// The Coin collectible item.
+    /// <para>
+    /// Implements the <see cref="ISU_ButTanksThisTime.Collectibles.Item" /> abstract type.
+    /// </para>
     /// </summary>
+    /// <remarks>
+    /// Collecting this item grants the player more money.
+    /// </remarks>
     /// <seealso cref="ISU_ButTanksThisTime.Collectibles.Item" />
     internal class CoinItem : Item
     {
+        private const int AMOUNT = 10;
+    
+        /// <summary>
+        /// Used to access the attributes of a collectible item that are the same for any instance of the same type, like <see cref="Img"/> or <see cref="IsUseSupported"/>.
+        /// </summary>
         public static readonly Item VoidObject = new CoinItem(default);
 
         private static readonly Texture2D img;
 
-        // Guarantees that the static state is initialized right before the class is used. Without it, the static state
-        // could be initialized too early.
         /// <summary>
         /// Initializes static members of the <see cref="CoinItem"/> class.
         /// </summary>
+        /// <remarks>
+        /// Using the static constructor guarantees that the static state is initialized right before the class is used. Without it, the static state
+        /// could be initialized too early, e.g. when the content has not been loaded yet.
+        /// </remarks>
         static CoinItem() => img = Tools.Content.Load<Texture2D>("Images/Sprites/Items/Coin_A");
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CoinItem"/> class.
         /// </summary>
-        /// <param name="position">The position.</param>
-        /// <param name="amount">The amount.</param>
-        public CoinItem(Vector2 position, int amount = 10) : base(position, amount)
+        /// <param name="position">The initial position.</param>
+        /// <param name="amount">The amount of coins to be rewarded - the default is 10.</param>
+        public CoinItem(Vector2 position, int amount = AMOUNT) : base(position, amount)
         {
         }
 
         /// <summary>
-        /// Gets the img.
+        /// Overrides the base <see cref="Item.Img"/> property.
         /// </summary>
-        /// <value>The img.</value>
+        /// <value>The Coin object image.</value>
         public override Texture2D Img => img;
 
         /// <summary>
-        /// Gets a value indicating whether this <see cref="CoinItem"/> is usable.
+        /// Overrides the base <see cref="Item.IsUseSupported"/> property.
         /// </summary>
-        /// <value><c>true</c> if usable; otherwise, <c>false</c>.</value>
-        public override bool Usable => false;
+        /// <value><c>false</c></value>
+        public override bool IsUseSupported => false;
 
         /// <summary>
-        /// Gets the type of the item.
+        /// Overrides the base <see cref="Item.ItemType"/> property.
         /// </summary>
-        /// <value>The type of the item.</value>
+        /// <value><c>ItemType.Coin</c></value>
         public override ItemType ItemType => ItemType.Coin;
 
         /// <summary>
-        /// Uses this instance.
+        /// Not supported.
         /// </summary>
         /// <exception cref="NotSupportedException"></exception>
-        public override void Use()
-        {
-            throw new NotSupportedException();
-        }
+        public override void Use() => throw new NotSupportedException();
     }
 }

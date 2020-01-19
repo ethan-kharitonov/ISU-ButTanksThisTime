@@ -32,7 +32,10 @@ namespace ISU_ButTanksThisTime.Bullets
         /// Explosion Animation.
         /// </summary>
         /// <remarks>
-        /// Defines the animation to run when the bullet hits the player.
+        /// Defines the animation to run when a bullet hits a game object.
+        /// <para>
+        /// Must be implemented by every kind of a bullet.
+        /// </para>
         /// </remarks>
         protected abstract Animation ExAnim { get; }
         /// <summary>
@@ -46,14 +49,14 @@ namespace ISU_ButTanksThisTime.Bullets
         /// <value>The damage.</value>
         public int Damage { get; protected set; }
 
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Bullet" /> class.
         /// </summary>
-        /// <param name="position">The position.</param>
-        /// <param name="rotation">The rotation.</param>
+        /// <param name="position">The initial bullet position.</param>
+        /// <param name="rotation">The initial bullet rotation.</param>
         /// <param name="scaleFactor">The scale factor.</param>
         /// <param name="bulletOwner">The bullet owner.</param>
+        /// <seealso cref="Owner"/>
         protected Bullet(Vector2 position, float rotation, float scaleFactor, Owner bulletOwner)
         {
             this.scaleFactor = scaleFactor;
@@ -63,9 +66,9 @@ namespace ISU_ButTanksThisTime.Bullets
         }
 
         /// <summary>
-        /// Updates this instance.
+        /// Updates the core state of the bullet.
         /// </summary>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if the bullet should be removed from the game scene, <c>false</c> otherwise.</returns>
         public virtual bool Update()
         {
             if (!IsDead)
@@ -81,7 +84,7 @@ namespace ISU_ButTanksThisTime.Bullets
         }
 
         /// <summary>
-        /// Draws the specified sprite batch.
+        /// Draws the core aspects of a bullet.
         /// </summary>
         /// <param name="spriteBatch">The sprite batch.</param>
         public virtual void Draw(SpriteBatch spriteBatch)
@@ -98,14 +101,19 @@ namespace ISU_ButTanksThisTime.Bullets
         }
 
         /// <summary>
-        /// Gets the rotated rectangle.
+        /// Computes and returns the rotated rectangle.
         /// </summary>
-        /// <returns>RotatedRectangle.</returns>
+        /// <seealso cref="RotatedRectangle"/>
         public virtual RotatedRectangle GetRotatedRectangle() => new RotatedRectangle(box, MathHelper.ToRadians(rotation) + MathHelper.PiOver2, new Vector2(Img.Width * 0.5f * scaleFactor, Img.Height * 0.5f * scaleFactor));
 
         /// <summary>
-        /// Collides this instance.
+        /// Base collision logic
         /// </summary>
+        /// <remarks>
+        /// Sets the bullet is dead and triggers the explosion animation.
+        /// </remarks>
+        /// <seealso cref="IsDead"/>
+        /// <seealso cref="ExAnim"/>
         public virtual void Collide()
         {
             IsDead = true;
@@ -114,17 +122,19 @@ namespace ISU_ButTanksThisTime.Bullets
         }
 
         /// <summary>
-        /// Clones the specified position.
+        /// Performs shallow cloning of the bullet with the new position and rotation.
         /// </summary>
-        /// <param name="pos">The position.</param>
-        /// <param name="rotation">The rotation.</param>
-        /// <returns>Bullet.</returns>
+        /// <param name="pos">The new position.</param>
+        /// <param name="rotation">The new rotation.</param>
+        /// <returns>A new bullet of the same kind at the new position and rotation.</returns>
         public abstract Bullet Clone(Vector2 pos, float rotation);
 
         /// <summary>
-        /// Gets the img.
+        /// The bullet image.
         /// </summary>
-        /// <value>The img.</value>
+        /// <remarks>
+        /// Must be overridden by the derived types.
+        /// </remarks>
         protected abstract Texture2D Img { get; }
     }
 }

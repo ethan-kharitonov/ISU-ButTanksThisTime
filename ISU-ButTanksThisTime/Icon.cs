@@ -49,7 +49,7 @@ namespace ISU_ButTanksThisTime
         /// </summary>
         public void Update()
         {
-            if (!item.Usable)
+            if (!item.IsUseSupported)
             {
                 return;
             }

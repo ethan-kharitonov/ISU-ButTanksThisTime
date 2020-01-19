@@ -78,7 +78,7 @@
     <Compile Include="Collectibles\CoinItem.cs" />
     <Compile Include="Collectibles\CoinPileItem.cs" />
     <Compile Include="Collectibles\Item.cs" />
-    <Compile Include="Collectibles\MedKit.cs" />
+    <Compile Include="Bullets\MedKit.cs" />
     <Compile Include="Collectibles\RelocateItem.cs" />
     <Compile Include="Collectibles\SpeedBoostItem.cs" />
     <Compile Include="HealthBar.cs" />

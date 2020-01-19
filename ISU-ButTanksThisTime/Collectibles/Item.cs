@@ -15,18 +15,30 @@ using Microsoft.Xna.Framework.Graphics;
 namespace ISU_ButTanksThisTime.Collectibles
 {
     /// <summary>
-    /// Enum ItemType
+    /// Denotes the available types of collectible items
     /// </summary>
     public enum ItemType
     {
+        /// <summary>
+        /// When collected allows the player to boost the player's speed
+        /// </summary>
         SpeedBoost,
+        /// <summary>
+        /// When collected allows the player to freeze the game and relocate to another place
+        /// </summary>
         Relocate,
+        /// <summary>
+        /// When collected adds money to be spent at the store
+        /// </summary>
         Coin,
+        /// <summary>
+        /// When collected adds ammo to the player
+        /// </summary>
         Ammo
     }
 
     /// <summary>
-    /// Class Item.
+    /// Implements the core functionality of any collectible item
     /// </summary>
     internal abstract class Item
     {
@@ -38,8 +50,8 @@ namespace ISU_ButTanksThisTime.Collectibles
         /// <summary>
         /// Initializes a new instance of the <see cref="Item"/> class.
         /// </summary>
-        /// <param name="position">The position.</param>
-        /// <param name="amount">The amount.</param>
+        /// <param name="position">The initial position of this collectible item.</param>
+        /// <param name="amount">Denotes how many pieces of that item does the player get when the item is collected.</param>
         protected Item(Vector2 position, int amount = 1)
         {
             this.position = position;
@@ -47,7 +59,7 @@ namespace ISU_ButTanksThisTime.Collectibles
         }
 
         /// <summary>
-        /// Draws the specified sprite batch.
+        /// Draws this collectible item.
         /// </summary>
         /// <param name="spriteBatch">The sprite batch.</param>
         public void Draw(SpriteBatch spriteBatch)
@@ -56,31 +68,34 @@ namespace ISU_ButTanksThisTime.Collectibles
         }
 
         /// <summary>
-        /// Gets the box.
+        /// The bounding box of this collectible item.
         /// </summary>
-        /// <value>The box.</value>
+        /// <seealso cref="RotatedRectangle"/>
         public RotatedRectangle Box => new RotatedRectangle(new Rectangle((int) position.X, (int) position.Y, (int) (Img.Width * IMG_SCALE_FACTOR), (int) (Img.Height * IMG_SCALE_FACTOR)), 0, new Vector2(Img.Width * 0.5f * IMG_SCALE_FACTOR, Img.Height * 0.5f * IMG_SCALE_FACTOR));
 
         /// <summary>
-        /// Gets the img.
+        /// The image of this collectible item.
         /// </summary>
-        /// <value>The img.</value>
         public abstract Texture2D Img { get; }
 
         /// <summary>
-        /// Gets a value indicating whether this <see cref="Item"/> is usable.
+        /// Indicates whether the <see cref="Use"/> function is supported.
         /// </summary>
-        /// <value><c>true</c> if usable; otherwise, <c>false</c>.</value>
-        public virtual bool Usable => true;
+        /// <value><c>true</c> if supported; otherwise, <c>false</c>.</value>
+        /// <remarks>
+        /// The default value is <c>true</c>.
+        /// </remarks>
+        public virtual bool IsUseSupported => true;
+        
         /// <summary>
-        /// Uses this instance.
+        /// Use this collectible item, e.g. relocate the player or boost the speed.
         /// </summary>
         public abstract void Use();
 
         /// <summary>
-        /// Gets the type of the item.
+        /// The item type.
         /// </summary>
-        /// <value>The type of the item.</value>
+        /// <seealso cref="ItemType"/>
         public abstract ItemType ItemType { get; }
     }
 }
