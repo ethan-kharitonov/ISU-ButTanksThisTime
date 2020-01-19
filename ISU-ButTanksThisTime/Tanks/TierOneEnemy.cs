@@ -116,12 +116,12 @@ namespace ISU_ButTanksThisTime.Tanks
         public override TankType GetTankType() => TankType.BasicPath;
 
         /// <summary>
-        /// creates an instance of healerEnemy
+        /// creates an instance of TierOneEnemy
         /// </summary>
         /// <param name="position">The inital position.</param>
         /// <param name="rotation">The inital rotation.</param>
         /// <param name="stage">The stage.</param>
-        /// <returns>the new healerEnemy</returns>
+        /// <returns>the new TierOneEnemy</returns>
         /// <seealso cref="Tank.Clone(Vector2, float, Stage)"/>
         public override Tank Clone(Vector2 position, float rotation, Stage stage) => new TierOneEnemy(position, path, stage, rotation);
     }
