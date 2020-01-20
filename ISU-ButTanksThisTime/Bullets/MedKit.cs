@@ -1,14 +1,9 @@
-﻿// ***********************************************************************
-// Assembly         : ISU-ButTanksThisTime
-// Author           : Ethan Kharitonov
-// Created          : 01-19-2020
-//
-// Last Modified By : Ethan Kharitonov
-// Last Modified On : 01-19-2020
-// ***********************************************************************
-// <summary></summary>
-// ***********************************************************************
-
+﻿// Author        : Ethan Kharitonov
+// File Name     : Bullets\MedKit.cs
+// Project Name  : ISU-ButTanksThisTime
+// Created Date  : 12-19-2019
+// Modified Date : 01-19-2020
+// Description   : Defines the MedKit class.
 using System;
 using Animation2D;
 using ISU_ButTanksThisTime.Shapes;

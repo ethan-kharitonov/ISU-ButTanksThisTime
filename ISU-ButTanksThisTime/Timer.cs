@@ -1,19 +1,15 @@
-﻿// ***********************************************************************
-// Assembly         : ISU-ButTanksThisTime
-// Author           : Ethan Kharitonov
-// Created          : 01-16-2020
-//
-// Last Modified By : Ethan Kharitonov
-// Last Modified On : 01-19-2020
-// ***********************************************************************
-// <summary></summary>
-// ***********************************************************************
+﻿// Author        : Ethan Kharitonov
+// File Name     : Timer.cs
+// Project Name  : ISU-ButTanksThisTime
+// Created Date  : 12-19-2019
+// Modified Date : 01-19-2020
+// Description   : Defines the Timer class.
 using Microsoft.Xna.Framework;
 
 namespace ISU_ButTanksThisTime
 {
     /// <summary>
-    /// Class Timer.
+    /// Simplifies measuring time intervals.
     /// </summary>
     internal class Timer
     {

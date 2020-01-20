@@ -1,13 +1,9 @@
-﻿// ***********************************************************************
-// Assembly         : ISU-ButTanksThisTime
-// Author           : Ethan Kharitonov
-// Created          : 01-16-2020
-//
-// Last Modified By : Ethan Kharitonov
-// Last Modified On : 01-19-2020
-// ***********************************************************************
-// <summary></summary>
-// ***********************************************************************
+﻿// Author        : Ethan Kharitonov
+// File Name     : LandMines\LandMine.cs
+// Project Name  : ISU-ButTanksThisTime
+// Created Date  : 12-19-2019
+// Modified Date : 01-19-2020
+// Description   : Defines the LandMine class.
 using Animation2D;
 using ISU_ButTanksThisTime.Shapes;
 using Microsoft.Xna.Framework;

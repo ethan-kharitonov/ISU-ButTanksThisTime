@@ -1,16 +1,10 @@
-﻿// ***********************************************************************
-// Assembly         : ISU-ButTanksThisTime
-// Author           : Ethan Kharitonov
-// Created          : 01-16-2020
-//
-// Last Modified By : Ethan Kharitonov
-// Last Modified On : 01-19-2020
-// ***********************************************************************
-// <summary>
-// The purpose of this file is to provide the tools used in calculating collisions and rotations as well as expose certain well-known
-// objects for all other objects to use.
-// </summary>
-// ***********************************************************************
+﻿// Author        : Ethan Kharitonov
+// File Name     : Tools.cs
+// Project Name  : ISU-ButTanksThisTime
+// Created Date  : 12-19-2019
+// Modified Date : 01-19-2020
+// Description   : Provides the tools used in calculating collisions and rotations as well as expose certain well-known
+//                 objects for all other objects to use
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;

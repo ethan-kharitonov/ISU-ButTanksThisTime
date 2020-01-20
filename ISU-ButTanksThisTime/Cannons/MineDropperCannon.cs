@@ -1,13 +1,9 @@
-﻿// ***********************************************************************
-// Assembly         : ISU-ButTanksThisTime
-// Author           : Ethan Kharitonov
-// Created          : 01-19-2020
-//
-// Last Modified By : Ethan Kharitonov
-// Last Modified On : 01-19-2020
-// ***********************************************************************
-// <summary></summary>
-// ***********************************************************************
+﻿// Author        : Ethan Kharitonov
+// File Name     : Cannons\MineDropperCannon.cs
+// Project Name  : ISU-ButTanksThisTime
+// Created Date  : 12-19-2019
+// Modified Date : 01-19-2020
+// Description   : Defines the MineDropperCannon class.
 using ISU_ButTanksThisTime.Bullets;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

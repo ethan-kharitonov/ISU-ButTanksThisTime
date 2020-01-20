@@ -1,20 +1,16 @@
-﻿// ***********************************************************************
-// Assembly         : ISU-ButTanksThisTime
-// Author           : Ethan Kharitonov
-// Created          : 01-19-2020
-//
-// Last Modified By : Ethan Kharitonov
-// Last Modified On : 01-19-2020
-// ***********************************************************************
-// <summary></summary>
-// ***********************************************************************
+﻿// Author        : Ethan Kharitonov
+// File Name     : LoseScreen.cs
+// Project Name  : ISU-ButTanksThisTime
+// Created Date  : 12-19-2019
+// Modified Date : 01-19-2020
+// Description   : Defines the LoseScreen class.
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace ISU_ButTanksThisTime
 {
     /// <summary>
-    /// Class LoseScreen.
+    /// Implements the screen shown when the game is over
     /// </summary>
     internal static class LoseScreen
     {
@@ -25,6 +21,10 @@ namespace ISU_ButTanksThisTime
         /// <summary>
         /// Initializes static members of the <see cref="LoseScreen"/> class.
         /// </summary>
+        /// <remarks>
+        /// Using the static constructor guarantees that the static state is initialized right before the class is used. Without it, the static state
+        /// could be initialized too early, e.g. when the content has not been loaded yet.
+        /// </remarks>
         static LoseScreen()
         {
             bgImg = Tools.Content.Load<Texture2D>("Images/Backgrounds/ShopBackground");
@@ -34,7 +34,7 @@ namespace ISU_ButTanksThisTime
         }
 
         /// <summary>
-        /// Updates this instance.
+        /// Updates the state from the user input.
         /// </summary>
         public static void Update()
         {
@@ -52,7 +52,7 @@ namespace ISU_ButTanksThisTime
         }
 
         /// <summary>
-        /// Draws the specified sprite batch.
+        /// Draws the screen.
         /// </summary>
         /// <param name="spriteBatch">The sprite batch.</param>
         public static void Draw(SpriteBatch spriteBatch)
