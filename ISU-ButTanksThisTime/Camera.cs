@@ -15,7 +15,7 @@ using Microsoft.Xna.Framework.Input;
 namespace ISU_ButTanksThisTime
 {
     /// <summary>
-    /// Class Camera.
+    /// Represents the camera objects.
     /// </summary>
     internal class Camera
     {
@@ -30,9 +30,9 @@ namespace ISU_ButTanksThisTime
         public Camera(Viewport viewport) => this.viewport = viewport;
 
         /// <summary>
-        /// Updates the specified target.
+        /// Updates the camera state.
         /// </summary>
-        /// <param name="target">The target.</param>
+        /// <param name="target">The target to point the Camera to.</param>
         public void Update(Vector2 target)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.O))

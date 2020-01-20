@@ -15,12 +15,15 @@ using Microsoft.Xna.Framework.Graphics;
 namespace ISU_ButTanksThisTime.LandMines
 {
     /// <summary>
-    /// Class BlueMine.
+    /// The Blue Mine type.
+    /// <para>
     /// Implements the <see cref="ISU_ButTanksThisTime.LandMines.LandMine" />
+    /// </para>
     /// </summary>
     /// <seealso cref="ISU_ButTanksThisTime.LandMines.LandMine" />
     internal class BlueMine : LandMine
     {
+        // The properties of this kind of land mines.
         private const float IMG_SCALE_FACTOR = 0.4f;
         private const int RADIUS = 38;
         private const int EX_RADIUS = 250;
@@ -28,7 +31,7 @@ namespace ISU_ButTanksThisTime.LandMines
         /// <summary>
         /// Initializes a new instance of the <see cref="BlueMine"/> class.
         /// </summary>
-        /// <param name="position">The position.</param>
+        /// <param name="position">The initial position.</param>
         public BlueMine(Vector2 position) : base(RADIUS, EX_RADIUS)
         {
             var idleSprite = Tools.Content.Load<Texture2D>("Images/Sprites/LandMines/bomb2Idle");

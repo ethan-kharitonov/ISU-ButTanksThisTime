@@ -91,6 +91,7 @@
     <Compile Include="Shapes\Circle.cs" />
     <Compile Include="Shop.cs" />
     <Compile Include="ShopPiece.cs" />
+    <Compile Include="TankGame.cs" />
     <Compile Include="Tanks\BomberEnemy.cs" />
     <Compile Include="Bullets\Bullet.cs" />
     <Compile Include="Camera.cs" />
@@ -102,7 +103,7 @@
     <Compile Include="Tanks\HealerEnemy.cs" />
     <Compile Include="Tanks\TierFourEnemy.cs" />
     <Compile Include="Tanks\TierOneEnemy.cs" />
-    <Compile Include="Game1.cs" />
+    <Compile Include="GameState.cs" />
     <Compile Include="GameScene.cs" />
     <Compile Include="Shapes\Line.cs" />
     <Compile Include="Bullets\MeduimBullet.cs" />

@@ -13,11 +13,17 @@ using Microsoft.Xna.Framework;
 namespace ISU_ButTanksThisTime.Shapes
 {
     /// <summary>
-    /// Class Line.
+    /// Represents line objects.
     /// </summary>
     public class Line
     {
+        /// <summary>
+        /// The start point of this line.
+        /// </summary>
         public Vector2 StartPoint;
+        /// <summary>
+        /// The end point of this line.
+        /// </summary>
         public Vector2 EndPoint;
 
         /// <summary>
@@ -32,9 +38,8 @@ namespace ISU_ButTanksThisTime.Shapes
         }
 
         /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// Returns the string representation of this line.
         /// </summary>
-        /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
         public override string ToString() => $"{{{StartPoint.X}, {StartPoint.Y}}},{{{EndPoint.X}, {EndPoint.Y}}}";
     }
 }

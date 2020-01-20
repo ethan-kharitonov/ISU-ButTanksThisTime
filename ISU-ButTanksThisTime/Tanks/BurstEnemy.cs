@@ -31,8 +31,8 @@ namespace ISU_ButTanksThisTime.Tanks
         /// <summary>
         /// Initializes a new instance of the <see cref="BurstEnemy"/> class.
         /// </summary>
-        /// <param name="position">The inital position.</param>
-        /// <param name="rotation">The inital rotation.</param>
+        /// <param name="position">The initial position.</param>
+        /// <param name="rotation">The initial rotation.</param>
         /// <param name="stage">The stage (determines the satats of this tank)</param>
         /// <see cref="Tank"/>
         public BurstEnemy(Vector2 position, float rotation, Stage stage) : base(position, stage, ATTACK_RANGE[(int) stage], SPEED[(int) stage], ROTATION_SPEED[(int) stage], HEALTH[(int) stage], rotation)

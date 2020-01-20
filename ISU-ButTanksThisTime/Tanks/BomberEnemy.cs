@@ -32,8 +32,8 @@ namespace ISU_ButTanksThisTime.Tanks
         /// <summary>
         /// Initializes a new instance of the <see cref="BomberEnemy"/> class.
         /// </summary>
-        /// <param name="position">The inital position</param>
-        /// <param name="rotation">The inital rotation.</param>
+        /// <param name="position">The initial position</param>
+        /// <param name="rotation">The initial rotation.</param>
         /// <param name="stage">the level of the tank (determines its stats)</param>
         public BomberEnemy(Vector2 position, float rotation, Stage stage) : base(position, stage, 0, SPEED[(int) stage], ROTATION_SPEED[(int) stage], HEALTH[(int) stage], rotation)
         {
@@ -51,11 +51,11 @@ namespace ISU_ButTanksThisTime.Tanks
         /// <summary>
         /// constructs a an instance of this object
         /// </summary>
-        /// <param name="position">The inital position</param>
-        /// <param name="rotation">The inital rotation.</param>
+        /// <param name="position">The initial position</param>
+        /// <param name="rotation">The initial rotation.</param>
         /// <param name="stage">the level of the tank (determines its stats)</param>
-        /// <returns>the new constructed instacne</returns>
-        /// <see cref="BomberEnemy.BomberEnemy"/>
+        /// <returns>the new constructed instance</returns>
+        /// <see cref="BomberEnemy(Vector2, float, Stage)"/>
         public override Tank Clone(Vector2 position, float rotation, Stage stage) => new BomberEnemy(position, rotation, stage);
 
         /// <summary>

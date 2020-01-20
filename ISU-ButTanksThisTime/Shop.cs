@@ -65,7 +65,7 @@ namespace ISU_ButTanksThisTime
 
             if (backBtn.Update())
             {
-                Game1.State = State.Game;
+                TankGame.State = GameState.Game;
                 GameScene.MakePlayerLeaveShop();
             }
         }

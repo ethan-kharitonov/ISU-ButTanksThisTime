@@ -22,8 +22,8 @@ namespace ISU_ButTanksThisTime.Cannons
     internal class HealerCannon : Cannon
     {
         //The possible rotation speeds of this type of cannon
-        private static readonly int[] ROTATION_SPEED = {5, 6, 7};
-
+        // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
+        private static readonly int[] rotationSpeed = {5, 6, 7};
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HealerCannon"/> class.
@@ -31,7 +31,7 @@ namespace ISU_ButTanksThisTime.Cannons
         /// <param name="stage">The stage.</param>
         /// <param name="position">The inital position.</param>
         /// <param name="rotation">The inital rotation.</param>
-        public HealerCannon(Stage stage, Vector2 position, float rotation) : base(0, ROTATION_SPEED[(int) stage], false, position, rotation) => 
+        public HealerCannon(Stage stage, Vector2 position, float rotation) : base(0, rotationSpeed[(int) stage], false, position, rotation) => 
             Img = Tools.Content.Load<Texture2D>("Images/Sprites/Cannons/Healer/H" + ((int) stage + 1)); //implements the image of the cannon
 
         /// <summary>

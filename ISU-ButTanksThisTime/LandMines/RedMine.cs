@@ -15,21 +15,24 @@ using Microsoft.Xna.Framework.Graphics;
 namespace ISU_ButTanksThisTime.LandMines
 {
     /// <summary>
-    /// Class RedMine.
+    /// The Red Mine type.
+    /// <para>
     /// Implements the <see cref="ISU_ButTanksThisTime.LandMines.LandMine" />
+    /// </para>
     /// </summary>
     /// <seealso cref="ISU_ButTanksThisTime.LandMines.LandMine" />
     internal class RedMine : LandMine
     {
+        // The properties of this kind of land mines.
         private const float IMG_SCALE_FACTOR = 0.4f;
         private const int RADIUS = 37;
-
+        private const int EX_RADIUS = 300;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RedMine"/> class.
         /// </summary>
         /// <param name="position">The position.</param>
-        public RedMine(Vector2 position) : base(RADIUS, 300)
+        public RedMine(Vector2 position) : base(RADIUS, EX_RADIUS)
         {
             var idleSprite = Tools.Content.Load<Texture2D>("Images/Sprites/LandMines/RedMineIdle");
             var triggeredSprite = Tools.Content.Load<Texture2D>("Images/Sprites/LandMines/RedMineTRigered");

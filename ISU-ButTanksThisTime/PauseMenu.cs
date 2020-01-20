@@ -41,13 +41,13 @@ namespace ISU_ButTanksThisTime
         {
             if (backBtn.Update())
             {
-                Game1.State = State.Game;
+                TankGame.State = GameState.Game;
             }
 
             if (backToMenuBtn.Update())
             {
                 GameScene.Reset();
-                Game1.State = State.Menu;
+                TankGame.State = GameState.Menu;
                 Shop.Reset();
             }
         }

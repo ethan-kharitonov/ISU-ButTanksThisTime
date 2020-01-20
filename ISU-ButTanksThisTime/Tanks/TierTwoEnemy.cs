@@ -40,7 +40,7 @@ namespace ISU_ButTanksThisTime.Tanks
         /// <summary>
         /// Initializes a new instance of the <see cref="TierTwoEnemy"/> class.
         /// </summary>
-        /// <param name="position">The inital position.</param>
+        /// <param name="position">The initial position.</param>
         /// <param name="rotation">The intial rotation.</param>
         /// <param name="stage">The stage.</param>
         public TierTwoEnemy(Vector2 position, float rotation, Stage stage) : base(position, stage, 0, SPEED[(int)stage], ROTATION_SPEED[(int)stage], HEALTH[(int)stage], rotation)
@@ -48,7 +48,7 @@ namespace ISU_ButTanksThisTime.Tanks
             //implmeants tank img
             BaseImg = Tools.Content.Load<Texture2D>("Images/Sprites/Tanks/TierTwo/T2P" + ((int)stage + 1));
 
-            //implements the tank cannon initaly set to false
+            //implements the tank cannon initialy set to false
             Cannon = new MineDropperCannon(Owner.Enemy, stage, BasePosition, BaseRotation)
             {
                 Active = false
@@ -101,14 +101,14 @@ namespace ISU_ButTanksThisTime.Tanks
         /// <returns>the random point</returns>
         private Vector2 SetTarget() => new Vector2(Tools.Rnd.Next(Tools.ArenaBounds.Left, Tools.ArenaBounds.Right), Tools.Rnd.Next(Tools.ArenaBounds.Top, Tools.ArenaBounds.Bottom));
 
-        // <summary>
+        /// <summary>
         /// gets the type of this tank
         /// </summary>
         /// <returns>the tank type</returns>
         /// <seealso cref="Tank.GetTankType"/>
         public override TankType GetTankType() => TankType.MineDropper;
 
-        //// <summary>
+        /// <summary>
         /// creates an instance of TierTwoEnemy
         /// </summary>
         /// <param name="position">The initial position.</param>

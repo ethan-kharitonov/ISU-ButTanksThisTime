@@ -37,11 +37,11 @@ namespace ISU_ButTanksThisTime
         /// Updates the specified game.
         /// </summary>
         /// <param name="game">The game.</param>
-        public static void Update(Game1 game)
+        public static void Update(TankGame game)
         {
             if (playBtn.Update())
             {
-                Game1.State = State.Game;
+                TankGame.State = GameState.Game;
             }
 
             if (quitBtn.Update())

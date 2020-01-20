@@ -36,8 +36,8 @@ namespace ISU_ButTanksThisTime.Tanks
         /// <summary>
         /// Initializes a new instance of the <see cref="TierFourEnemy"/> class.
         /// </summary>
-        /// <param name="position">The inital position.</param>
-        /// <param name="rotation">The inital rotation.</param>
+        /// <param name="position">The initial position.</param>
+        /// <param name="rotation">The initial rotation.</param>
         /// <param name="stage">The stage.</param>
         /// <param name="path">The path.</param>
         /// <seealso cref="Tank"/>
@@ -60,9 +60,8 @@ namespace ISU_ButTanksThisTime.Tanks
         /// <summary>
         /// calls the Tank update with the correct path point
         /// </summary>
-        /// <param name="NA">Only added because this overrides Tank.Update(Vector2 ----)</param>
         /// <seealso cref="Tank.Update(Vector2)"/>
-        public override bool Update(Vector2 NA)
+        public override bool Update(Vector2 _)
         {
             //checks if this tank is going to hit its target this step
             var distanceSquared = (path[targetPoint] - BasePosition).LengthSquared();
@@ -89,8 +88,8 @@ namespace ISU_ButTanksThisTime.Tanks
         /// <summary>
         /// creates an instance of TierFourEnemy
         /// </summary>
-        /// <param name="position">The inital position.</param>
-        /// <param name="rotation">The inital rotation.</param>
+        /// <param name="position">The initial position.</param>
+        /// <param name="rotation">The initial rotation.</param>
         /// <param name="stage">The stage.</param>
         /// <returns>the new TierFourEnemy</returns>
         /// <seealso cref="Tank.Clone(Vector2, float, Stage)"/>

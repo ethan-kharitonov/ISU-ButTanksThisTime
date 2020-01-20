@@ -1,46 +1,26 @@
-﻿// ***********************************************************************
-// Assembly         : ISU-ButTanksThisTime
-// Author           : Ethan Kharitonov
-// Created          : 01-16-2020
-//
-// Last Modified By : Ethan Kharitonov
-// Last Modified On : 01-19-2020
-// ***********************************************************************
-// <summary></summary>
-// ***********************************************************************
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace ISU_ButTanksThisTime
 {
     /// <summary>
-    /// Enum State
-    /// </summary>
-    public enum State
-    {
-        Game,
-        Shop,
-        Menu,
-        LoseScreen,
-        Pause
-    }
-
-    /// <summary>
-    /// Class Game1.
+    /// The main game class.
+    /// <para>
     /// Implements the <see cref="Microsoft.Xna.Framework.Game" />
+    /// </para>
     /// </summary>
     /// <seealso cref="Microsoft.Xna.Framework.Game" />
-    public class Game1 : Game
+    public class TankGame : Game
     {
         private readonly GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
 
-        public static State State = State.Menu;
+        public static GameState State = GameState.Menu;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Game1"/> class.
+        /// Initializes a new instance of the <see cref="TankGame"/> class.
         /// </summary>
-        public Game1()
+        public TankGame()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -90,27 +70,27 @@ namespace ISU_ButTanksThisTime
             Tools.GameTime = gameTime;
             switch (State)
             {
-                case State.Game:
+                case GameState.Game:
                     GameScene.Update();
                     IsMouseVisible = false;
                     graphics.ApplyChanges();
                     break;
-                case State.Shop:
+                case GameState.Shop:
                     Shop.Instance.Update();
                     IsMouseVisible = true;
                     graphics.ApplyChanges();
                     break;
-                case State.Menu:
+                case GameState.Menu:
                     Menu.Update(this);
                     IsMouseVisible = true;
                     graphics.ApplyChanges();
                     break;
-                case State.LoseScreen:
+                case GameState.LoseScreen:
                     LoseScreen.Update();
                     IsMouseVisible = true;
                     graphics.ApplyChanges();
                     break;
-                case State.Pause:
+                case GameState.Pause:
                     PauseMenu.Update();
                     IsMouseVisible = true;
                     graphics.ApplyChanges();
@@ -130,21 +110,21 @@ namespace ISU_ButTanksThisTime
 
             switch (State)
             {
-                case State.Game:
+                case GameState.Game:
                     GameScene.Draw(spriteBatch);
                     break;
-                case State.Shop:
+                case GameState.Shop:
                     GameScene.Draw(spriteBatch);
                     Shop.Instance.Draw(spriteBatch);
                     break;
-                case State.Menu:
+                case GameState.Menu:
                     Menu.Draw(spriteBatch);
                     break;
-                case State.LoseScreen:
+                case GameState.LoseScreen:
                     GameScene.Draw(spriteBatch);
                     LoseScreen.Draw(spriteBatch);
                     break;
-                case State.Pause:
+                case GameState.Pause:
                     GameScene.Draw(spriteBatch);
                     PauseMenu.Draw(spriteBatch);
                     break;

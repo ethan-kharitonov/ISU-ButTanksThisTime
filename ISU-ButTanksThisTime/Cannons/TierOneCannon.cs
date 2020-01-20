@@ -63,7 +63,7 @@ namespace ISU_ButTanksThisTime.Cannons
         /// <value>The bullet.</value>
         protected override Bullet Bullet { get; }
 
-        //// <summary>
+        /// <summary>
         /// Implements the <see cref="Cannon.Img"/> property
         /// </summary>
         /// <value>The TierOneCannon image</value>

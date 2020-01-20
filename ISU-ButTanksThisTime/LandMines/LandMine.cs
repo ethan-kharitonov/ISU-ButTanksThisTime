@@ -16,20 +16,19 @@ using Microsoft.Xna.Framework.Graphics;
 namespace ISU_ButTanksThisTime.LandMines
 {
     /// <summary>
-    /// Class LandMine.
+    /// Implements the core functionality of a land mine object.
     /// </summary>
     internal abstract class LandMine
     {
         protected readonly Animation[] Animations = new Animation[3];
         private int currentAnim;
-        private bool active;
         private readonly int radius;
         private readonly float explosionRadius;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LandMine"/> class.
         /// </summary>
-        /// <param name="radius">The radius.</param>
+        /// <param name="radius">The land mine radius.</param>
         /// <param name="explosionRadius">The explosion radius.</param>
         protected LandMine(int radius, float explosionRadius)
         {
@@ -38,23 +37,23 @@ namespace ISU_ButTanksThisTime.LandMines
         }
 
         /// <summary>
-        /// Updates this instance.
+        /// Updates the state of this land mine object.
         /// </summary>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if the land mine should be removed, i.e. if it was activated and finished animating, <c>false</c> otherwise.</returns>
         public bool Update()
         {
             Animations[currentAnim].Update(Tools.GameTime);
             if (currentAnim == 1 && !Animations[currentAnim].isAnimating)
             {
                 currentAnim = 2;
-                active = true;
+                IsActive = true;
             }
 
             return currentAnim == 2 && !Animations[currentAnim].isAnimating;
         }
 
         /// <summary>
-        /// Draws the specified sprite batch.
+        /// Draws this land mine.
         /// </summary>
         /// <param name="spriteBatch">The sprite batch.</param>
         public void Draw(SpriteBatch spriteBatch)
@@ -63,7 +62,7 @@ namespace ISU_ButTanksThisTime.LandMines
         }
 
         /// <summary>
-        /// Collides this instance.
+        /// Starts the animations upon collision with the player.
         /// </summary>
         public void Collide()
         {
@@ -71,7 +70,7 @@ namespace ISU_ButTanksThisTime.LandMines
         }
 
         /// <summary>
-        /// Gets the box.
+        /// Gets the bounding box corresponding to the current animation.
         /// </summary>
         /// <returns>RotatedRectangle.</returns>
         public RotatedRectangle GetBox()
@@ -82,9 +81,8 @@ namespace ISU_ButTanksThisTime.LandMines
         }
 
         /// <summary>
-        /// Gets the explosion area.
+        /// Gets the circle encompassing the explosion area.
         /// </summary>
-        /// <returns>Circle.</returns>
         public Circle GetExplosionArea()
         {
             var centre = Animations[currentAnim].destRec.Center.ToVector2();
@@ -92,9 +90,8 @@ namespace ISU_ButTanksThisTime.LandMines
         }
 
         /// <summary>
-        /// Determines whether this instance is active.
+        /// Indicates whether this land mine is active.
         /// </summary>
-        /// <returns><c>true</c> if this instance is active; otherwise, <c>false</c>.</returns>
-        public bool IsActive() => active;
+        public bool IsActive { get; private set; }
     }
 }

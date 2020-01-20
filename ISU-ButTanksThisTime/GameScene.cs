@@ -149,7 +149,7 @@ namespace ISU_ButTanksThisTime
 
             if (pauseBtn.Update())
             {
-                Game1.State = State.Pause;
+                TankGame.State = GameState.Pause;
             }
 
             inventory.Update();
@@ -159,7 +159,7 @@ namespace ISU_ButTanksThisTime
             trueBarrelBox.Height = (int) (trueBarrelBox.Height * 0.60);
             if (Tools.BoxBoxCollision(player.GetRotatedRectangle(), new RotatedRectangle(trueBarrelBox, 45, new Vector2(barrelBox.Width / 2f, barrelBox.Height / 2f))))
             {
-                Game1.State = State.Shop;
+                TankGame.State = GameState.Shop;
             }
 
             freeze = !freezeTimer.IsTimeUp(Tools.GameTime);
@@ -344,7 +344,7 @@ namespace ISU_ButTanksThisTime
                         landmine.Collide();
                     }
 
-                    if (landmine.IsActive() && Tools.CirclePointCollision(landmine.GetExplosionArea(), enemy.GetPos()))
+                    if (landmine.IsActive && Tools.CirclePointCollision(landmine.GetExplosionArea(), enemy.GetPos()))
                     {
                         enemy.Collide(landmine);
                     }

@@ -15,10 +15,11 @@ using Microsoft.Xna.Framework.Input;
 namespace ISU_ButTanksThisTime
 {
     /// <summary>
-    /// Class Button.
+    /// Represents the game button objects.
     /// </summary>
     internal class Button
     {
+        // The button properties, like color, text, box and image.
         private readonly Texture2D img;
         private Rectangle box;
         private string text;
@@ -27,9 +28,9 @@ namespace ISU_ButTanksThisTime
         /// <summary>
         /// Initializes a new instance of the <see cref="Button"/> class.
         /// </summary>
-        /// <param name="img">The img.</param>
-        /// <param name="box">The box.</param>
-        /// <param name="text">The text.</param>
+        /// <param name="img">The button image.</param>
+        /// <param name="box">The button box.</param>
+        /// <param name="text">The button text.</param>
         public Button(Texture2D img, Rectangle box, string text)
         {
             this.img = img;
@@ -38,35 +39,33 @@ namespace ISU_ButTanksThisTime
         }
 
         /// <summary>
-        /// Updates the specified active.
+        /// Updates the state of the button.
         /// </summary>
-        /// <param name="active">if set to <c>true</c> [active].</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public bool Update(bool active = true)
+        /// <param name="isEnabled">Indicates whether the button is enabled.</param>
+        /// <returns><c>true</c> if pressed, <c>false</c> otherwise.</returns>
+        public bool Update(bool isEnabled = true)
         {
-            if (!active)
+            if (!isEnabled)
             {
+                // disabled buttons cannot be pressed
                 color = Color.Red;
                 return false;
             }
 
             if (box.Contains(Mouse.GetState().Position))
             {
+                // pressed if the mouse inside and the left button is clicked
                 color = Color.LightGray;
-                if (Mouse.GetState().LeftButton == ButtonState.Pressed)
-                {
-                    return true;
-                }
-
-                return false;
+                return Mouse.GetState().LeftButton == ButtonState.Pressed;
             }
 
+            // enabled but not pressed
             color = Color.White;
             return false;
         }
 
         /// <summary>
-        /// Draws the specified sprite batch.
+        /// Draws the button.
         /// </summary>
         /// <param name="spriteBatch">The sprite batch.</param>
         public void Draw(SpriteBatch spriteBatch)
@@ -76,12 +75,9 @@ namespace ISU_ButTanksThisTime
         }
 
         /// <summary>
-        /// Changes the text.
+        /// Changes the button text.
         /// </summary>
         /// <param name="newText">The new text.</param>
-        public void ChangeText(string newText)
-        {
-            text = newText;
-        }
+        public void ChangeText(string newText) => text = newText;
     }
 }

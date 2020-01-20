@@ -8,7 +8,6 @@
 // ***********************************************************************
 // <summary></summary>
 // ***********************************************************************
-using System;
 using Animation2D;
 using ISU_ButTanksThisTime.Bullets;
 using ISU_ButTanksThisTime.Cannons;
@@ -59,9 +58,8 @@ namespace ISU_ButTanksThisTime.Tanks
         /// <summary>
         /// updates the player position, cannon, etc
         /// </summary>
-        /// <param name="NA">The na.</param>
-        /// <returns>Always false</returns>
-        public override bool Update(Vector2 NA)
+        /// <returns>Always <c>false</c></returns>
+        public override bool Update(Vector2 _)
         {
             //store the state of the keyboard
             var kb = Keyboard.GetState();
@@ -84,7 +82,7 @@ namespace ISU_ButTanksThisTime.Tanks
             //if player is dead go to loose screen
             if (Health <= 0)
             {
-                Game1.State = State.LoseScreen;
+                TankGame.State = GameState.LoseScreen;
             }
 
             return false;

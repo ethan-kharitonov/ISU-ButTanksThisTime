@@ -44,10 +44,10 @@ namespace ISU_ButTanksThisTime.Tanks
         /// <summary>
         /// Initializes a new instance of the <see cref="TierOneEnemy"/> class.
         /// </summary>
-        /// <param name="position">The inital position.</param>
+        /// <param name="position">The initial position.</param>
         /// <param name="path">The path.</param>
         /// <param name="stage">The stage.</param>
-        /// <param name="rotation">The inital rotation.</param>
+        /// <param name="rotation">The initial rotation.</param>
         /// <seealso cref="Tank"/>
         public TierOneEnemy(Vector2 position, List<Vector2> path, Stage stage, float rotation) : base(position, stage, VIEW_RANGE_OPTIONS[(int) stage], SPEED[(int) stage], ROTATION_SPEED[(int) stage], HEALTH[(int) stage], rotation)
         {
@@ -118,8 +118,8 @@ namespace ISU_ButTanksThisTime.Tanks
         /// <summary>
         /// creates an instance of TierOneEnemy
         /// </summary>
-        /// <param name="position">The inital position.</param>
-        /// <param name="rotation">The inital rotation.</param>
+        /// <param name="position">The initial position.</param>
+        /// <param name="rotation">The initial rotation.</param>
         /// <param name="stage">The stage.</param>
         /// <returns>the new TierOneEnemy</returns>
         /// <seealso cref="Tank.Clone(Vector2, float, Stage)"/>
