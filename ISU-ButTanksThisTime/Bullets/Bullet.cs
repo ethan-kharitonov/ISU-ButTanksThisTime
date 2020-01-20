@@ -3,7 +3,7 @@
 // Project Name  : ISU-ButTanksThisTime
 // Created Date  : 12-19-2019
 // Modified Date : 01-19-2020
-// Description   : Defines the Bullet class.
+// Description   : Implements the core functionality of bullet objects.
 using System;
 using Animation2D;
 using ISU_ButTanksThisTime.Shapes;

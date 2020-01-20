@@ -3,7 +3,7 @@
 // Project Name  : ISU-ButTanksThisTime
 // Created Date  : 12-19-2019
 // Modified Date : 01-19-2020
-// Description   : Defines the Cannon class.
+// Description   : Implements the base cannon type which points and shoots at a target and draws itself.
 using System;
 using ISU_ButTanksThisTime.Bullets;
 using ISU_ButTanksThisTime.Tanks;
@@ -13,7 +13,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace ISU_ButTanksThisTime.Cannons
 {
     /// <summary>
-    /// a cannon which points and shoots at a target and draws itslef
+    /// Implements the base cannon type which points and shoots at a target and draws itself.
     /// </summary>
     internal abstract class Cannon
     {

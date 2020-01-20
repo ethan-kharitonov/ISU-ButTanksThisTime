@@ -3,7 +3,7 @@
 // Project Name  : ISU-ButTanksThisTime
 // Created Date  : 12-19-2019
 // Modified Date : 01-19-2020
-// Description   : Defines the CoinItem class.
+// Description   : Implements the Coin collectible item.
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace ISU_ButTanksThisTime.Collectibles
 {
     /// <summary>
-    /// The Coin collectible item.
+    /// Implements the Coin collectible item.
     /// <para>
     /// Implements the <see cref="ISU_ButTanksThisTime.Collectibles.Item" /> abstract type.
     /// </para>

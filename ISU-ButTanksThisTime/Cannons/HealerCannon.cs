@@ -3,7 +3,7 @@
 // Project Name  : ISU-ButTanksThisTime
 // Created Date  : 12-19-2019
 // Modified Date : 01-19-2020
-// Description   : Defines the HealerCannon class.
+// Description   : Implements the cannon the healer enemy uses.
 using ISU_ButTanksThisTime.Bullets;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -11,8 +11,10 @@ using Microsoft.Xna.Framework.Graphics;
 namespace ISU_ButTanksThisTime.Cannons
 {
     /// <summary>
-    /// The cannon the healer enemy uses
+    /// Implements the cannon the healer enemy uses.
+    /// <para>
     /// Implements the <see cref="ISU_ButTanksThisTime.Cannons.Cannon" />
+    /// </para>
     /// </summary>
     /// <seealso cref="ISU_ButTanksThisTime.Cannons.Cannon" />
     internal class HealerCannon : Cannon

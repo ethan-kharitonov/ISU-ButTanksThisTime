@@ -3,7 +3,7 @@
 // Project Name  : ISU-ButTanksThisTime
 // Created Date  : 12-19-2019
 // Modified Date : 01-19-2020
-// Description   : Defines the TierFourCannon class.
+// Description   : Implements the cannon used by the tier four enemy (rotates and shoots).
 using ISU_ButTanksThisTime.Bullets;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -11,8 +11,10 @@ using Microsoft.Xna.Framework.Graphics;
 namespace ISU_ButTanksThisTime.Cannons
 {
     /// <summary>
-    /// The cannon used by the tier four enemy (rotates and shoots)
+    /// Implements the cannon used by the tier four enemy (rotates and shoots).
+    /// <para>
     /// Implements the <see cref="ISU_ButTanksThisTime.Cannons.Cannon" />
+    /// </para>
     /// </summary>
     /// <seealso cref="ISU_ButTanksThisTime.Cannons.Cannon" />
     internal class TierFourCannon : Cannon

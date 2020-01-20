@@ -3,7 +3,7 @@
 // Project Name  : ISU-ButTanksThisTime
 // Created Date  : 12-19-2019
 // Modified Date : 01-19-2020
-// Description   : Defines the BurstEnemy class.
+// Description   : Implements an enemy tank which shoots in bursts.
 using Animation2D;
 using ISU_ButTanksThisTime.Cannons;
 using Microsoft.Xna.Framework;
@@ -12,8 +12,10 @@ using Microsoft.Xna.Framework.Graphics;
 namespace ISU_ButTanksThisTime.Tanks
 {
     /// <summary>
-    /// an enemy tank whihc shoots in bursts
+    /// Implements an enemy tank which shoots in bursts.
+    /// <para>
     /// Implements the <see cref="ISU_ButTanksThisTime.Tanks.Tank" />
+    /// </para>
     /// </summary>
     /// <seealso cref="ISU_ButTanksThisTime.Tanks.Tank" />
     internal class BurstEnemy : Tank

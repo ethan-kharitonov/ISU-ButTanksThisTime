@@ -3,7 +3,7 @@
 // Project Name  : ISU-ButTanksThisTime
 // Created Date  : 12-19-2019
 // Modified Date : 01-19-2020
-// Description   : Defines the CannonInfo class.
+// Description   : Stores all the information about a cannon
 using ISU_ButTanksThisTime.Bullets;
 using Microsoft.Xna.Framework.Graphics;
 

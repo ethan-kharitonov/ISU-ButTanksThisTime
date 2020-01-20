@@ -3,14 +3,14 @@
 // Project Name  : ISU-ButTanksThisTime
 // Created Date  : 12-19-2019
 // Modified Date : 01-19-2020
-// Description   : Defines the CoinPileItem class.
+// Description   : Implements the Coin Pile collectible item.
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace ISU_ButTanksThisTime.Collectibles
 {
     /// <summary>
-    /// The Coin Pile collectible item.
+    /// Implements the Coin Pile collectible item.
     /// <para>
     /// Refines the <see cref="ISU_ButTanksThisTime.Collectibles.CoinItem" /> type.
     /// </para>

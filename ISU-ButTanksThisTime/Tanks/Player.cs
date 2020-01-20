@@ -3,7 +3,7 @@
 // Project Name  : ISU-ButTanksThisTime
 // Created Date  : 12-19-2019
 // Modified Date : 01-19-2020
-// Description   : Defines the Player class.
+// Description   : The tank controlled by the player.
 using Animation2D;
 using ISU_ButTanksThisTime.Bullets;
 using ISU_ButTanksThisTime.Cannons;
@@ -15,7 +15,7 @@ using Microsoft.Xna.Framework.Input;
 namespace ISU_ButTanksThisTime.Tanks
 {
     /// <summary>
-    /// the tank controlled by the player
+    /// The tank controlled by the player
     /// </summary>
     /// <seealso cref="ISU_ButTanksThisTime.Tanks.Tank" />
     internal class Player : Tank

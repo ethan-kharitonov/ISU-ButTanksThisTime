@@ -3,7 +3,7 @@
 // Project Name  : ISU-ButTanksThisTime
 // Created Date  : 12-19-2019
 // Modified Date : 01-19-2020
-// Description   : Defines the MedKit class.
+// Description   : Implements the Med Kit type.
 using System;
 using Animation2D;
 using ISU_ButTanksThisTime.Shapes;
@@ -13,7 +13,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace ISU_ButTanksThisTime.Bullets
 {
     /// <summary>
-    /// The Med Kit type.
+    /// Implements the Med Kit type.
     /// <para>
     /// Implements the <see cref="ISU_ButTanksThisTime.Bullets.Bullet" />
     /// </para>

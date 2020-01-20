@@ -9,7 +9,7 @@ using System;
 namespace ISU_ButTanksThisTime
 {
     /// <summary>
-    /// The main class.
+    /// The system entry point to the game.
     /// </summary>
     public static class Program
     {

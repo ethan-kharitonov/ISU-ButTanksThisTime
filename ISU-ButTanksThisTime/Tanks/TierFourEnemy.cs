@@ -3,7 +3,7 @@
 // Project Name  : ISU-ButTanksThisTime
 // Created Date  : 12-19-2019
 // Modified Date : 01-19-2020
-// Description   : Defines the TierFourEnemy class.
+// Description   : Implements an enemy tank which follows a path and shoots in a circle.
 using System;
 using System.Collections.Generic;
 using Animation2D;
@@ -14,8 +14,10 @@ using Microsoft.Xna.Framework.Graphics;
 namespace ISU_ButTanksThisTime.Tanks
 {
     /// <summary>
-    /// an enemy tank whihc follows a path and shoots in a circle
+    /// Implements an enemy tank which follows a path and shoots in a circle.
+    /// <para>
     /// Implements the <see cref="ISU_ButTanksThisTime.Tanks.Tank" />
+    /// </para>
     /// </summary>
     /// <seealso cref="ISU_ButTanksThisTime.Tanks.Tank" />
     internal class TierFourEnemy : Tank

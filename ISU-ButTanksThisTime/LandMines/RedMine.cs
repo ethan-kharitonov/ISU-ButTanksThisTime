@@ -3,7 +3,7 @@
 // Project Name  : ISU-ButTanksThisTime
 // Created Date  : 12-19-2019
 // Modified Date : 01-19-2020
-// Description   : Defines the RedMine class.
+// Description   : Implements the Red Mine type.
 using Animation2D;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace ISU_ButTanksThisTime.LandMines
 {
     /// <summary>
-    /// The Red Mine type.
+    /// Implements the Red Mine type.
     /// <para>
     /// Implements the <see cref="ISU_ButTanksThisTime.LandMines.LandMine" />
     /// </para>

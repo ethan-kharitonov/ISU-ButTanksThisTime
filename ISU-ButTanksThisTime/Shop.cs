@@ -3,7 +3,7 @@
 // Project Name  : ISU-ButTanksThisTime
 // Created Date  : 12-19-2019
 // Modified Date : 01-19-2020
-// Description   : Defines the Shop class.
+// Description   : Implements the shop where different cannons can be purchased.
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ISU_ButTanksThisTime.Cannons;
@@ -11,7 +11,7 @@ using ISU_ButTanksThisTime.Cannons;
 namespace ISU_ButTanksThisTime
 {
     /// <summary>
-    /// a game state where the player could buy different cannons
+    /// Implements the shop where different cannons can be purchased.
     /// </summary>
     internal class Shop
     {

@@ -3,14 +3,14 @@
 // Project Name  : ISU-ButTanksThisTime
 // Created Date  : 12-19-2019
 // Modified Date : 01-19-2020
-// Description   : Defines the RotatedRectangle class.
+// Description   : Implements a box rotated at a certain angle relative to the given origin.
 using System;
 using Microsoft.Xna.Framework;
 
 namespace ISU_ButTanksThisTime.Shapes
 {
     /// <summary>
-    /// Represents a box rotated at a certain angle relative to the given origin.
+    /// Implements a box rotated at a certain angle relative to the given origin.
     /// </summary>
     public class RotatedRectangle
     {

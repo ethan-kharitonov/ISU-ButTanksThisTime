@@ -3,14 +3,14 @@
 // Project Name  : ISU-ButTanksThisTime
 // Created Date  : 12-19-2019
 // Modified Date : 01-19-2020
-// Description   : Defines the Menu class.
+// Description   : The main game menu.
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace ISU_ButTanksThisTime
 {
     /// <summary>
-    /// the main menu of the game
+    /// The main game menu.
     /// </summary>
     internal static class Menu
     {

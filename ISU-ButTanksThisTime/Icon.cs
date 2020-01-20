@@ -3,7 +3,7 @@
 // Project Name  : ISU-ButTanksThisTime
 // Created Date  : 12-19-2019
 // Modified Date : 01-19-2020
-// Description   : Defines the Icon class.
+// Description   : Implements icons associated with collectible items.
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -13,7 +13,7 @@ using ISU_ButTanksThisTime.Collectibles;
 namespace ISU_ButTanksThisTime
 {
     /// <summary>
-    /// Class Icon.
+    /// Implements icons associated with collectible items.
     /// </summary>
     internal class Icon
     {

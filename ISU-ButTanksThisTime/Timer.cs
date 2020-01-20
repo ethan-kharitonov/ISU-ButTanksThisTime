@@ -3,7 +3,7 @@
 // Project Name  : ISU-ButTanksThisTime
 // Created Date  : 12-19-2019
 // Modified Date : 01-19-2020
-// Description   : Defines the Timer class.
+// Description   : Simplifies measuring time intervals.
 using Microsoft.Xna.Framework;
 
 namespace ISU_ButTanksThisTime

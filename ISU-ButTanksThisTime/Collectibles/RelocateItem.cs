@@ -3,14 +3,14 @@
 // Project Name  : ISU-ButTanksThisTime
 // Created Date  : 12-19-2019
 // Modified Date : 01-19-2020
-// Description   : Defines the RelocateItem class.
+// Description   : Implements the RelocateItem collectible item.
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace ISU_ButTanksThisTime.Collectibles
 {
     /// <summary>
-    /// The RelocateItem collectible item.
+    /// Implements the RelocateItem collectible item.
     /// <para>
     /// Implements the <see cref="ISU_ButTanksThisTime.Collectibles.Item" /> abstract type.
     /// </para>

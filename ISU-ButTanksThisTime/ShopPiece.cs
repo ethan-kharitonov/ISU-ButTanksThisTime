@@ -3,7 +3,7 @@
 // Project Name  : ISU-ButTanksThisTime
 // Created Date  : 12-19-2019
 // Modified Date : 01-19-2020
-// Description   : Defines the ShopPiece class.
+// Description   : Implements pieces that can be purchased in the shop. Each piece is associated with a different cannon type.
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ISU_ButTanksThisTime.Cannons;
@@ -11,7 +11,7 @@ using ISU_ButTanksThisTime.Cannons;
 namespace ISU_ButTanksThisTime
 {
     /// <summary>
-    /// Class ShopPiece.
+    /// Implements pieces that can be purchased in the shop. Each piece is associated with a different cannon type.
     /// </summary>
     internal class ShopPiece
     {

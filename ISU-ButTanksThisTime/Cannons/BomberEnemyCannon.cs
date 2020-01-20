@@ -3,7 +3,7 @@
 // Project Name  : ISU-ButTanksThisTime
 // Created Date  : 12-19-2019
 // Modified Date : 01-19-2020
-// Description   : Defines the BomberEnemyCannon class.
+// Description   : Implements a dummy cannon that is used by the BomberEnemy.
 using ISU_ButTanksThisTime.Bullets;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -11,8 +11,10 @@ using Microsoft.Xna.Framework.Graphics;
 namespace ISU_ButTanksThisTime.Cannons
 {
     /// <summary>
-    /// Class BomberEnemyCannon.
+    /// Implements a dummy cannon that is used by the <see cref="BomberEnemy" />.
+    /// <para>
     /// Implements the <see cref="ISU_ButTanksThisTime.Cannons.Cannon" />
+    /// </para>
     /// </summary>
     /// <seealso cref="ISU_ButTanksThisTime.Cannons.Cannon" />
     internal class BomberEnemyCannon : Cannon

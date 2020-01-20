@@ -3,7 +3,7 @@
 // Project Name  : ISU-ButTanksThisTime
 // Created Date  : 12-19-2019
 // Modified Date : 01-19-2020
-// Description   : Defines the LoseScreen class.
+// Description   : Implements the screen shown when the game is over
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 

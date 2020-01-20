@@ -3,14 +3,14 @@
 // Project Name  : ISU-ButTanksThisTime
 // Created Date  : 12-19-2019
 // Modified Date : 01-19-2020
-// Description   : Defines the HealthBar class.
+// Description   : Implements the health bar showing graphically the health of the player and enemies.
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace ISU_ButTanksThisTime
 {
     /// <summary>
-    /// Class HealthBar.
+    /// Implements the health bar showing graphically the health of the player and enemies.
     /// </summary>
     internal class HealthBar
     {

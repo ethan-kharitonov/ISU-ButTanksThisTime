@@ -3,7 +3,7 @@
 // Project Name  : ISU-ButTanksThisTime
 // Created Date  : 12-19-2019
 // Modified Date : 01-19-2020
-// Description   : Defines the BurstCannon class.
+// Description   : Implements the cannon that shoots in bursts.
 using ISU_ButTanksThisTime.Bullets;
 using ISU_ButTanksThisTime.Tanks;
 using Microsoft.Xna.Framework;
@@ -12,8 +12,10 @@ using Microsoft.Xna.Framework.Graphics;
 namespace ISU_ButTanksThisTime.Cannons
 {
     /// <summary>
-    /// Class BurstCannon.
+    /// Implements the cannon that shoots in bursts.
+    /// <para>
     /// Implements the <see cref="ISU_ButTanksThisTime.Cannons.Cannon" />
+    /// </para>
     /// </summary>
     /// <seealso cref="ISU_ButTanksThisTime.Cannons.Cannon" />
     internal class BurstCannon : Cannon

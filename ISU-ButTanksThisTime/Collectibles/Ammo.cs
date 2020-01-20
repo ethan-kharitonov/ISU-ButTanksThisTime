@@ -3,7 +3,7 @@
 // Project Name  : ISU-ButTanksThisTime
 // Created Date  : 12-19-2019
 // Modified Date : 01-19-2020
-// Description   : Defines the Ammo class.
+// Description   : Implements the Ammo collectible item.
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace ISU_ButTanksThisTime.Collectibles
 {
     /// <summary>
-    /// The Ammo collectible item.
+    /// Implements the Ammo collectible item.
     /// <para>
     /// Implements the <see cref="ISU_ButTanksThisTime.Collectibles.Item" /> abstract type.
     /// </para>

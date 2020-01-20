@@ -3,7 +3,7 @@
 // Project Name  : ISU-ButTanksThisTime
 // Created Date  : 12-19-2019
 // Modified Date : 01-19-2020
-// Description   : Defines the Camera class
+// Description   : Implements the camera objects.
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Input;
 namespace ISU_ButTanksThisTime
 {
     /// <summary>
-    /// Represents the camera objects.
+    /// Implements the camera objects.
     /// </summary>
     internal class Camera
     {

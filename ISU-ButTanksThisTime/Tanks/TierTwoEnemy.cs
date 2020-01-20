@@ -3,7 +3,7 @@
 // Project Name  : ISU-ButTanksThisTime
 // Created Date  : 12-19-2019
 // Modified Date : 01-19-2020
-// Description   : Defines the TierTwoEnemy class.
+// Description   : Implements an enemy tank which drops mines at random spots on the map.
 using System;
 using Animation2D;
 using ISU_ButTanksThisTime.Cannons;
@@ -14,8 +14,10 @@ using Microsoft.Xna.Framework.Graphics;
 namespace ISU_ButTanksThisTime.Tanks
 {
     /// <summary>
-    /// An enemy tank which drops mines at random spots on the map
+    /// Implements an enemy tank which drops mines at random spots on the map.
+    /// <para>
     /// Implements the <see cref="ISU_ButTanksThisTime.Tanks.Tank" />
+    /// </para>
     /// </summary>
     /// <seealso cref="ISU_ButTanksThisTime.Tanks.Tank" />
     internal class TierTwoEnemy : Tank

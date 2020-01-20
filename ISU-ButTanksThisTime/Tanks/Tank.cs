@@ -3,7 +3,7 @@
 // Project Name  : ISU-ButTanksThisTime
 // Created Date  : 12-19-2019
 // Modified Date : 01-19-2020
-// Description   : Defines the Tank class.
+// Description   : The base implementation of tank.
 using Animation2D;
 using ISU_ButTanksThisTime.Bullets;
 using ISU_ButTanksThisTime.Cannons;
@@ -30,7 +30,7 @@ namespace ISU_ButTanksThisTime.Tanks
     }
 
     /// <summary>
-    /// Class Tank.
+    /// The base implementation of tank.
     /// </summary>
     internal abstract class Tank
     {

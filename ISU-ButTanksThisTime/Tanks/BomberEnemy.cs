@@ -3,7 +3,7 @@
 // Project Name  : ISU-ButTanksThisTime
 // Created Date  : 12-19-2019
 // Modified Date : 01-19-2020
-// Description   : Defines the BomberEnemy class.
+// Description   : Implements an enemy tank which does not shoot, but charges towards the player.
 using Animation2D;
 using ISU_ButTanksThisTime.Bullets;
 using ISU_ButTanksThisTime.Cannons;
@@ -14,8 +14,10 @@ using Microsoft.Xna.Framework.Graphics;
 namespace ISU_ButTanksThisTime.Tanks
 {
     /// <summary>
-    /// an enemy tank whihc does not shoot but charges towards the player
+    /// Implements an enemy tank which does not shoot, but charges towards the player.
+    /// <para>
     /// Implements the <see cref="ISU_ButTanksThisTime.Tanks.Tank" />
+    /// </para>
     /// </summary>
     /// <seealso cref="ISU_ButTanksThisTime.Tanks.Tank" />
     internal class BomberEnemy : Tank

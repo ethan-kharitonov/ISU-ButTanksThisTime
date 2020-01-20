@@ -3,7 +3,7 @@
 // Project Name  : ISU-ButTanksThisTime
 // Created Date  : 12-19-2019
 // Modified Date : 01-19-2020
-// Description   : Defines the FireBullet class.
+// Description   : Implements the Fire Bullet type.
 using Animation2D;
 using ISU_ButTanksThisTime.Tanks;
 using Microsoft.Xna.Framework;
@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace ISU_ButTanksThisTime.Bullets
 {
     /// <summary>
-    /// The Fire Bullet type.
+    /// Implements the Fire Bullet type.
     /// <para>
     /// Implements the <see cref="ISU_ButTanksThisTime.Bullets.Bullet" />
     /// </para>

@@ -3,7 +3,7 @@
 // Project Name  : ISU-ButTanksThisTime
 // Created Date  : 12-19-2019
 // Modified Date : 01-19-2020
-// Description   : Defines the Inventory class.
+// Description   : Stores all the items that the player has collected.
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ using ISU_ButTanksThisTime.Collectibles;
 namespace ISU_ButTanksThisTime
 {
     /// <summary>
-    /// stores the items the player has collected.
+    /// Stores all the items that the player has collected.
     /// </summary>
     internal class Inventory
     {

@@ -3,13 +3,13 @@
 // Project Name  : ISU-ButTanksThisTime
 // Created Date  : 12-19-2019
 // Modified Date : 01-19-2020
-// Description   : Defines the Circle class.
+// Description   : Implements circle objects.
 using Microsoft.Xna.Framework;
 
 namespace ISU_ButTanksThisTime.Shapes
 {
     /// <summary>
-    /// Represents circle objects.
+    /// Implements circle objects.
     /// </summary>
     public class Circle
     {

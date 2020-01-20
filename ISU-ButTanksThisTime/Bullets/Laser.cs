@@ -3,7 +3,7 @@
 // Project Name  : ISU-ButTanksThisTime
 // Created Date  : 12-19-2019
 // Modified Date : 01-19-2020
-// Description   : Defines the Laser class.
+// Description   : Implements the Laser type of a bullet.
 using Animation2D;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace ISU_ButTanksThisTime.Bullets
 {
     /// <summary>
-    /// The Laser type.
+    /// Implements the Laser type of a bullet.
     /// <para>
     /// Implements the <see cref="ISU_ButTanksThisTime.Bullets.Bullet" />
     /// </para>
