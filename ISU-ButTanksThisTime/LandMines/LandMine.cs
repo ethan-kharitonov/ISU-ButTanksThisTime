@@ -20,8 +20,16 @@ namespace ISU_ButTanksThisTime.LandMines
     /// </summary>
     internal abstract class LandMine
     {
+
+        //the index for the triggered and explode animation
+        private const int TRIGGERED_ANIM = 1;
+        private const int EXPLODE_ANIM = 2;
+
+        //store the idle, triggered and exploding animation and the current animation
         protected readonly Animation[] Animations = new Animation[3];
         private int currentAnim;
+
+        //store the raduis of the land mine and the raduis of the area effected by its explosion
         private readonly int radius;
         private readonly float explosionRadius;
 
@@ -32,6 +40,7 @@ namespace ISU_ButTanksThisTime.LandMines
         /// <param name="explosionRadius">The explosion radius.</param>
         protected LandMine(int radius, float explosionRadius)
         {
+            //save raduis and explosion raduis to local variables
             this.radius = radius;
             this.explosionRadius = explosionRadius;
         }
@@ -42,14 +51,19 @@ namespace ISU_ButTanksThisTime.LandMines
         /// <returns><c>true</c> if the land mine should be removed, i.e. if it was activated and finished animating, <c>false</c> otherwise.</returns>
         public bool Update()
         {
+            //update the current animation
             Animations[currentAnim].Update(Tools.GameTime);
-            if (currentAnim == 1 && !Animations[currentAnim].isAnimating)
+
+            // if triggered is done animating set 
+            if (currentAnim == TRIGGERED_ANIM && !Animations[currentAnim].isAnimating)
             {
-                currentAnim = 2;
+                //set current animation to explode animation and set active to true
+                currentAnim = EXPLODE_ANIM;
                 IsActive = true;
             }
 
-            return currentAnim == 2 && !Animations[currentAnim].isAnimating;
+            //returs true if done animating its last stage
+            return currentAnim == EXPLODE_ANIM && !Animations[currentAnim].isAnimating;
         }
 
         /// <summary>
@@ -58,6 +72,7 @@ namespace ISU_ButTanksThisTime.LandMines
         /// <param name="spriteBatch">The sprite batch.</param>
         public void Draw(SpriteBatch spriteBatch)
         {
+            //draw the current animation
             Animations[currentAnim].Draw(spriteBatch, Color.White, SpriteEffects.None);
         }
 
@@ -66,6 +81,7 @@ namespace ISU_ButTanksThisTime.LandMines
         /// </summary>
         public void Collide()
         {
+            //if the land mine was nit previously animating set it to triggered
             currentAnim = currentAnim == 0 ? 1 : currentAnim;
         }
 

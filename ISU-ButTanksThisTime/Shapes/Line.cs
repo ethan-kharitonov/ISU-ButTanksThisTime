@@ -33,6 +33,7 @@ namespace ISU_ButTanksThisTime.Shapes
         /// <param name="endPoint">The end point.</param>
         public Line(Vector2 startPoint, Vector2 endPoint)
         {
+            //store start and end points to member variables
             StartPoint = startPoint;
             EndPoint = endPoint;
         }

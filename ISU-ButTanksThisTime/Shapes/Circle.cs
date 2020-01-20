@@ -33,6 +33,7 @@ namespace ISU_ButTanksThisTime.Shapes
         /// <param name="radius">The circle radius.</param>
         public Circle(Vector2 centre, float radius)
         {
+            //store given centre and raius to member variables
             Centre = centre;
             Radius = radius;
         }

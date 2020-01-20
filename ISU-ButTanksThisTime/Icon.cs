@@ -112,13 +112,5 @@ namespace ISU_ButTanksThisTime
         /// <returns>System.Int32.</returns>
         public int GetQuantity() => quantity;
 
-        /// <summary>
-        /// Decreases the quantity.
-        /// </summary>
-        /// <param name="amount">The amount.</param>
-        public void DecreaseQuantity(int amount)
-        {
-            quantity -= amount;
-        }
     }
 }

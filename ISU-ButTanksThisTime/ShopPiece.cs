@@ -58,7 +58,7 @@ namespace ISU_ButTanksThisTime
             var canBuy = GameScene.GetCurrentCredit() >= price;
             if (button.Update(canBuy))
             {
-                GameScene.GivePlayerNewCannon(rewardInfo.Cannon);
+                GameScene.GivePlayerNewCannon(rewardInfo.Cannon, price);
                 button.ChangeText("ACTIVE");
                 price = 0;
                 return true;

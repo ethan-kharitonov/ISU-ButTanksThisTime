@@ -19,7 +19,7 @@ namespace ISU_ButTanksThisTime
     /// </summary>
     internal class Button
     {
-        // The button properties, like color, text, box and image.
+        // The button image, rectangle, text and color
         private readonly Texture2D img;
         private Rectangle box;
         private string text;
@@ -33,6 +33,7 @@ namespace ISU_ButTanksThisTime
         /// <param name="text">The button text.</param>
         public Button(Texture2D img, Rectangle box, string text)
         {
+            //save the image, rectangle and text to member variables
             this.img = img;
             this.box = box;
             this.text = text;
@@ -45,17 +46,23 @@ namespace ISU_ButTanksThisTime
         /// <returns><c>true</c> if pressed, <c>false</c> otherwise.</returns>
         public bool Update(bool isEnabled = true)
         {
+            //check if button disabled
             if (!isEnabled)
             {
-                // disabled buttons cannot be pressed
+                //change color to red to indicate its disabled
                 color = Color.Red;
+
+                //return button is not pressed
                 return false;
             }
 
+            //check if the mouse is on the button
             if (box.Contains(Mouse.GetState().Position))
             {
-                // pressed if the mouse inside and the left button is clicked
+                //change color to grey to indicate it can be pressed
                 color = Color.LightGray;
+
+                //return true if the mouse was pressed
                 return Mouse.GetState().LeftButton == ButtonState.Pressed;
             }
 
@@ -70,6 +77,7 @@ namespace ISU_ButTanksThisTime
         /// <param name="spriteBatch">The sprite batch.</param>
         public void Draw(SpriteBatch spriteBatch)
         {
+            //draw the button and the text on th centre of the screen
             spriteBatch.Draw(img, box, color);
             spriteBatch.DrawString(Tools.Font, text, box.Center.ToVector2() - Tools.Font.MeasureString(text) / 2f, color);
         }

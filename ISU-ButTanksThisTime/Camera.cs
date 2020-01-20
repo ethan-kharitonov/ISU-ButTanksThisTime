@@ -21,7 +21,11 @@ namespace ISU_ButTanksThisTime
     {
         public Matrix Transform;
         private Viewport viewport;
-        private float zoom = 1;
+
+        //indicates how zoomed in the camera is
+        private const float ZOOM = 1;
+
+        public static float ZOOM1 => ZOOM;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Camera"/> class.
@@ -35,20 +39,12 @@ namespace ISU_ButTanksThisTime
         /// <param name="target">The target to point the Camera to.</param>
         public void Update(Vector2 target)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.O))
-            {
-                zoom += 0.01f;
-            }
-
-            if (Keyboard.GetState().IsKeyDown(Keys.L))
-            {
-                zoom -= 0.01f;
-            }
-
+            //keep the camera on the map
             target.X = MathHelper.Clamp(target.X, Tools.ArenaBounds.Left + Tools.Screen.Width / 2, Tools.ArenaBounds.Right - Tools.Screen.Width / 2);
             target.Y = MathHelper.Clamp(target.Y, Tools.ArenaBounds.Top + Tools.Screen.Height / 2, Tools.ArenaBounds.Bottom - Tools.Screen.Height / 2);
 
-            Transform = Matrix.CreateTranslation(new Vector3(-target.X, -target.Y, 0)) * Matrix.CreateScale(new Vector3(zoom, zoom, 0)) * Matrix.CreateTranslation(new Vector3(viewport.Width / 2F, viewport.Height / 2F, 0));
+            //update the camera transform
+            Transform = Matrix.CreateTranslation(new Vector3(-target.X, -target.Y, 0)) * Matrix.CreateScale(new Vector3(ZOOM, ZOOM, 0)) * Matrix.CreateTranslation(new Vector3(viewport.Width / 2F, viewport.Height / 2F, 0));
         }
     }
 }

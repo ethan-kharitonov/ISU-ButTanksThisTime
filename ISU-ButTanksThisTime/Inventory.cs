@@ -84,9 +84,11 @@ namespace ISU_ButTanksThisTime
         public int GetCurrentCredit() => icons[ItemType.Coin].GetQuantity();
 
         /// <summary>
-        /// Pays this instance.
+        /// pays a certain amount of coins
         /// </summary>
-        public void Pay() => icons[ItemType.Coin].GetQuantity();
+        /// <param name="price">the amount to pay</param>
+        public void Pay(int price) => icons[ItemType.Coin].Add(-price);
+
 
         /// <summary>
         /// Ares any bullets left.
@@ -99,7 +101,7 @@ namespace ISU_ButTanksThisTime
         /// </summary>
         public void RemoveBullet()
         {
-            icons[ItemType.Ammo].DecreaseQuantity(1);
+            icons[ItemType.Ammo].Add(-1);
         }
     }
 }

@@ -43,17 +43,22 @@ namespace ISU_ButTanksThisTime.Shapes
         /// <param name="origin">The rotation origin.</param>
         public RotatedRectangle(Rectangle box, float rotation, Vector2 origin)
         {
+            //adjast the box position to match the picture on screen
             box.X -= (int) origin.X;
             box.Y -= (int) origin.Y;
+
+            //stores the centre of the given box to a member variable
             box.Center.ToVector2();
 
+            //calculate the angle and distance from the centre to top right corner
             var originalAngle = Math.Atan2(-box.Height / 2.0, box.Width / 2.0);
             double distance = new Vector2(box.Height / 2f, box.Width / 2f).Length();
 
-            TopRight = CalcVertex(originalAngle, rotation, distance, box.Center.ToVector2());
-            TopLeft = CalcVertex(MathHelper.ToRadians(180) - originalAngle, rotation, distance, box.Center.ToVector2());
-            BottomRight = CalcVertex(-originalAngle, rotation, distance, box.Center.ToVector2());
-            BottomLeft = CalcVertex(MathHelper.ToRadians(180) + originalAngle, rotation, distance, box.Center.ToVector2());
+            //calculates the coordinates of the corners
+            TopRight = CalcCorner(originalAngle, rotation, distance, box.Center.ToVector2());
+            TopLeft = CalcCorner(MathHelper.ToRadians(180) - originalAngle, rotation, distance, box.Center.ToVector2());
+            BottomRight = CalcCorner(-originalAngle, rotation, distance, box.Center.ToVector2());
+            BottomLeft = CalcCorner(MathHelper.ToRadians(180) + originalAngle, rotation, distance, box.Center.ToVector2());
         }
 
         /// <summary>
@@ -64,13 +69,17 @@ namespace ISU_ButTanksThisTime.Shapes
         /// <param name="distFromCentre">The distance from the box centre.</param>
         /// <param name="centre">The box centre.</param>
         /// <returns>Vector2.</returns>
-        private static Vector2 CalcVertex(double originalAngle, double rotation, double distFromCentre, Vector2 centre)
+        private static Vector2 CalcCorner(double originalAngle, double rotation, double distFromCentre, Vector2 centre)
         {
-            var vertex = new Vector2((float) Math.Cos(originalAngle + rotation), (float) -Math.Sin(originalAngle + rotation));
-            vertex *= (float) distFromCentre;
-            vertex += centre;
+            //calculate the coordiantes of the corner from the centre
+            var corner = new Vector2((float) Math.Cos(originalAngle + rotation), (float) -Math.Sin(originalAngle + rotation));
+            corner *= (float) distFromCentre;
+            
+            //add the coordinates of the centre
+            corner += centre;
 
-            return vertex;
+            //return the coordinats of the corner
+            return corner;
         }
     }
 }
