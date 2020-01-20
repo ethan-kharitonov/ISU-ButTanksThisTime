@@ -21,30 +21,34 @@ namespace ISU_ButTanksThisTime.Cannons
     /// <seealso cref="ISU_ButTanksThisTime.Cannons.Cannon" />
     internal class BomberEnemyCannon : Cannon
     {
+        //the time between shots (not aplicable at this case)
         private const int FIRE_RATE = 0;
+
+        //stores wether this cannon shoots
         private const bool ACTIVE = false;
 
-        // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
+        //stores the possible rotation speeds of this cannon
         private static readonly int[] ROTATION_SPEED = {5, 6, 7};
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BomberEnemyCannon"/> class.
         /// </summary>
         /// <param name="stage">The stage.</param>
-        /// <param name="position">The position.</param>
-        /// <param name="rotation">The rotation.</param>
+        /// <param name="position">The inital position.</param>
+        /// <param name="rotation">The inital rotation.</param>
         public BomberEnemyCannon(Stage stage, Vector2 position, float rotation) : base(FIRE_RATE, ROTATION_SPEED[(int) stage], ACTIVE, position, rotation) => 
-            Img = Tools.Content.Load<Texture2D>("Images/Sprites/Cannons/Inactive/I" + ((int) stage + 1));
+            Img = Tools.Content.Load<Texture2D>("Images/Sprites/Cannons/Inactive/I" + ((int) stage + 1)); //implements the image of the cannon
 
         /// <summary>
-        /// Gets the bullet.
+        /// Implements the <see cref="Cannon.Bullet"/> property
         /// </summary>
-        /// <value>The bullet.</value>
+        /// <value>Always <c>null</c></value>
         protected override Bullet Bullet => null;
+        
         /// <summary>
-        /// Gets the img.
+        /// Implements the <see cref="Cannon.Img"/> property
         /// </summary>
-        /// <value>The img.</value>
+        /// <value>The bomberEnemyCannon image</value>
         protected override Texture2D Img { get; }
     }
 }

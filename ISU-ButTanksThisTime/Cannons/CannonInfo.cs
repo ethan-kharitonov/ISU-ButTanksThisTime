@@ -14,16 +14,29 @@ using Microsoft.Xna.Framework.Graphics;
 namespace ISU_ButTanksThisTime.Cannons
 {
     /// <summary>
-    /// Class CannonInfo.
+    /// Stores all the information about a cannon
     /// </summary>
     internal class CannonInfo
     {
+        //Time between shoots
         public readonly int FireRate;
+
+        //How fast it rotates
         public readonly int RotationSpeed;
+
+        //the image of the cannon
         public readonly Texture2D Img;
+
+        //the information about the bullet it shoots
         public readonly BulletTypeInfo Bullet;
+
+        //a void object of that cannon
         public readonly Cannon Cannon;
+
+        //the time between bursts (if applicable)
         public readonly int? BurstRate;
+
+        //the duration of its bursts (if applicable)
         public readonly int? BurstDuration;
 
         /// <summary>
@@ -40,6 +53,7 @@ namespace ISU_ButTanksThisTime.Cannons
             Cannon cannon,
             int? burstRate = null, int? burstDuration = null)
         {
+            //saves all the given data to member variables
             FireRate = fireRate;
             RotationSpeed = rotationSpeed;
             Img = img;

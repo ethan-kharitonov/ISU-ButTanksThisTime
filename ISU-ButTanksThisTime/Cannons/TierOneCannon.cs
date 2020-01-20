@@ -16,23 +16,28 @@ using Microsoft.Xna.Framework.Graphics;
 namespace ISU_ButTanksThisTime.Cannons
 {
     /// <summary>
-    /// Class TierOneCannon.
+    /// The cannon used by the tier one enemy
     /// Implements the <see cref="ISU_ButTanksThisTime.Cannons.Cannon" />
     /// </summary>
     /// <seealso cref="ISU_ButTanksThisTime.Cannons.Cannon" />
     internal class TierOneCannon : Cannon
     {
+        //The cannon info for this type
+        public static readonly CannonInfo Info;
+
+        //the possible time between rotations and rotation speed for this type of cannon
         private static readonly int[] fireRate = {1000, 800, 700, 300};
         private static readonly int[] rotationSpeed = {3, 4, 5, 4};
-        private const bool ACTIVE = false;
 
-        public static readonly CannonInfo Info;
+        //sets cannon active to false
+        private const bool ACTIVE = false;
 
         /// <summary>
         /// Initializes static members of the <see cref="TierOneCannon"/> class.
         /// </summary>
         static TierOneCannon()
         {
+            //populates the cannon info
             var cannonImg = Tools.Content.Load<Texture2D>("Images/Sprites/Cannons/TierOne/T1P4");
             Info = new CannonInfo(500, 3, cannonImg, MediumBullet.Info, new TierOneCannon(Owner.Player, Stage.Player, default, 0));
         }
@@ -42,25 +47,26 @@ namespace ISU_ButTanksThisTime.Cannons
         /// </summary>
         /// <param name="owner">The owner.</param>
         /// <param name="stage">The stage.</param>
-        /// <param name="position">The position.</param>
-        /// <param name="rotation">The rotation.</param>
+        /// <param name="position">The inital position.</param>
+        /// <param name="rotation">The inital rotation.</param>
         public TierOneCannon(Owner owner, Stage stage, Vector2 position, float rotation) : base(fireRate[(int) stage], rotationSpeed[(int) stage], ACTIVE, position, rotation)
         {
+            //Implements the cannon image and bullet
             Img = Tools.Content.Load<Texture2D>("Images/Sprites/Cannons/TierOne/T1P" + ((int) stage + 1));
             Bullet = new MediumBullet(Vector2.Zero, 0, Tank.IMG_SCALE_FACTOR, owner);
         }
 
 
         /// <summary>
-        /// Gets the bullet.
+        ///  Implements the <see cref="Cannon.Bullet"/> property
         /// </summary>
         /// <value>The bullet.</value>
         protected override Bullet Bullet { get; }
 
-        /// <summary>
-        /// Gets the img.
+        //// <summary>
+        /// Implements the <see cref="Cannon.Img"/> property
         /// </summary>
-        /// <value>The img.</value>
+        /// <value>The TierOneCannon image</value>
         protected override Texture2D Img { get; }
     }
 }

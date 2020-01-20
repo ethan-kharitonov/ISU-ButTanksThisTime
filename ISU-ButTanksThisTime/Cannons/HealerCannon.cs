@@ -15,13 +15,13 @@ using Microsoft.Xna.Framework.Graphics;
 namespace ISU_ButTanksThisTime.Cannons
 {
     /// <summary>
-    /// Class HealerCannon.
+    /// The cannon the healer enemy uses
     /// Implements the <see cref="ISU_ButTanksThisTime.Cannons.Cannon" />
     /// </summary>
     /// <seealso cref="ISU_ButTanksThisTime.Cannons.Cannon" />
     internal class HealerCannon : Cannon
     {
-        // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
+        //The possible rotation speeds of this type of cannon
         private static readonly int[] ROTATION_SPEED = {5, 6, 7};
 
 
@@ -29,21 +29,21 @@ namespace ISU_ButTanksThisTime.Cannons
         /// Initializes a new instance of the <see cref="HealerCannon"/> class.
         /// </summary>
         /// <param name="stage">The stage.</param>
-        /// <param name="position">The position.</param>
-        /// <param name="rotation">The rotation.</param>
+        /// <param name="position">The inital position.</param>
+        /// <param name="rotation">The inital rotation.</param>
         public HealerCannon(Stage stage, Vector2 position, float rotation) : base(0, ROTATION_SPEED[(int) stage], false, position, rotation) => 
-            Img = Tools.Content.Load<Texture2D>("Images/Sprites/Cannons/Healer/H" + ((int) stage + 1));
+            Img = Tools.Content.Load<Texture2D>("Images/Sprites/Cannons/Healer/H" + ((int) stage + 1)); //implements the image of the cannon
 
         /// <summary>
-        /// Gets the bullet.
+        ///  Implements the <see cref="Cannon.Bullet"/> property
         /// </summary>
         /// <value>The bullet.</value>
         protected override Bullet Bullet => null;
 
         /// <summary>
-        /// Gets the img.
+        /// Implements the <see cref="Cannon.Img"/> property
         /// </summary>
-        /// <value>The img.</value>
+        /// <value>The HealerCannon image</value>
         protected override Texture2D Img { get; }
     }
 }
