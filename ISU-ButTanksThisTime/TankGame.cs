@@ -21,6 +21,7 @@ namespace ISU_ButTanksThisTime
         private readonly GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
 
+        //the main game
         public static GameState State = GameState.Menu;
 
         /// <summary>
@@ -51,13 +52,17 @@ namespace ISU_ButTanksThisTime
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            //loads all tools data (see Tools)
             Tools.Screen = GraphicsDevice.Viewport.Bounds;
             Tools.Graphics = GraphicsDevice;
             Tools.Content = Content;
             Tools.ButtonImg = Content.Load<Texture2D>("Images/Sprites/UI/Button BG shadow");
+            Tools.Font = Content.Load<SpriteFont>("Fonts/File");
+
+            //loads the game scene
             GameScene.LoadContent();
 
-            Tools.Font = Content.Load<SpriteFont>("Fonts/File");
         }
 
         /// <summary>
@@ -68,12 +73,15 @@ namespace ISU_ButTanksThisTime
         }
 
         /// <summary>
-        /// Updates the specified game time.
+        /// Updates the game.
         /// </summary>
         /// <param name="gameTime">The game time.</param>
         protected override void Update(GameTime gameTime)
         {
+            //updates tools game time
             Tools.GameTime = gameTime;
+
+            //chooses the appropriate state to update
             switch (State)
             {
                 case GameState.Game:
@@ -114,6 +122,7 @@ namespace ISU_ButTanksThisTime
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            //chooses the appropriate state to draw
             switch (State)
             {
                 case GameState.Game:

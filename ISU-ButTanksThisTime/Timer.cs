@@ -30,7 +30,10 @@ namespace ISU_ButTanksThisTime
         /// <returns><c>true</c> if [is time up] [the specified game time]; otherwise, <c>false</c>.</returns>
         public bool IsTimeUp(GameTime gameTime)
         {
+            //updates the time that is left on the timer
             TimeLeft -= gameTime.ElapsedGameTime.Milliseconds;
+
+            //returs wether the time is up
             return TimeLeft <= 0;
         }
 
