@@ -9,6 +9,7 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System;
 using Animation2D;
 using ISU_ButTanksThisTime.Shapes;
 using Microsoft.Xna.Framework;
@@ -17,17 +18,15 @@ using Microsoft.Xna.Framework.Graphics;
 namespace ISU_ButTanksThisTime.Bullets
 {
     /// <summary>
-    /// Class MedKit.
+    /// The Med Kit type.
+    /// <para>
     /// Implements the <see cref="ISU_ButTanksThisTime.Bullets.Bullet" />
+    /// </para>
     /// </summary>
     /// <seealso cref="ISU_ButTanksThisTime.Bullets.Bullet" />
     internal class MedKit : Bullet
     {
-        /// <summary>
-        /// Gets the ex anim.
-        /// </summary>
-        /// <value>The ex anim.</value>
-        protected override Animation ExAnim => null;
+        private const int DAMAGE = -300;
 
         private static readonly float scaleFactor = 0.5f;
         private static readonly Texture2D medKitImg;
@@ -35,22 +34,26 @@ namespace ISU_ButTanksThisTime.Bullets
         /// <summary>
         /// Initializes static members of the <see cref="MedKit"/> class.
         /// </summary>
+        /// <remarks>
+        /// Using the static constructor guarantees that the static state is initialized right before the class is used. Without it, the static state
+        /// could be initialized too early, e.g. when the content has not been loaded yet.
+        /// </remarks>
         static MedKit() => medKitImg = Tools.Content.Load<Texture2D>("Images/Sprites/Items/HP_Bonus");
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MedKit"/> class.
         /// </summary>
-        /// <param name="position">The position.</param>
-        public MedKit(Vector2 position) : base(position, 0, scaleFactor, Owner.Enemy) => Damage = -300;
+        /// <param name="position">The initial position.</param>
+        public MedKit(Vector2 position) : base(position, 0, scaleFactor, Owner.Enemy) => Damage = DAMAGE;
 
         /// <summary>
-        /// Updates this instance.
+        /// Updates the state of this Med Kit object.
         /// </summary>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if the object is dead, i.e. the kit was taken by the player, <c>false</c> otherwise.</returns>
         public override bool Update() => IsDead;
 
         /// <summary>
-        /// Draws the specified sprite batch.
+        /// Draws the specified Med Kit object.
         /// </summary>
         /// <param name="spriteBatch">The sprite batch.</param>
         public override void Draw(SpriteBatch spriteBatch)
@@ -59,30 +62,30 @@ namespace ISU_ButTanksThisTime.Bullets
         }
 
         /// <summary>
-        /// Gets the rotated rectangle.
+        /// Gets the bounding box of this Med Kit object.
         /// </summary>
-        /// <returns>RotatedRectangle.</returns>
         public override RotatedRectangle GetRotatedRectangle() => new RotatedRectangle(new Rectangle((int) Position.X, (int) Position.Y, (int) (medKitImg.Width * 0.5f * scaleFactor), (int) (medKitImg.Height * 0.5f * scaleFactor)), 0, Vector2.Zero);
 
         /// <summary>
-        /// Collides this instance.
+        /// Called to indicate that this MedKit object was picked up by the player.
         /// </summary>
-        public override void Collide()
-        {
-            IsDead = true;
-        }
+        public override void Collide() => IsDead = true;
 
         /// <summary>
-        /// Clones the specified position.
+        /// Implements the abstract <see cref="Bullet.ExAnim"/> property.
         /// </summary>
-        /// <param name="pos">The position.</param>
-        /// <param name="rotation">The rotation.</param>
-        /// <returns>Bullet.</returns>
-        public override Bullet Clone(Vector2 pos, float rotation) => null;
+        /// <value>Always <c>null</c>.</value>
+        protected override Animation ExAnim => null;
+
         /// <summary>
-        /// Gets the img.
+        /// Not supported.
         /// </summary>
-        /// <value>The img.</value>
+        public override Bullet Clone(Vector2 pos, float rotation) => throw new NotSupportedException();
+
+        /// <summary>
+        /// Overrides the abstract <see cref="Bullet.Img"/> property.
+        /// </summary>
+        /// <value>The med kit image.</value>
         protected override Texture2D Img => medKitImg;
     }
 }

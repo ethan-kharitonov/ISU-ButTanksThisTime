@@ -111,8 +111,8 @@ namespace ISU_ButTanksThisTime.Tanks
         //// <summary>
         /// creates an instance of TierTwoEnemy
         /// </summary>
-        /// <param name="position">The inital position.</param>
-        /// <param name="rotation">The inital rotation.</param>
+        /// <param name="position">The initial position.</param>
+        /// <param name="rotation">The initial rotation.</param>
         /// <param name="stage">The stage.</param>
         /// <returns>the new TierTwoEnemy</returns>
         /// <seealso cref="Tank.Clone(Vector2, float, Stage)"/>

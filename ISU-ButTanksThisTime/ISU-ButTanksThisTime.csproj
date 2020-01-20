@@ -65,7 +65,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bullets\BulletInfo.cs" />
+    <Compile Include="Bullets\BulletTypeInfo.cs" />
     <Compile Include="Bullets\FireBullet.cs" />
     <Compile Include="Bullets\Laser.cs" />
     <Compile Include="Bullets\Plasma.cs" />

@@ -13,19 +13,25 @@ using Microsoft.Xna.Framework.Graphics;
 namespace ISU_ButTanksThisTime.Bullets
 {
     /// <summary>
-    /// Class BulletInfo.
+    /// Holds a few bits of information specific to a bullet type rather than individual bullet.
     /// </summary>
-    internal class BulletInfo
+    internal class BulletTypeInfo
     {
+        /// <summary>
+        /// The image of the particular bullet type.
+        /// </summary>
         public readonly Texture2D Img;
+        /// <summary>
+        /// The damage inflicted by the particular bullet type.
+        /// </summary>
         public readonly int Damage;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BulletInfo"/> class.
+        /// Initializes a new instance of the <see cref="BulletTypeInfo"/> class.
         /// </summary>
-        /// <param name="img">The img.</param>
-        /// <param name="damage">The damage.</param>
-        public BulletInfo(Texture2D img, int damage)
+        /// <param name="img">The bullet image.</param>
+        /// <param name="damage">The bullet damage.</param>
+        public BulletTypeInfo(Texture2D img, int damage)
         {
             Img = img;
             Damage = damage;

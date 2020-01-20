@@ -16,32 +16,40 @@ using Microsoft.Xna.Framework.Graphics;
 namespace ISU_ButTanksThisTime.Bullets
 {
     /// <summary>
-    /// Class Plasma.
+    /// The Plasma type.
+    /// <para>
     /// Implements the <see cref="ISU_ButTanksThisTime.Bullets.Bullet" />
+    /// </para>
     /// </summary>
     /// <seealso cref="ISU_ButTanksThisTime.Bullets.Bullet" />
     internal class Plasma : Bullet
     {
-        private static readonly Texture2D bulletImg;
-
-        public static readonly BulletInfo Info;
+        /// <summary>
+        /// The plasma type information.
+        /// </summary>
+        public static readonly BulletTypeInfo Info;
         private const int DAMAGE = 25;
 
         /// <summary>
         /// Initializes static members of the <see cref="Plasma"/> class.
         /// </summary>
+        /// <remarks>
+        /// Using the static constructor guarantees that the static state is initialized right before the class is used. Without it, the static state
+        /// could be initialized too early, e.g. when the content has not been loaded yet.
+        /// </remarks>
         static Plasma()
         {
-            bulletImg = Tools.Content.Load<Texture2D>("Images/Sprites/Bullets/Plasma");
-            Info = new BulletInfo(bulletImg, DAMAGE);
+            var bulletImg = Tools.Content.Load<Texture2D>("Images/Sprites/Bullets/Plasma");
+            Info = new BulletTypeInfo(bulletImg, DAMAGE);
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Plasma"/> class.
         /// </summary>
-        /// <param name="position">The position.</param>
-        /// <param name="rotation">The rotation.</param>
+        /// <param name="position">The initial position.</param>
+        /// <param name="rotation">The initial rotation.</param>
         /// <param name="owner">The owner.</param>
+        /// <seealso cref="Owner"/>
         public Plasma(Vector2 position, float rotation, Owner owner) : base(position, rotation, Tank.IMG_SCALE_FACTOR, owner)
         {
             var exSprite = Tools.Content.Load<Texture2D>("Images/Sprites/Effects/LaserExplode");
@@ -51,22 +59,22 @@ namespace ISU_ButTanksThisTime.Bullets
         }
 
         /// <summary>
-        /// Gets the ex anim.
+        /// Implements the abstract <see cref="Bullet.ExAnim"/> property.
         /// </summary>
-        /// <value>The ex anim.</value>
         protected override Animation ExAnim { get; }
 
         /// <summary>
-        /// Clones the specified position.
+        /// Clones the current plasma object to the specified position.
+        /// <para>
+        /// Overrides the abstract <see cref="Bullet.Clone"/> method.
+        /// </para>
         /// </summary>
-        /// <param name="pos">The position.</param>
-        /// <param name="rotation">The rotation.</param>
-        /// <returns>Bullet.</returns>
         public override Bullet Clone(Vector2 pos, float rotation) => new Plasma(pos, rotation, BulletOwner);
+
         /// <summary>
-        /// Gets the img.
+        /// Overrides the abstract <see cref="Bullet.Img"/> property.
         /// </summary>
-        /// <value>The img.</value>
-        protected override Texture2D Img => bulletImg;
+        /// <value>The plasma image.</value>
+        protected override Texture2D Img => Info.Img;
     }
 }

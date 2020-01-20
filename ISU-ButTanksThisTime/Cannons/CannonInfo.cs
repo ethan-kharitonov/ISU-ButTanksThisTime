@@ -21,7 +21,7 @@ namespace ISU_ButTanksThisTime.Cannons
         public readonly int FireRate;
         public readonly int RotationSpeed;
         public readonly Texture2D Img;
-        public readonly BulletInfo Bullet;
+        public readonly BulletTypeInfo Bullet;
         public readonly Cannon Cannon;
         public readonly int? BurstRate;
         public readonly int? BurstDuration;
@@ -36,7 +36,7 @@ namespace ISU_ButTanksThisTime.Cannons
         /// <param name="cannon">The cannon.</param>
         /// <param name="burstRate">The burst rate.</param>
         /// <param name="burstDuration">Duration of the burst.</param>
-        public CannonInfo(int fireRate, int rotationSpeed, Texture2D img, BulletInfo bullet,
+        public CannonInfo(int fireRate, int rotationSpeed, Texture2D img, BulletTypeInfo bullet,
             Cannon cannon,
             int? burstRate = null, int? burstDuration = null)
         {
