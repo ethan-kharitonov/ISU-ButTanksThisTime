@@ -42,10 +42,12 @@ namespace ISU_ButTanksThisTime
             {
                 Game1.State = State.Game;
                 GameScene.Reset();
+                Shop.Reset();
             }
             else if (backToMenuBtn.Update())
             {
                 Game1.State = State.Menu;
+                Shop.Reset();
             }
         }
 

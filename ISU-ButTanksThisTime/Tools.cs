@@ -44,10 +44,8 @@ namespace ISU_ButTanksThisTime
     internal enum Stage
     {
         Low = 0,
-        // ReSharper disable UnusedMember.Global
         Medium = 1,
         High = 2,
-        // ReSharper restore UnusedMember.Global
         Player = 3
     }
 
@@ -56,20 +54,38 @@ namespace ISU_ButTanksThisTime
     /// </summary>
     public static class Tools
     {
+        //holds the rectangle for the screen
         public static Rectangle Screen;
+
+        //A Random variable
         public static readonly Random Rnd = new Random();
+
+        //the number of digits after the dot used in rounding
         private const int ROUND_PRECISION = 3;
+
+        //the rectangle for the whole map
         public static Rectangle ArenaBounds;
 
+        //stores a GameTimeObject
         public static GameTime GameTime;
 
-        //public static Texture2D RedSquare;
+        //Stores Content (a tool to load images)
         public static ContentManager Content;
+
+        //Stores a GraphicsDevice object
         public static GraphicsDevice Graphics;
+
+        //Stores the mouse position on the map and not on the screen
         public static Vector2 TrueMousePos;
+
+        //stores the font
         public static SpriteFont Font;
+
+        //stores the button image
         public static Texture2D ButtonImg;
-        private const float TOLERANCE = 0.00001F;
+
+        //Used in float number comparisons
+        private const float TOLERANCE = 0.00001f;
 
         /// <summary>
         /// Given the current value, the target value and the speed returns the next value from the current on the way to the target.
@@ -80,18 +96,27 @@ namespace ISU_ButTanksThisTime
         /// <returns>The next value at the given speed.</returns>
         public static float ApproachValue(float current, float target, float speed)
         {
+            //if current is smaller then target the add speed
             if (current < target)
             {
+                //add speed
                 current += speed;
+
+                //if it oversteped equal current to target
                 current = current > target ? target : current;
             }
 
+            //if current is bigger then target the substract speed
             if (current > target)
             {
+                //substratct speed
                 current -= speed;
+
+                //if it oversteped equal current to target
                 current = current < target ? target : current;
             }
 
+            //return the updated current
             return current;
         }
 
@@ -101,7 +126,10 @@ namespace ISU_ButTanksThisTime
         /// </summary>
         private static float Atan(float y, float x)
         {
+            //get angle from original Atan2 function
             var angle = (float) Math.Atan2(y, x);
+
+            //modifie it to fit between 0 and 2*Pi
             return angle < 0 ? angle + MathHelper.TwoPi : angle;
         }
 
@@ -114,30 +142,39 @@ namespace ISU_ButTanksThisTime
         /// <returns>The next angle value at the given rotation speed.</returns>
         public static float RotateTowardsVector(float current, Vector2 target, float rotationSpeed)
         {
+            //caluculate the target angle
             var targetAngel = MathHelper.ToDegrees(Atan(target.Y, target.X));
+
+            //calculate the distance between target angle and current angle
             var delta = targetAngel - current;
 
+            //if the are equal return current
             if (Math.Abs(delta) < TOLERANCE)
             {
                 return current;
             }
 
+            //if they will be equal after the next step then return target angle
             if (Math.Abs(delta) < rotationSpeed)
             {
                 return targetAngel;
             }
 
-
+            //caluate the direction of moving
             var dir = 1;
             if (current > targetAngel)
             {
                 dir = -1;
             }
 
+            //add or substract speed in the right direction
             var newAngle = Math.Abs(delta) <= 180 ? current + dir * rotationSpeed : current - dir * rotationSpeed;
+            
+            //keep between 0 and 360
             newAngle = newAngle < 0 ? newAngle + 360 : newAngle;
             newAngle %= 360;
 
+            //return the new angle
             return newAngle;
         }
 
@@ -272,6 +309,7 @@ namespace ISU_ButTanksThisTime
         /// <param name="box2">The second box.</param>
         public static bool BoxBoxCollision(RotatedRectangle box1, RotatedRectangle box2)
         {
+            //construct an array of lines making the first rectangle
             Line[] lines1 =
             {
                 new Line(box1.TopRight, box1.TopLeft),
@@ -280,6 +318,7 @@ namespace ISU_ButTanksThisTime
                 new Line(box1.TopLeft, box1.BottomLeft),
             };
 
+            //construct an array of lines making the second rectangle
             Line[] lines2 =
             {
                 new Line(box2.TopRight, box2.TopLeft),
@@ -288,6 +327,7 @@ namespace ISU_ButTanksThisTime
                 new Line(box2.TopLeft, box2.BottomLeft),
             };
 
+            //return true if any lines from the first box collide with any lines from the second box
             return (
                 from line1 in lines1 
                 from line2 in lines2 

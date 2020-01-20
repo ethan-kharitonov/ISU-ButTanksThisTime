@@ -26,6 +26,7 @@ namespace ISU_ButTanksThisTime.Collectibles
     /// <seealso cref="ISU_ButTanksThisTime.Collectibles.Item" />
     internal class CoinItem : Item
     {
+        //The amount of this item the player recives when picking it up
         private const int AMOUNT = 10;
     
         /// <summary>

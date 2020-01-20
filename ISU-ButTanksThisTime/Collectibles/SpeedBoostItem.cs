@@ -30,6 +30,7 @@ namespace ISU_ButTanksThisTime.Collectibles
         /// </summary>
         public static readonly Item VoidObject = new SpeedBoostItem(default);
 
+        //stores the image of this item
         private static readonly Texture2D img;
 
         /// <summary>

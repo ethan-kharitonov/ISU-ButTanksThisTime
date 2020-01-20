@@ -17,17 +17,20 @@ namespace ISU_ButTanksThisTime
     /// <summary>
     /// Class Shop.
     /// </summary>
-    internal static class Shop
+    internal class Shop
     {
-        private static readonly ShopPiece[] pieces = new ShopPiece[4];
-        private static readonly Button backBtn;
+        public static Shop Instance { get; private set; } = new Shop();
+        public static void Reset() => Instance = new Shop();
 
-        private static readonly Texture2D bgImg;
+        private readonly ShopPiece[] pieces = new ShopPiece[4];
+        private readonly Button backBtn;
+
+        private readonly Texture2D bgImg;
 
         /// <summary>
-        /// Initializes static members of the <see cref="Shop"/> class.
+        /// Initializes the <see cref="Shop"/> state.
         /// </summary>
-        static Shop()
+        private Shop()
         {
             var startXPos = (Tools.Screen.Width - 875) / 2;
             pieces[0] = new ShopPiece(BurstCannon.Info, new Vector2(startXPos, 100), 500);
@@ -44,7 +47,7 @@ namespace ISU_ButTanksThisTime
         /// <summary>
         /// Updates this instance.
         /// </summary>
-        public static void Update()
+        public void Update()
         {
             foreach (var piece in pieces)
             {
@@ -71,7 +74,7 @@ namespace ISU_ButTanksThisTime
         /// Draws the specified sprite batch.
         /// </summary>
         /// <param name="spriteBatch">The sprite batch.</param>
-        public static void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
             spriteBatch.Draw(bgImg, Tools.Screen, Color.White * 0.50f);

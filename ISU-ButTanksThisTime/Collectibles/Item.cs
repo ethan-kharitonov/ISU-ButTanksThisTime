@@ -42,9 +42,13 @@ namespace ISU_ButTanksThisTime.Collectibles
     /// </summary>
     internal abstract class Item
     {
+        //stores the position of this item
         private readonly Vector2 position;
 
+        //A factor that the image of this item is scaled down by
         private const float IMG_SCALE_FACTOR = 0.7f;
+
+        //The amount of this item the player recives when picking it up
         public readonly int Amount;
 
         /// <summary>
@@ -54,6 +58,7 @@ namespace ISU_ButTanksThisTime.Collectibles
         /// <param name="amount">Denotes how many pieces of that item does the player get when the item is collected.</param>
         protected Item(Vector2 position, int amount = 1)
         {
+            //saves given position and amount to member variables 
             this.position = position;
             Amount = amount;
         }

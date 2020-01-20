@@ -48,6 +48,7 @@ namespace ISU_ButTanksThisTime
             {
                 GameScene.Reset();
                 Game1.State = State.Menu;
+                Shop.Reset();
             }
         }
 

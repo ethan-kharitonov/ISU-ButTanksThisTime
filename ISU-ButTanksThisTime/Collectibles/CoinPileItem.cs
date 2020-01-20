@@ -25,7 +25,10 @@ namespace ISU_ButTanksThisTime.Collectibles
     /// <seealso cref="ISU_ButTanksThisTime.Collectibles.CoinItem" />
     internal class CoinPileItem : CoinItem
     {
+        //The amount of this item the player recives when picking it up
         private const int AMOUNT = 25;
+
+        //stores the images of this item
         private static readonly Texture2D img;
 
         /// <summary>

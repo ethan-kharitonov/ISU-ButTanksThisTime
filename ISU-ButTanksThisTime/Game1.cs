@@ -96,7 +96,7 @@ namespace ISU_ButTanksThisTime
                     graphics.ApplyChanges();
                     break;
                 case State.Shop:
-                    Shop.Update();
+                    Shop.Instance.Update();
                     IsMouseVisible = true;
                     graphics.ApplyChanges();
                     break;
@@ -135,7 +135,7 @@ namespace ISU_ButTanksThisTime
                     break;
                 case State.Shop:
                     GameScene.Draw(spriteBatch);
-                    Shop.Draw(spriteBatch);
+                    Shop.Instance.Draw(spriteBatch);
                     break;
                 case State.Menu:
                     Menu.Draw(spriteBatch);
