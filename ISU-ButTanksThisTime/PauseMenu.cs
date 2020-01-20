@@ -14,8 +14,11 @@ namespace ISU_ButTanksThisTime
     /// </summary>
     internal static class PauseMenu
     {
+        //store the background image
         private static readonly Texture2D bgImg;
-        private static readonly Button backBtn;
+
+        //store the back to game and back to menu buttons
+        private static readonly Button backToGameBtn;
         private static readonly Button backToMenuBtn;
 
         /// <summary>
@@ -23,40 +26,53 @@ namespace ISU_ButTanksThisTime
         /// </summary>
         static PauseMenu()
         {
+            //load the back button image
             var btnImg = Tools.Content.Load<Texture2D>("Images/Sprites/UI/BTN BACK");
 
-            backBtn = new Button(btnImg, new Rectangle(Tools.Screen.Center.X - 150, Tools.Screen.Center.Y - 75, 300, 150), "");
+            //load the back to game and back to menu buttons
+            backToGameBtn = new Button(btnImg, new Rectangle(Tools.Screen.Center.X - 150, Tools.Screen.Center.Y - 75, 300, 150), "");
             backToMenuBtn = new Button(Tools.ButtonImg, new Rectangle(Tools.Screen.Center.X - 75, 450, 150, 75), "BACK TO MENU");
+           
+            //load the background image
             bgImg = Tools.Content.Load<Texture2D>("Images/Backgrounds/ShopBackground");
         }
 
         /// <summary>
-        /// Updates this instance.
+        /// checks if any buttons are clicked and does the appropriate action
         /// </summary>
         public static void Update()
         {
-            if (backBtn.Update())
+            //check if back to game button was clicked
+            if (backToGameBtn.Update())
             {
+                //go to game scene
                 TankGame.State = GameState.Game;
             }
 
+            //check if bakc to menu button was clicked
             if (backToMenuBtn.Update())
             {
+                //reset the game and the shop
                 GameScene.Reset();
-                TankGame.State = GameState.Menu;
                 Shop.Reset();
+
+                //go to game scene
+                TankGame.State = GameState.Menu;
             }
         }
 
         /// <summary>
-        /// Draws the specified sprite batch.
+        /// draws the pause menu.
         /// </summary>
         /// <param name="spriteBatch">The sprite batch.</param>
         public static void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
+            //draws the background
             spriteBatch.Draw(bgImg, Tools.Screen, Color.White * 0.35f);
-            backBtn.Draw(spriteBatch);
+
+            //draws the buttons
+            backToGameBtn.Draw(spriteBatch);
             backToMenuBtn.Draw(spriteBatch);
             spriteBatch.End();
         }

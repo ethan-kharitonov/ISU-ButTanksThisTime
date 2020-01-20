@@ -14,7 +14,10 @@ namespace ISU_ButTanksThisTime
     /// </summary>
     internal static class LoseScreen
     {
+        //stores the bacgkround image
         private static readonly Texture2D bgImg;
+
+        //stores the back to menu and play again buttons
         private static readonly Button backToMenuBtn;
         private static readonly Button playAgainBtn;
 
@@ -27,8 +30,10 @@ namespace ISU_ButTanksThisTime
         /// </remarks>
         static LoseScreen()
         {
+            //loads the background image
             bgImg = Tools.Content.Load<Texture2D>("Images/Backgrounds/ShopBackground");
 
+            //loads the back to menu and play again buttons
             playAgainBtn = new Button(Tools.ButtonImg, new Rectangle(Tools.Screen.Center.X - Tools.ButtonImg.Width * 2, 100, 4 * Tools.ButtonImg.Width, 3 * Tools.ButtonImg.Height), "PLAY AGAIN");
             backToMenuBtn = new Button(Tools.ButtonImg, new Rectangle(Tools.Screen.Center.X - Tools.ButtonImg.Width, 400, 2 * Tools.ButtonImg.Width, 2 * Tools.ButtonImg.Height), "BACK TO MENU");
         }
@@ -38,15 +43,25 @@ namespace ISU_ButTanksThisTime
         /// </summary>
         public static void Update()
         {
+            //check wether play again button was clicked
             if (playAgainBtn.Update())
             {
+                //go to game scene
                 TankGame.State = GameState.Game;
+
+                //reset game and shop scene
                 GameScene.Reset();
                 Shop.Reset();
             }
-            else if (backToMenuBtn.Update())
+            
+            //chekc if back to menu button is pressed
+            if (backToMenuBtn.Update())
             {
+                //go to menu scene
                 TankGame.State = GameState.Menu;
+
+                //reset game and shop scene
+                GameScene.Reset();
                 Shop.Reset();
             }
         }
@@ -58,9 +73,14 @@ namespace ISU_ButTanksThisTime
         public static void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
+
+            //draw the background
             spriteBatch.Draw(bgImg, Tools.Screen, Color.White * 0.75f);
+
+            //draw both buttons
             playAgainBtn.Draw(spriteBatch);
             backToMenuBtn.Draw(spriteBatch);
+
             spriteBatch.End();
         }
     }

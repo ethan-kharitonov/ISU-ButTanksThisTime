@@ -11,7 +11,7 @@ using ISU_ButTanksThisTime.Cannons;
 namespace ISU_ButTanksThisTime
 {
     /// <summary>
-    /// Class Shop.
+    /// a game state where the player could buy different cannons
     /// </summary>
     internal class Shop
     {

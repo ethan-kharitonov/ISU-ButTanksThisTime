@@ -12,7 +12,7 @@ using ISU_ButTanksThisTime.Collectibles;
 namespace ISU_ButTanksThisTime
 {
     /// <summary>
-    /// Class Inventory.
+    /// stores the items the player has collected.
     /// </summary>
     internal class Inventory
     {
@@ -31,31 +31,38 @@ namespace ISU_ButTanksThisTime
             var speedBoostIcon = new Icon(new Vector2(Tools.Screen.Width - 2 * (10 + Icon.Frame.Width), 10), SpeedBoostItem.VoidObject);
             icons.Add(ItemType.SpeedBoost, speedBoostIcon);
 
+            //add coin icon
             var coinIcon = new Icon(new Vector2(Tools.Screen.Width - 3 * (15 + Icon.Frame.Width) + 20, 10), CoinItem.VoidObject);
             icons.Add(ItemType.Coin, coinIcon);
 
+            //add ammo icon
             var ammoIcon = new Icon(new Vector2(Tools.Screen.Width - 4 * (15 + Icon.Frame.Width) + 20, 10), Ammo.VoidObject, 50);
             icons.Add(ItemType.Ammo, ammoIcon);
         }
 
         /// <summary>
-        /// Updates this instance.
+        /// Updates the icons in the inventory.
         /// </summary>
         public void Update()
         {
+            //updates each icon
             foreach (var icon in icons.Values)
             {
+                //updates the icon
                 icon.Update();
             }
         }
 
         /// <summary>
-        /// Draws the specified sprite batch.
+        /// draws each icon
         /// </summary>
         /// <param name="spriteBatch">The sprite batch.</param>
         public void Draw(SpriteBatch spriteBatch)
         {
+            //separate spriteBatch so the are always on screen
             spriteBatch.Begin();
+            
+            //draw each icon
             foreach (var icon in icons.Values)
             {
                 icon.Draw(spriteBatch);
@@ -67,16 +74,17 @@ namespace ISU_ButTanksThisTime
         /// <summary>
         /// Adds the item.
         /// </summary>
-        /// <param name="item">The item.</param>
+        /// <param name="item">The item to add.</param>
         public void AddItem(Item item)
         {
+            //adds to the specified item
             icons[item.ItemType].Add(item.Amount);
         }
 
         /// <summary>
         /// Gets the current credit.
         /// </summary>
-        /// <returns>System.Int32.</returns>
+        /// <returns>The number of coins = the player has</returns>
         public int GetCurrentCredit() => icons[ItemType.Coin].GetQuantity();
 
         /// <summary>
@@ -87,13 +95,13 @@ namespace ISU_ButTanksThisTime
 
 
         /// <summary>
-        /// Ares any bullets left.
+        /// checks if the player has ammo left.
         /// </summary>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if ammo above zero, <c>false</c> otherwise.</returns>
         public bool AreAnyBulletsLeft() => icons[ItemType.Ammo].GetQuantity() > 0;
 
         /// <summary>
-        /// Removes the bullet.
+        /// Removes one bullet from ammo.
         /// </summary>
         public void RemoveBullet()
         {

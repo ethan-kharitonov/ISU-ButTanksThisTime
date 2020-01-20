@@ -10,11 +10,14 @@ using Microsoft.Xna.Framework.Graphics;
 namespace ISU_ButTanksThisTime
 {
     /// <summary>
-    /// Class Menu.
+    /// the main menu of the game
     /// </summary>
     internal static class Menu
     {
+        //store the background image of the menu
         private static readonly Texture2D bgImg;
+
+        //store the play again and quite buttons
         private static readonly Button playBtn;
         private static readonly Button quitBtn;
 
@@ -23,39 +26,50 @@ namespace ISU_ButTanksThisTime
         /// </summary>
         static Menu()
         {
+            //load the background image
             bgImg = Tools.Content.Load<Texture2D>("Images/Backgrounds/ShopBackground");
 
+            //load the play again and quite buttons
             playBtn = new Button(Tools.ButtonImg, new Rectangle(Tools.Screen.Center.X - Tools.ButtonImg.Width, 100, 2 * Tools.ButtonImg.Width, 2 * Tools.ButtonImg.Height), "PLAY");
             quitBtn = new Button(Tools.ButtonImg, new Rectangle(Tools.Screen.Center.X - Tools.ButtonImg.Width / 2, 300, Tools.ButtonImg.Width, Tools.ButtonImg.Height), "QUIT");
         }
 
         /// <summary>
-        /// Updates the specified game.
+        /// checks if any buttons are clicked and does the appropriate action
         /// </summary>
-        /// <param name="game">The game.</param>
+        /// <param name="game">The TankGame object.</param>
         public static void Update(TankGame game)
         {
+            //chekc if play again button is pressed
             if (playBtn.Update())
             {
+                //go to game scene
                 TankGame.State = GameState.Game;
             }
 
+            //chekc if quit button is pressed
             if (quitBtn.Update())
             {
+                //Exit game
                 game.Exit();
             }
         }
 
         /// <summary>
-        /// Draws the specified sprite batch.
+        /// draws the menu scene
         /// </summary>
         /// <param name="spriteBatch">The sprite batch.</param>
         public static void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
+
+            //draws the background image
             spriteBatch.Draw(bgImg, Tools.Screen, Color.White);
+
+            //draws the buttons
             playBtn.Draw(spriteBatch);
             quitBtn.Draw(spriteBatch);
+
             spriteBatch.End();
         }
     }
