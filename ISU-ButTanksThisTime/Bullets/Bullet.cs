@@ -21,11 +21,18 @@ namespace ISU_ButTanksThisTime.Bullets
     /// </summary>
     internal abstract class Bullet
     {
+        //Stores the position, rotation and velocity of the bullet
         protected Vector2 Position;
         private readonly float rotation;
-        private const float DEF_VELOCITY = 10f;
+        private const float DEF_VELOCITY = 12f;
+
+        //stores the factor by whihc the bullet image is scaled
         private readonly float scaleFactor;
+
+        //stores the rectangle of the bullet
         private Rectangle box;
+
+        //stores the owner of the bullet
         public readonly Owner BulletOwner;
 
         /// <summary>
@@ -59,6 +66,7 @@ namespace ISU_ButTanksThisTime.Bullets
         /// <seealso cref="Owner"/>
         protected Bullet(Vector2 position, float rotation, float scaleFactor, Owner bulletOwner)
         {
+            //save all given data to member variables
             this.scaleFactor = scaleFactor;
             Position = position;
             this.rotation = rotation;
@@ -71,43 +79,50 @@ namespace ISU_ButTanksThisTime.Bullets
         /// <returns><c>true</c> if the bullet should be removed from the game scene, <c>false</c> otherwise.</returns>
         public virtual bool Update()
         {
+            //move bullet if it is not dead update the explosion animation otherwise
             if (!IsDead)
             {
+                //calculate the bullet x and y move amount and add them onto the bullet position
                 Position += new Vector2((float) Math.Cos(MathHelper.ToRadians(rotation)), (float) -Math.Sin(MathHelper.ToRadians(rotation))) * DEF_VELOCITY;
             }
             else
             {
+                //update the explosion animation
                 ExAnim.Update(Tools.GameTime);
             }
 
+            //return true if the bullet is dead and done exploding or has left the screen, false otherwise
             return IsDead && !ExAnim.isAnimating || !Tools.IsBetween(Tools.ArenaBounds.Left, Position.X, Tools.ArenaBounds.Right + Img.Width) || !Tools.IsBetween(Tools.ArenaBounds.Bottom - Img.Height, Position.Y, Tools.ArenaBounds.Top);
         }
 
         /// <summary>
-        /// Draws the core aspects of a bullet.
+        /// draws the bullet or its explosion animation
         /// </summary>
         /// <param name="spriteBatch">The sprite batch.</param>
         public virtual void Draw(SpriteBatch spriteBatch)
         {
+            //if bullet is not dead draw it, if it is draw its explosion
             if (!IsDead)
             {
+                //draw bullet
                 box = new Rectangle((int) Position.X, (int) Position.Y, (int) (Img.Width * scaleFactor), (int) (Img.Height * scaleFactor));
                 spriteBatch.Draw(Img, box, null, Color.White, -MathHelper.ToRadians(rotation) + MathHelper.PiOver2, new Vector2((float) (Img.Width / 2.0), (float) (Img.Height / 2.0)), SpriteEffects.None, 1f);
             }
             else
             {
+                //draw the explosion animation
                 ExAnim.Draw(spriteBatch, Color.White, SpriteEffects.None);
             }
         }
 
         /// <summary>
-        /// Computes and returns the rotated rectangle.
+        /// Computes and returns the rotated rectangle of this bullet
         /// </summary>
         /// <seealso cref="RotatedRectangle"/>
         public virtual RotatedRectangle GetRotatedRectangle() => new RotatedRectangle(box, MathHelper.ToRadians(rotation) + MathHelper.PiOver2, new Vector2(Img.Width * 0.5f * scaleFactor, Img.Height * 0.5f * scaleFactor));
 
         /// <summary>
-        /// Base collision logic
+        /// kills the bullet
         /// </summary>
         /// <remarks>
         /// Sets the bullet is dead and triggers the explosion animation.
@@ -116,13 +131,16 @@ namespace ISU_ButTanksThisTime.Bullets
         /// <seealso cref="ExAnim"/>
         public virtual void Collide()
         {
+            //set bullet to dead
             IsDead = true;
+
+            //update the explosion animation coordinates to match with the place the bullet died
             ExAnim.destRec.X = (int) Position.X - ExAnim.destRec.Width / 2;
             ExAnim.destRec.Y = (int) Position.Y - ExAnim.destRec.Height / 2;
         }
 
         /// <summary>
-        /// Performs shallow cloning of the bullet with the new position and rotation.
+        /// Clones the bullet with the new position and rotation.
         /// </summary>
         /// <param name="pos">The new position.</param>
         /// <param name="rotation">The new rotation.</param>

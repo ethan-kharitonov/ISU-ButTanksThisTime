@@ -33,6 +33,7 @@ namespace ISU_ButTanksThisTime.Bullets
         /// <param name="damage">The bullet damage.</param>
         public BulletTypeInfo(Texture2D img, int damage)
         {
+            //Implements the image and damage of the bullet
             Img = img;
             Damage = damage;
         }

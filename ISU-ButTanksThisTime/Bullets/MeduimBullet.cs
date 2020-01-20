@@ -23,12 +23,15 @@ namespace ISU_ButTanksThisTime.Bullets
     /// <seealso cref="ISU_ButTanksThisTime.Bullets.Bullet" />
     internal class MediumBullet : Bullet
     {
+        //the factor by wich the bullet image is scaled
         private readonly float scaleFactor;
 
         /// <summary>
         /// The medium bullet type information.
         /// </summary>
         public static readonly BulletTypeInfo Info;
+
+        //the damage this bullet gives off when it hits
         private const int DAMAGE = 40;
 
         /// <summary>
@@ -40,6 +43,7 @@ namespace ISU_ButTanksThisTime.Bullets
         /// </remarks>
         static MediumBullet()
         {
+            //populates the bullet info
             var bulletImg = Tools.Content.Load<Texture2D>("Images/Sprites/Bullets/Medium_Shell");
             Info = new BulletTypeInfo(bulletImg, DAMAGE);
         }
@@ -54,11 +58,12 @@ namespace ISU_ButTanksThisTime.Bullets
         /// <seealso cref="Owner"/>
         public MediumBullet(Vector2 position, float rotation, float scaleFactor, Owner bulletOwner) : base(position, rotation, scaleFactor, bulletOwner)
         {
+            //saves the given scale factor
             this.scaleFactor = scaleFactor;
 
+            //Implements the bullet explosion animation and damage
             var exSprite = Tools.Content.Load<Texture2D>("Images/Sprites/Effects/BulletExplode");
             ExAnim = new Animation(exSprite, 3, 1, 3, 0, 0, Animation.ANIMATE_ONCE, 2, Vector2.Zero, scaleFactor, true);
-
             Damage = DAMAGE;
         }
 

@@ -28,6 +28,8 @@ namespace ISU_ButTanksThisTime.Bullets
         /// The plasma type information.
         /// </summary>
         public static readonly BulletTypeInfo Info;
+
+        //the damage this bullet gives off when it hits
         private const int DAMAGE = 25;
 
         /// <summary>
@@ -39,6 +41,7 @@ namespace ISU_ButTanksThisTime.Bullets
         /// </remarks>
         static Plasma()
         {
+            //Populate the bullet info
             var bulletImg = Tools.Content.Load<Texture2D>("Images/Sprites/Bullets/Plasma");
             Info = new BulletTypeInfo(bulletImg, DAMAGE);
         }
@@ -52,9 +55,9 @@ namespace ISU_ButTanksThisTime.Bullets
         /// <seealso cref="Owner"/>
         public Plasma(Vector2 position, float rotation, Owner owner) : base(position, rotation, Tank.IMG_SCALE_FACTOR, owner)
         {
+            //Implements the bullet explosion animation and damage
             var exSprite = Tools.Content.Load<Texture2D>("Images/Sprites/Effects/LaserExplode");
             ExAnim = new Animation(exSprite, 3, 1, 3, 0, 0, Animation.ANIMATE_ONCE, 2, Vector2.Zero, Tank.IMG_SCALE_FACTOR, true);
-
             Damage = DAMAGE;
         }
 

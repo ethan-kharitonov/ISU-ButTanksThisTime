@@ -28,6 +28,8 @@ namespace ISU_ButTanksThisTime.Bullets
         /// The fire bullet type information.
         /// </summary>
         public static readonly BulletTypeInfo Info;
+
+        //the damage this bullet gives off when it hits
         private const int DAMAGE = 30;
 
         /// <summary>
@@ -39,6 +41,7 @@ namespace ISU_ButTanksThisTime.Bullets
         /// </remarks>
         static FireBullet()
         {
+            //Populates the bullet info
             var bulletImg = Tools.Content.Load<Texture2D>("Images/Sprites/Bullets/FireBullet");
             Info = new BulletTypeInfo(bulletImg, DAMAGE);
         }
@@ -52,6 +55,7 @@ namespace ISU_ButTanksThisTime.Bullets
         /// <seealso cref="Owner"/>
         public FireBullet(Vector2 position, float rotation, Owner owner) : base(position, rotation, Tank.IMG_SCALE_FACTOR, owner)
         {
+            //Implements bullet explosion animation and damage
             var exSprite = Tools.Content.Load<Texture2D>("Images/Sprites/Effects/FireBulletHit");
             ExAnim = new Animation(exSprite, 4, 1, 4, 0, 0, Animation.ANIMATE_ONCE, 2, Vector2.Zero, Tank.IMG_SCALE_FACTOR, true);
             Damage = DAMAGE;
@@ -63,7 +67,7 @@ namespace ISU_ButTanksThisTime.Bullets
         protected override Animation ExAnim { get; }
 
         /// <summary>
-        /// Clones the current fire bullet object to the specified position.
+        /// Clones the current fire bullet object to the specified position and rotation.
         /// <para>
         /// Overrides the abstract <see cref="Bullet.Clone"/> method.
         /// </para>
