@@ -23,7 +23,7 @@ namespace ISU_ButTanksThisTime.LandMines
         private const float IMG_SCALE_FACTOR = 0.4f;
 
         //store the raduis of the land mine and the raduis of the area effected by its explosion
-        private const int RADIUS = 37;
+        private const int RADIUS =  18;
         private const int EX_RADIUS = 300;
 
         //the index for each animation
@@ -38,6 +38,7 @@ namespace ISU_ButTanksThisTime.LandMines
         /// <param name="position">The position.</param>
         public RedMine(Vector2 position) : base(RADIUS, EX_RADIUS)
         {
+
             //Implements the animations of the land mine
             var idleSprite = Tools.Content.Load<Texture2D>("Images/Sprites/LandMines/RedMineIdle");
             var triggeredSprite = Tools.Content.Load<Texture2D>("Images/Sprites/LandMines/RedMineTRigered");
@@ -46,6 +47,13 @@ namespace ISU_ButTanksThisTime.LandMines
             Animations[IDLE_ANIM_INDEX] = new Animation(idleSprite, 10, 1, 10, 0, 0, Animation.ANIMATE_FOREVER, 3, position, IMG_SCALE_FACTOR, true);
             Animations[TRIGGERED_ANIM_INDEX] = new Animation(triggeredSprite, 4, 1, 4, 0, 0, Animation.ANIMATE_ONCE, 3, position, IMG_SCALE_FACTOR, true);
             Animations[EXPLODE_ANIM_INDEX] = new Animation(explodeSprite, 9, 1, 9, 0, 0, Animation.ANIMATE_ONCE, 3, position, IMG_SCALE_FACTOR, true);
+           
+            //adjast centre of the land mine
+            foreach (Animation anim in Animations)
+            {
+                anim.destRec.X -= anim.destRec.Width / 2;
+                anim.destRec.Y -= anim.destRec.Height / 2;
+            }
         }
     }
 }

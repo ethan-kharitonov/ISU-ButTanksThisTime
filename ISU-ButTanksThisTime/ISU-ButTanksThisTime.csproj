@@ -83,6 +83,7 @@
     <Compile Include="Collectibles\SpeedBoostItem.cs" />
     <Compile Include="HealthBar.cs" />
     <Compile Include="Icon.cs" />
+    <Compile Include="Instructions.cs" />
     <Compile Include="Inventory.cs" />
     <Compile Include="LandMines\BlueMine.cs" />
     <Compile Include="LoseScreen.cs" />

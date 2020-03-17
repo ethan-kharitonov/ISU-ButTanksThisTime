@@ -23,7 +23,7 @@ namespace ISU_ButTanksThisTime.Tanks
     internal class TierOneEnemy : Tank
     {
         //the possible stats of this enemy
-        private static readonly int[] VIEW_RANGE_OPTIONS = {300, 450, 650};
+        private static readonly int[] VIEW_RANGE_OPTIONS = {400, 450, 650};
         private static readonly int[] ATTACK_RANGE_OPTIONS = {250, 400, 550};
         private static readonly int[] SPEED = {4, 5, 6};
         private static readonly int[] ROTATION_SPEED = {5, 6, 7};

@@ -88,7 +88,7 @@ namespace ISU_ButTanksThisTime.LandMines
         public RotatedRectangle GetBox()
         {
             var fullBox = Animations[currentAnim].destRec;
-            var box = new Rectangle(fullBox.Center.X - radius / 2, fullBox.Center.Y - radius / 2, radius, radius);
+            var box = new Rectangle(fullBox.Center.X - radius, fullBox.Center.Y - radius, 2* radius, 2 * radius);
             return new RotatedRectangle(box, 0, Vector2.Zero);
         }
 

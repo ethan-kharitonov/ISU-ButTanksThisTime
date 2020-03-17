@@ -21,7 +21,7 @@ namespace ISU_ButTanksThisTime.LandMines
     {
         //the factor by which the image is scaled by
         private const float IMG_SCALE_FACTOR = 0.4f;
-        private const int RADIUS = 38;
+        private const int RADIUS = 19;
         private const int EX_RADIUS = 250;
 
         //the index for each animation
@@ -40,9 +40,18 @@ namespace ISU_ButTanksThisTime.LandMines
             var triggeredSprite = Tools.Content.Load<Texture2D>("Images/Sprites/LandMines/bomb2Triggered");
             var explodeSprite = Tools.Content.Load<Texture2D>("Images/Sprites/LandMines/bomb2Explode");
 
+
             Animations[IDLE_ANIM_INDEX] = new Animation(idleSprite, 10, 1, 10, 1, 1, Animation.ANIMATE_FOREVER, 2, position, IMG_SCALE_FACTOR, true);
             Animations[TRIGGERED_ANIM_INDEX] = new Animation(triggeredSprite, 6, 1, 6, 1, 1, Animation.ANIMATE_ONCE, 2, position, IMG_SCALE_FACTOR, true);
             Animations[EXPLODE_ANIM_INDEX] = new Animation(explodeSprite, 9, 1, 9, 1, 1, Animation.ANIMATE_ONCE, 2, position, IMG_SCALE_FACTOR, true);
+            
+            //adjast centre of the land mine
+            foreach(Animation anim in Animations)
+            {
+                anim.destRec.X -= anim.destRec.Width / 2;
+                anim.destRec.Y -= anim.destRec.Height / 2;
+            }
+
         }
     }
 }

@@ -21,7 +21,7 @@ namespace ISU_ButTanksThisTime.Tanks
     internal class BurstEnemy : Tank
     {
         //the possible stats of this enemy based on its stage
-        private static readonly int[] ATTACK_RANGE = {250, 400, 550};
+        private static readonly int[] ATTACK_RANGE = {400, 500, 650};
         private static readonly int[] SPEED = {3, 4, 6};
         private static readonly int[] ROTATION_SPEED = {5, 6, 7};
         private static readonly int[] HEALTH = {100, 150, 200};
@@ -61,13 +61,13 @@ namespace ISU_ButTanksThisTime.Tanks
         public override bool Update(Vector2 target)
         {
             //if player is near turn cannon on, else turn it off
-            if ((BasePosition - target).Length() <= AttackRange)
+            if ((BasePosition - target).Length() >= AttackRange)
             {
                 Cannon.Active = true;
             }
             else
             {
-                return false;
+                Cannon.Active = false;
             }
 
             //calls the reset of the tank update

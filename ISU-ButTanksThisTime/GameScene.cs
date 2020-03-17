@@ -38,7 +38,7 @@ namespace ISU_ButTanksThisTime
         private static readonly Timer landMineTimer = new Timer(2000);
 
         //Basic Enemy Variables
-        private static readonly Timer enemyTimer = new Timer(2000);
+        private static readonly Timer enemyTimer = new Timer(1500);
         private const int ENEMY_SPAWN_DIS = 1000;
         private const int MAX_ENEMIES = 35;
 
@@ -434,13 +434,13 @@ namespace ISU_ButTanksThisTime
                 //reset timer
                 enemyTimer.Reset();
 
-                //spawn a random enemie
-                switch (Tools.Rnd.Next(0, 100))
+                //spawn a random enemy
+                switch (Tools.Rnd.Next(0, 120))
                 {
                     case int n when n < 33:
                         enemies.Add(new TierOneEnemy(pathPoints[0][0], pathPoints[0], Stage.Low, 0));
                         break;
-                    case int n when n < 66:
+                    case int n when n < 86:
                         bomberEnemyTimer.Reset();
                         var angle = MathHelper.ToRadians(Tools.Rnd.Next(0, 361));
                         var pos = new Vector2((float) Math.Cos(angle), (float) Math.Sin(angle)) * ENEMY_SPAWN_DIS;
@@ -448,7 +448,7 @@ namespace ISU_ButTanksThisTime
 
                         enemies.Add(new BomberEnemy(pos, 0, Stage.Low));
                         break;
-                    case int n when n < 100:
+                    case int n when n < 120:
                         enemies.Add(new TierFourEnemy(new Vector2(Tools.ArenaBounds.Center.X, Tools.ArenaBounds.Y - 50), 0, Stage.Low, pathPoints[1]));
                         break;
                 }
@@ -729,9 +729,10 @@ namespace ISU_ButTanksThisTime
             itemsOnMap.Clear();
             player = new Player(Tools.Screen.Center.ToVector2());
             inventory = new Inventory();
+            landmines.Clear();
         }
 
-        /// <summary>
+        /// <summary>C:\ICS3\Projects\ISU-ButTanksThisTime\ISU-ButTanksThisTime\GameScene.cs
         /// returns wether the game is frozen
         /// </summary>
         /// <returns><c>true</c> if the game is frozen, <c>false</c> otherwise.</returns>

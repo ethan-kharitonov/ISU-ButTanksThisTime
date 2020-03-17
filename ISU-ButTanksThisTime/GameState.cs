@@ -15,6 +15,7 @@ namespace ISU_ButTanksThisTime
         Shop,
         Menu,
         LoseScreen,
-        Pause
+        Pause,
+        Instructions
     }
 }

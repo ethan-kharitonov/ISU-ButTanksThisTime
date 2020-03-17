@@ -17,9 +17,11 @@ namespace ISU_ButTanksThisTime
         //store the background image of the menu
         private static readonly Texture2D bgImg;
 
-        //store the play again and quite buttons
+        //store the play again, quite and instructions buttons
         private static readonly Button playBtn;
         private static readonly Button quitBtn;
+        private static readonly Button instructionBtn;
+
 
         /// <summary>
         /// Initializes static members of the <see cref="Menu"/> class.
@@ -29,9 +31,10 @@ namespace ISU_ButTanksThisTime
             //load the background image
             bgImg = Tools.Content.Load<Texture2D>("Images/Backgrounds/ShopBackground");
 
-            //load the play again and quite buttons
+            //load the play again, quite and instructions buttons
             playBtn = new Button(Tools.ButtonImg, new Rectangle(Tools.Screen.Center.X - Tools.ButtonImg.Width, 100, 2 * Tools.ButtonImg.Width, 2 * Tools.ButtonImg.Height), "PLAY");
-            quitBtn = new Button(Tools.ButtonImg, new Rectangle(Tools.Screen.Center.X - Tools.ButtonImg.Width / 2, 300, Tools.ButtonImg.Width, Tools.ButtonImg.Height), "QUIT");
+            quitBtn = new Button(Tools.ButtonImg, new Rectangle(Tools.Screen.Center.X - Tools.ButtonImg.Width / 2, 350, Tools.ButtonImg.Width, Tools.ButtonImg.Height), "QUIT");
+            instructionBtn = new Button(Tools.ButtonImg, new Rectangle(Tools.Screen.Center.X - Tools.ButtonImg.Width / 2, 250, Tools.ButtonImg.Width, Tools.ButtonImg.Height), "INSTRUCTIONS");
         }
 
         /// <summary>
@@ -53,6 +56,13 @@ namespace ISU_ButTanksThisTime
                 //Exit game
                 game.Exit();
             }
+
+            //chekc if instructions button is pressed
+            if (instructionBtn.Update())
+            {
+                //go to instructions scene
+                TankGame.State = GameState.Instructions;
+            }
         }
 
         /// <summary>
@@ -69,6 +79,7 @@ namespace ISU_ButTanksThisTime
             //draws the buttons
             playBtn.Draw(spriteBatch);
             quitBtn.Draw(spriteBatch);
+            instructionBtn.Draw(spriteBatch);
 
             spriteBatch.End();
         }

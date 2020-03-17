@@ -109,6 +109,9 @@ namespace ISU_ButTanksThisTime
                     IsMouseVisible = true;
                     graphics.ApplyChanges();
                     break;
+                case GameState.Instructions:
+                    Instructions.Update();
+                    break;
             }
 
             base.Update(gameTime);
@@ -142,6 +145,9 @@ namespace ISU_ButTanksThisTime
                 case GameState.Pause:
                     GameScene.Draw(spriteBatch);
                     PauseMenu.Draw(spriteBatch);
+                    break;
+                case GameState.Instructions:
+                    Instructions.Draw(spriteBatch);
                     break;
             }
 
