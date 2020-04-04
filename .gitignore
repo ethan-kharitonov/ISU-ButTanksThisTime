@@ -9,3 +9,4 @@ packages
 *.csproj.user
 *.binlog
 .idea
+.DS_Store

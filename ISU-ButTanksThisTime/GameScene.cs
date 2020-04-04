@@ -276,12 +276,11 @@ namespace ISU_ButTanksThisTime
         private static void LoadPath()
         {
             // Start from the directory where the executable is found
-            var filePath = System.Reflection.Assembly.GetExecutingAssembly().CodeBase;
+            var filePath = System.Reflection.Assembly.GetExecutingAssembly().Location;
             filePath = Path.GetDirectoryName(filePath);
 
             // Search for the file saves/MyFile.txt
             // Start from the directory where the binary is.
-            filePath = filePath.Substring(6);
             string foundPath = null;
             var found = false;
             while (filePath != null && !(found = File.Exists(foundPath = filePath + "/saves/MyFile.txt")))
